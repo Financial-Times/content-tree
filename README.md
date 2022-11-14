@@ -13,7 +13,9 @@ It implements the **[unist][]** spec.
 
 *   [Introduction](#introduction)
 *   [Types](#types)
+*   [Mixins](#mixins)
 *   [Nodes](#nodes)
+*   [TODO](#todo)
 *   [License](#license)
 
 
@@ -21,7 +23,6 @@ It implements the **[unist][]** spec.
 
 This document defines a format for representing Financial Times article content as an [abstract syntax tree][syntax-tree].
 This specification is written in a [Web IDL][webidl]-like grammar.
-
 
 
 ### What is ftcast?
@@ -58,6 +59,27 @@ type Phrasing = Text | Strong | Emphasis | Strikethrough | Break
 
 This is used to prohibit nested links.
 
+
+## Mixins
+
+### Content
+
+
+```idl
+interface mixin Content {
+	id: string,
+	url?: string,
+	content?: Node
+}
+```
+
+The **Content** mixin is used by nodes that represent a piece of external content. Examples include [Tweet](#tweet) and [ImageSet](#ImageSet).
+
+TODO: should `id` and the optional `url` both be here? or just `id`? is a tweet's url its id or does it have another? 
+what about flourish charts and imagesets etc? perhaps only one required `id` field is needed.
+
+
+###
 
 ## Nodes
 
@@ -180,7 +202,7 @@ interface Link <: Parent {
 
 A **Link** represents a hyperlink.
 
-### List
+### `List`
 
 ```idl
 interface List <: Parent {
@@ -190,7 +212,9 @@ interface List <: Parent {
 }
 ```
 
-### ListItem
+An **List** node represents a list of items.
+
+### `ListItem`
 
 ```idl
 interface ListItem <: Parent {
@@ -199,52 +223,200 @@ interface ListItem <: Parent {
 }
 ```
 
-### Blockquote
-
-### PullQuote
-
-TODO: PullQuoteSource is a plain string, so make it a property of recommended
-
-### PullQuoteImage
-
-### PullQuoteText
-
-TODO: can contain Paragraph only
-
-### LayoutContainer
-
-### Layout
-
-### LayoutSlot
-
-### LayoutImage
-
-### Recommended
-
-TODO: RecommendedTitle is a plain string, so make it a property of recommended
-
-### ImageSet
-
-### Tweet
-
-### Flourish
-
-### BigNumber
+### `Blockquote`
 
 ```idl
-interface BigNumber <: Parent {
-  type: "bigNumber",
-  children: [Phrasing | Link]
+interface PullQuote <: Parent {
+  type: "pullQuote",
+  citation?: string,
+  children: [Phrasing]
 }
 ```
 
-### ScrollableBlock
+A **BlockQuote** represents a quotation and optional citation.
 
-TODO: this has so many rules and children. can we make it simpler as part of this?????
 
-### TODO: define all heading types as straight-up Nodes (like, Chapter y SubHeading y et cetera)
+### `PullQuote`
 
-### TODO: promo-box??? podcast promo? concept? content?????? do we allow inline img, b, u?
+```idl
+interface PullQuote <: Parent {
+  type: "pullQuote",
+  citation: string,
+  children: [PullQuoteImage | PullQuoteText]
+}
+```
+
+TODO: make sure all the casing of these is consistent with C&M's casing.
+
+A **PullQuote** node represents a brief quotation taken from the main text of an article.
+
+TODO: Spark doesn't seem to have a concept of PullQuoteImage, and the text appears to only be a string. maybe PullQuote should only contain Paragraph nodes rather than a PullQuoteText containing a Paragraph node.
+
+
+### `PullQuoteImage`
+
+```idl
+interface PullQuoteImage <: Node {
+  type: "pullQuote",
+  source: string
+}
+```
+
+TODO: what's all this then?
+
+
+### `PullQuoteText`
+
+```idl
+interface PullQuote <: Parent {
+  type: "pullQuote",
+  citation: string,
+  children: [Paragraph]
+}
+```
+
+TODO: see [pullquote](#pullquote)
+
+
+### `Recommended`
+
+```idl
+interface Recommended <: Parent {
+  type: "recommended",
+  title?: "string",
+  children: [List]
+}
+```
+
+A **Recommended** node represents a list of recommended links.
+
+
+### `ImageSet`
+
+```idl
+interface ImageSet <: Node {
+  type: "imageSet",
+  content?: ImageSetContent
+}
+
+ImageSet includes Content
+```
+
+
+### `ImageSetContent`
+
+TODO: get the de-referenced imageset shape from cp and define
+
+
+### `Tweet`
+
+```idl
+interface Tweet <: Node {
+  type: "tweet",
+  content?: TweetContent
+}
+
+Tweet includes Content
+```
+
+TODO: get the de-referenced tweet shape from cp and define
+
+
+### `Flourish`
+
+```idl
+interface Flourish <: Node {
+  type: "flourish",
+  flourishType: string
+  content?: FlourishContent
+}
+
+Flourish includes Content
+```
+
+TODO: is flourish-type a thing here
+TODO: get the de-referenced flourish shape from cp and define
+
+
+### `BigNumber`
+
+```idl
+interface BigNumber <: Node {
+  type: "bigNumber",
+  number: Paragraph,
+  description: Paragraph
+}
+```
+
+A **BigNumber** node is used to provide a description for a big number.
+
+### `ScrollableBlock`
+
+```idl
+interface ScrollableBlock <: Parent {
+  type: "scrollableBlock",
+  theme: "sans" | "serif",
+  children: [ScrollableSection]
+}
+```
+
+A **ScrollableBlock** node represents a block for telling stories through scroll position.
+
+### `ScrollableSection`
+
+```idl
+interface ScrollableSection <: Parent {
+  type: "scrollableSection",
+  display: "dark" | "light"
+  position: "left" | "centre" | "right"
+  transition?: "delay-before" | "delay-after"
+  noBox?: boolean
+  children: [ImageSet | ScrollableText]
+}
+```
+
+A **ScrollableBlock** node represents a section of a [ScrollableBlock](#scrollableblock)
+
+TODO: why is noBox not a display option? like "dark" | "light" | "transparent"?
+TODO: does this need to be more specific about its children?
+TODO: should each section have 1 `imageSet` field and then children of any number of ScrollableText?
+TODO: could `transition` have a `"none"` value so it isn't optional?
+
+### `ScrollableText`
+
+```idl
+interface ScrollableHeading <: Parent {
+  type: "scrollableHeading",
+  style: "chapter" | "heading" | "subheading" | "text"
+  children: [Paragraph]
+}
+```
+
+A **ScrollableBlock** node represents a piece of copy for a [ScrollableBlock](#scrollableblock)
+
+TODO: heading doesn't 
+
+TODO: i'm a little confused by this part of the spec, i need to look at some scrollable-text blocks
+https://github.com/Financial-Times/body-validation-service/blob/fddc5609b15729a0b60e06054d1b7749cc70c62b/src/main/resources/xsd/ft-types.xsd#L224-L263
+
+## TODO
+
+- define all heading types as straight-up Nodes (like, Chapter y SubHeading y et cetera)
+- do we need an `HTML` node that has a raw html string to __dangerously insert like markdown for some embed types?
+- promo-box??? podcast promo? concept? ~content??????~ do we allow inline img, b, u? (spark doesn't. maybe no. what does this mean for embeds?)
+- define all the Experimental things like ImagePair
+
+### TODO: `LayoutContainer`
+
+TODO: what is this container for? why does the data need a container in addition to the Layout?
+
+### TODO: `Layout`
+
+TODO: Don't know anything about layouts or how the data is shaped.
+
+### TODO: `LayoutSlot`
+
+### TODO: `LayoutImage`
 
 ### TODO: `Table`
 
@@ -257,7 +429,9 @@ interface Table <: Parent {
 
 A **Table** represents 2d data.
 
-wip. look here https://github.com/Financial-Times/body-validation-service/blob/master/src/main/resources/xsd/ft-html-types.xsd#L214
+look here https://github.com/Financial-Times/body-validation-service/blob/master/src/main/resources/xsd/ft-html-types.xsd#L214
+
+maybe we can be more strict than this? i don't know. we might not be able to because we don't know what old articles have done. however, we could find out what old articles have done... we could validate all old articles by trying to convert their bodyxml to this format, validating them etc,... and then make changes. maybe we want to restrict old articles from being able to do anything Spark can't do? who knows. we need more eyes on this whole document.
 
 
 ## License
