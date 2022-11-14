@@ -257,7 +257,7 @@ TODO: Spark doesn't seem to have a concept of PullQuoteImage, and the text appea
 
 ```idl
 interface PullQuoteImage <: Node {
-  type: "pullQuote",
+  type: "pullQuoteImage",
   source: string
 }
 ```
@@ -269,7 +269,7 @@ TODO: what's all this then?
 
 ```idl
 interface PullQuote <: Parent {
-  type: "pullQuote",
+  type: "pullQuoteText",
   citation: string,
   children: [Paragraph]
 }
