@@ -27,15 +27,15 @@ This specification is written in a [Web IDL][webidl]-like grammar.
 
 ### What is ftcast?
 
-ftcast extends [unist][], a format for syntax trees, to benefit from its [ecosystem of utilities][utilities].
+ftcast extends [unist][], a format for syntax trees, to benefit from its [ecosystem of utilities][unist-utilities].
 
-ftcast relates to [JavaScript][js] in that it has an [ecosystem of utilities][list-of-utilities] for working with compliant syntax trees in JavaScript.
+ftcast relates to [JavaScript][js] in that it has an [ecosystem of utilities][unist-utilities] for working with compliant syntax trees in JavaScript.
 However, ftcast is not limited to JavaScript and can be used in other programming languages.
 
 
 ## Types
 
-These abstract helper types define special types a [Parent][#parent] can use as [children][#term-child].
+These abstract helper types define special types a [Parent](#parent) can use as [children][term-child].
 
 ### `Node`
 
@@ -67,19 +67,15 @@ This is used to prohibit nested links.
 
 ```idl
 interface mixin Content {
-	id: string,
-	url?: string,
-	content?: Node
+  id: string,
+  content?: Node
 }
 ```
 
-The **Content** mixin is used by nodes that represent a piece of external content. Examples include [Tweet](#tweet) and [ImageSet](#ImageSet).
+The **Content** mixin is used by nodes that represent a piece of external content. Examples include [Tweet](#tweet) and [ImageSet](#imageset).
 
-- TODO: should `id` and the optional `url` both be here? or just `id`? is a tweet's url its id or does it have another? 
-what about flourish charts and imagesets etc? perhaps only one required `id` field is needed.
+The `id` is a unique identifier, e.g. a uuid or a url string.
 
-
-###
 
 ## Nodes
 
@@ -91,7 +87,7 @@ interface Parent <: UnistParent {
 }
 ```
 
-**Parent** (**[UnistParent][dfn-unist-parent]**) represents a node in ftcast containing other nodes (said to be *[children][term-child]*).
+**Parent** (**[UnistParent][term-parent]**) represents a node in ftcast containing other nodes (said to be *[children][term-child]*).
 
 Its content is limited to only other ftcast content.
 
@@ -104,7 +100,7 @@ interface Literal <: UnistLiteral {
 }
 ```
 
-**Literal** (**[UnistLiteral][dfn-unist-literal]**) represents a node in ftcast containing a value.
+**Literal** (**[UnistLiteral][term-literal]**) represents a node in ftcast containing a value.
 
 
 ### `Root`
@@ -115,7 +111,7 @@ interface Root <: Parent {
 }
 ```
 
-**Root** (**[Parent][dfn-parent]**) represents a document.
+**Root** (**[Parent][term-parent]**) represents a document.
 
 **Root** can be used as the *[root][term-root]* of a *[tree][term-tree]*. Always a *[root][term-root]*, never a *[child][term-child]*.
 
@@ -128,7 +124,7 @@ interface Text <: Literal {
 }
 ```
 
-**Text** (**[Literal][dfn-literal]**) represents text.
+**Text** (**[Literal][term-literal]**) represents text.
 
 
 ### `Break`
@@ -283,11 +279,12 @@ interface PullQuote <: Parent {
 interface Recommended <: Parent {
   type: "recommended",
   title?: "string",
-  children: [List]
+
 }
 ```
 
 - A **Recommended** node represents a list of recommended links.
+- TODO: this has a list of things and the list items are 
 
 
 ### `ImageSet`
@@ -304,8 +301,22 @@ ImageSet includes Content
 
 ### `ImageSetContent`
 
-- TODO: get the de-referenced imageset shape from cp and define
+```idl
+interface ImageSetContent <: Node {
+  type: "imageSetContent",
+  alt: string,
+  caption?: string,
+  imageType: "Image" | "Graphic",
+  images: [Image]
+}
+```
 
+- TODO: should we be using the full url as the `image`/`graphic` (like 'http://www.ft.com/ontology/content/Image')? might be better
+
+### `Image`
+
+- TODO: we want this to look like this [https://raw.githubusercontent.com/Financial-Times/cp-content-pipeline/main/packages/schema/src/picture.ts](https://github.com/Financial-Times/cp-content-pipeline/blob/main/packages/schema/src/picture.ts#L12-L99)
+- TODO: should i call this `Picture`???? maybe.
 
 ### `Tweet`
 
@@ -316,9 +327,11 @@ interface Tweet <: Node {
 }
 
 Tweet includes Content
+
+type TweetContent = Root
 ```
 
-- TODO: get the de-referenced tweet shape from cp and define
+A **Tweet** node represents a reference to a tweet. **TweetContent** is an ftcast [**Root**](#root).
 
 
 ### `Flourish`
@@ -326,7 +339,7 @@ Tweet includes Content
 ```idl
 interface Flourish <: Node {
   type: "flourish",
-  flourishType: string
+  flourishType: string,
   content?: FlourishContent
 }
 
@@ -334,7 +347,18 @@ Flourish includes Content
 ```
 
 - TODO: is flourish-type a thing here?
-- TODO: get the de-referenced flourish shape from cp and define
+
+### `FlourishContent`
+
+```idl
+interface FlourishContent <: Node {
+  type: "flourishContent",
+  fullGrid: boolean,
+  description: string,
+  fallbackImage: TODO
+}
+```
+- TODO: is flourish-type a thing here?
 
 ### `BigNumber`
 
@@ -401,19 +425,14 @@ https://github.com/Financial-Times/body-validation-service/blob/fddc5609b15729a0
 - define all heading types as straight-up Nodes (like, Chapter y SubHeading y et cetera)
 - do we need an `HTML` node that has a raw html string to __dangerously insert like markdown for some embed types?
 - promo-box??? podcast promo? concept? ~content??????~ do we allow inline img, b, u? (spark doesn't. maybe no. what does this mean for embeds?)
-- define all the Experimental things like ImagePair
 
 ### TODO: `LayoutContainer`
 
 TODO: what is this container for? why does the data need a container in addition to the Layout?
 
-### TODO: `Layout`
+### TODO: `Layout`### TODO: `LayoutSlot`### TODO: `LayoutImage`
 
-TODO: Don't know anything about layouts or how the data is shaped.
-
-### TODO: `LayoutSlot`
-
-### TODO: `LayoutImage`
+TODO: okay so we're going to not do this ! we'll be defining ImagePair, Timeline, etc 
 
 ### TODO: `Table`
 
@@ -446,6 +465,9 @@ Derived from [unist][unist] © [Titus Wormer][titus]
 [js]: https://www.ecma-international.org/ecma-262/9.0/index.html
 [webidl]: https://heycam.github.io/webidl/
 [term-tree]: https://github.com/syntax-tree/unist#tree
+[term-literal]: https://github.com/syntax-tree/unist#tree
+[term-parent]: https://github.com/syntax-tree/unist#parent
 [term-child]: https://github.com/syntax-tree/unist#child
 [term-root]: https://github.com/syntax-tree/unist#root
-[term-leaf]: https://github.com/syntax-tree/unist#lea
+[term-leaf]: https://github.com/syntax-tree/unist#leaf
+[unist-utilities]: https://github.com/syntax-tree/unist#utilities
