@@ -75,7 +75,7 @@ interface mixin Content {
 
 The **Content** mixin is used by nodes that represent a piece of external content. Examples include [Tweet](#tweet) and [ImageSet](#ImageSet).
 
-TODO: should `id` and the optional `url` both be here? or just `id`? is a tweet's url its id or does it have another? 
+- TODO: should `id` and the optional `url` both be here? or just `id`? is a tweet's url its id or does it have another? 
 what about flourish charts and imagesets etc? perhaps only one required `id` field is needed.
 
 
@@ -246,11 +246,10 @@ interface PullQuote <: Parent {
 }
 ```
 
-TODO: make sure all the casing of these is consistent with C&M's casing.
-
 A **PullQuote** node represents a brief quotation taken from the main text of an article.
 
-TODO: Spark doesn't seem to have a concept of PullQuoteImage, and the text appears to only be a string. maybe PullQuote should only contain Paragraph nodes rather than a PullQuoteText containing a Paragraph node.
+- TODO: make sure all the casing of these is consistent with C&M's casing.
+- TODO: Spark doesn't seem to have a concept of PullQuoteImage, and the text appears to only be a string. maybe PullQuote should only contain Paragraph nodes rather than a PullQuoteText containing a Paragraph node.
 
 
 ### `PullQuoteImage`
@@ -262,7 +261,7 @@ interface PullQuoteImage <: Node {
 }
 ```
 
-TODO: what's all this then?
+- TODO: what's all this then?
 
 
 ### `PullQuoteText`
@@ -275,7 +274,7 @@ interface PullQuote <: Parent {
 }
 ```
 
-TODO: see [pullquote](#pullquote)
+- TODO: see [pullquote](#pullquote)
 
 
 ### `Recommended`
@@ -288,7 +287,7 @@ interface Recommended <: Parent {
 }
 ```
 
-A **Recommended** node represents a list of recommended links.
+- A **Recommended** node represents a list of recommended links.
 
 
 ### `ImageSet`
@@ -305,7 +304,7 @@ ImageSet includes Content
 
 ### `ImageSetContent`
 
-TODO: get the de-referenced imageset shape from cp and define
+- TODO: get the de-referenced imageset shape from cp and define
 
 
 ### `Tweet`
@@ -319,7 +318,7 @@ interface Tweet <: Node {
 Tweet includes Content
 ```
 
-TODO: get the de-referenced tweet shape from cp and define
+- TODO: get the de-referenced tweet shape from cp and define
 
 
 ### `Flourish`
@@ -334,9 +333,8 @@ interface Flourish <: Node {
 Flourish includes Content
 ```
 
-TODO: is flourish-type a thing here
-TODO: get the de-referenced flourish shape from cp and define
-
+- TODO: is flourish-type a thing here?
+- TODO: get the de-referenced flourish shape from cp and define
 
 ### `BigNumber`
 
@@ -377,10 +375,10 @@ interface ScrollableSection <: Parent {
 
 A **ScrollableBlock** node represents a section of a [ScrollableBlock](#scrollableblock)
 
-TODO: why is noBox not a display option? like "dark" | "light" | "transparent"?
-TODO: does this need to be more specific about its children?
-TODO: should each section have 1 `imageSet` field and then children of any number of ScrollableText?
-TODO: could `transition` have a `"none"` value so it isn't optional?
+- TODO: why is noBox not a display option? like "dark" | "light" | "transparent"?
+- TODO: does this need to be more specific about its children?
+- TODO: should each section have 1 `imageSet` field and then children of any number of ScrollableText?
+- TODO: could `transition` have a `"none"` value so it isn't optional?
 
 ### `ScrollableText`
 
@@ -394,9 +392,8 @@ interface ScrollableHeading <: Parent {
 
 A **ScrollableBlock** node represents a piece of copy for a [ScrollableBlock](#scrollableblock)
 
-TODO: heading doesn't 
-
-TODO: i'm a little confused by this part of the spec, i need to look at some scrollable-text blocks
+- TODO: heading doesn't 
+- TODO: i'm a little confused by this part of the spec, i need to look at some scrollable-text blocks
 https://github.com/Financial-Times/body-validation-service/blob/fddc5609b15729a0b60e06054d1b7749cc70c62b/src/main/resources/xsd/ft-types.xsd#L224-L263
 
 ## TODO
