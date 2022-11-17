@@ -1,7 +1,7 @@
-![ftcast][logo]
+![astFT][logo]
 ===============
 
-**F**inancial Times **C**ontent **A**bstract **S**yntax **T**ree format
+An Abstract Syntax Tree for Financial Times article content
 
 ***
 
