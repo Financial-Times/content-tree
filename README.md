@@ -1,22 +1,22 @@
-![astFT][logo]
+![contentast][logo]
 ===============
 
 An Abstract Syntax Tree for Financial Times article content
 
 ***
 
-**ftcast** is a specification for representing Financial Times article content as an abstract [syntax tree][syntax-tree].
+**contentast** is a specification for representing Financial Times article content as an abstract [syntax tree][syntax-tree].
 It implements the **[unist][unist]** spec.
 
 
 ## Contents
 
-*   [Introduction](#introduction)
-*   [Types](#types)
-*   [Mixins](#mixins)
-*   [Nodes](#nodes)
-*   [TODO](#todo)
-*   [License](#license)
+* [Introduction](#introduction)
+* [Types](#types)
+* [Mixins](#mixins)
+* [Nodes](#nodes)
+* [TODO](#todo)
+* [License](#license)
 
 
 ## Introduction
@@ -25,12 +25,12 @@ This document defines a format for representing Financial Times article content 
 This specification is written in a [Web IDL][webidl]-like grammar.
 
 
-### What is ftcast?
+### What is contentast?
 
-ftcast extends [unist][], a format for syntax trees, to benefit from its [ecosystem of utilities][unist-utilities].
+contentast extends [unist][], a format for syntax trees, to benefit from its [ecosystem of utilities][unist-utilities].
 
-ftcast relates to [JavaScript][js] in that it has an [ecosystem of utilities][unist-utilities] for working with compliant syntax trees in JavaScript.
-However, ftcast is not limited to JavaScript and can be used in other programming languages.
+contentast relates to [JavaScript][js] in that it has an [ecosystem of utilities][unist-utilities] for working with compliant syntax trees in JavaScript.
+However, contentast is not limited to JavaScript and can be used in other programming languages.
 
 
 ## Types
@@ -59,24 +59,6 @@ type Phrasing = Text | Strong | Emphasis | Strikethrough | Break
 
 This is used to prohibit nested links.
 
-
-## Mixins
-
-### Content
-
-
-```idl
-interface mixin Content {
-  id: string,
-  content?: Node
-}
-```
-
-The **Content** mixin is used by nodes that represent a piece of external content. Examples include [Tweet](#tweet) and [ImageSet](#imageset).
-
-The `id` is a unique identifier, e.g. a uuid or a url string.
-
-
 ## Nodes
 
 ### `Parent`
@@ -87,9 +69,9 @@ interface Parent <: UnistParent {
 }
 ```
 
-**Parent** (**[UnistParent][term-parent]**) represents a node in ftcast containing other nodes (said to be *[children][term-child]*).
+**Parent** (**[UnistParent][term-parent]**) represents a node in contentast containing other nodes (said to be *[children][term-child]*).
 
-Its content is limited to only other ftcast content.
+Its content is limited to only other contentast content.
 
 
 ### `Literal`
@@ -100,7 +82,7 @@ interface Literal <: UnistLiteral {
 }
 ```
 
-**Literal** (**[UnistLiteral][term-literal]**) represents a node in ftcast containing a value.
+**Literal** (**[UnistLiteral][term-literal]**) represents a node in contentast containing a value.
 
 
 ### `Root`
@@ -363,47 +345,58 @@ interface ImageSetContent <: Node {
 - TODO: we want this to look like this [https://raw.githubusercontent.com/Financial-Times/cp-content-pipeline/main/packages/schema/src/picture.ts](https://github.com/Financial-Times/cp-content-pipeline/blob/main/packages/schema/src/picture.ts#L12-L99)
 - TODO: should i call this `Picture`???? maybe.
 
+### `TweetReference`
+
+```idl
+interface TweetReference <: Node {
+  type: "tweetReference",
+  id: string
+}
+```
+
+A **TweetReference** node represents a reference to an external tweet. The `id` is a URL.
+
 ### `Tweet`
 
 ```idl
 interface Tweet <: Node {
   type: "tweet",
-  content?: TweetContent
+  id: string,
+  children: [Phrasing]
 }
-
-Tweet includes Content
-
-type TweetContent = Root
 ```
 
-A **Tweet** node represents a reference to a tweet. **TweetContent** is an ftcast [**Root**](#root).
+A **Tweet** node represents a tweet.
 
+TODO: what are the valid children here? 
+
+
+### `FlourishReference`
+
+```idl
+interface FlourishReference <: Node {
+  type: "flourishReference",
+  id: string,
+  flourishType: string
+}
+```
+
+A **FlourishReference** node represents a reference to an external **Flourish**.
 
 ### `Flourish`
 
 ```idl
 interface Flourish <: Node {
   type: "flourish",
-  flourishType: string,
-  content?: FlourishContent
-}
-
-Flourish includes Content
-```
-
-- TODO: is flourish-type a thing here?
-
-### `FlourishContent`
-
-```idl
-interface FlourishContent <: Node {
-  type: "flourishContent",
+  id: string,
   fullGrid: boolean,
+  flourishType: ,
   description: string,
   fallbackImage: TODO
 }
 ```
-- TODO: is flourish-type a thing here?
+
+A **FlourishReference** node represents a Flourish.
 
 ### `BigNumber`
 
