@@ -6,7 +6,7 @@ An Abstract Syntax Tree for Financial Times article content
 ***
 
 **ftcast** is a specification for representing Financial Times article content as an abstract [syntax tree][syntax-tree].
-It implements the **[unist][]** spec.
+It implements the **[unist][unist]** spec.
 
 
 ## Contents
@@ -162,6 +162,51 @@ interface Paragraph <: Parent {
 
 A **Paragraph** represents a unit of text.
 
+### `Chapter`
+
+```idl
+interface Chapter <: Parent {
+  type: "chapter",
+  children: [Phrasing]
+}
+```
+
+A **Chapter** represents a chapter-level heading.
+
+### `Heading`
+
+```idl
+interface Heading <: Parent {
+  type: "heading",
+  children: [Phrasing]
+}
+```
+
+A **Heading** represents a heading-level heading.
+
+### `Subheading`
+
+```idl
+interface Subheading <: Parent {
+  type: "subheading",
+  children: [Phrasing]
+}
+```
+
+A **Subheading** represents a subheading-level heading.
+
+### `Label`
+
+```idl
+interface Label <: Parent {
+  type: "label",
+  children: [Phrasing]
+}
+```
+
+A **Label** represents a label-level heading.
+
+- TODO: is this name ok?
 
 ### `Strong`
 
@@ -419,6 +464,7 @@ A **ScrollableBlock** node represents a piece of copy for a [ScrollableBlock](#s
 - TODO: heading doesn't 
 - TODO: i'm a little confused by this part of the spec, i need to look at some scrollable-text blocks
 https://github.com/Financial-Times/body-validation-service/blob/fddc5609b15729a0b60e06054d1b7749cc70c62b/src/main/resources/xsd/ft-types.xsd#L224-L263
+- TODO: rather than this "style" property on ScrollableText, what if we made these the same Paragraph, Chapter, Heading and Subheading nodes as above?
 
 ## TODO
 
@@ -457,7 +503,6 @@ This software is published by the Financial Times under the [MIT licence](mit).
 Derived from [unist][unist] © [Titus Wormer][titus]
 
 [mit]: http://opensource.org/licenses/MIT
-[ideas]: https://github.com/syntax-tree/ideas
 [titus]: https://wooorm.com
 [logo]: ./logo.png
 [unist]: https://github.com/syntax-tree/unist
