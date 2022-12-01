@@ -1,11 +1,11 @@
-![contentast][logo]
+![contenttree][logo]
 ===============
 
-An Abstract Syntax Tree for Financial Times article content
+A tree for Financial Times article content.
 
 ***
 
-**contentast** is a specification for representing Financial Times article content as an abstract [syntax tree][syntax-tree].
+**contenttree** is a specification for representing Financial Times article content as an abstract tree.
 It implements the **[unist][unist]** spec.
 
 
@@ -21,16 +21,16 @@ It implements the **[unist][unist]** spec.
 
 ## Introduction
 
-This document defines a format for representing Financial Times article content as an [abstract syntax tree][syntax-tree].
+This document defines a format for representing Financial Times article content as a tree.
 This specification is written in a [Web IDL][webidl]-like grammar.
 
 
-### What is contentast?
+### What is `contenttree`?
 
-contentast extends [unist][], a format for syntax trees, to benefit from its [ecosystem of utilities][unist-utilities].
+`contenttree` extends [unist][unist], a format for syntax trees, to benefit from its [ecosystem of utilities][unist-utilities].
 
-contentast relates to [JavaScript][js] in that it has an [ecosystem of utilities][unist-utilities] for working with compliant syntax trees in JavaScript.
-However, contentast is not limited to JavaScript and can be used in other programming languages.
+`contenttree` relates to [JavaScript][js] in that it has an [ecosystem of utilities][unist-utilities] for working with trees in JavaScript.
+However, `contenttree` is not limited to JavaScript and can be used in other programming languages.
 
 
 ## Types
@@ -69,9 +69,9 @@ interface Parent <: UnistParent {
 }
 ```
 
-**Parent** (**[UnistParent][term-parent]**) represents a node in contentast containing other nodes (said to be *[children][term-child]*).
+**Parent** (**[UnistParent][term-parent]**) represents a node in contenttree containing other nodes (said to be *[children][term-child]*).
 
-Its content is limited to only other contentast content.
+Its content is limited to only other contenttree content.
 
 
 ### `Literal`
@@ -82,7 +82,7 @@ interface Literal <: UnistLiteral {
 }
 ```
 
-**Literal** (**[UnistLiteral][term-literal]**) represents a node in contentast containing a value.
+**Literal** (**[UnistLiteral][term-literal]**) represents a node in contenttree containing a value.
 
 
 ### `Root`
@@ -499,7 +499,6 @@ Derived from [unist][unist] © [Titus Wormer][titus]
 [titus]: https://wooorm.com
 [logo]: ./logo.png
 [unist]: https://github.com/syntax-tree/unist
-[syntax-tree]: https://github.com/syntax-tree/unist#syntax-tree
 [js]: https://www.ecma-international.org/ecma-262/9.0/index.html
 [webidl]: https://heycam.github.io/webidl/
 [term-tree]: https://github.com/syntax-tree/unist#tree
