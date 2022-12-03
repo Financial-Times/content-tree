@@ -219,6 +219,7 @@ An **Emphasis** node represents stressed emphasis of its contents.
 ```idl
 interface Link <: Parent {
   type: "link",
+  url: string,
   children: [Phrasing]
 }
 ```
