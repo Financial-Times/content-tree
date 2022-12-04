@@ -220,6 +220,7 @@ An **Emphasis** node represents stressed emphasis of its contents.
 interface Link <: Parent {
   type: "link",
   url: string,
+  title: string,
   children: [Phrasing]
 }
 ```
