@@ -100,7 +100,8 @@ interface Reference <: Node {
 ### `Root`
 ```idl
 interface Root <: Parent {
-  type: "root"
+  type: "root",
+  children: «Body
 }
 ```
 
@@ -112,7 +113,8 @@ interface Root <: Parent {
 
 ```idl
 interface Body <: Parent {
-  type: "body"
+  type: "body",
+  children: [Block]
 }
 ```
 
