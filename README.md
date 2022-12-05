@@ -45,19 +45,21 @@ type Node = UnistNode
 
 The abstract node.
 
+### `Block`
+
+```idl
+type Block = TODO
+```
 
 ### `Phrasing`
 
 ```idl
-type Phrasing = Text | Strong | Emphasis | Strikethrough | Break
+type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link
 ```
 
+Phrasing nodes cannot have an ancestor of their same type.
 
-### `Transparent`
-
-**Transparent** children can contain whatever their parent can contain.
-
-This is used to prohibit nested links.
+TODO: clarify that i mean Strong cannot have an ancestor of Strong etc
 
 ## Nodes
 
@@ -84,19 +86,37 @@ interface Literal <: UnistLiteral {
 
 **Literal** (**[UnistLiteral][term-literal]**) represents a node in content-tree containing a value.
 
+### `Reference`
+
+```idl
+interface Reference <: Node {
+  type: "reference",
+  id: string
+}
+```
+
+**Reference** nodes represent a reference to a piece of external content.
 
 ### `Root`
-
 ```idl
 interface Root <: Parent {
   type: "root"
 }
 ```
 
-**Root** (**[Parent][term-parent]**) represents a document.
+**Root** (**[Parent][term-parent]**) represents the root of a content-tree.
 
-**Root** can be used as the *[root][term-root]* of a *[tree][term-tree]*. Always a *[root][term-root]*, never a *[child][term-child]*.
+**Root** can be used as the *[root][term-root]* of a *[tree][term-tree]*, but not a child.
 
+### `Body`
+
+```idl
+interface Body <: Parent {
+  type: "body"
+}
+```
+
+**Body** (**[Parent][term-parent]**) represents the body of an article.
 
 ### `Text`
 
@@ -138,7 +158,7 @@ _Non-normative note: this would be represented by an `<hr>` in the html._
 ```idl
 interface Paragraph <: Parent {
   type: "paragraph",
-  children: [Phrasing | Link]
+  children: [Phrasing]
 }
 ```
 
@@ -195,7 +215,7 @@ A **Label** represents a label-level heading.
 ```idl
 interface Strong <: Parent {
   type: "strong",
-  children: [Transparent] 
+  children: [Phrasing] 
 }
 ```
 
@@ -207,7 +227,7 @@ A **Strong** node represents contents with strong importance, seriousness or urg
 ```idl
 interface Emphasis <: Parent {
   type: "emphasis"
-  children: [Transparent]
+  children: [Phrasing]
 }
 ```
 
@@ -244,7 +264,7 @@ An **List** node represents a list of items.
 ```idl
 interface ListItem <: Parent {
   type: "listItem",
-  children: [Phrasing | Link]
+  children: [Phrasing]
 }
 ```
 
@@ -350,9 +370,8 @@ interface ImageSetContent <: Node {
 ### `TweetReference`
 
 ```idl
-interface TweetReference <: Node {
-  type: "tweetReference",
-  id: string
+interface TweetReference <: Reference {
+  kind: "tweet"
 }
 ```
 
@@ -370,15 +389,13 @@ interface Tweet <: Node {
 
 A **Tweet** node represents a tweet.
 
-TODO: what are the valid children here? 
-
+TODO: what are the valid children here? Should we allow a tweet to contain a hast document root as its child?
 
 ### `FlourishReference`
 
 ```idl
-interface FlourishReference <: Node {
-  type: "flourishReference",
-  id: string,
+interface FlourishReference <: Reference {
+  kind: "flourish",
   flourishType: string
 }
 ```
@@ -391,14 +408,14 @@ A **FlourishReference** node represents a reference to an external **Flourish**.
 interface Flourish <: Node {
   type: "flourish",
   id: string,
-  fullGrid: boolean,
-  flourishType: ,
+  layoutWidth: "" | "full-grid",
+  flourishType: string,
   description: string,
   fallbackImage: TODO
 }
 ```
 
-A **FlourishReference** node represents a Flourish.
+A **Flourish** node represents
 
 ### `BigNumber`
 
@@ -464,7 +481,7 @@ https://github.com/Financial-Times/body-validation-service/blob/fddc5609b15729a0
 ## TODO
 
 - define all heading types as straight-up Nodes (like, Chapter y SubHeading y et cetera)
-- do we need an `HTML` node that has a raw html string to __dangerously insert like markdown for some embed types?
+- do we need an `HTML` node that has a raw html string to __dangerously insert like markdown for some embed types? <-- YES
 - promo-box??? podcast promo? concept? ~content??????~ do we allow inline img, b, u? (spark doesn't. maybe no. what does this mean for embeds?)
 
 ### TODO: `LayoutContainer`
