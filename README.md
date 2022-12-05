@@ -149,7 +149,7 @@ A **Paragraph** represents a unit of text.
 ```idl
 interface Chapter <: Parent {
   type: "chapter",
-  children: [Phrasing]
+  children: [Text]
 }
 ```
 
@@ -160,7 +160,7 @@ A **Chapter** represents a chapter-level heading.
 ```idl
 interface Heading <: Parent {
   type: "heading",
-  children: [Phrasing]
+  children: [Text]
 }
 ```
 
@@ -171,7 +171,7 @@ A **Heading** represents a heading-level heading.
 ```idl
 interface Subheading <: Parent {
   type: "subheading",
-  children: [Phrasing]
+  children: [Text]
 }
 ```
 
@@ -182,7 +182,7 @@ A **Subheading** represents a subheading-level heading.
 ```idl
 interface Label <: Parent {
   type: "label",
-  children: [Phrasing]
+  children: [Text]
 }
 ```
 
