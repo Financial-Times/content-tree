@@ -97,18 +97,6 @@ interface Reference <: Node {
 
 **Reference** nodes represent a reference to a piece of external content.
 
-### `Root`
-```idl
-interface Root <: Parent {
-  type: "root",
-  children: «Body
-}
-```
-
-**Root** (**[Parent][term-parent]**) represents the root of a contenttree.
-
-**Root** can be used as the *[root][term-root]* of a *[tree][term-tree]*, but not a child.
-
 ### `Body`
 
 ```idl
@@ -118,7 +106,9 @@ interface Body <: Parent {
 }
 ```
 
-**Body** (**[Parent][term-parent]**) represents the body of an article.
+**Body** (**[Parent][term-parent]**) represents the body of a contenttree.
+
+**Body** can be used as the *[root][term-root]* of a *[tree][term-tree]*.
 
 ### `Text`
 
@@ -273,8 +263,8 @@ interface ListItem <: Parent {
 ### `Blockquote`
 
 ```idl
-interface PullQuote <: Parent {
-  type: "pullQuote",
+interface BlockQuote <: Parent {
+  type: "blockquote",
   citation?: string,
   children: [Phrasing]
 }
