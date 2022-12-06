@@ -279,7 +279,7 @@ A **BlockQuote** represents a quotation and optional citation.
 ```idl
 interface PullQuote <: Literal {
   type: "pullQuote",
-  citation?: string,
+  source?: string,
   value: string
 }
 ```
