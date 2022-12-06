@@ -396,12 +396,30 @@ A **Flourish** node represents a flourish chart.
 ```idl
 interface BigNumber <: Node {
   type: "bigNumber",
-  number: Paragraph,
-  description: Paragraph
+  children: [BigNumberNumber, BigNumberDescription]
 }
 ```
 
-A **BigNumber** node is used to provide a description for a big number.
+A **BigNumber** node is used to provide a description for a big number. It can contain only one BigNumberNumber and one BigNumberDescription.
+
+### `BigNumberNumber`
+
+```idl
+interface BigNumberNumber <: Node {
+  type: "bigNumberNumber",
+  children: [Phrasing]
+}
+```
+
+### `BigNumberDescription`
+
+```idl
+interface BigNumberNumber <: Node {
+  type: "bigNumberNumber",
+  children: [Phrasing]
+}
+```
+
 
 ### `ScrollableBlock`
 
