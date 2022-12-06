@@ -1,11 +1,11 @@
-![content-tree][logo]
+![contenttree][logo]
 ===============
 
 A tree for Financial Times article content.
 
 ***
 
-**content-tree** is a specification for representing Financial Times article content as an abstract tree.
+**contenttree** is a specification for representing Financial Times article content as an abstract tree.
 It implements the **[unist][unist]** spec.
 
 
@@ -25,12 +25,12 @@ This document defines a format for representing Financial Times article content 
 This specification is written in a [Web IDL][webidl]-like grammar.
 
 
-### What is `content-tree`?
+### What is `contenttree`?
 
-`content-tree` extends [unist][unist], a format for syntax trees, to benefit from its [ecosystem of utilities][unist-utilities].
+`contenttree` extends [unist][unist], a format for syntax trees, to benefit from its [ecosystem of utilities][unist-utilities].
 
-`content-tree` relates to [JavaScript][js] in that it has an [ecosystem of utilities][unist-utilities] for working with trees in JavaScript.
-However, `content-tree` is not limited to JavaScript and can be used in other programming languages.
+`contenttree` relates to [JavaScript][js] in that it has an [ecosystem of utilities][unist-utilities] for working with trees in JavaScript.
+However, `contenttree` is not limited to JavaScript and can be used in other programming languages.
 
 
 ## Types
@@ -71,9 +71,9 @@ interface Parent <: UnistParent {
 }
 ```
 
-**Parent** (**[UnistParent][term-parent]**) represents a node in content-tree containing other nodes (said to be *[children][term-child]*).
+**Parent** (**[UnistParent][term-parent]**) represents a node in contenttree containing other nodes (said to be *[children][term-child]*).
 
-Its content is limited to only other content-tree content.
+Its content is limited to only other contenttree content.
 
 
 ### `Literal`
@@ -84,7 +84,7 @@ interface Literal <: UnistLiteral {
 }
 ```
 
-**Literal** (**[UnistLiteral][term-literal]**) represents a node in content-tree containing a value.
+**Literal** (**[UnistLiteral][term-literal]**) represents a node in contenttree containing a value.
 
 ### `Reference`
 
@@ -105,7 +105,7 @@ interface Root <: Parent {
 }
 ```
 
-**Root** (**[Parent][term-parent]**) represents the root of a content-tree.
+**Root** (**[Parent][term-parent]**) represents the root of a contenttree.
 
 **Root** can be used as the *[root][term-root]* of a *[tree][term-tree]*, but not a child.
 
