@@ -280,7 +280,7 @@ A **BlockQuote** represents a quotation and optional citation.
 interface PullQuote <: Node {
   type: "pullQuote",
   source?: string,
-  value: string
+  text: string
 }
 ```
 
@@ -302,20 +302,18 @@ interface Recommended <: Parent {
 ### `ImageSet`
 
 ```idl
-interface ImageSet <: Node {
-  type: "imageSet",
-  content?: ImageSetContent
+interface ImageSetReference <: Reference {
+  kind: "imageSet",
+  imageType: "Image" | "Graphic"
 }
-
-ImageSet includes Content
 ```
 
 
-### `ImageSetContent`
+### `ImageSet`
 
 ```idl
-interface ImageSetContent <: Node {
-  type: "imageSetContent",
+interface ImageSet <: Node {
+  type: "imageSet",
   alt: string,
   caption?: string,
   imageType: "Image" | "Graphic",
