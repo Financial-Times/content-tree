@@ -98,6 +98,19 @@ interface Reference <: Node {
 
 **Reference** nodes represent a reference to a piece of external content. The `alt` field is an optional string to be used if the external resource was not available.
 
+### `Root`
+
+```idl
+interface Root <: Parent {
+  type: "root",
+  children: [Body]
+}
+```
+
+**Root** (**[Parent][term-parent]**) represents the root of a contenttree.
+
+**Root** can be used as the *[root][term-root]* of a *[tree][term-tree]*.
+
 ### `Body`
 
 ```idl
@@ -107,9 +120,9 @@ interface Body <: Parent {
 }
 ```
 
-**Body** (**[Parent][term-parent]**) represents the body of a contenttree.
+**Body** (**[Parent][term-parent]**) represents the body of an article. 
 
-**Body** can be used as the *[root][term-root]* of a *[tree][term-tree]*.
+(note: `bodyTree` is just this part)
 
 ### `Text`
 
