@@ -238,7 +238,7 @@ interface Link <: Parent {
 }
 ```
 
-A **Link** represents a hyperlink.
+**Link** represents a hyperlink.
 
 ### `List`
 
@@ -250,7 +250,7 @@ interface List <: Parent {
 }
 ```
 
-An **List** node represents a list of items.
+**List** represents a list of items.
 
 ### `ListItem`
 
@@ -277,7 +277,7 @@ A **BlockQuote** represents a quotation and optional citation.
 ### `PullQuote`
 
 ```idl
-interface PullQuote <: Literal {
+interface PullQuote <: Node {
   type: "pullQuote",
   source?: string,
   value: string
@@ -292,7 +292,6 @@ A **PullQuote** node represents a brief quotation taken from the main text of an
 interface Recommended <: Parent {
   type: "recommended",
   title?: "string",
-
 }
 ```
 
