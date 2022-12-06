@@ -91,11 +91,12 @@ interface Literal <: UnistLiteral {
 ```idl
 interface Reference <: Node {
   type: "reference",
-  id: string
+  id: string,
+  alt?: string
 }
 ```
 
-**Reference** nodes represent a reference to a piece of external content.
+**Reference** nodes represent a reference to a piece of external content. The `alt` field is an optional string to be used if the external resource was not available.
 
 ### `Body`
 
@@ -276,43 +277,14 @@ A **BlockQuote** represents a quotation and optional citation.
 ### `PullQuote`
 
 ```idl
-interface PullQuote <: Parent {
+interface PullQuote <: Literal {
   type: "pullQuote",
-  citation: string,
-  children: [PullQuoteImage | PullQuoteText]
+  citation?: string,
+  value: string
 }
 ```
 
 A **PullQuote** node represents a brief quotation taken from the main text of an article.
-
-- TODO: make sure all the casing of these is consistent with C&M's casing.
-- TODO: Spark doesn't seem to have a concept of PullQuoteImage, and the text appears to only be a string. maybe PullQuote should only contain Paragraph nodes rather than a PullQuoteText containing a Paragraph node.
-
-
-### `PullQuoteImage`
-
-```idl
-interface PullQuoteImage <: Node {
-  type: "pullQuoteImage",
-  source: string
-}
-```
-
-- TODO: what's all this then?
-
-
-### `PullQuoteText`
-
-```idl
-interface PullQuote <: Parent {
-  type: "pullQuoteText",
-  citation: string,
-  children: [Paragraph]
-}
-```
-
-- TODO: see [pullquote](#pullquote)
-
 
 ### `Recommended`
 
@@ -407,7 +379,7 @@ interface Flourish <: Node {
 }
 ```
 
-A **Flourish** node represents
+A **Flourish** node represents a flourish chart.
 
 ### `BigNumber`
 
