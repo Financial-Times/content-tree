@@ -1,0 +1,27 @@
+{
+  "name": "@financial-times/content-tree",
+  "version": "0.0.0",
+  "description": "content tree format",
+  "main": "README.md",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Financial-Times/content-tree.git"
+  },
+  "keywords": [
+    "unified",
+    "tree",
+    "ft",
+    "article",
+    "content",
+    "body"
+  ],
+  "author": "chee",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Financial-Times/content-tree/issues"
+  },
+  "homepage": "https://github.com/Financial-Times/content-tree#readme"
+}
