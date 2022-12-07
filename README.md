@@ -22,7 +22,7 @@ It implements the **[unist][unist]** spec.
 ## Introduction
 
 This document defines a format for representing Financial Times article content as a tree.
-This specification is written in a [Web IDL][webidl]-like grammar.
+This specification is written in a [typescript][typescript] grammar.
 
 
 ### What is `contenttree`?
@@ -37,23 +37,15 @@ However, `contenttree` is not limited to JavaScript and can be used in other pro
 
 These abstract helper types define special types a [Parent](#parent) can use as [children][term-child].
 
-### `Node`
-
-```idl
-type Node = UnistNode
-```
-
-The abstract node.
-
 ### `Block`
 
-```idl
-type Block = TODO
+```ts
+type Block = // TODO
 ```
 
 ### `Phrasing`
 
-```idl
+```ts
 type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link
 ```
 
@@ -63,11 +55,21 @@ TODO: clarify that i mean Strong cannot have an ancestor of Strong etc
 
 ## Nodes
 
+### `Node`
+
+```ts
+interface Node {
+  type: string
+}
+```
+
+The abstract node.
+
 ### `Parent`
 
-```idl
-interface Parent <: UnistParent {
-  children: [Node]
+```ts
+interface Parent extends Node {
+  children: Node[]
 }
 ```
 
@@ -78,9 +80,9 @@ Its content is limited to only other contenttree content.
 
 ### `Literal`
 
-```idl
-interface Literal <: UnistLiteral {
-  value: string
+```ts
+interface Literal extends Node {
+  value: any
 }
 ```
 
@@ -88,8 +90,8 @@ interface Literal <: UnistLiteral {
 
 ### `Reference`
 
-```idl
-interface Reference <: Node {
+```ts
+interface Reference extends Node {
   type: "reference",
   id: string,
   alt?: string
@@ -100,9 +102,10 @@ interface Reference <: Node {
 
 ### `Root`
 
-```idl
-interface Root <: Parent {
+```ts
+interface Root extends Parent {
   type: "root",
+  version: number,
   children: [Body]
 }
 ```
@@ -113,11 +116,11 @@ interface Root <: Parent {
 
 ### `Body`
 
-```idl
-interface Body <: Parent {
+```ts
+interface Body extends Parent {
   type: "body",
   version: number,
-  children: [Block]
+  children: Block[]
 }
 ```
 
@@ -127,9 +130,10 @@ interface Body <: Parent {
 
 ### `Text`
 
-```idl
-interface Text <: Literal {
-  type: "text"
+```ts
+interface Text extends Literal {
+  type: "text",
+  value: string
 }
 ```
 
@@ -138,19 +142,20 @@ interface Text <: Literal {
 
 ### `Break`
 
-```idl
-interface Break <: Node {
+```ts
+interface Break extends Node {
   type: "break"
 }
 ```
 
 **Break** Node represents a break in the text, such as in a poem.
 
+_Non-normative note: this would be represented by a `<br>` in the html._
 
 ### `ThematicBreak`
 
-```idl
-interface ThematicBreak <: Node {
+```ts
+interface ThematicBreak extends Node {
   type: "thematicBreak"
 }
 ```
@@ -162,10 +167,10 @@ _Non-normative note: this would be represented by an `<hr>` in the html._
 
 ### `Paragraph`
 
-```idl
-interface Paragraph <: Parent {
+```ts
+interface Paragraph extends Parent {
   type: "paragraph",
-  children: [Phrasing]
+  children: Phrasing[]
 }
 ```
 
@@ -173,10 +178,10 @@ A **Paragraph** represents a unit of text.
 
 ### `Chapter`
 
-```idl
-interface Chapter <: Parent {
+```ts
+interface Chapter extends Parent {
   type: "chapter",
-  children: [Text]
+  children: Text[]
 }
 ```
 
@@ -184,10 +189,10 @@ A **Chapter** represents a chapter-level heading.
 
 ### `Heading`
 
-```idl
-interface Heading <: Parent {
+```ts
+interface Heading extends Parent {
   type: "heading",
-  children: [Text]
+  children: Text[]
 }
 ```
 
@@ -195,60 +200,60 @@ A **Heading** represents a heading-level heading.
 
 ### `Subheading`
 
-```idl
-interface Subheading <: Parent {
+```ts
+interface Subheading extends Parent {
   type: "subheading",
-  children: [Text]
+  children: Text[]
 }
 ```
 
-A **Subheading** represents a subheading-level heading.
+**Subheading** represents a subheading-level heading.
 
 ### `Label`
 
-```idl
-interface Label <: Parent {
+```ts
+interface Label extends Parent {
   type: "label",
-  children: [Text]
+  children: Text[]
 }
 ```
 
-A **Label** represents a label-level heading.
+**Label** represents a label-level heading.
 
 - TODO: is this name ok?
 
 ### `Strong`
 
-```idl
-interface Strong <: Parent {
+```ts
+interface Strong extends Parent {
   type: "strong",
-  children: [Phrasing] 
+  children: Phrasing[]
 }
 ```
 
-A **Strong** node represents contents with strong importance, seriousness or urgency.
+**Strong** represents contents with strong importance, seriousness or urgency.
 
 
 ### `Emphasis`
 
-```idl
-interface Emphasis <: Parent {
+```ts
+interface Emphasis extends Parent {
   type: "emphasis"
-  children: [Phrasing]
+  children: Phrasing[]
 }
 ```
 
-An **Emphasis** node represents stressed emphasis of its contents.
+**Emphasis** represents stressed emphasis of its contents.
 
 
 ### `Link`
 
-```idl
-interface Link <: Parent {
+```ts
+interface Link extends Parent {
   type: "link",
   url: string,
   title: string,
-  children: [Phrasing]
+  children: Phrasing[]
 }
 ```
 
@@ -256,11 +261,11 @@ interface Link <: Parent {
 
 ### `List`
 
-```idl
-interface List <: Parent {
+```ts
+interface List extends Parent {
   type: "list",
   ordered: boolean,
-  children: [ListItem]
+  children: ListItem[]
 }
 ```
 
@@ -268,70 +273,91 @@ interface List <: Parent {
 
 ### `ListItem`
 
-```idl
-interface ListItem <: Parent {
+```ts
+interface ListItem extends Parent {
   type: "listItem",
-  children: [Phrasing]
+  children: Phrasing[]
 }
 ```
 
 ### `Blockquote`
 
-```idl
-interface BlockQuote <: Parent {
+```ts
+interface BlockQuote extends Parent {
   type: "blockquote",
-  citation?: string,
-  children: [Phrasing]
+  children: Phrasing[]
 }
 ```
 
-A **BlockQuote** represents a quotation and optional citation.
+**BlockQuote** represents a quotation.
 
 
 ### `PullQuote`
 
-```idl
-interface PullQuote <: Node {
+```ts
+interface PullQuote extends Parent {
   type: "pullQuote",
-  source?: string,
-  text: string
+  children: [PullQuoteText, PullQuoteSource]
 }
 ```
 
-A **PullQuote** node represents a brief quotation taken from the main text of an article.
+**PullQuote** represents a brief quotation taken from the main text of an article.
+
+### `PullQuoteText`
+
+```ts
+interface PullQuoteText extends Parent {
+  type: "pullQuoteText",
+  children: Text[]
+}
+```
+
+**PullQuoteText** represents the text of a pullquote.
+
+### `PullQuoteSource`
+
+```ts
+interface PullQuoteSource extends Parent {
+  type: "pullQuoteSource",
+  children: Text[]
+}
+```
+
+**PullQuoteText** represents the source of a pullquote.
 
 ### `Recommended`
 
-```idl
-interface Recommended <: Parent {
+```ts
+interface Recommended extends Parent {
   type: "recommended",
-  title?: "string",
+  children: [/*TODO*/]
 }
 ```
 
 - A **Recommended** node represents a list of recommended links.
-- TODO: this has a list of things and the list items are 
+- TODO: this has a list of things and the list items are ...?
 
 
-### `ImageSet`
+### `ImageSetReference`
 
-```idl
-interface ImageSetReference <: Reference {
+```ts
+interface ImageSetReference extends Reference {
   kind: "imageSet",
   imageType: "Image" | "Graphic"
 }
 ```
 
+A **TweetReference** node represents a reference to an external tweet. The `id` is a URL.
 
 ### `ImageSet`
 
-```idl
-interface ImageSet <: Node {
+```ts
+interface ImageSet extends Node {
   type: "imageSet",
   alt: string,
   caption?: string,
   imageType: "Image" | "Graphic",
-  images: [Image]
+  images: Image[]
 }
 ```
 
@@ -344,8 +370,8 @@ interface ImageSet <: Node {
 
 ### `TweetReference`
 
-```idl
-interface TweetReference <: Reference {
+```ts
+interface TweetReference extends Reference {
   kind: "tweet"
 }
 ```
@@ -354,11 +380,11 @@ A **TweetReference** node represents a reference to an external tweet. The `id` 
 
 ### `Tweet`
 
-```idl
-interface Tweet <: Node {
+```ts
+interface Tweet extends Node {
   type: "tweet",
   id: string,
-  children: [Phrasing]
+  children: Phrasing[]
 }
 ```
 
@@ -368,8 +394,8 @@ TODO: what are the valid children here? Should we allow a tweet to contain a has
 
 ### `FlourishReference`
 
-```idl
-interface FlourishReference <: Reference {
+```ts
+interface FlourishReference extends Reference {
   kind: "flourish",
   flourishType: string
 }
@@ -379,8 +405,8 @@ A **FlourishReference** node represents a reference to an external **Flourish**.
 
 ### `Flourish`
 
-```idl
-interface Flourish <: Node {
+```ts
+interface Flourish extends Node {
   type: "flourish",
   id: string,
   layoutWidth: "" | "full-grid",
@@ -394,21 +420,21 @@ A **Flourish** node represents a flourish chart.
 
 ### `BigNumber`
 
-```idl
-interface BigNumber <: Node {
+```ts
+interface BigNumber extends Parent {
   type: "bigNumber",
   children: [BigNumberNumber, BigNumberDescription]
 }
 ```
 
-**BigNumber** provides a description for a big number. It can contain only one BigNumberNumber and one BigNumberDescription.
+**BigNumber** provides a description for a big number. 
 
 ### `BigNumberNumber`
 
-```idl
-interface BigNumberNumber <: Node {
+```ts
+interface BigNumberNumber extends Parent {
   type: "bigNumberNumber",
-  children: [Phrasing]
+  children: Phrasing[]
 }
 ```
 
@@ -416,10 +442,10 @@ interface BigNumberNumber <: Node {
 
 ### `BigNumberDescription`
 
-```idl
-interface BigNumberDescription <: Node {
+```ts
+interface BigNumberDescription extends Parent {
   type: "bigNumberDescription",
-  children: [Phrasing]
+  children: Phrasing[]
 }
 ```
 
@@ -427,11 +453,11 @@ interface BigNumberDescription <: Node {
 
 ### `ScrollableBlock`
 
-```idl
-interface ScrollableBlock <: Parent {
+```ts
+interface ScrollableBlock extends Parent {
   type: "scrollableBlock",
   theme: "sans" | "serif",
-  children: [ScrollableSection]
+  children: ScrollableSection[]
 }
 ```
 
@@ -439,16 +465,18 @@ A **ScrollableBlock** node represents a block for telling stories through scroll
 
 ### `ScrollableSection`
 
-```idl
-interface ScrollableSection <: Parent {
+```ts
+interface ScrollableSection extends Parent {
   type: "scrollableSection",
   display: "dark" | "light"
   position: "left" | "centre" | "right"
   transition?: "delay-before" | "delay-after"
   noBox?: boolean
-  children: [ImageSet | ScrollableText]
+  children: Array<ImageSet | ScrollableText>
 }
 ```
+
+- TODO: define these children properly
 
 A **ScrollableBlock** node represents a section of a [ScrollableBlock](#scrollableblock)
 
@@ -459,11 +487,11 @@ A **ScrollableBlock** node represents a section of a [ScrollableBlock](#scrollab
 
 ### `ScrollableText`
 
-```idl
-interface ScrollableHeading <: Parent {
-  type: "scrollableHeading",
+```ts
+interface ScrollableText extends Parent {
+  type: "scrollableText",
   style: "chapter" | "heading" | "subheading" | "text"
-  children: [Paragraph]
+  children: Paragraph[]
 }
 ```
 
@@ -490,8 +518,8 @@ TODO: okay so we're going to not do this ! we'll be defining ImagePair, Timeline
 
 ### TODO: `Table`
 
-```idl
-interface Table <: Parent {
+```ts
+interface Table extends Parent {
   type: "table",
   children: [Caption | TableHead | TableBody]
 }
