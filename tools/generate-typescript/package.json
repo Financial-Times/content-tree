@@ -1,0 +1,25 @@
+{
+  "name": "generate.d.ts",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "bin": {
+    "extract-code-blocks": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "author": "chee",
+  "license": "MIT",
+  "dependencies": {
+    "remark-gfm": "^3.0.1",
+    "remark-parse": "^10.0.1",
+    "unified": "^10.1.2",
+    "unified-stream": "^2.0.0"
+  },
+  "volta": {
+    "node": "18.12.1"
+  }
+}
