@@ -116,11 +116,12 @@ interface Root <: Parent {
 ```idl
 interface Body <: Parent {
   type: "body",
+  version: number,
   children: [Block]
 }
 ```
 
-**Body** (**[Parent][term-parent]**) represents the body of an article. 
+**Body** (**[Parent][term-parent]**) represents the body of an article.
 
 (note: `bodyTree` is just this part)
 
@@ -400,7 +401,7 @@ interface BigNumber <: Node {
 }
 ```
 
-A **BigNumber** node is used to provide a description for a big number. It can contain only one BigNumberNumber and one BigNumberDescription.
+**BigNumber** provides a description for a big number. It can contain only one BigNumberNumber and one BigNumberDescription.
 
 ### `BigNumberNumber`
 
@@ -411,15 +412,18 @@ interface BigNumberNumber <: Node {
 }
 ```
 
+**BigNumberNumber** represents the number itself.
+
 ### `BigNumberDescription`
 
 ```idl
-interface BigNumberNumber <: Node {
-  type: "bigNumberNumber",
+interface BigNumberDescription <: Node {
+  type: "bigNumberDescription",
   children: [Phrasing]
 }
 ```
 
+**BigNumberNumber** represents the description of the big number.
 
 ### `ScrollableBlock`
 
