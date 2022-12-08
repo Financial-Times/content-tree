@@ -87,8 +87,8 @@ interface Literal extends Node {
 ```ts
 interface Reference extends Node {
 	type: "reference"
+	referencedType: string
 	id: string
-	kind: string
 	alt?: string
 }
 ```
@@ -346,7 +346,7 @@ interface ImageSetReference extends Reference {
 }
 ```
 
-A **TweetReference** node represents a reference to an external tweet. The `id` is a URL.
+A **ImageSetReference** node represents a reference to an external tweet. The `id` is a URL.
 
 ### `ImageSet`
 
