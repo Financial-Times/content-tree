@@ -7,9 +7,6 @@ export declare namespace ContentTree {
     interface Parent extends Node {
         children: Node[];
     }
-    interface Literal extends Node {
-        value: any;
-    }
     interface Reference extends Node {
         type: "reference";
         referencedType: string;
@@ -25,7 +22,7 @@ export declare namespace ContentTree {
         version: number;
         children: Block[];
     }
-    interface Text extends Literal {
+    interface Text extends Node {
         type: "text";
         value: string;
     }
@@ -122,7 +119,7 @@ export declare namespace ContentTree {
     interface Tweet extends Node {
         type: "tweet";
         id: string;
-        children: Phrasing[];
+        html: string;
     }
     interface FlourishReference extends Reference {
         kind: "flourish";

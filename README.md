@@ -72,16 +72,6 @@ interface Parent extends Node {
 
 Its content is limited to only other content-tree content.
 
-### `Literal`
-
-```ts
-interface Literal extends Node {
-	value: any
-}
-```
-
-**Literal** (**[UnistLiteral][term-literal]**) represents a node in content-tree containing a value.
-
 ### `Reference`
 
 ```ts
@@ -125,7 +115,7 @@ interface Body extends Parent {
 ### `Text`
 
 ```ts
-interface Text extends Literal {
+interface Text extends Node {
 	type: "text"
 	value: string
 }
@@ -389,13 +379,11 @@ A **TweetReference** node represents a reference to an external tweet. The `id` 
 interface Tweet extends Node {
 	type: "tweet"
 	id: string
-	children: Phrasing[]
+	html: string
 }
 ```
 
 A **Tweet** node represents a tweet.
-
-TODO: what are the valid children here? Should we allow a tweet to contain a hast document root as its child?
 
 ### `FlourishReference`
 
