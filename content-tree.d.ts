@@ -82,7 +82,7 @@ export declare namespace ContentTree {
         type: "listItem";
         children: Phrasing[];
     }
-    interface BlockQuote extends Parent {
+    interface Blockquote extends Parent {
         type: "blockquote";
         children: Phrasing[];
     }

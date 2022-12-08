@@ -284,7 +284,7 @@ interface ListItem extends Parent {
 ### `Blockquote`
 
 ```ts
-interface BlockQuote extends Parent {
+interface Blockquote extends Parent {
 	type: "blockquote"
 	children: Phrasing[]
 }
