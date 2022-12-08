@@ -8,7 +8,7 @@ let filename = process.argv[2]
 var input =
 	typeof filename == "string" ? createReadStream(filename) : process.stdin
 
-process.stdout.write("namespace ContentTree {\n")
+process.stdout.write("export namespace ContentTree {\n")
 input
 	.pipe(
 		stream(

@@ -1,4 +1,4 @@
-declare namespace ContentTree {
+export declare namespace ContentTree {
     type Block = Node;
     type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
     interface Node {

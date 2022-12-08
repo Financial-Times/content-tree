@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "description": "content tree format",
   "main": "README.md",
-  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Financial-Times/content-tree.git"
