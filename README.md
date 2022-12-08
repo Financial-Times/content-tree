@@ -99,7 +99,6 @@ interface Reference extends Node {
 ```ts
 interface Root extends Parent {
 	type: "root"
-	version: number
 	children: [Body]
 }
 ```
@@ -495,8 +494,14 @@ A **ScrollableBlock** node represents a section of a [ScrollableBlock](#scrollab
 ```ts
 interface ScrollableText extends Parent {
 	type: "scrollableText"
-	style: "chapter" | "heading" | "subheading" | "text"
-	children: Paragraph[]
+	style: "text"
+	children: Phrasing[]
+}
+
+interface ScrollableHeading extends Parent {
+	type: "scrollableText"
+	style: "chapter" | "heading" | "subheading"
+	children: Text[]
 }
 ```
 
