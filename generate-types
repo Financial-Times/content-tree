@@ -1,4 +1,0 @@
-#!/bin/sh
-node tools/generate-typescript <README.md >content-tree.ts
-tsc -d content-tree.ts
-rm content-tree.{t,j}s

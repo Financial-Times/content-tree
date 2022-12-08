@@ -17,7 +17,6 @@ declare namespace ContentTree {
     }
     interface Root extends Parent {
         type: "root";
-        version: number;
         children: [Body];
     }
     interface Body extends Parent {
@@ -163,8 +162,13 @@ declare namespace ContentTree {
     }
     interface ScrollableText extends Parent {
         type: "scrollableText";
-        style: "chapter" | "heading" | "subheading" | "text";
-        children: Paragraph[];
+        style: "text";
+        children: Phrasing[];
+    }
+    interface ScrollableHeading extends Parent {
+        type: "scrollableText";
+        style: "chapter" | "heading" | "subheading";
+        children: Text[];
     }
     interface Table extends Parent {
         type: "table";

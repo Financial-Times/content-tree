@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "description": "content tree format",
   "main": "README.md",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Financial-Times/content-tree.git"
+  },
+  "scripts": {
+    "build": "node tools/generate-typescript <README.md> content-tree.ts; tsc -d content-tree.ts; rm content-tree.{t,j}s"
   },
   "keywords": [
     "unified",
