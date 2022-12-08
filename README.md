@@ -88,11 +88,12 @@ interface Literal extends Node {
 interface Reference extends Node {
 	type: "reference"
 	id: string
+	kind: string
 	alt?: string
 }
 ```
 
-**Reference** nodes represent a reference to a piece of external content. The `alt` field is an optional string to be used if the external resource was not available.
+**Reference** nodes represent a reference to a piece of external content. The `alt` field is an optional string to be used if the external resource was not available. The `kind` field is the `type` of the node that the reference dereferences to.
 
 ### `Root`
 

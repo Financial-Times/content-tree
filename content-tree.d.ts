@@ -13,6 +13,7 @@ export declare namespace ContentTree {
     interface Reference extends Node {
         type: "reference";
         id: string;
+        kind: string;
         alt?: string;
     }
     interface Root extends Parent {
