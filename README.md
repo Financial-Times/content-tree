@@ -248,17 +248,17 @@ interface Blockquote extends Parent {
 
 **BlockQuote** represents a quotation.
 
-### `PullQuote`
+### `Pullquote`
 
 ```ts
-interface PullQuote extends Parent {
-	type: "pull-quote"
+interface Pullquote extends Parent {
+	type: "pullquote"
 	text: string
 	source: string
 }
 ```
 
-**PullQuote** represents a brief quotation taken from the main text of an article.
+**Pullquote** represents a brief quotation taken from the main text of an article.
 
 ### `Recommended`
 
