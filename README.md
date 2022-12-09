@@ -412,7 +412,7 @@ interface ScrollySection extends Parent {
 	position: "left" | "centre" | "right"
 	transition?: "delay-before" | "delay-after"
 	transparent?: boolean
-	children: [ImageSet, ...ScrollyCopy]
+	children: [ImageSet, ...ScrollyCopy[]]
 }
 ```
 

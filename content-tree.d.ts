@@ -138,7 +138,7 @@ export declare namespace ContentTree {
         position: "left" | "centre" | "right";
         transition?: "delay-before" | "delay-after";
         transparent?: boolean;
-        children: [ImageSet, ...ScrollyCopy];
+        children: [ImageSet, ...ScrollyCopy[]];
     }
     interface ScrollyCopy extends Parent {
         type: "scrolly-copy";
