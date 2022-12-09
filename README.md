@@ -139,7 +139,7 @@ _Non-normative note: this would be represented by a `<br>` in the html._
 
 ```ts
 interface ThematicBreak extends Node {
-	type: "thematicBreak"
+	type: "thematic-break"
 }
 ```
 
@@ -266,7 +266,7 @@ interface List extends Parent {
 
 ```ts
 interface ListItem extends Parent {
-	type: "listItem"
+	type: "list-item"
 	children: Phrasing[]
 }
 ```
@@ -286,34 +286,13 @@ interface Blockquote extends Parent {
 
 ```ts
 interface PullQuote extends Parent {
-	type: "pullQuote"
-	children: [PullQuoteText, PullQuoteSource]
+	type: "pull-quote"
+	text: string
+	source: string
 }
 ```
 
 **PullQuote** represents a brief quotation taken from the main text of an article.
-
-### `PullQuoteText`
-
-```ts
-interface PullQuoteText extends Parent {
-	type: "pullQuoteText"
-	children: Text[]
-}
-```
-
-**PullQuoteText** represents the text of a pullquote.
-
-### `PullQuoteSource`
-
-```ts
-interface PullQuoteSource extends Parent {
-	type: "pullQuoteSource"
-	children: Text[]
-}
-```
-
-**PullQuoteText** represents the source of a pullquote.
 
 ### `Recommended`
 
@@ -331,7 +310,7 @@ interface Recommended extends Parent {
 
 ```ts
 interface ImageSetReference extends Reference {
-	kind: "imageSet"
+	referencedType: "image-set"
 	imageType: "Image" | "Graphic"
 }
 ```
@@ -342,7 +321,7 @@ A **ImageSetReference** node represents a reference to an external tweet. The `i
 
 ```ts
 interface ImageSet extends Node {
-	type: "imageSet"
+	type: "image-set"
 	alt: string
 	caption?: string
 	imageType: "Image" | "Graphic"
@@ -367,7 +346,7 @@ interface Image extends Node {
 
 ```ts
 interface TweetReference extends Reference {
-	kind: "tweet"
+	referencedType: "tweet"
 }
 ```
 
@@ -389,7 +368,7 @@ A **Tweet** node represents a tweet.
 
 ```ts
 interface FlourishReference extends Reference {
-	kind: "flourish"
+	referencedType: "flourish"
 	flourishType: string
 }
 ```
@@ -415,7 +394,7 @@ A **Flourish** node represents a flourish chart.
 
 ```ts
 interface BigNumber extends Parent {
-	type: "bigNumber"
+	type: "big-number"
 	children: [BigNumberNumber, BigNumberDescription]
 }
 ```
@@ -426,7 +405,7 @@ interface BigNumber extends Parent {
 
 ```ts
 interface BigNumberNumber extends Parent {
-	type: "bigNumberNumber"
+	type: "big-number-number"
 	children: Phrasing[]
 }
 ```
@@ -437,7 +416,7 @@ interface BigNumberNumber extends Parent {
 
 ```ts
 interface BigNumberDescription extends Parent {
-	type: "bigNumberDescription"
+	type: "big-number-description"
 	children: Phrasing[]
 }
 ```
@@ -448,7 +427,7 @@ interface BigNumberDescription extends Parent {
 
 ```ts
 interface ScrollableBlock extends Parent {
-	type: "scrollableBlock"
+	type: "scrollable-block"
 	theme: "sans" | "serif"
 	children: ScrollableSection[]
 }
@@ -460,7 +439,7 @@ A **ScrollableBlock** node represents a block for telling stories through scroll
 
 ```ts
 interface ScrollableSection extends Parent {
-	type: "scrollableSection"
+	type: "scrollable-section"
 	display: "dark" | "light"
 	position: "left" | "centre" | "right"
 	transition?: "delay-before" | "delay-after"
@@ -482,13 +461,13 @@ A **ScrollableBlock** node represents a section of a [ScrollableBlock](#scrollab
 
 ```ts
 interface ScrollableText extends Parent {
-	type: "scrollableText"
+	type: "scrollable-text"
 	style: "text"
 	children: Phrasing[]
 }
 
 interface ScrollableHeading extends Parent {
-	type: "scrollableText"
+	type: "scrollable-text"
 	style: "chapter" | "heading" | "subheading"
 	children: Text[]
 }
@@ -527,10 +506,10 @@ interface Caption {
 	type: "caption"
 }
 interface TableHead {
-	type: "tableHead"
+	type: "table-head"
 }
 interface TableBody {
-	type: "tableBody"
+	type: "table-body"
 }
 ```
 

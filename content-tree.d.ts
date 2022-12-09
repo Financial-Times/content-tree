@@ -30,7 +30,7 @@ export declare namespace ContentTree {
         type: "break";
     }
     interface ThematicBreak extends Node {
-        type: "thematicBreak";
+        type: "thematic-break";
     }
     interface Paragraph extends Parent {
         type: "paragraph";
@@ -76,7 +76,7 @@ export declare namespace ContentTree {
         children: ListItem[];
     }
     interface ListItem extends Parent {
-        type: "listItem";
+        type: "list-item";
         children: Phrasing[];
     }
     interface Blockquote extends Parent {
@@ -84,27 +84,20 @@ export declare namespace ContentTree {
         children: Phrasing[];
     }
     interface PullQuote extends Parent {
-        type: "pullQuote";
-        children: [PullQuoteText, PullQuoteSource];
-    }
-    interface PullQuoteText extends Parent {
-        type: "pullQuoteText";
-        children: Text[];
-    }
-    interface PullQuoteSource extends Parent {
-        type: "pullQuoteSource";
-        children: Text[];
+        type: "pull-quote";
+        text: string;
+        source: string;
     }
     interface Recommended extends Parent {
         type: "recommended";
         children: [];
     }
     interface ImageSetReference extends Reference {
-        kind: "imageSet";
+        referencedType: "image-set";
         imageType: "Image" | "Graphic";
     }
     interface ImageSet extends Node {
-        type: "imageSet";
+        type: "image-set";
         alt: string;
         caption?: string;
         imageType: "Image" | "Graphic";
@@ -114,7 +107,7 @@ export declare namespace ContentTree {
         type: "image";
     }
     interface TweetReference extends Reference {
-        kind: "tweet";
+        referencedType: "tweet";
     }
     interface Tweet extends Node {
         type: "tweet";
@@ -122,7 +115,7 @@ export declare namespace ContentTree {
         html: string;
     }
     interface FlourishReference extends Reference {
-        kind: "flourish";
+        referencedType: "flourish";
         flourishType: string;
     }
     interface Flourish extends Node {
@@ -134,24 +127,24 @@ export declare namespace ContentTree {
         fallbackImage: Image;
     }
     interface BigNumber extends Parent {
-        type: "bigNumber";
+        type: "big-number";
         children: [BigNumberNumber, BigNumberDescription];
     }
     interface BigNumberNumber extends Parent {
-        type: "bigNumberNumber";
+        type: "big-number-number";
         children: Phrasing[];
     }
     interface BigNumberDescription extends Parent {
-        type: "bigNumberDescription";
+        type: "big-number-description";
         children: Phrasing[];
     }
     interface ScrollableBlock extends Parent {
-        type: "scrollableBlock";
+        type: "scrollable-block";
         theme: "sans" | "serif";
         children: ScrollableSection[];
     }
     interface ScrollableSection extends Parent {
-        type: "scrollableSection";
+        type: "scrollable-section";
         display: "dark" | "light";
         position: "left" | "centre" | "right";
         transition?: "delay-before" | "delay-after";
@@ -159,12 +152,12 @@ export declare namespace ContentTree {
         children: Array<ImageSet | ScrollableText>;
     }
     interface ScrollableText extends Parent {
-        type: "scrollableText";
+        type: "scrollable-text";
         style: "text";
         children: Phrasing[];
     }
     interface ScrollableHeading extends Parent {
-        type: "scrollableText";
+        type: "scrollable-text";
         style: "chapter" | "heading" | "subheading";
         children: Text[];
     }
@@ -176,9 +169,9 @@ export declare namespace ContentTree {
         type: "caption";
     }
     interface TableHead {
-        type: "tableHead";
+        type: "table-head";
     }
     interface TableBody {
-        type: "tableBody";
+        type: "table-body";
     }
 }
