@@ -158,17 +158,6 @@ interface Paragraph extends Parent {
 
 A **Paragraph** represents a unit of text.
 
-### `Chapter`
-
-```ts
-interface Chapter extends Parent {
-	type: "chapter"
-	children: Text[]
-}
-```
-
-A **Chapter** represents a chapter-level heading.
-
 ### `Heading`
 
 ```ts

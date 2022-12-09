@@ -36,10 +36,6 @@ export declare namespace ContentTree {
         type: "paragraph";
         children: Phrasing[];
     }
-    interface Chapter extends Parent {
-        type: "chapter";
-        children: Text[];
-    }
     interface Heading extends Parent {
         type: "heading";
         children: Text[];
