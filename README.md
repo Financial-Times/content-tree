@@ -164,7 +164,7 @@ A **Paragraph** represents a unit of text.
 interface Heading extends Parent {
 	type: "heading"
 	children: Text[]
-	level: "chapter" | "sub-head" | "label"
+	level: "chapter" | "subhead" | "label"
 }
 ```
 

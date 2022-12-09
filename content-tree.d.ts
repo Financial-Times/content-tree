@@ -39,7 +39,7 @@ export declare namespace ContentTree {
     interface Heading extends Parent {
         type: "heading";
         children: Text[];
-        level: "chapter" | "sub-head" | "label";
+        level: "chapter" | "subhead" | "label";
     }
     interface Strong extends Parent {
         type: "strong";
