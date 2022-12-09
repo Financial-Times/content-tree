@@ -365,6 +365,8 @@ interface BigNumber extends Parent {
 	type: "big-number"
 	children: [BigNumberNumber, BigNumberDescription]
 }
+
+// TODO: consider making these children two paragraphs
 ```
 
 **BigNumber** provides a description for a big number.
@@ -429,6 +431,10 @@ interface ScrollyCopy extends Parent {
 }
 ```
 
+TODO is this badly named?
+
+**ScrollyCopy** represents a collection of **ScrollyText** nodes.
+
 ```ts
 interface ScrollyText extends Parent {
 	type: "scrolly-text"
@@ -448,7 +454,7 @@ interface ScrollyParagraph extends ScrollyText {
 }
 ```
 
-A **ScrollableBlock** node represents a piece of copy for a [ScrollableBlock](#scrollableblock)
+**ScrollyText** represents an individual unit of copy for a [ScrollyBlock](#scrollableblock)
 
 - define all heading types as straight-up Nodes (like, Chapter y SubHeading y et cetera)
 - do we need an `HTML` node that has a raw html string to \_\_dangerously insert like markdown for some embed types? <-- YES
