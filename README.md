@@ -260,6 +260,8 @@ interface Pullquote extends Parent {
 
 **Pullquote** represents a brief quotation taken from the main text of an article.
 
+_non normative note:_ the reason this is string properties and not children is that it is more confusing if a pullquote falls back to text than if it doesn't. The text is taken from elsewhere in the article.
+
 ### `Recommended`
 
 ```ts
