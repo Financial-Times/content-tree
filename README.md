@@ -175,34 +175,11 @@ A **Chapter** represents a chapter-level heading.
 interface Heading extends Parent {
 	type: "heading"
 	children: Text[]
+	level: "chapter" | "sub-head" | "label"
 }
 ```
 
-A **Heading** represents a heading-level heading.
-
-### `Subheading`
-
-```ts
-interface Subheading extends Parent {
-	type: "subheading"
-	children: Text[]
-}
-```
-
-**Subheading** represents a subheading-level heading.
-
-### `Label`
-
-```ts
-interface Label extends Parent {
-	type: "label"
-	children: Text[]
-}
-```
-
-**Label** represents a label-level heading.
-
-- TODO: is this name ok?
+**Heading** represents a unit of text that marks the beginning of an article section.
 
 ### `Strong`
 
@@ -423,64 +400,64 @@ interface BigNumberDescription extends Parent {
 
 **BigNumberNumber** represents the description of the big number.
 
-### `ScrollableBlock`
+### `ScrollyBlock`
 
 ```ts
-interface ScrollableBlock extends Parent {
-	type: "scrollable-block"
+interface ScrollyBlock extends Parent {
+	type: "scrolly-block"
 	theme: "sans" | "serif"
-	children: ScrollableSection[]
+	children: ScrollySection[]
 }
 ```
 
-A **ScrollableBlock** node represents a block for telling stories through scroll position.
+A **ScrollyBlock** node represents a block for telling stories through scroll position.
 
 ### `ScrollableSection`
 
 ```ts
-interface ScrollableSection extends Parent {
-	type: "scrollable-section"
+interface ScrollySection extends Parent {
+	type: "scrolly-section"
 	display: "dark" | "light"
 	position: "left" | "centre" | "right"
 	transition?: "delay-before" | "delay-after"
-	noBox?: boolean
-	children: Array<ImageSet | ScrollableText>
+	transparent?: boolean
+	children: [ImageSet, ...ScrollyCopy]
 }
 ```
 
-- TODO: define these children properly
+**ScrollySection** represents a section of a [ScrollyBlock](#scrollyblock)
 
-A **ScrollableBlock** node represents a section of a [ScrollableBlock](#scrollableblock)
-
-- TODO: why is noBox not a display option? like "dark" | "light" | "transparent"?
-- TODO: does this need to be more specific about its children?
-- TODO: should each section have 1 `imageSet` field and then children of any number of ScrollableText?
 - TODO: could `transition` have a `"none"` value so it isn't optional?
 
-### `ScrollableText`
+### `ScrollyCopy`
 
 ```ts
-interface ScrollableText extends Parent {
-	type: "scrollable-text"
-	style: "text"
-	children: Phrasing[]
+interface ScrollyCopy extends Parent {
+	type: "scrolly-copy"
+	children: ScrollyText[]
+}
+```
+
+```ts
+interface ScrollyText extends Parent {
+	type: "scrolly-text"
+	level: string
 }
 
-interface ScrollableHeading extends Parent {
-	type: "scrollable-text"
-	style: "chapter" | "heading" | "subheading"
+interface ScrollyHeading extends ScrollyText {
+	type: "scrolly-text"
+	level: "chapter" | "heading" | "subheading"
 	children: Text[]
+}
+
+interface ScrollyParagraph extends ScrollyText {
+	type: "scrolly-text"
+	level: "text"
+	children: Phrasing[]
 }
 ```
 
 A **ScrollableBlock** node represents a piece of copy for a [ScrollableBlock](#scrollableblock)
-
-- TODO: heading doesn't
-- TODO: i'm a little confused by this part of the spec, i need to look at some scrollable-text blocks
-  https://github.com/Financial-Times/body-validation-service/blob/fddc5609b15729a0b60e06054d1b7749cc70c62b/src/main/resources/xsd/ft-types.xsd#L224-L263
-- TODO: rather than this "style" property on ScrollableText, what if we made these the same Paragraph, Chapter, Heading and Subheading nodes as above?
-
-## TODO
 
 - define all heading types as straight-up Nodes (like, Chapter y SubHeading y et cetera)
 - do we need an `HTML` node that has a raw html string to \_\_dangerously insert like markdown for some embed types? <-- YES

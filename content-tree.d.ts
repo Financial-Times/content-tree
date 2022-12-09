@@ -43,14 +43,7 @@ export declare namespace ContentTree {
     interface Heading extends Parent {
         type: "heading";
         children: Text[];
-    }
-    interface Subheading extends Parent {
-        type: "subheading";
-        children: Text[];
-    }
-    interface Label extends Parent {
-        type: "label";
-        children: Text[];
+        level: "chapter" | "sub-head" | "label";
     }
     interface Strong extends Parent {
         type: "strong";
@@ -138,28 +131,36 @@ export declare namespace ContentTree {
         type: "big-number-description";
         children: Phrasing[];
     }
-    interface ScrollableBlock extends Parent {
-        type: "scrollable-block";
+    interface ScrollyBlock extends Parent {
+        type: "scrolly-block";
         theme: "sans" | "serif";
-        children: ScrollableSection[];
+        children: ScrollySection[];
     }
-    interface ScrollableSection extends Parent {
-        type: "scrollable-section";
+    interface ScrollySection extends Parent {
+        type: "scrolly-section";
         display: "dark" | "light";
         position: "left" | "centre" | "right";
         transition?: "delay-before" | "delay-after";
-        noBox?: boolean;
-        children: Array<ImageSet | ScrollableText>;
+        transparent?: boolean;
+        children: [ImageSet, ...ScrollyCopy];
     }
-    interface ScrollableText extends Parent {
-        type: "scrollable-text";
-        style: "text";
-        children: Phrasing[];
+    interface ScrollyCopy extends Parent {
+        type: "scrolly-copy";
+        children: ScrollyText[];
     }
-    interface ScrollableHeading extends Parent {
-        type: "scrollable-text";
-        style: "chapter" | "heading" | "subheading";
+    interface ScrollyText extends Parent {
+        type: "scrolly-text";
+        level: string;
+    }
+    interface ScrollyHeading extends ScrollyText {
+        type: "scrolly-text";
+        level: "chapter" | "heading" | "subheading";
         children: Text[];
+    }
+    interface ScrollyParagraph extends ScrollyText {
+        type: "scrolly-text";
+        level: "text";
+        children: Phrasing[];
     }
     interface Table extends Parent {
         type: "table";
