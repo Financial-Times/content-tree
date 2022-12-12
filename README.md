@@ -413,6 +413,7 @@ interface ScrollySection extends Parent {
 	display: "dark" | "light"
 	position: "left" | "centre" | "right"
 	transition?: "delay-before" | "delay-after"
+	// TODO come up with a better name than transparent or noBox
 	transparent?: boolean
 	children: [ImageSet, ...ScrollyCopy[]]
 }
