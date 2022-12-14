@@ -134,7 +134,7 @@ export declare namespace ContentTree {
     }
     interface ScrollySection extends Parent {
         type: "scrolly-section";
-        copyTheme: "dark-text-light-box" | "light-text-dark-box" | "dark-text-no-box" | "light-text-no-box";
+        copyTheme: "dark-text" | "light-text" | "dark-text-no-box" | "light-text-no-box";
         position: "left" | "center" | "right";
         transition?: "delay-before" | "delay-after";
         children: [ImageSet, ...ScrollyCopy[]];

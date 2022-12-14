@@ -411,8 +411,8 @@ interface ScrollyBlock extends Parent {
 interface ScrollySection extends Parent {
 	type: "scrolly-section"
 	copyTheme:
-		| "dark-text-light-box"
-		| "light-text-dark-box"
+		| "dark-text"
+		| "light-text"
 		| "dark-text-no-box"
 		| "light-text-no-box"
 	position: "left" | "center" | "right"
