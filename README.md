@@ -415,7 +415,7 @@ interface ScrollySection extends Parent {
 		| "light-text-dark-box"
 		| "dark-text-no-box"
 		| "light-text-no-box"
-	position: "left" | "centre" | "right"
+	position: "left" | "center" | "right"
 	transition?: "delay-before" | "delay-after"
 	children: [ImageSet, ...ScrollyCopy[]]
 }
