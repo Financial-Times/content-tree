@@ -410,8 +410,7 @@ interface ScrollyBlock extends Parent {
 ```ts
 interface ScrollySection extends Parent {
 	type: "scrolly-section"
-	display:
-		| "dark-text-light-box"
+	copy-theme: "dark-text-light-box"
 		| "light-text-dark-box"
 		| "dark-text-no-box"
 		| "light-text-no-box"
