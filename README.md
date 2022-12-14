@@ -156,7 +156,7 @@ interface Paragraph extends Parent {
 }
 ```
 
-A **Paragraph** represents a unit of text.
+\1represents a unit of text.
 
 ### `Heading`
 
@@ -271,7 +271,7 @@ interface Recommended extends Parent {
 }
 ```
 
-- A **Recommended** node represents a list of recommended links.
+- \1 represents a list of recommended links.
 - TODO: this has a list of things and the list items are ...?
 
 ### `ImageSetReference`
@@ -283,7 +283,7 @@ interface ImageSetReference extends Reference {
 }
 ```
 
-A **ImageSetReference** node represents a reference to an external tweet. The `id` is a URL.
+\1 represents a reference to an external tweet. The `id` is a URL.
 
 ### `ImageSet`
 
@@ -318,7 +318,7 @@ interface TweetReference extends Reference {
 }
 ```
 
-A **TweetReference** node represents a reference to an external tweet. The `id` is a URL.
+**TweetReference** represents a reference to an external tweet. The `id` is a URL.
 
 ### `Tweet`
 
@@ -330,7 +330,7 @@ interface Tweet extends Node {
 }
 ```
 
-A **Tweet** node represents a tweet.
+**Tweet** represents a tweet.
 
 ### `FlourishReference`
 
@@ -341,7 +341,7 @@ interface FlourishReference extends Reference {
 }
 ```
 
-A **FlourishReference** node represents a reference to an external **Flourish**.
+\1 represents a reference to an external **Flourish**.
 
 ### `Flourish`
 
@@ -356,7 +356,7 @@ interface Flourish extends Node {
 }
 ```
 
-A **Flourish** node represents a flourish chart.
+\1 represents a flourish chart.
 
 ### `BigNumber`
 
@@ -403,18 +403,20 @@ interface ScrollyBlock extends Parent {
 }
 ```
 
-A **ScrollyBlock** node represents a block for telling stories through scroll position.
+**ScrollyBlock** represents a block for telling stories through scroll position.
 
-### `ScrollableSection`
+### `ScrollySection`
 
 ```ts
 interface ScrollySection extends Parent {
 	type: "scrolly-section"
-	display: "dark" | "light"
+	display:
+		| "dark-text-light-box"
+		| "light-text-dark-box"
+		| "dark-text-no-box"
+		| "light-text-no-box"
 	position: "left" | "centre" | "right"
 	transition?: "delay-before" | "delay-after"
-	// TODO come up with a better name than transparent or noBox
-	transparent?: boolean
 	children: [ImageSet, ...ScrollyCopy[]]
 }
 ```
@@ -488,7 +490,7 @@ interface TableBody {
 }
 ```
 
-A **Table** represents 2d data.
+**Table** represents 2d data.
 
 look here https://github.com/Financial-Times/body-validation-service/blob/master/src/main/resources/xsd/ft-html-types.xsd#L214
 
