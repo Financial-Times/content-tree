@@ -156,7 +156,7 @@ interface Paragraph extends Parent {
 }
 ```
 
-\1represents a unit of text.
+Paragraph represents a unit of text.
 
 ### `Heading`
 
@@ -271,7 +271,7 @@ interface Recommended extends Parent {
 }
 ```
 
-- \1 represents a list of recommended links.
+- Recommended represents a list of recommended links.
 - TODO: this has a list of things and the list items are ...?
 
 ### `ImageSetReference`
@@ -283,7 +283,7 @@ interface ImageSetReference extends Reference {
 }
 ```
 
-\1 represents a reference to an external tweet. The `id` is a URL.
+ImageSetReference represents a reference to an external tweet. The `id` is a URL.
 
 ### `ImageSet`
 
@@ -341,7 +341,7 @@ interface FlourishReference extends Reference {
 }
 ```
 
-\1 represents a reference to an external **Flourish**.
+**FlourishReference** represents a reference to an external **Flourish**.
 
 ### `Flourish`
 
@@ -356,7 +356,7 @@ interface Flourish extends Node {
 }
 ```
 
-\1 represents a flourish chart.
+**Flourish** represents a flourish chart.
 
 ### `BigNumber`
 
@@ -391,7 +391,7 @@ interface BigNumberDescription extends Parent {
 }
 ```
 
-**BigNumberNumber** represents the description of the big number.
+**BigNumberDescription** represents the description of the big number.
 
 ### `ScrollyBlock`
 
