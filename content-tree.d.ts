@@ -83,13 +83,13 @@ export declare namespace ContentTree {
     }
     interface ImageSetReference extends Reference {
         referencedType: "image-set";
-        imageType: "Image" | "Graphic";
     }
     interface ImageSet extends Node {
         type: "image-set";
+        imageType: "graphic" | "image";
         alt: string;
-        caption?: string;
-        imageType: "Image" | "Graphic";
+        caption: string;
+        credit: string;
         images: Image[];
     }
     interface Image extends Node {

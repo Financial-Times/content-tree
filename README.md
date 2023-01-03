@@ -279,7 +279,6 @@ interface Recommended extends Parent {
 ```ts
 interface ImageSetReference extends Reference {
 	referencedType: "image-set"
-	imageType: "Image" | "Graphic"
 }
 ```
 
@@ -290,14 +289,14 @@ ImageSetReference represents a reference to an external tweet. The `id` is a URL
 ```ts
 interface ImageSet extends Node {
 	type: "image-set"
+	imageType: "graphic" | "image"
 	alt: string
-	caption?: string
-	imageType: "Image" | "Graphic"
+	caption: string
+	credit: string
 	images: Image[]
+	// fallbackImage: ???
 }
 ```
-
-- TODO: should we be using the full url as the `image`/`graphic` (like 'http://www.ft.com/ontology/content/Image')? might be better
 
 ### `Image`
 
@@ -306,9 +305,6 @@ interface Image extends Node {
 	type: "image"
 }
 ```
-
-- TODO: we want this to look like this [https://raw.githubusercontent.com/Financial-Times/cp-content-pipeline/main/packages/schema/src/picture.ts](https://github.com/Financial-Times/cp-content-pipeline/blob/main/packages/schema/src/picture.ts#L12-L99)
-- TODO: should i call this `Picture`???? maybe.
 
 ### `TweetReference`
 
