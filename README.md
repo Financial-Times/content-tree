@@ -46,6 +46,16 @@ type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link
 
 Phrasing nodes cannot have an ancestor of their same type.
 
+### `SourceSet`
+
+```ts
+interface ImageSource {
+	url: string
+	width: number
+	dpr: number
+}
+```
+
 TODO: clarify that i mean Strong cannot have an ancestor of Strong etc
 
 ## Nodes
@@ -303,6 +313,17 @@ interface ImageSet extends Node {
 ```ts
 interface Image extends Node {
 	type: "image"
+	originalWidth: number
+	originalHeight: number
+	format:
+		| "standard-inline"
+		| "mobile"
+		| "desktop"
+		| "standard"
+		| "square"
+		| "wide"
+	binaryUrl: "string"
+	sourceSet: ImageSource[]
 }
 ```
 

@@ -1,6 +1,11 @@
 export declare namespace ContentTree {
     type Block = Node;
     type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
+    interface ImageSource {
+        url: string;
+        width: number;
+        dpr: number;
+    }
     interface Node {
         type: string;
     }
@@ -94,6 +99,11 @@ export declare namespace ContentTree {
     }
     interface Image extends Node {
         type: "image";
+        originalWidth: number;
+        originalHeight: number;
+        format: "standard-inline" | "mobile" | "desktop" | "standard" | "square" | "wide";
+        binaryUrl: "string";
+        sourceSet: ImageSource[];
     }
     interface TweetReference extends Reference {
         referencedType: "tweet";
