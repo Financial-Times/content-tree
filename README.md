@@ -299,6 +299,7 @@ ImageSetReference represents a reference to an external tweet. The `id` is a URL
 ```ts
 interface ImageSet extends Node {
 	type: "image-set"
+	id: string
 	imageType: "graphic" | "image"
 	alt: string
 	caption: string
@@ -310,9 +311,12 @@ interface ImageSet extends Node {
 
 ### `Image`
 
+// TODO why "originalWidth" "originalHeight" and "binaryUrl" rather than "width", "height" and "url"?
+
 ```ts
 interface Image extends Node {
 	type: "image"
+	id: string
 	originalWidth: number
 	originalHeight: number
 	format:

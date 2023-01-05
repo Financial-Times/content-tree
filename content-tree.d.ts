@@ -91,6 +91,7 @@ export declare namespace ContentTree {
     }
     interface ImageSet extends Node {
         type: "image-set";
+        id: string;
         imageType: "graphic" | "image";
         alt: string;
         caption: string;
@@ -99,6 +100,7 @@ export declare namespace ContentTree {
     }
     interface Image extends Node {
         type: "image";
+        id: string;
         originalWidth: number;
         originalHeight: number;
         format: "standard-inline" | "mobile" | "desktop" | "standard" | "square" | "wide";
