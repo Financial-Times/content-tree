@@ -355,6 +355,9 @@ interface Tweet extends Node {
 interface FlourishReference extends Reference {
 	referencedType: "flourish"
 	flourishType: string
+	layoutWidth: "" | "full-grid"
+	description: string
+	timestamp: string
 }
 ```
 
@@ -369,6 +372,7 @@ interface Flourish extends Node {
 	layoutWidth: "" | "full-grid"
 	flourishType: string
 	description: string
+	timestamp: string
 	fallbackImage: Image
 }
 ```
