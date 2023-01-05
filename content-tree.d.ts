@@ -116,6 +116,9 @@ export declare namespace ContentTree {
     interface FlourishReference extends Reference {
         referencedType: "flourish";
         flourishType: string;
+        layoutWidth: "" | "full-grid";
+        description: string;
+        timestamp: string;
     }
     interface Flourish extends Node {
         type: "flourish";
@@ -123,6 +126,7 @@ export declare namespace ContentTree {
         layoutWidth: "" | "full-grid";
         flourishType: string;
         description: string;
+        timestamp: string;
         fallbackImage: Image;
     }
     interface BigNumber extends Parent {
