@@ -88,11 +88,13 @@ export declare namespace ContentTree {
     }
     interface ImageSetReference extends Reference {
         referencedType: "image-set";
+        layoutWidth: "inset-left" | "full-text" | "full-grid" | "full-bleed";
     }
     interface ImageSet extends Node {
         type: "image-set";
         id: string;
         imageType: "graphic" | "image";
+        layoutWidth: "inset-left" | "full-text" | "full-grid" | "full-bleed";
         alt: string;
         caption: string;
         credit: string;
@@ -103,7 +105,7 @@ export declare namespace ContentTree {
         id: string;
         originalWidth: number;
         originalHeight: number;
-        format: "standard-inline" | "mobile" | "desktop" | "standard" | "square" | "wide";
+        format: "desktop" | "mobile" | "square" | "standard" | "wide" | "standard-inline";
         binaryUrl: "string";
         sourceSet: ImageSource[];
     }
@@ -118,14 +120,14 @@ export declare namespace ContentTree {
     interface FlourishReference extends Reference {
         referencedType: "flourish";
         flourishType: string;
-        layoutWidth: "" | "full-grid";
+        layoutWidth: "full-text" | "full-grid";
         description: string;
         timestamp: string;
     }
     interface Flourish extends Node {
         type: "flourish";
         id: string;
-        layoutWidth: "" | "full-grid";
+        layoutWidth: "full-text" | "full-grid";
         flourishType: string;
         description: string;
         timestamp: string;

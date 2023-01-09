@@ -289,6 +289,7 @@ interface Recommended extends Parent {
 ```ts
 interface ImageSetReference extends Reference {
 	referencedType: "image-set"
+	layoutWidth: "inset-left" | "full-text" | "full-grid" | "full-bleed"
 }
 ```
 
@@ -301,6 +302,7 @@ interface ImageSet extends Node {
 	type: "image-set"
 	id: string
 	imageType: "graphic" | "image"
+	layoutWidth: "inset-left" | "full-text" | "full-grid" | "full-bleed"
 	alt: string
 	caption: string
 	credit: string
@@ -320,12 +322,12 @@ interface Image extends Node {
 	originalWidth: number
 	originalHeight: number
 	format:
-		| "standard-inline"
-		| "mobile"
 		| "desktop"
-		| "standard"
+		| "mobile"
 		| "square"
+		| "standard"
 		| "wide"
+      | "standard-inline"
 	binaryUrl: "string"
 	sourceSet: ImageSource[]
 }
@@ -359,7 +361,7 @@ interface Tweet extends Node {
 interface FlourishReference extends Reference {
 	referencedType: "flourish"
 	flourishType: string
-	layoutWidth: "" | "full-grid"
+	layoutWidth: "full-text" | "full-grid"
 	description: string
 	timestamp: string
 }
@@ -373,7 +375,7 @@ interface FlourishReference extends Reference {
 interface Flourish extends Node {
 	type: "flourish"
 	id: string
-	layoutWidth: "" | "full-grid"
+	layoutWidth: "full-text" | "full-grid"
 	flourishType: string
 	description: string
 	timestamp: string
