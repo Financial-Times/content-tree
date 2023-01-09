@@ -60,10 +60,51 @@ interface ImageSource {
 ### Teaser
 
 ```ts
-import { TeaserProps as Teaser } from '@financial-times/x-teaser'
+interface TeaserConcept {
+	apiUrl: string
+	directType: string
+	id: string
+	predicate: string
+	prefLabel: string
+	type: string
+	types: string[]
+	url: string
+}
+
+interface TeaserImage {
+	url: string
+	width: number
+	height: number
+}
+
+interface Indicators {
+	accessLevel: "premium" | "subscribed" | "registered" | "free"
+	isOpinion?: boolean
+	isColumn?: boolean
+	isPodcast?: boolean
+	isEditorsChoice?: boolean
+	isExclusive?: boolean
+	isScoop?: boolean
+}
+
+interface Teaser {
+	id: string
+	url: string
+	type:  "article" | "video" | "podcast" | "audio" | "package" | "liveblog" | "promoted-content" | "paid-post";
+	title: string
+	publishedDate: string
+	firstPublishedDate: string
+	metaLink?: TeaserConcept
+	metaAltLink?: TeaserConcept
+	metaPrefixText?: string
+	metaSuffixText?: string
+	indicators: Indicators
+	image: Image
+}
 ```
 
-- Teasers used in articles (e.g. for recommended links) expect the data model used by x-teaser. [x-teaser](https://github.com/Financial-Times/x-dash/blob/main/components/x-teaser/Props.d.ts)
+- The above types are adapted from the data structure used by [x-teaser](https://github.com/Financial-Times/x-dash/blob/main/components/x-teaser/Props.d.ts), limited to the types required for rendering teasers used within a content-tree (i.e. recommended links)
+- TODO: consider having x-teaser use types from content-tree
 
 ## Nodes
 

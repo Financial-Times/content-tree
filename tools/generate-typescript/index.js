@@ -8,9 +8,7 @@ let filename = process.argv[2]
 var input =
 	typeof filename == "string" ? createReadStream(filename) : process.stdin
 
-
-let output = ``
-output += "export namespace ContentTree {\n"
+process.stdout.write("export namespace ContentTree {\n")
 input
 	.pipe(
 		stream(
@@ -21,15 +19,11 @@ input
 					Object.assign(this, {Compiler: walk})
 					function walk(node) {
 						if (node.type == "code") {
-							if(node.value.startsWith('import')) {
-								output = node.value + "\n\n" + output
-							} else {
-								output +=(
-									node.value
-										.replace(/^(interface|type)/gm, term => `export ${term}`)
-										.replace(/^/gm, "\t") + "\n\n"
-								)
-							}
+							process.stdout.write(
+								node.value
+									.replace(/^(interface|type)/gm, term => `export ${term}`)
+									.replace(/^/gm, "\t") + "\n\n"
+							)
 						} else if ("children" in node && Array.isArray(node.children)) {
 							for (let child of node.children) {
 								walk(child)
@@ -40,7 +34,6 @@ input
 		)
 	)
 	.on("end", () => {
-		output += ("}\n")
-		process.stdout.write(output)
+		process.stdout.write("}\n")
 		process.exit()
 	})
