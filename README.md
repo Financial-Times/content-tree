@@ -45,6 +45,7 @@ type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link
 ```
 
 Phrasing nodes cannot have an ancestor of their same type.
+TODO: clarify that i mean Strong cannot have an ancestor of Strong etc
 
 ### `SourceSet`
 
@@ -56,7 +57,13 @@ interface ImageSource {
 }
 ```
 
-TODO: clarify that i mean Strong cannot have an ancestor of Strong etc
+### Teaser
+
+```ts
+import { TeaserProps as Teaser } from '@financial-times/x-teaser'
+```
+
+- Teasers used in articles (e.g. for recommended links) expect the data model used by x-teaser. [x-teaser](https://github.com/Financial-Times/x-dash/blob/main/components/x-teaser/Props.d.ts)
 
 ## Nodes
 
@@ -272,17 +279,31 @@ interface Pullquote extends Parent {
 
 _non normative note:_ the reason this is string properties and not children is that it is more confusing if a pullquote falls back to text than if it doesn't. The text is taken from elsewhere in the article.
 
-### `Recommended`
+### `RecommendedReference`
 
 ```ts
-interface Recommended extends Parent {
-	type: "recommended"
-	children: [/*TODO*/]
+interface RecommendedReference extends Reference {
+	referencedType: "recommended"
+	heading?: string
+	teaserTitleOverride?: string
 }
 ```
 
-- Recommended represents a list of recommended links.
-- TODO: this has a list of things and the list items are ...?
+- Recommended represents a reference to an FT content that has been recommended by editorial.
+- The `heading`, when present, is used where the purpose of the link is more specific than being "Recommended" (an example might be "In depth")
+- The `teaserTitleOverride`, when present, is used in place of the content title of the link.
+
+_non normative note:_  historically, recommended links used to be a list of up to three content items. Testing later showed that having one more prominent link was more engaging, and Spark (and therefore content-tree) now only supports that use case.
+
+### `Recommended`
+```ts
+interface Recommended extends Node {
+	type: "recommended"
+	heading?: string
+	teaserTitleOverride?: string
+	teaser: Teaser
+}
+```
 
 ### `ImageSetReference`
 

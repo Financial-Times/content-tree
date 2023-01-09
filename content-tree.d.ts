@@ -1,3 +1,4 @@
+import { TeaserProps as Teaser } from '@financial-times/x-teaser';
 export declare namespace ContentTree {
     type Block = Node;
     type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
@@ -82,9 +83,16 @@ export declare namespace ContentTree {
         text: string;
         source: string;
     }
-    interface Recommended extends Parent {
+    interface RecommendedReference extends Reference {
+        referencedType: "recommended";
+        heading?: string;
+        teaserTitleOverride?: string;
+    }
+    interface Recommended extends Node {
         type: "recommended";
-        children: [];
+        heading?: string;
+        teaserTitleOverride?: string;
+        teaser: Teaser;
     }
     interface ImageSetReference extends Reference {
         referencedType: "image-set";
