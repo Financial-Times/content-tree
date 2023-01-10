@@ -46,6 +46,7 @@ export declare namespace ContentTree {
     }
     interface Node {
         type: string;
+        data?: any;
     }
     interface Parent extends Node {
         children: Node[];

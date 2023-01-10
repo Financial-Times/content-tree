@@ -113,6 +113,7 @@ interface Teaser {
 ```ts
 interface Node {
 	type: string
+	data?: any
 }
 ```
 
