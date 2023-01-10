@@ -25,5 +25,7 @@
     "url": "https://github.com/Financial-Times/content-tree/issues"
   },
   "homepage": "https://github.com/Financial-Times/content-tree#readme",
-  "workspaces": ["tools/*"]
+  "workspaces": [
+    "tools/*"
+  ]
 }
