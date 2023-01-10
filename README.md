@@ -4,8 +4,8 @@ A tree for Financial Times article content.
 
 ---
 
-**content-tree** is a specification for representing Financial Times article content as an abstract tree.
-It implements the **[unist][unist]** spec.
+**content-tree** is a specification for representing Financial Times article
+content as an abstract tree.  It implements the **[unist][unist]** spec.
 
 ## Contents
 
@@ -18,19 +18,23 @@ It implements the **[unist][unist]** spec.
 
 ## Introduction
 
-This document defines a format for representing Financial Times article content as a tree.
-This specification is written in a [typescript][typescript] grammar.
+This document defines a format for representing Financial Times article content
+as a tree.  This specification is written in a [typescript][typescript] grammar.
 
 ### What is `content-tree`?
 
-`content-tree` extends [unist][unist], a format for syntax trees, to benefit from its [ecosystem of utilities][unist-utilities].
+`content-tree` extends [unist][unist], a format for syntax trees, to benefit
+from its [ecosystem of utilities][unist-utilities].
 
-`content-tree` relates to [JavaScript][js] in that it has an [ecosystem of utilities][unist-utilities] for working with trees in JavaScript.
-However, `content-tree` is not limited to JavaScript and can be used in other programming languages.
+`content-tree` relates to [JavaScript][js] in that it has an [ecosystem of
+utilities][unist-utilities] for working with trees in JavaScript.  However,
+`content-tree` is not limited to JavaScript and can be used in other programming
+languages.
 
 ## Types
 
-These abstract helper types define special types a [Parent](#parent) can use as [children][term-child].
+These abstract helper types define special types a [Parent](#parent) can use as
+[children][term-child].
 
 ### `Block`
 
@@ -57,7 +61,19 @@ interface ImageSource {
 }
 ```
 
-### Teaser
+### `External`
+
+```ts
+interface External<ExternalData> {
+	id: string
+	external: true
+	resolved: ExternalData
+}
+```
+
+**External** represents a reference to a piece of external content.
+
+### `Teaser`
 
 ```ts
 interface TeaserConcept {
@@ -90,7 +106,15 @@ interface Indicators {
 interface Teaser {
 	id: string
 	url: string
-	type:  "article" | "video" | "podcast" | "audio" | "package" | "liveblog" | "promoted-content" | "paid-post";
+	type:
+		| "article"
+		| "video"
+		| "podcast"
+		| "audio"
+		| "package"
+		| "liveblog"
+		| "promoted-content"
+		| "paid-post"
 	title: string
 	publishedDate: string
 	firstPublishedDate: string
@@ -103,7 +127,10 @@ interface Teaser {
 }
 ```
 
-- The above types are adapted from the data structure used by [x-teaser](https://github.com/Financial-Times/x-dash/blob/main/components/x-teaser/Props.d.ts), limited to the types required for rendering teasers used within a content-tree (i.e. recommended links)
+- The above types are adapted from the data structure used by
+  [x-teaser](https://github.com/Financial-Times/x-dash/blob/main/components/x-teaser/Props.d.ts),
+  limited to the types required for rendering teasers used within a content-tree
+  (i.e. recommended links)
 - TODO: consider having x-teaser use types from content-tree
 
 ## Nodes
@@ -127,22 +154,10 @@ interface Parent extends Node {
 }
 ```
 
-**Parent** (**[UnistParent][term-parent]**) represents a node in content-tree containing other nodes (said to be _[children][term-child]_).
+**Parent** (**[UnistParent][term-parent]**) represents a node in content-tree
+containing other nodes (said to be _[children][term-child]_).
 
 Its content is limited to only other content-tree content.
-
-### `Reference`
-
-```ts
-interface Reference extends Node {
-	type: "reference"
-	referencedType: string
-	id: string
-	alt?: string
-}
-```
-
-**Reference** nodes represent a reference to a piece of external content. The `alt` field is an optional string to be used if the external resource was not available. The `kind` field is the `type` of the node that the reference dereferences to.
 
 ### `Root`
 
@@ -202,7 +217,8 @@ interface ThematicBreak extends Node {
 }
 ```
 
-**ThematicBreak** Node represents a break in the text, such as in a shift of topic within a section.
+**ThematicBreak** Node represents a break in the text, such as in a shift of
+topic within a section.
 
 _Non-normative note: this would be represented by an `<hr>` in the html._
 
@@ -227,7 +243,8 @@ interface Heading extends Parent {
 }
 ```
 
-**Heading** represents a unit of text that marks the beginning of an article section.
+**Heading** represents a unit of text that marks the beginning of an article
+section.
 
 ### `Strong`
 
@@ -319,64 +336,54 @@ interface Pullquote extends Parent {
 
 **Pullquote** represents a brief quotation taken from the main text of an article.
 
-_non normative note:_ the reason this is string properties and not children is that it is more confusing if a pullquote falls back to text than if it doesn't. The text is taken from elsewhere in the article.
-
-### `RecommendedReference`
-
-```ts
-interface RecommendedReference extends Reference {
-	referencedType: "recommended"
-	heading?: string
-	teaserTitleOverride?: string
-}
-```
-
-- Recommended represents a reference to an FT content that has been recommended by editorial.
-- The `heading`, when present, is used where the purpose of the link is more specific than being "Recommended" (an example might be "In depth")
-- The `teaserTitleOverride`, when present, is used in place of the content title of the link.
-
-_non normative note:_  historically, recommended links used to be a list of up to three content items. Testing later showed that having one more prominent link was more engaging, and Spark (and therefore content-tree) now only supports that use case.
+_non normative note:_ the reason this is string properties and not children is
+that it is more confusing if a pullquote falls back to text than if it
+doesn't. The text is taken from elsewhere in the article.
 
 ### `Recommended`
+
 ```ts
-interface Recommended extends Node {
+interface Recommended extends External<Teaser>, Node {
 	type: "recommended"
 	heading?: string
 	teaserTitleOverride?: string
-	teaser: Teaser
 }
 ```
 
-### `ImageSetReference`
+- Recommended represents a reference to an FT content that has been recommended
+  by editorial.
+- The `heading`, when present, is used where the purpose of the link is more
+  specific than being "Recommended" (an example might be "In depth")
+- The `teaserTitleOverride`, when present, is used in place of the content title
+  of the link.
 
-```ts
-interface ImageSetReference extends Reference {
-	referencedType: "image-set"
-	layoutWidth: "inline" | "article" | "grid" | "viewport"
-}
-```
+_non normative note:_ historically, recommended links used to be a list of up to
+three content items. Testing later showed that having one more prominent link
+was more engaging, and Spark (and therefore content-tree)now only supports that use case.
 
-ImageSetReference represents a reference to an external tweet. The `id` is a URL.
 
 ### `ImageSet`
 
 ```ts
-interface ImageSet extends Node {
-	type: "image-set"
-	id: string
+interface ImageSetContent {
 	imageType: "image" | "graphic"
-	layoutWidth: "inline" | "article" | "grid" | "viewport"
 	alt: string
 	caption: string
 	credit: string
 	images: Image[]
-	// fallbackImage: ???
+	fallbackImage: Image
+}
+
+interface ImageSet extends External<ImageSetContent>, Node {
+	type: "image-set"
+	layoutWidth: "inline" | "article" | "grid" | "viewport"
 }
 ```
 
 ### `Image`
 
-// TODO why "originalWidth" "originalHeight" and "binaryUrl" rather than "width", "height" and "url"?
+- TODO why "originalWidth" "originalHeight" and "binaryUrl" rather than
+"width", "height" and "url"?
 
 ```ts
 interface Image extends Node {
@@ -396,53 +403,33 @@ interface Image extends Node {
 }
 ```
 
-### `TweetReference`
-
-```ts
-interface TweetReference extends Reference {
-	referencedType: "tweet"
-}
-```
-
-**TweetReference** represents a reference to an external tweet. The `id` is a URL.
-
 ### `Tweet`
 
 ```ts
-interface Tweet extends Node {
-	type: "tweet"
-	id: string
+interface TweetContent {
 	html: string
+}
+
+interface Tweet extends External<TweetContent>, Node {
+	type: "tweet"
 }
 ```
 
 **Tweet** represents a tweet.
 
-### `FlourishReference`
-
-```ts
-interface FlourishReference extends Reference {
-	referencedType: "flourish"
-	flourishType: string
-	layoutWidth: "article" | "grid"
-	description: string
-	timestamp: string
-}
-```
-
-**FlourishReference** represents a reference to an external **Flourish**.
-
 ### `Flourish`
 
 ```ts
-interface Flourish extends Node {
+interface FlourishContent {
+	fallbackImage: Image
+}
+
+interface Flourish extends External<FlourishContent>, Node {
 	type: "flourish"
-	id: string
 	layoutWidth: "article" | "grid"
 	flourishType: string
 	description: string
 	timestamp: string
-	fallbackImage: Image
 }
 ```
 
@@ -543,19 +530,26 @@ interface ScrollyParagraph extends ScrollyText {
 }
 ```
 
-**ScrollyText** represents an individual unit of copy for a [ScrollyBlock](#scrollableblock)
+**ScrollyText** represents an individual unit of copy for a
+[ScrollyBlock](#scrollableblock)
 
-- define all heading types as straight-up Nodes (like, Chapter y SubHeading y et cetera)
-- do we need an `HTML` node that has a raw html string to \_\_dangerously insert like markdown for some embed types? <-- YES
+- define all heading types as straight-up Nodes (like, Chapter y SubHeading y et
+  cetera)
+- do we need an `HTML` node that has a raw html string to \_\_dangerously insert
+  like markdown for some embed types? <-- YES
 - promo-box??? podcast promo? concept? ~content??????~ do we allow inline img, b, u? (spark doesn't. maybe no. what does this mean for embeds?)
 
 ### TODO: `LayoutContainer`
 
-TODO: what is this container for? why does the data need a container in addition to the Layout?
+TODO: what is this container for? why does the data need a container in addition
+to the Layout?
 
-### TODO: `Layout`### TODO: `LayoutSlot`### TODO: `LayoutImage`
+### TODO: `Layout`
+### TODO: `LayoutSlot`
+### TODO: `LayoutImage`
 
-TODO: okay so we're going to not do this ! we'll be defining ImagePair, Timeline, etc
+TODO: okay so we're going to not do this ! we'll be defining ImagePair,
+Timeline, etc
 
 ### TODO: `Table`
 
@@ -580,7 +574,12 @@ interface TableBody {
 
 look here https://github.com/Financial-Times/body-validation-service/blob/master/src/main/resources/xsd/ft-html-types.xsd#L214
 
-maybe we can be more strict than this? i don't know. we might not be able to because we don't know what old articles have done. however, we could find out what old articles have done... we could validate all old articles by trying to convert their bodyxml to this format, validating them etc,... and then make changes. maybe we want to restrict old articles from being able to do anything Spark can't do? who knows. we need more eyes on this whole document.
+maybe we can be more strict than this? i don't know. we might not be able to
+because we don't know what old articles have done. however, we could find out
+what old articles have done... we could validate all old articles by trying to
+convert their bodyxml to this format, validating them etc,... and then make
+changes. maybe we wantto restrict old articles from being able to do anything
+Spark can't do? who knows. we need more eyes on this whole document.
 
 ## License
 

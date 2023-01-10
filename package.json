@@ -27,5 +27,8 @@
   "homepage": "https://github.com/Financial-Times/content-tree#readme",
   "workspaces": [
     "tools/*"
-  ]
+  ],
+  "devDependencies": {
+    "prettier": "^2.8.2"
+  }
 }

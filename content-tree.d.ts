@@ -6,6 +6,11 @@ export declare namespace ContentTree {
         width: number;
         dpr: number;
     }
+    interface External<ExternalData> {
+        id: string;
+        external: true;
+        resolved: ExternalData;
+    }
     interface TeaserConcept {
         apiUrl: string;
         directType: string;
@@ -50,12 +55,6 @@ export declare namespace ContentTree {
     }
     interface Parent extends Node {
         children: Node[];
-    }
-    interface Reference extends Node {
-        type: "reference";
-        referencedType: string;
-        id: string;
-        alt?: string;
     }
     interface Root extends Parent {
         type: "root";
@@ -121,30 +120,22 @@ export declare namespace ContentTree {
         text: string;
         source: string;
     }
-    interface RecommendedReference extends Reference {
-        referencedType: "recommended";
-        heading?: string;
-        teaserTitleOverride?: string;
-    }
-    interface Recommended extends Node {
+    interface Recommended extends External<Teaser>, Node {
         type: "recommended";
         heading?: string;
         teaserTitleOverride?: string;
-        teaser: Teaser;
     }
-    interface ImageSetReference extends Reference {
-        referencedType: "image-set";
-        layoutWidth: "inline" | "article" | "grid" | "viewport";
-    }
-    interface ImageSet extends Node {
-        type: "image-set";
-        id: string;
+    interface ImageSetContent {
         imageType: "image" | "graphic";
-        layoutWidth: "inline" | "article" | "grid" | "viewport";
         alt: string;
         caption: string;
         credit: string;
         images: Image[];
+        fallbackImage: Image;
+    }
+    interface ImageSet extends External<ImageSetContent>, Node {
+        type: "image-set";
+        layoutWidth: "inline" | "article" | "grid" | "viewport";
     }
     interface Image extends Node {
         type: "image";
@@ -155,29 +146,21 @@ export declare namespace ContentTree {
         binaryUrl: "string";
         sourceSet: ImageSource[];
     }
-    interface TweetReference extends Reference {
-        referencedType: "tweet";
-    }
-    interface Tweet extends Node {
-        type: "tweet";
-        id: string;
+    interface TweetContent {
         html: string;
     }
-    interface FlourishReference extends Reference {
-        referencedType: "flourish";
-        flourishType: string;
-        layoutWidth: "article" | "grid";
-        description: string;
-        timestamp: string;
+    interface Tweet extends External<TweetContent>, Node {
+        type: "tweet";
     }
-    interface Flourish extends Node {
+    interface FlourishContent {
+        fallbackImage: Image;
+    }
+    interface Flourish extends External<FlourishContent>, Node {
         type: "flourish";
-        id: string;
         layoutWidth: "article" | "grid";
         flourishType: string;
         description: string;
         timestamp: string;
-        fallbackImage: Image;
     }
     interface BigNumber extends Parent {
         type: "big-number";
