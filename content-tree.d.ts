@@ -9,7 +9,7 @@ export declare namespace ContentTree {
     interface External<ExternalData> {
         id: string;
         external: true;
-        resolved: ExternalData;
+        resolved?: ExternalData;
     }
     interface TeaserConcept {
         apiUrl: string;

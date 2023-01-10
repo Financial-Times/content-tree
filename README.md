@@ -67,7 +67,7 @@ interface ImageSource {
 interface External<ExternalData> {
 	id: string
 	external: true
-	resolved: ExternalData
+	resolved?: ExternalData
 }
 ```
 
