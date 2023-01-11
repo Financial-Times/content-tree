@@ -65,6 +65,7 @@ interface ImageSource {
 
 ```ts
 interface External {
+	id: string
 	external: string[]
 }
 ```
@@ -365,15 +366,11 @@ was more engaging, and Spark (and therefore content-tree)now only supports that 
 ### `ImageSet`
 
 ```ts
-interface ImageSetContent {
-
-}
-
 interface ImageSet extends Node, External {
 	type: "image-set"
 	layoutWidth: "inline" | "article" | "grid" | "viewport"
 	external: ["picture"]
-	picture: {
+	picture?: {
 		imageType: "image" | "graphic"
 		alt: string
 		caption: string
@@ -410,7 +407,7 @@ interface Image extends Node {
 interface Tweet extends Node, External {
 	type: "tweet"
 	external: ["html"]
-	html: string
+	html?: string
 }
 ```
 

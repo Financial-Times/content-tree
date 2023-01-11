@@ -7,6 +7,7 @@ export declare namespace ContentTree {
         dpr: number;
     }
     interface External {
+        id: string;
         external: string[];
     }
     interface TeaserConcept {
@@ -125,13 +126,11 @@ export declare namespace ContentTree {
         external: ["teaser"];
         teaser?: Teaser;
     }
-    interface ImageSetContent {
-    }
     interface ImageSet extends Node, External {
         type: "image-set";
         layoutWidth: "inline" | "article" | "grid" | "viewport";
         external: ["picture"];
-        picture: {
+        picture?: {
             imageType: "image" | "graphic";
             alt: string;
             caption: string;
@@ -152,7 +151,7 @@ export declare namespace ContentTree {
     interface Tweet extends Node, External {
         type: "tweet";
         external: ["html"];
-        html: string;
+        html?: string;
     }
     interface Flourish extends Node, External {
         type: "flourish";
