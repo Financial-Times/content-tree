@@ -6,10 +6,6 @@ export declare namespace ContentTree {
         width: number;
         dpr: number;
     }
-    interface External {
-        id: string;
-        external: string[];
-    }
     interface TeaserConcept {
         apiUrl: string;
         directType: string;
@@ -119,18 +115,18 @@ export declare namespace ContentTree {
         text: string;
         source?: string;
     }
-    interface Recommended extends Node, External {
+    interface Recommended extends Node {
         type: "recommended";
+        id: string;
         heading?: string;
         teaserTitleOverride?: string;
-        external: ["teaser"];
-        teaser?: Teaser;
+        teaser: Teaser;
     }
-    interface ImageSet extends Node, External {
+    interface ImageSet extends Node {
         type: "image-set";
+        id: string;
         layoutWidth: "inline" | "article" | "grid" | "viewport";
-        external: ["picture"];
-        picture?: {
+        picture: {
             imageType: "image" | "graphic";
             alt: string;
             caption: string;
@@ -148,19 +144,18 @@ export declare namespace ContentTree {
         binaryUrl: string;
         sourceSet: ImageSource[];
     }
-    interface Tweet extends Node, External {
+    interface Tweet extends Node {
+        id: string;
         type: "tweet";
-        external: ["html"];
-        html?: string;
     }
-    interface Flourish extends Node, External {
+    interface Flourish extends Node {
         type: "flourish";
+        id: string;
         layoutWidth: "article" | "grid";
         flourishType: string;
         description?: string;
         timestamp?: string;
-        external: ["fallbackImage"];
-        fallbackImage?: Image;
+        fallbackImage: Image;
     }
     interface BigNumber extends Parent {
         type: "big-number";
@@ -214,13 +209,13 @@ export declare namespace ContentTree {
         type: "layout-slot";
         children: (Heading | Paragraph | LayoutImage)[];
     }
-    interface LayoutImage extends External, Node {
+    interface LayoutImage extends Node {
         type: "layout-image";
+        id: string;
         alt: string;
         caption: string;
         credit: string;
-        external: ["picture"];
-        picture?: Image;
+        picture: Image;
     }
     interface Table extends Parent {
         type: "table";
