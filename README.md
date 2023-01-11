@@ -51,7 +51,7 @@ type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link
 Phrasing nodes cannot have an ancestor of their same type.
 TODO: clarify that i mean Strong cannot have an ancestor of Strong etc
 
-### `SourceSet`
+### `ImageSource`
 
 ```ts
 interface ImageSource {
@@ -61,16 +61,7 @@ interface ImageSource {
 }
 ```
 
-### `External`
-
-```ts
-interface External {
-	id: string
-	external: string[]
-}
-```
-
-**External** represents a reference to a piece of external content.
+**ImageSource** are the shapes of things in an [image](#image)'s sourceSet
 
 ### `Teaser`
 
@@ -143,7 +134,8 @@ interface Node {
 }
 ```
 
-The abstract node.
+The abstract node. The data field is for internal implementation information and
+will never be defined in the content-tree spec.
 
 ### `Parent`
 
@@ -342,12 +334,12 @@ doesn't. The text is taken from elsewhere in the article.
 ### `Recommended`
 
 ```ts
-interface Recommended extends Node, External {
+interface Recommended extends Node {
 	type: "recommended"
+	id: string
 	heading?: string
 	teaserTitleOverride?: string
-	external: ["teaser"]
-	teaser?: Teaser
+	teaser: Teaser
 }
 ```
 
@@ -366,11 +358,11 @@ was more engaging, and Spark (and therefore content-tree)now only supports that 
 ### `ImageSet`
 
 ```ts
-interface ImageSet extends Node, External {
+interface ImageSet extends Node {
 	type: "image-set"
+	id: string
 	layoutWidth: "inline" | "article" | "grid" | "viewport"
-	external: ["picture"]
-	picture?: {
+	picture: {
 		imageType: "image" | "graphic"
 		alt: string
 		caption: string
@@ -404,10 +396,9 @@ interface Image extends Node {
 ### `Tweet`
 
 ```ts
-interface Tweet extends Node, External {
+interface Tweet extends Node {
+	id: string
 	type: "tweet"
-	external: ["html"]
-	html?: string
 }
 ```
 
@@ -416,14 +407,14 @@ interface Tweet extends Node, External {
 ### `Flourish`
 
 ```ts
-interface Flourish extends Node, External {
+interface Flourish extends Node {
 	type: "flourish"
+	id: string
 	layoutWidth: "article" | "grid"
 	flourishType: string
 	description?: string
 	timestamp?: string
-	external: ["fallbackImage"]
-	fallbackImage?: Image
+	fallbackImage: Image
 }
 ```
 
@@ -568,13 +559,13 @@ _Non-normative note_: typically these would be displayed as flex items, so they 
 
 ```ts
 
-interface LayoutImage extends External, Node {
+interface LayoutImage extends Node {
 	type: "layout-image"
+	id: string
 	alt: string
 	caption: string
 	credit: string
-	external: ["picture"]
-	picture?: Image
+	picture: Image
 }
 ```
 
