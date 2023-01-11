@@ -395,7 +395,7 @@ interface Image extends Node {
 		| "square"
 		| "standard"
 		| "wide"
-      | "standard-inline"
+		| "standard-inline"
 	binaryUrl: string
 	sourceSet: ImageSource[]
 }
