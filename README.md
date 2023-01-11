@@ -533,17 +533,52 @@ interface ScrollyParagraph extends ScrollyText {
   like markdown for some embed types? <-- YES
 - promo-box??? podcast promo? concept? ~content??????~ do we allow inline img, b, u? (spark doesn't. maybe no. what does this mean for embeds?)
 
-### TODO: `LayoutContainer`
+### `Layout`
 
-TODO: what is this container for? why does the data need a container in addition
-to the Layout?
+```ts
+interface Layout extends Parent {
+       type: "layout"
+       layoutName: "auto" | "card" | "timeline"
+       layoutWidth: "inset-left" | "full-width" | "full-grid"
+       children: [Heading, ...LayoutSlot[]] | LayoutSlot[]
+}
+```
 
-### TODO: `Layout`
-### TODO: `LayoutSlot`
-### TODO: `LayoutImage`
+**Layout** nodes are a generic component used to display a combination of other nodes (usually headings, images and paragraphs) in a visually distinctive way.
 
-TODO: okay so we're going to not do this ! we'll be defining ImagePair,
-Timeline, etc
+The `layoutName` acts as a sort of theme for the component.
+
+TODO: Editorial actually have named / well-defined components that all publish as layouts (InfoBox, Comparison, ImagePair, Timeline etc). At some point in the future, we should try and define these.
+
+### `LayoutSlot`
+
+
+```ts
+interface LayoutSlot extends Parent {
+       type: "layout-slot"
+       children: (Heading | Paragraph | LayoutImage )[]
+}
+```
+
+A **Layout** can contain a number of **LayoutSlots**, which can be arranged visually
+
+_Non-normative note_: typically these would be displayed as flex items, so they would appear next to each other taking up equal width.
+
+### `LayoutImage`
+
+```ts
+
+interface LayoutImage extends External, Node {
+	type: "layout-image"
+	alt: string
+	caption: string
+	credit: string
+	external: ["picture"]
+	picture?: Image
+}
+```
+
+- **LayoutImage** is a workaround to handle pre-existing articles that were published using `<img>` tags rather than `<ft-content>` images. The reason for this was that in the bodyXML, layout nodes were inside an `<experimental>` tag, and that didn't support publishing `<ft-content>`.
 
 ### TODO: `Table`
 

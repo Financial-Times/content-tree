@@ -204,6 +204,24 @@ export declare namespace ContentTree {
         level: "text";
         children: Phrasing[];
     }
+    interface Layout extends Parent {
+        type: "layout";
+        layoutName: "auto" | "card" | "timeline";
+        layoutWidth: "inset-left" | "full-width" | "full-grid";
+        children: [Heading, ...LayoutSlot[]] | LayoutSlot[];
+    }
+    interface LayoutSlot extends Parent {
+        type: "layout-slot";
+        children: (Heading | Paragraph | LayoutImage)[];
+    }
+    interface LayoutImage extends External, Node {
+        type: "layout-image";
+        alt: string;
+        caption: string;
+        credit: string;
+        external: ["picture"];
+        picture?: Image;
+    }
     interface Table extends Parent {
         type: "table";
         children: [Caption | TableHead | TableBody];
