@@ -325,7 +325,7 @@ interface Blockquote extends Parent {
 ### `Pullquote`
 
 ```ts
-interface Pullquote extends Parent {
+interface Pullquote extends Node {
 	type: "pullquote"
 	text: string
 	source?: string

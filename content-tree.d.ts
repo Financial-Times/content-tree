@@ -113,7 +113,7 @@ export declare namespace ContentTree {
         type: "blockquote";
         children: Phrasing[];
     }
-    interface Pullquote extends Parent {
+    interface Pullquote extends Node {
         type: "pullquote";
         text: string;
         source?: string;
