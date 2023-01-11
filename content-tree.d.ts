@@ -147,6 +147,7 @@ export declare namespace ContentTree {
     interface Tweet extends Node {
         id: string;
         type: "tweet";
+        html: string;
     }
     interface Flourish extends Node {
         type: "flourish";
