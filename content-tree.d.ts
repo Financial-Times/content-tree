@@ -120,13 +120,13 @@ export declare namespace ContentTree {
         id: string;
         heading?: string;
         teaserTitleOverride?: string;
-        teaser: Teaser;
+        teaser?: Teaser;
     }
     interface ImageSet extends Node {
         type: "image-set";
         id: string;
         layoutWidth: "inline" | "article" | "grid" | "viewport";
-        picture: {
+        picture?: {
             imageType: "image" | "graphic";
             alt: string;
             caption: string;
@@ -156,7 +156,7 @@ export declare namespace ContentTree {
         flourishType: string;
         description?: string;
         timestamp?: string;
-        fallbackImage: Image;
+        fallbackImage?: Image;
     }
     interface BigNumber extends Parent {
         type: "big-number";
@@ -216,7 +216,7 @@ export declare namespace ContentTree {
         alt: string;
         caption: string;
         credit: string;
-        picture: Image;
+        picture?: Image;
     }
     interface Table extends Parent {
         type: "table";

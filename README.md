@@ -339,7 +339,7 @@ interface Recommended extends Node {
 	id: string
 	heading?: string
 	teaserTitleOverride?: string
-	teaser: Teaser
+	teaser?: Teaser
 }
 ```
 
@@ -362,7 +362,7 @@ interface ImageSet extends Node {
 	type: "image-set"
 	id: string
 	layoutWidth: "inline" | "article" | "grid" | "viewport"
-	picture: {
+	picture?: {
 		imageType: "image" | "graphic"
 		alt: string
 		caption: string
@@ -415,7 +415,7 @@ interface Flourish extends Node {
 	flourishType: string
 	description?: string
 	timestamp?: string
-	fallbackImage: Image
+	fallbackImage?: Image
 }
 ```
 
@@ -566,7 +566,7 @@ interface LayoutImage extends Node {
 	alt: string
 	caption: string
 	credit: string
-	picture: Image
+	picture?: Image
 }
 ```
 
