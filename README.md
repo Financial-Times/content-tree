@@ -64,10 +64,8 @@ interface ImageSource {
 ### `External`
 
 ```ts
-interface External<ExternalData> {
-	id: string
-	external: true
-	resolved?: ExternalData
+interface External {
+	external: string[]
 }
 ```
 
@@ -162,9 +160,9 @@ Its content is limited to only other content-tree content.
 ### `Root`
 
 ```ts
-interface Root extends Parent {
+interface Root extends Node {
 	type: "root"
-	children: [Body]
+	body: Body
 }
 ```
 
@@ -330,7 +328,7 @@ interface Blockquote extends Parent {
 interface Pullquote extends Parent {
 	type: "pullquote"
 	text: string
-	source: string
+	source?: string
 }
 ```
 
@@ -343,10 +341,12 @@ doesn't. The text is taken from elsewhere in the article.
 ### `Recommended`
 
 ```ts
-interface Recommended extends External<Teaser>, Node {
+interface Recommended extends Node, External {
 	type: "recommended"
 	heading?: string
 	teaserTitleOverride?: string
+	external: ["teaser"]
+	teaser?: Teaser
 }
 ```
 
@@ -366,24 +366,25 @@ was more engaging, and Spark (and therefore content-tree)now only supports that 
 
 ```ts
 interface ImageSetContent {
-	imageType: "image" | "graphic"
-	alt: string
-	caption: string
-	credit: string
-	images: Image[]
-	fallbackImage: Image
+
 }
 
-interface ImageSet extends External<ImageSetContent>, Node {
+interface ImageSet extends Node, External {
 	type: "image-set"
 	layoutWidth: "inline" | "article" | "grid" | "viewport"
+	external: ["picture"]
+	picture: {
+		imageType: "image" | "graphic"
+		alt: string
+		caption: string
+		credit: string
+		images: Image[]
+		fallbackImage: Image
+	}
 }
 ```
 
 ### `Image`
-
-- TODO why "originalWidth" "originalHeight" and "binaryUrl" rather than
-"width", "height" and "url"?
 
 ```ts
 interface Image extends Node {
@@ -398,7 +399,7 @@ interface Image extends Node {
 		| "standard"
 		| "wide"
       | "standard-inline"
-	binaryUrl: "string"
+	binaryUrl: string
 	sourceSet: ImageSource[]
 }
 ```
@@ -406,12 +407,10 @@ interface Image extends Node {
 ### `Tweet`
 
 ```ts
-interface TweetContent {
-	html: string
-}
-
-interface Tweet extends External<TweetContent>, Node {
+interface Tweet extends Node, External {
 	type: "tweet"
+	external: ["html"]
+	html: string
 }
 ```
 
@@ -420,16 +419,14 @@ interface Tweet extends External<TweetContent>, Node {
 ### `Flourish`
 
 ```ts
-interface FlourishContent {
-	fallbackImage: Image
-}
-
-interface Flourish extends External<FlourishContent>, Node {
+interface Flourish extends Node, External {
 	type: "flourish"
 	layoutWidth: "article" | "grid"
 	flourishType: string
-	description: string
-	timestamp: string
+	description?: string
+	timestamp?: string
+	external: ["fallbackImage"]
+	fallbackImage?: Image
 }
 ```
 

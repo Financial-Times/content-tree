@@ -6,10 +6,8 @@ export declare namespace ContentTree {
         width: number;
         dpr: number;
     }
-    interface External<ExternalData> {
-        id: string;
-        external: true;
-        resolved?: ExternalData;
+    interface External {
+        external: string[];
     }
     interface TeaserConcept {
         apiUrl: string;
@@ -56,9 +54,9 @@ export declare namespace ContentTree {
     interface Parent extends Node {
         children: Node[];
     }
-    interface Root extends Parent {
+    interface Root extends Node {
         type: "root";
-        children: [Body];
+        body: Body;
     }
     interface Body extends Parent {
         type: "body";
@@ -118,24 +116,29 @@ export declare namespace ContentTree {
     interface Pullquote extends Parent {
         type: "pullquote";
         text: string;
-        source: string;
+        source?: string;
     }
-    interface Recommended extends External<Teaser>, Node {
+    interface Recommended extends Node, External {
         type: "recommended";
         heading?: string;
         teaserTitleOverride?: string;
+        external: ["teaser"];
+        teaser?: Teaser;
     }
     interface ImageSetContent {
-        imageType: "image" | "graphic";
-        alt: string;
-        caption: string;
-        credit: string;
-        images: Image[];
-        fallbackImage: Image;
     }
-    interface ImageSet extends External<ImageSetContent>, Node {
+    interface ImageSet extends Node, External {
         type: "image-set";
         layoutWidth: "inline" | "article" | "grid" | "viewport";
+        external: ["picture"];
+        picture: {
+            imageType: "image" | "graphic";
+            alt: string;
+            caption: string;
+            credit: string;
+            images: Image[];
+            fallbackImage: Image;
+        };
     }
     interface Image extends Node {
         type: "image";
@@ -143,24 +146,22 @@ export declare namespace ContentTree {
         originalWidth: number;
         originalHeight: number;
         format: "desktop" | "mobile" | "square" | "standard" | "wide" | "standard-inline";
-        binaryUrl: "string";
+        binaryUrl: string;
         sourceSet: ImageSource[];
     }
-    interface TweetContent {
+    interface Tweet extends Node, External {
+        type: "tweet";
+        external: ["html"];
         html: string;
     }
-    interface Tweet extends External<TweetContent>, Node {
-        type: "tweet";
-    }
-    interface FlourishContent {
-        fallbackImage: Image;
-    }
-    interface Flourish extends External<FlourishContent>, Node {
+    interface Flourish extends Node, External {
         type: "flourish";
         layoutWidth: "article" | "grid";
         flourishType: string;
-        description: string;
-        timestamp: string;
+        description?: string;
+        timestamp?: string;
+        external: ["fallbackImage"];
+        fallbackImage?: Image;
     }
     interface BigNumber extends Parent {
         type: "big-number";
