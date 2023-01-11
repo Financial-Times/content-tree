@@ -399,7 +399,7 @@ interface Image extends Node {
 interface Tweet extends Node {
 	id: string
 	type: "tweet"
-	html: string
+	html?: string
 }
 ```
 
