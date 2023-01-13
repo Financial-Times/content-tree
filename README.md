@@ -379,8 +379,8 @@ interface ImageSet extends Node {
 interface Image extends Node {
 	type: "image"
 	id: string
-	originalWidth: number
-	originalHeight: number
+	width: number
+	height: number
 	format:
 		| "desktop"
 		| "mobile"
@@ -388,7 +388,7 @@ interface Image extends Node {
 		| "standard"
 		| "wide"
 		| "standard-inline"
-	binaryUrl: string
+	url: string
 	sourceSet: ImageSource[]
 }
 ```

@@ -138,10 +138,10 @@ export declare namespace ContentTree {
     interface Image extends Node {
         type: "image";
         id: string;
-        originalWidth: number;
-        originalHeight: number;
+        width: number;
+        height: number;
         format: "desktop" | "mobile" | "square" | "standard" | "wide" | "standard-inline";
-        binaryUrl: string;
+        url: string;
         sourceSet: ImageSource[];
     }
     interface Tweet extends Node {
