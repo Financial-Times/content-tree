@@ -54,7 +54,7 @@ TODO: clarify that i mean Strong cannot have an ancestor of Strong etc
 ### `ImageSource`
 
 ```ts
-interface ImageSource {
+type ImageSource {
 	url: string
 	width: number
 	dpr: number
@@ -66,7 +66,7 @@ interface ImageSource {
 ### `Teaser`
 
 ```ts
-interface TeaserConcept {
+type TeaserConcept {
 	apiUrl: string
 	directType: string
 	id: string
@@ -77,13 +77,13 @@ interface TeaserConcept {
 	url: string
 }
 
-interface TeaserImage {
+type TeaserImage {
 	url: string
 	width: number
 	height: number
 }
 
-interface Indicators {
+type Indicators {
 	accessLevel: "premium" | "subscribed" | "registered" | "free"
 	isOpinion?: boolean
 	isColumn?: boolean
@@ -93,7 +93,7 @@ interface Indicators {
 	isScoop?: boolean
 }
 
-interface Teaser {
+type Teaser {
 	id: string
 	url: string
 	type:
@@ -122,6 +122,39 @@ interface Teaser {
   limited to the types required for rendering teasers used within a content-tree
   (i.e. recommended links)
 - TODO: consider having x-teaser use types from content-tree
+
+
+### `ImageSet`
+
+```ts
+type ImageSetPicture {
+	layoutWidth: string
+	imageType: "image" | "graphic"
+	alt: string
+	caption: string
+	credit: string
+	images: Image[]
+	fallbackImage: Image
+}
+```
+
+```ts
+type Image extends Node {
+	type: "image"
+	id: string
+	width: number
+	height: number
+	format:
+		| "desktop"
+		| "mobile"
+		| "square"
+		| "standard"
+		| "wide"
+		| "standard-inline"
+	url: string
+	sourceSet: ImageSource[]
+}
+```
 
 ## Nodes
 
@@ -361,35 +394,7 @@ was more engaging, and Spark (and therefore content-tree)now only supports that 
 interface ImageSet extends Node {
 	type: "image-set"
 	id: string
-	picture?: {
-		layoutWidth: string
-		imageType: "image" | "graphic"
-		alt: string
-		caption: string
-		credit: string
-		images: Image[]
-		fallbackImage: Image
-	}
-}
-```
-
-### `Image`
-
-```ts
-interface Image extends Node {
-	type: "image"
-	id: string
-	width: number
-	height: number
-	format:
-		| "desktop"
-		| "mobile"
-		| "square"
-		| "standard"
-		| "wide"
-		| "standard-inline"
-	url: string
-	sourceSet: ImageSource[]
+	picture?: ImageSetPicture
 }
 ```
 
@@ -559,14 +564,13 @@ _Non-normative note_: typically these would be displayed as flex items, so they 
 ### `LayoutImage`
 
 ```ts
-
 interface LayoutImage extends Node {
 	type: "layout-image"
 	id: string
 	alt: string
 	caption: string
 	credit: string
-	picture?: Image
+	picture?: ImageSetPicture
 }
 ```
 
