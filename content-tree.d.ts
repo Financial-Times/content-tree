@@ -125,8 +125,8 @@ export declare namespace ContentTree {
     interface ImageSet extends Node {
         type: "image-set";
         id: string;
-        layoutWidth: "inline" | "article" | "grid" | "viewport";
         picture?: {
+            layoutWidth: string;
             imageType: "image" | "graphic";
             alt: string;
             caption: string;
@@ -152,7 +152,7 @@ export declare namespace ContentTree {
     interface Flourish extends Node {
         type: "flourish";
         id: string;
-        layoutWidth: "article" | "grid";
+        layoutWidth: string;
         flourishType: string;
         description?: string;
         timestamp?: string;
@@ -203,7 +203,7 @@ export declare namespace ContentTree {
     interface Layout extends Parent {
         type: "layout";
         layoutName: "auto" | "card" | "timeline";
-        layoutWidth: "inset-left" | "full-width" | "full-grid";
+        layoutWidth: string;
         children: [Heading, ...LayoutSlot[]] | LayoutSlot[];
     }
     interface LayoutSlot extends Parent {
