@@ -51,22 +51,10 @@ type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link
 Phrasing nodes cannot have an ancestor of their same type.
 TODO: clarify that i mean Strong cannot have an ancestor of Strong etc
 
-### `ImageSource`
-
-```ts
-type ImageSource {
-	url: string
-	width: number
-	dpr: number
-}
-```
-
-**ImageSource** are the shapes of things in an [image](#image)'s sourceSet
-
 ### `Teaser`
 
 ```ts
-type TeaserConcept {
+type TeaserConcept = {
 	apiUrl: string
 	directType: string
 	id: string
@@ -77,13 +65,13 @@ type TeaserConcept {
 	url: string
 }
 
-type TeaserImage {
+type TeaserImage = {
 	url: string
 	width: number
 	height: number
 }
 
-type Indicators {
+type Indicators = {
 	accessLevel: "premium" | "subscribed" | "registered" | "free"
 	isOpinion?: boolean
 	isColumn?: boolean
@@ -93,7 +81,7 @@ type Indicators {
 	isScoop?: boolean
 }
 
-type Teaser {
+type Teaser = {
 	id: string
 	url: string
 	type:
@@ -127,7 +115,7 @@ type Teaser {
 ### `ImageSet`
 
 ```ts
-type ImageSetPicture {
+type ImageSetPicture = {
 	layoutWidth: string
 	imageType: "image" | "graphic"
 	alt: string
@@ -139,7 +127,7 @@ type ImageSetPicture {
 ```
 
 ```ts
-type Image extends Node {
+type Image = {
 	type: "image"
 	id: string
 	width: number
@@ -155,6 +143,19 @@ type Image extends Node {
 	sourceSet: ImageSource[]
 }
 ```
+
+### `ImageSource`
+
+```ts
+type ImageSource = {
+	url: string
+	width: number
+	dpr: number
+}
+```
+
+**ImageSource** are the shapes of things in an [image](#image)'s sourceSet
+
 
 ## Nodes
 

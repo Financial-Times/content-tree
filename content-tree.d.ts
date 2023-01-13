@@ -1,12 +1,7 @@
 export declare namespace ContentTree {
     type Block = Node;
     type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
-    interface ImageSource {
-        url: string;
-        width: number;
-        dpr: number;
-    }
-    interface TeaserConcept {
+    type TeaserConcept = {
         apiUrl: string;
         directType: string;
         id: string;
@@ -15,13 +10,13 @@ export declare namespace ContentTree {
         type: string;
         types: string[];
         url: string;
-    }
-    interface TeaserImage {
+    };
+    type TeaserImage = {
         url: string;
         width: number;
         height: number;
-    }
-    interface Indicators {
+    };
+    type Indicators = {
         accessLevel: "premium" | "subscribed" | "registered" | "free";
         isOpinion?: boolean;
         isColumn?: boolean;
@@ -29,8 +24,8 @@ export declare namespace ContentTree {
         isEditorsChoice?: boolean;
         isExclusive?: boolean;
         isScoop?: boolean;
-    }
-    interface Teaser {
+    };
+    type Teaser = {
         id: string;
         url: string;
         type: "article" | "video" | "podcast" | "audio" | "package" | "liveblog" | "promoted-content" | "paid-post";
@@ -43,7 +38,30 @@ export declare namespace ContentTree {
         metaSuffixText?: string;
         indicators: Indicators;
         image: Image;
-    }
+    };
+    type ImageSetPicture = {
+        layoutWidth: string;
+        imageType: "image" | "graphic";
+        alt: string;
+        caption: string;
+        credit: string;
+        images: Image[];
+        fallbackImage: Image;
+    };
+    type Image = {
+        type: "image";
+        id: string;
+        width: number;
+        height: number;
+        format: "desktop" | "mobile" | "square" | "standard" | "wide" | "standard-inline";
+        url: string;
+        sourceSet: ImageSource[];
+    };
+    type ImageSource = {
+        url: string;
+        width: number;
+        dpr: number;
+    };
     interface Node {
         type: string;
         data?: any;
@@ -125,24 +143,7 @@ export declare namespace ContentTree {
     interface ImageSet extends Node {
         type: "image-set";
         id: string;
-        picture?: {
-            layoutWidth: string;
-            imageType: "image" | "graphic";
-            alt: string;
-            caption: string;
-            credit: string;
-            images: Image[];
-            fallbackImage: Image;
-        };
-    }
-    interface Image extends Node {
-        type: "image";
-        id: string;
-        width: number;
-        height: number;
-        format: "desktop" | "mobile" | "square" | "standard" | "wide" | "standard-inline";
-        url: string;
-        sourceSet: ImageSource[];
+        picture?: ImageSetPicture;
     }
     interface Tweet extends Node {
         id: string;
@@ -216,7 +217,7 @@ export declare namespace ContentTree {
         alt: string;
         caption: string;
         credit: string;
-        picture?: Image;
+        picture?: ImageSetPicture;
     }
     interface Table extends Parent {
         type: "table";
