@@ -128,7 +128,6 @@ type ImageSetPicture = {
 
 ```ts
 type Image = {
-	type: "image"
 	id: string
 	width: number
 	height: number

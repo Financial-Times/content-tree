@@ -49,7 +49,6 @@ export declare namespace ContentTree {
         fallbackImage: Image;
     };
     type Image = {
-        type: "image";
         id: string;
         width: number;
         height: number;
