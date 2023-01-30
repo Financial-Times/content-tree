@@ -431,35 +431,12 @@ interface Flourish extends Node {
 ```ts
 interface BigNumber extends Parent {
 	type: "big-number"
-	children: [BigNumberNumber, BigNumberDescription]
+	number: string
+	description: string
 }
-
-// TODO: consider making these children two paragraphs
 ```
 
 **BigNumber** provides a description for a big number.
-
-### `BigNumberNumber`
-
-```ts
-interface BigNumberNumber extends Parent {
-	type: "big-number-number"
-	children: Phrasing[]
-}
-```
-
-**BigNumberNumber** represents the number itself.
-
-### `BigNumberDescription`
-
-```ts
-interface BigNumberDescription extends Parent {
-	type: "big-number-description"
-	children: Phrasing[]
-}
-```
-
-**BigNumberDescription** represents the description of the big number.
 
 ### `ScrollyBlock`
 
