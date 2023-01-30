@@ -54,7 +54,7 @@ export declare namespace ContentTree {
         height: number;
         format: "desktop" | "mobile" | "square" | "standard" | "wide" | "standard-inline";
         url: string;
-        sourceSet: ImageSource[];
+        sourceSet?: ImageSource[];
     };
     type ImageSource = {
         url: string;
@@ -160,15 +160,8 @@ export declare namespace ContentTree {
     }
     interface BigNumber extends Parent {
         type: "big-number";
-        children: [BigNumberNumber, BigNumberDescription];
-    }
-    interface BigNumberNumber extends Parent {
-        type: "big-number-number";
-        children: Phrasing[];
-    }
-    interface BigNumberDescription extends Parent {
-        type: "big-number-description";
-        children: Phrasing[];
+        number: string;
+        description: string;
     }
     interface ScrollyBlock extends Parent {
         type: "scrolly-block";
