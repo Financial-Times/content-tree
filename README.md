@@ -139,7 +139,7 @@ type Image = {
 		| "wide"
 		| "standard-inline"
 	url: string
-	sourceSet: ImageSource[]
+	sourceSet?: ImageSource[]
 }
 ```
 
