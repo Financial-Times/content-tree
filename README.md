@@ -429,7 +429,7 @@ interface Flourish extends Node {
 ### `BigNumber`
 
 ```ts
-interface BigNumber extends Parent {
+interface BigNumber extends Node {
 	type: "big-number"
 	number: string
 	description: string

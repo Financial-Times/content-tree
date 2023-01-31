@@ -158,7 +158,7 @@ export declare namespace ContentTree {
         timestamp?: string;
         fallbackImage?: Image;
     }
-    interface BigNumber extends Parent {
+    interface BigNumber extends Node {
         type: "big-number";
         number: string;
         description: string;
