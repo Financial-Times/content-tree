@@ -499,30 +499,45 @@ interface ScrollyParagraph extends ScrollyText {
 **ScrollyText** represents an individual unit of copy for a
 [ScrollyBlock](#scrollableblock)
 
+### `Layout`
+
+```ts
+interface Layout extends Parent {
+  type: "layout"
+  title?: string
+  width: "aside" | "article" | "grid" | "page"
+  theme: "none" | "card"
+  children: Block[]
+}
+```
+
+**Layout** respresents a **TODO**
+
 ### `Group`
 
 ```ts
 interface Group extends Parent {
-	type: "group"
-	children: Block[]
+  type: "group"
+  children: Block[]
 }
 ```
 
-**Group** wraps multiple 
+**Group** wraps multiple components so they can be treated as a single child.
 
-### `Grid`
+## `Grid`
 
 ```ts
 interface Grid extends Parent {
-	type: "grid"
-	layoutWidth: string
-	rows: number
-	columns: number
-	children: Block[]
+  type: "grid"
+  columns: number
+  rows: number
+  children: Block[]
 }
 ```
 
+
 **Grid** represents content that is presented together in a grid. The children is a 1-dimensional array of blocks.
+
 
 ### `Timeline`
 
