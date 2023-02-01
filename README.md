@@ -475,8 +475,6 @@ interface ScrollyCopy extends Parent {
 }
 ```
 
-TODO is this badly named?
-
 **ScrollyCopy** represents a collection of **ScrollyText** nodes.
 
 ```ts
@@ -501,87 +499,61 @@ interface ScrollyParagraph extends ScrollyText {
 **ScrollyText** represents an individual unit of copy for a
 [ScrollyBlock](#scrollableblock)
 
-- define all heading types as straight-up Nodes (like, Chapter y SubHeading y et
-  cetera)
-- do we need an `HTML` node that has a raw html string to \_\_dangerously insert
-  like markdown for some embed types? <-- YES
-- promo-box??? podcast promo? concept? ~content??????~ do we allow inline img, b, u? (spark doesn't. maybe no. what does this mean for embeds?)
-
-### `Layout`
+### `Group`
 
 ```ts
-interface Layout extends Parent {
-       type: "layout"
-       layoutName: "auto" | "card" | "timeline"
-       layoutWidth: string
-       children: [Heading, ...LayoutSlot[]] | LayoutSlot[]
+interface Group extends Parent {
+	type: "group"
+	children: Block[]
 }
 ```
 
-**Layout** nodes are a generic component used to display a combination of other nodes (usually headings, images and paragraphs) in a visually distinctive way.
+**Group** wraps multiple 
 
-The `layoutName` acts as a sort of theme for the component.
-
-TODO: Editorial actually have named / well-defined components that all publish as layouts (InfoBox, Comparison, ImagePair, Timeline etc). At some point in the future, we should try and define these.
-
-### `LayoutSlot`
-
+### `Grid`
 
 ```ts
-interface LayoutSlot extends Parent {
-       type: "layout-slot"
-       children: (Heading | Paragraph | LayoutImage )[]
+interface Grid extends Parent {
+	type: "grid"
+	layoutWidth: string
+	rows: number
+	columns: number
+	children: Block[]
 }
 ```
 
-A **Layout** can contain a number of **LayoutSlots**, which can be arranged visually
+**Grid** represents content that is presented together in a grid. The children is a 1-dimensional array of blocks.
 
-_Non-normative note_: typically these would be displayed as flex items, so they would appear next to each other taking up equal width.
-
-### `LayoutImage`
+### `Timeline`
 
 ```ts
-interface LayoutImage extends Node {
-	type: "layout-image"
-	id: string
-	alt: string
-	caption: string
-	credit: string
-	picture?: ImageSetPicture
+interface Timeline extends Parent {
+	type: "timeline"
+	title?: string
+	image?: ImageSet
+	children: TimelineEvent[]
 }
 ```
 
-- **LayoutImage** is a workaround to handle pre-existing articles that were published using `<img>` tags rather than `<ft-content>` images. The reason for this was that in the bodyXML, layout nodes were inside an `<experimental>` tag, and that didn't support publishing `<ft-content>`.
-
-### TODO: `Table`
+### `TimelineEvent`
 
 ```ts
-interface Table extends Parent {
-	type: "table"
-	children: [Caption | TableHead | TableBody]
-}
-
-interface Caption {
-	type: "caption"
-}
-interface TableHead {
-	type: "table-head"
-}
-interface TableBody {
-	type: "table-body"
+interface TimelineEvent extends Parent {
+	type: "timeline-event"
+	date: string
+	children: Block[]
 }
 ```
+
+**Timeline** represents content that takes place over a series of dated events.
+
+### TODO `Table`
 
 **Table** represents 2d data.
 
 look here https://github.com/Financial-Times/body-validation-service/blob/master/src/main/resources/xsd/ft-html-types.xsd#L214
 
-maybe we can be more strict than this? i don't know. we might not be able to
-because we don't know what old articles have done. however, we could find out
-what old articles have done... we could validate all old articles by trying to
-convert their bodyxml to this format, validating them etc,... and then make
-changes. maybe we wantto restrict old articles from being able to do anything
-Spark can't do? who knows. we need more eyes on this whole document.
+and in Spark, which is more strict.
 
 ## License
 
