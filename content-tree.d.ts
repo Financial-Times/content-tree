@@ -211,17 +211,27 @@ export declare namespace ContentTree {
         credit: string;
         picture?: ImageSetPicture;
     }
+    type TableColumnSettings = {
+        hideOnMobile: boolean;
+        sortable: boolean;
+        sortType: "text" | "number" | "date" | "currency" | "percent";
+    };
     interface Table extends Parent {
         type: "table";
-        children: [Caption | TableHead | TableBody];
+        title: string;
+        footer: string;
+        stripes: boolean;
+        compact: boolean;
+        layoutWidth: string;
+        rows: number;
+        columns: number;
+        collapseAfterHowManyRows: number;
+        responsiveStyle: "stacked" | "scroll";
+        children: TableCell[];
+        columnSettings: TableColumnSettings[];
     }
-    interface Caption {
-        type: "caption";
-    }
-    interface TableHead {
-        type: "table-head";
-    }
-    interface TableBody {
-        type: "table-body";
+    interface TableCell {
+        type: "table-cell";
+        children: Phrasing[];
     }
 }

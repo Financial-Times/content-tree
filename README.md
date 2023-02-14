@@ -554,22 +554,33 @@ interface LayoutImage extends Node {
 
 - **LayoutImage** is a workaround to handle pre-existing articles that were published using `<img>` tags rather than `<ft-content>` images. The reason for this was that in the bodyXML, layout nodes were inside an `<experimental>` tag, and that didn't support publishing `<ft-content>`.
 
-### TODO: `Table`
+### `Table`
 
 ```ts
-interface Table extends Parent {
-	type: "table"
-	children: [Caption | TableHead | TableBody]
+type TableColumnSettings = {
+	hideOnMobile: boolean
+	sortable: boolean
+	sortType: "text" | "number" | "date" | "currency" | "percent"
 }
 
-interface Caption {
-	type: "caption"
+interface Table extends Parent {
+	type: "table"
+	title: string
+	footer: string
+	stripes: boolean
+	compact: boolean
+	layoutWidth: string
+	rows: number
+	columns: number
+	collapseAfterHowManyRows: number
+	responsiveStyle: "stacked" | "scroll"
+	children: TableCell[]
+	columnSettings: TableColumnSettings[]
 }
-interface TableHead {
-	type: "table-head"
-}
-interface TableBody {
-	type: "table-body"
+
+interface TableCell {
+	type: "table-cell"
+	children: Phrasing[]
 }
 ```
 
