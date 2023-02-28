@@ -132,6 +132,7 @@ type Image = {
 	width: number
 	height: number
 	format:
+		| "test-format"
 		| "desktop"
 		| "mobile"
 		| "square"
