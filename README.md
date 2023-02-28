@@ -135,6 +135,7 @@ type Image = {
 		| "desktop"
 		| "mobile"
 		| "square"
+		| "square-ftedit"
 		| "standard"
 		| "wide"
 		| "standard-inline"
