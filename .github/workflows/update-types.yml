@@ -1,0 +1,31 @@
+name: Update TypeScript definition file
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Node.JS ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run build --if-present
+    - name: Commit any changes
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with: 
+        token: ${{ secrets.SPARK_DOG_ACCESS_TOKEN }}
+        commit_message: "Update TypeScript definition file"
