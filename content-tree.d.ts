@@ -52,7 +52,7 @@ export declare namespace ContentTree {
         id: string;
         width: number;
         height: number;
-        format: "test-format" | "desktop" | "mobile" | "square" | "standard" | "wide" | "standard-inline";
+        format: "desktop" | "mobile" | "square" | "standard" | "wide" | "standard-inline";
         url: string;
         sourceSet?: ImageSource[];
     };
