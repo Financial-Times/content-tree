@@ -502,12 +502,6 @@ interface ScrollyParagraph extends ScrollyText {
 **ScrollyText** represents an individual unit of copy for a
 [ScrollyBlock](#scrollableblock)
 
-- define all heading types as straight-up Nodes (like, Chapter y SubHeading y et
-  cetera)
-- do we need an `HTML` node that has a raw html string to \_\_dangerously insert
-  like markdown for some embed types? <-- YES
-- promo-box??? podcast promo? concept? ~content??????~ do we allow inline img, b, u? (spark doesn't. maybe no. what does this mean for embeds?)
-
 ### `Layout`
 
 ```ts
