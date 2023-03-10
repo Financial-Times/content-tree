@@ -31,7 +31,7 @@ utilities][unist-utilities] for working with trees in JavaScript.  However,
 `content-tree` is not limited to JavaScript and can be used in other programming
 languages.
 
-## Types
+## Abstract Types
 
 These abstract helper types define special types a [Parent](#parent) can use as
 [children][term-child].
@@ -48,114 +48,8 @@ type Block = Node // TODO
 type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link
 ```
 
-Phrasing nodes cannot have an ancestor of their same type.
-TODO: clarify that i mean Strong cannot have an ancestor of Strong etc
-
-### `Teaser`
-
-```ts
-type TeaserConcept = {
-	apiUrl: string
-	directType: string
-	id: string
-	predicate: string
-	prefLabel: string
-	type: string
-	types: string[]
-	url: string
-}
-
-type TeaserImage = {
-	url: string
-	width: number
-	height: number
-}
-
-type Indicators = {
-	accessLevel: "premium" | "subscribed" | "registered" | "free"
-	isOpinion?: boolean
-	isColumn?: boolean
-	isPodcast?: boolean
-	isEditorsChoice?: boolean
-	isExclusive?: boolean
-	isScoop?: boolean
-}
-
-type Teaser = {
-	id: string
-	url: string
-	type:
-		| "article"
-		| "video"
-		| "podcast"
-		| "audio"
-		| "package"
-		| "liveblog"
-		| "promoted-content"
-		| "paid-post"
-	title: string
-	publishedDate: string
-	firstPublishedDate: string
-	metaLink?: TeaserConcept
-	metaAltLink?: TeaserConcept
-	metaPrefixText?: string
-	metaSuffixText?: string
-	indicators: Indicators
-	image: Image
-}
-```
-
-- The above types are adapted from the data structure used by
-  [x-teaser](https://github.com/Financial-Times/x-dash/blob/main/components/x-teaser/Props.d.ts),
-  limited to the types required for rendering teasers used within a content-tree
-  (i.e. recommended links)
-- TODO: consider having x-teaser use types from content-tree
-
-
-### `ImageSet`
-
-```ts
-type ImageSetPicture = {
-	layoutWidth: string
-	imageType: "image" | "graphic"
-	alt: string
-	caption: string
-	credit: string
-	images: Image[]
-	fallbackImage: Image
-}
-```
-
-```ts
-type Image = {
-	id: string
-	width: number
-	height: number
-	format:
-		| "desktop"
-		| "mobile"
-		| "square"
-		| "square-ftedit"
-		| "standard"
-		| "wide"
-		| "standard-inline"
-	url: string
-	sourceSet?: ImageSource[]
-}
-```
-
-### `ImageSource`
-
-```ts
-type ImageSource = {
-	url: string
-	width: number
-	dpr: number
-}
-```
-
-**ImageSource** are the shapes of things in an [image](#image)'s sourceSet
-
+A phrasing node cannot have ancestor of the same type.
+i.e. a Strong will never be inside another Strong, or inside any other node that is inside a Strong.
 
 ## Nodes
 
@@ -365,7 +259,72 @@ _non normative note:_ the reason this is string properties and not children is
 that it is more confusing if a pullquote falls back to text than if it
 doesn't. The text is taken from elsewhere in the article.
 
+
+### `ImageSet`
+
+```ts
+interface ImageSet extends Node {
+	type: "image-set"
+	id: string
+	picture?: ImageSetPicture
+}
+```
+
+#### Image types
+
+##### `ImageSetPicture`
+
+```ts
+type ImageSetPicture = {
+	layoutWidth: string
+	imageType: "image" | "graphic"
+	alt: string
+	caption: string
+	credit: string
+	images: Image[]
+	fallbackImage: Image
+}
+```
+
+`ImageSetPicture` defines the data associated with an [ImageSet](#ImageSet)
+
+##### `Image`
+
+```ts
+type Image = {
+	id: string
+	width: number
+	height: number
+	format:
+		| "desktop"
+		| "mobile"
+		| "square"
+		| "square-ftedit"
+		| "standard"
+		| "wide"
+		| "standard-inline"
+	url: string
+	sourceSet?: ImageSource[]
+}
+```
+
+`Image` defines a single use-case of a Picture[#ImageSetPicture].
+
+### `ImageSource`
+
+```ts
+type ImageSource = {
+	url: string
+	width: number
+	dpr: number
+}
+```
+
+**ImageSource** defines a single resource for an [image](#image).
+
+
 ### `Recommended`
+
 
 ```ts
 interface Recommended extends Node {
@@ -388,16 +347,63 @@ _non normative note:_ historically, recommended links used to be a list of up to
 three content items. Testing later showed that having one more prominent link
 was more engaging, and Spark (and therefore content-tree)now only supports that use case.
 
+#### Teaser types
 
-### `ImageSet`
+These types were extracted from x-dash's
+[x-teaser](https://github.com/Financial-Times/x-dash/blob/3408c268/components/x-teaser/Props.d.ts).
 
 ```ts
-interface ImageSet extends Node {
-	type: "image-set"
+type TeaserConcept = {
+	apiUrl: string
+	directType: string
 	id: string
-	picture?: ImageSetPicture
+	predicate: string
+	prefLabel: string
+	type: string
+	types: string[]
+	url: string
+}
+
+type TeaserImage = {
+	url: string
+	width: number
+	height: number
+}
+
+type Indicators = {
+	accessLevel: "premium" | "subscribed" | "registered" | "free"
+	isOpinion?: boolean
+	isColumn?: boolean
+	isPodcast?: boolean
+	isEditorsChoice?: boolean
+	isExclusive?: boolean
+	isScoop?: boolean
+}
+
+type Teaser = {
+	id: string
+	url: string
+	type:
+		| "article"
+		| "video"
+		| "podcast"
+		| "audio"
+		| "package"
+		| "liveblog"
+		| "promoted-content"
+		| "paid-post"
+	title: string
+	publishedDate: string
+	firstPublishedDate: string
+	metaLink?: TeaserConcept
+	metaAltLink?: TeaserConcept
+	metaPrefixText?: string
+	metaSuffixText?: string
+	indicators: Indicators
+	image: Image
 }
 ```
+
 
 ### `Tweet`
 
