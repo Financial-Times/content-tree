@@ -1,66 +1,6 @@
 export declare namespace ContentTree {
     type Block = Node;
     type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
-    type TeaserConcept = {
-        apiUrl: string;
-        directType: string;
-        id: string;
-        predicate: string;
-        prefLabel: string;
-        type: string;
-        types: string[];
-        url: string;
-    };
-    type TeaserImage = {
-        url: string;
-        width: number;
-        height: number;
-    };
-    type Indicators = {
-        accessLevel: "premium" | "subscribed" | "registered" | "free";
-        isOpinion?: boolean;
-        isColumn?: boolean;
-        isPodcast?: boolean;
-        isEditorsChoice?: boolean;
-        isExclusive?: boolean;
-        isScoop?: boolean;
-    };
-    type Teaser = {
-        id: string;
-        url: string;
-        type: "article" | "video" | "podcast" | "audio" | "package" | "liveblog" | "promoted-content" | "paid-post";
-        title: string;
-        publishedDate: string;
-        firstPublishedDate: string;
-        metaLink?: TeaserConcept;
-        metaAltLink?: TeaserConcept;
-        metaPrefixText?: string;
-        metaSuffixText?: string;
-        indicators: Indicators;
-        image: Image;
-    };
-    type ImageSetPicture = {
-        layoutWidth: string;
-        imageType: "image" | "graphic";
-        alt: string;
-        caption: string;
-        credit: string;
-        images: Image[];
-        fallbackImage: Image;
-    };
-    type Image = {
-        id: string;
-        width: number;
-        height: number;
-        format: "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline";
-        url: string;
-        sourceSet?: ImageSource[];
-    };
-    type ImageSource = {
-        url: string;
-        width: number;
-        dpr: number;
-    };
     interface Node {
         type: string;
         data?: any;
@@ -132,6 +72,33 @@ export declare namespace ContentTree {
         text: string;
         source?: string;
     }
+    interface ImageSet extends Node {
+        type: "image-set";
+        id: string;
+        picture?: ImageSetPicture;
+    }
+    type ImageSetPicture = {
+        layoutWidth: string;
+        imageType: "image" | "graphic";
+        alt: string;
+        caption: string;
+        credit: string;
+        images: Image[];
+        fallbackImage: Image;
+    };
+    type Image = {
+        id: string;
+        width: number;
+        height: number;
+        format: "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline";
+        url: string;
+        sourceSet?: ImageSource[];
+    };
+    type ImageSource = {
+        url: string;
+        width: number;
+        dpr: number;
+    };
     interface Recommended extends Node {
         type: "recommended";
         id: string;
@@ -139,11 +106,44 @@ export declare namespace ContentTree {
         teaserTitleOverride?: string;
         teaser?: Teaser;
     }
-    interface ImageSet extends Node {
-        type: "image-set";
+    type TeaserConcept = {
+        apiUrl: string;
+        directType: string;
         id: string;
-        picture?: ImageSetPicture;
-    }
+        predicate: string;
+        prefLabel: string;
+        type: string;
+        types: string[];
+        url: string;
+    };
+    type TeaserImage = {
+        url: string;
+        width: number;
+        height: number;
+    };
+    type Indicators = {
+        accessLevel: "premium" | "subscribed" | "registered" | "free";
+        isOpinion?: boolean;
+        isColumn?: boolean;
+        isPodcast?: boolean;
+        isEditorsChoice?: boolean;
+        isExclusive?: boolean;
+        isScoop?: boolean;
+    };
+    type Teaser = {
+        id: string;
+        url: string;
+        type: "article" | "video" | "podcast" | "audio" | "package" | "liveblog" | "promoted-content" | "paid-post";
+        title: string;
+        publishedDate: string;
+        firstPublishedDate: string;
+        metaLink?: TeaserConcept;
+        metaAltLink?: TeaserConcept;
+        metaPrefixText?: string;
+        metaSuffixText?: string;
+        indicators: Indicators;
+        image: Image;
+    };
     interface Tweet extends Node {
         id: string;
         type: "tweet";
