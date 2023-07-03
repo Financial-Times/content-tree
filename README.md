@@ -478,30 +478,19 @@ interface ScrollySection extends Parent {
 ```ts
 interface ScrollyCopy extends Parent {
 	type: "scrolly-copy"
-	children: ScrollyText[]
+	children: (ScrollyHeading | Paragraph)[]
 }
 ```
 
 TODO is this badly named?
 
-**ScrollyCopy** represents a collection of **ScrollyText** nodes.
+**ScrollyCopy** represents a collection of **ScrollyHeading** or **Paragraph** nodes.
 
 ```ts
-interface ScrollyText extends Parent {
-	type: "scrolly-text"
-	level: string
-}
-
-interface ScrollyHeading extends ScrollyText {
+interface ScrollyHeading extends Parent {
 	type: "scrolly-text"
 	level: "chapter" | "heading" | "subheading"
 	children: Text[]
-}
-
-interface ScrollyParagraph extends ScrollyText {
-	type: "scrolly-text"
-	level: "text"
-	children: Phrasing[]
 }
 ```
 
