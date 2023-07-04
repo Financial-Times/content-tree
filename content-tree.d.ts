@@ -185,7 +185,7 @@ export declare namespace ContentTree {
         children: (ScrollyHeading | Paragraph)[];
     }
     interface ScrollyHeading extends Parent {
-        type: "scrolly-text";
+        type: "scrolly-heading";
         level: "chapter" | "heading" | "subheading";
         children: Text[];
     }
