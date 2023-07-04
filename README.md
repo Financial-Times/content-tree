@@ -567,7 +567,7 @@ TODO is this badly named?
 
 ```ts
 interface ScrollyHeading extends Parent {
-	type: "scrolly-text"
+	type: "scrolly-heading"
 	level: "chapter" | "heading" | "subheading"
 	children: Text[]
 }
