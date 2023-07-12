@@ -545,13 +545,24 @@ interface ScrollySection extends Parent {
 	noBox?: true,
 	position: "left" | "center" | "right"
 	transition?: "delay-before" | "delay-after"
-	children: [ImageSet, ...ScrollyCopy[]]
+	children: [ScrollyImage, ...ScrollyCopy[]]
 }
 ```
 
 **ScrollySection** represents a section of a [ScrollyBlock](#scrollyblock)
 
 - TODO: could `transition` have a `"none"` value so it isn't optional?
+
+### `ScrollyImage`
+
+```ts
+interface ScrollyImage extends Node {
+	type: "scrolly-image"
+	id: string
+}
+```
+
+**ScrollyImage** represents an image contained in a [ScrollySection](#scrollysection)
 
 ### `ScrollyCopy`
 
