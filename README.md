@@ -585,8 +585,7 @@ interface ScrollyHeading extends Parent {
 }
 ```
 
-**ScrollyText** represents an individual unit of copy for a
-[ScrollyBlock](#scrollableblock)
+**ScrollyHeading** represents a heading within a **ScrollyCopy** block.
 
 ### `Layout`
 
