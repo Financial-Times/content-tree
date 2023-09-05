@@ -163,6 +163,11 @@ export declare namespace ContentTree {
         number: string;
         description: string;
     }
+    interface Video extends Node {
+        type: "video";
+        id: string;
+        embedded: boolean;
+    }
     interface ScrollyBlock extends Parent {
         type: "scrolly-block";
         theme: "sans" | "serif";
