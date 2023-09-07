@@ -512,7 +512,8 @@ interface Video extends Node {
 **Video** provides a description for a video referenced by a URL.
 
 TODO: Figure out how Clips work, how they are different?
-Can we use the same video node but with a videoType of `video` or `clip`?
+TODO: also figure out how Youtube works.
+Can we use the same video node but with a videoType of `"ft" | "clip" | "youtube"`?
 
 ### `ScrollyBlock`
 
