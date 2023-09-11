@@ -554,22 +554,52 @@ interface LayoutImage extends Node {
 
 - **LayoutImage** is a workaround to handle pre-existing articles that were published using `<img>` tags rather than `<ft-content>` images. The reason for this was that in the bodyXML, layout nodes were inside an `<experimental>` tag, and that didn't support publishing `<ft-content>`.
 
-### TODO: `Table`
+### `Table`
 
 ```ts
+type TableColumnSettings = {
+    hideOnMobile: boolean;
+    sortable: boolean;
+    sortType: 'text' | 'number' | 'date' | 'currency' | 'percent';
+};
+
 interface Table extends Parent {
-	type: "table"
-	children: [Caption | TableHead | TableBody]
+    type: 'table';
+    children: [Caption | TableHead | TableBody];
+    stripes: boolean;
+    compact: boolean;
+    layoutWidth:
+      | 'auto'
+      | 'full-grid'
+      | 'inset-left'
+      | 'inset-right'
+      | 'full-bleed';
+    collapseAfterHowManyRows: number;
+    responsiveStyle: 'overflow' | 'flat';
+    columnSettings: TableColumnSettings[];
 }
 
-interface Caption {
-	type: "caption"
+interface TableCaption extends Parent {
+    type: 'table-caption';
+    children: Phrasing[];
 }
-interface TableHead {
-	type: "table-head"
+interface TableCell extends Parent {
+   type: 'table-cell';
+    heading?: boolean;
+    children: Phrasing[];
 }
-interface TableBody {
-	type: "table-body"
+interface TableBody extends Parent {
+    type: 'table-body';
+    children: TableRow[];
+}
+
+interface TableFooter extends Parent {
+    type: 'table-footer';
+    children: Phrasing[];
+}
+interface TableRow extends Parent {
+    type: 'table-row';
+    children: TableCell[];
 }
 ```
 
