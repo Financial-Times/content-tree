@@ -497,7 +497,7 @@ interface BigNumber extends Node {
 }
 ```
 
-**BigNumber** provides a description for a big number.
+**BigNumber** represents a big number.
 
 ### `Video`
 
@@ -509,11 +509,20 @@ interface Video extends Node {
 }
 ```
 
-**Video** provides a description for a video referenced by a URL.
+**Video** represents for an FT video referenced by a URL.
 
 TODO: Figure out how Clips work, how they are different?
-TODO: also figure out how Youtube works.
-Can we use the same video node but with a videoType of `"ft" | "clip" | "youtube"`?
+
+### `YoutubeVideo`
+
+```ts
+interface YoutubeVideo extends Node {
+	type: "youtube-video"
+	url: string
+}
+```
+
+**YoutubeVideo** represents a video referenced by a Youtube URL.
 
 ### `ScrollyBlock`
 
