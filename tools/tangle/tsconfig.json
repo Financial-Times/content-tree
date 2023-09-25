@@ -1,0 +1,14 @@
+{
+  "include": ["src/**/*"],
+  "exclude": ["test/**"],
+  "compilerOptions": {
+		"lib": ["es2022"],
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"allowSyntheticDefaultImports": true,
+		"skipLibCheck": true,
+		"moduleResolution": "node",
+		"outDir": "dist",
+		"module": "es2022"
+  }
+}
