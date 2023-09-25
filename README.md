@@ -19,12 +19,14 @@ content as an abstract tree. It implements the **[unist][unist]** spec.
 ## Introduction
 
 This document defines a format for representing Financial Times article content
-as a tree. This specification is written in a [typescript][typescript]-like
-grammar, augmented by the addition of the `external` keyword.
+as a tree. This specification is written in a
+[typescript][https://www.typescriptlang.org/]-like grammar, augmented by the
+addition of the `external` property modifier.
 
-The `external` keyword indicates that the specified field is absent when the
-`content-tree` is in [**transit**](#what-does-it-mean-to-be-in-transit), and
-required when the **content-tree** is at rest.
+The `external` property modifier indicates that the specified field is absent
+when the `content-tree` is in
+[**transit**](#what-does-it-mean-to-be-in-transit), and required when the
+**content-tree** is at rest.
 
 ### What is `content-tree`?
 
