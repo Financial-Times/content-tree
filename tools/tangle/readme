@@ -1,8 +1,7 @@
 pull the codeblocks out of a markdown file. returns a string.
 
 usage:
-
-  import tangle from "tangle"
+  import tangle from "*tangle*"
   import fs from "node:fs/promises"
   let doc = await fs.readFile("readme.md")
   let code = tangle(doc)
@@ -11,3 +10,5 @@ also provides a cli.
 
 usage:
   node tools/tangle/index.js readme.md
+
+the name was knuth's idea.

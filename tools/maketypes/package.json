@@ -1,21 +1,22 @@
 {
-	"name": "*tangle*",
+	"name": "generate.d.ts",
 	"version": "1.0.0",
+	"description": "",
 	"type": "module",
 	"main": "index.js",
 	"bin": {
-		"tangle": "index.js"
+		"extract-code-blocks": "index.js"
 	},
 	"scripts": {
-		"start": "node index.js ../../README.md"
+		"build": "tsc",
+		"watch": "tsc -w"
 	},
 	"author": "chee",
 	"license": "MIT",
 	"dependencies": {
-		"mdast-util-from-markdown": "^2.0.0",
 		"remark-gfm": "^3.0.1",
 		"remark-parse": "^10.0.1",
-		"unified": "^11.0.3",
+		"unified": "^10.1.2",
 		"unified-stream": "^2.0.0"
 	},
 	"volta": {
