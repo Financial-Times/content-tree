@@ -1,34 +1,34 @@
 {
-  "name": "@financial-times/content-tree",
-  "version": "0.0.0",
-  "description": "content tree format",
-  "main": "README.md",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Financial-Times/content-tree.git"
-  },
-  "scripts": {
-    "build": "node tools/generate-typescript <README.md> content-tree.ts; tsc -d content-tree.ts; rm content-tree.ts; rm content-tree.js"
-  },
-  "keywords": [
-    "unified",
-    "tree",
-    "ft",
-    "article",
-    "content",
-    "body"
-  ],
-  "types": "content-tree.d.ts",
-  "author": "chee",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Financial-Times/content-tree/issues"
-  },
-  "homepage": "https://github.com/Financial-Times/content-tree#readme",
-  "workspaces": [
-    "tools/*"
-  ],
-  "devDependencies": {
-    "prettier": "^2.8.2"
-  }
+	"name": "@financial-times/content-tree",
+	"version": "0.0.0",
+	"description": "content tree format",
+	"main": "README.md",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Financial-Times/content-tree.git"
+	},
+	"scripts": {
+		"build": "node tools/maketypes <README.md> content-tree.ts; tsc -d content-tree.ts; rm content-tree.ts; rm content-tree.js"
+	},
+	"keywords": [
+		"unified",
+		"tree",
+		"ft",
+		"article",
+		"content",
+		"body"
+	],
+	"types": "content-tree.d.ts",
+	"author": "chee",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/Financial-Times/content-tree/issues"
+	},
+	"homepage": "https://github.com/Financial-Times/content-tree#readme",
+	"workspaces": [
+		"tools/*"
+	],
+	"devDependencies": {
+		"prettier": "^2.8.2"
+	}
 }

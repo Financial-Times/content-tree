@@ -5,7 +5,7 @@ A tree for Financial Times article content.
 ---
 
 **content-tree** is a specification for representing Financial Times article
-content as an abstract tree.  It implements the **[unist][unist]** spec.
+content as an abstract tree. It implements the **[unist][unist]** spec.
 
 ## Contents
 
@@ -19,7 +19,12 @@ content as an abstract tree.  It implements the **[unist][unist]** spec.
 ## Introduction
 
 This document defines a format for representing Financial Times article content
-as a tree.  This specification is written in a [typescript][typescript] grammar.
+as a tree. This specification is written in a [typescript][typescript]-like
+grammar, augmented by the addition of the `external` keyword.
+
+The `external` keyword indicates that the specified field is absent when the
+`content-tree` is in [**transit**](#what-does-it-mean-to-be-in-transit), and
+required when the **content-tree** is at rest.
 
 ### What is `content-tree`?
 
@@ -30,6 +35,48 @@ from its [ecosystem of utilities][unist-utilities].
 utilities][unist-utilities] for working with trees in JavaScript.  However,
 `content-tree` is not limited to JavaScript and can be used in other programming
 languages.
+
+### How to use the types
+
+We provide two namespaces in `content-tree.d.ts`, which is automatically
+generated from this README. `ContentTree` and `ContentTree.transit`.
+
+Install this repository as a dependency:
+
+```sh notangle
+npm install https://github.com/Financial-Times/content-tree
+```
+
+Use it in your code:
+
+```ts notangle
+import type {ContentTree} from "@financial-times/content-tree"
+
+function makeBigNumber(): ContentTree.BigNumber {
+	return {
+		type: "|<tab>"
+		        +--------------+
+		        | "big-number" |
+		        +--------------+
+	}
+}
+
+function makeImageSetNoFixins(): ContentTree.transit.ImageSet {
+	return {
+		type: "image-set",
+		id: string,
+		// if you try to add a `picture` here it will get mad
+	}
+}
+```
+
+### What does it mean to be in transit?
+
+When a `content-tree` is being rendered visually, external resources have been
+fetched and added to the tree. When the `content-tree` is being transmitted
+across the network, these external resources are referenced only by their `id`.
+
+It is the state of the tree in the network that we call "in transit".
 
 ## Abstract Types
 
@@ -49,7 +96,9 @@ type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link
 ```
 
 A phrasing node cannot have ancestor of the same type.
-i.e. a Strong will never be inside another Strong, or inside any other node that is inside a Strong.
+
+i.e. a Strong will never be inside another Strong, or inside any other node that
+is inside a Strong.
 
 ## Nodes
 
@@ -126,7 +175,8 @@ interface Break extends Node {
 
 **Break** Node represents a break in the text, such as in a poem.
 
-_Non-normative note: this would be represented by a `<br>` in the html._
+_Non-normative note: this would normally be represented by a `<br>` in the
+html._
 
 ### `ThematicBreak`
 
@@ -253,7 +303,8 @@ interface Pullquote extends Node {
 }
 ```
 
-**Pullquote** represents a brief quotation taken from the main text of an article.
+**Pullquote** represents a brief quotation taken from the main text of an
+article.
 
 _non normative note:_ the reason this is string properties and not children is
 that it is more confusing if a pullquote falls back to text than if it
@@ -266,7 +317,7 @@ doesn't. The text is taken from elsewhere in the article.
 interface ImageSet extends Node {
 	type: "image-set"
 	id: string
-	picture?: ImageSetPicture
+	external picture: ImageSetPicture
 }
 ```
 
@@ -332,7 +383,7 @@ interface Recommended extends Node {
 	id: string
 	heading?: string
 	teaserTitleOverride?: string
-	teaser?: Teaser
+	external teaser: Teaser
 }
 ```
 
@@ -345,7 +396,8 @@ interface Recommended extends Node {
 
 _non normative note:_ historically, recommended links used to be a list of up to
 three content items. Testing later showed that having one more prominent link
-was more engaging, and Spark (and therefore content-tree)now only supports that use case.
+was more engaging, and Spark (and therefore content-tree)now only supports that
+use case.
 
 #### Teaser types
 
@@ -411,7 +463,7 @@ type Teaser = {
 interface Tweet extends Node {
 	id: string
 	type: "tweet"
-	html?: string
+	external html: string
 }
 ```
 
@@ -512,32 +564,37 @@ interface ScrollyParagraph extends ScrollyText {
 
 ```ts
 interface Layout extends Parent {
-       type: "layout"
-       layoutName: "auto" | "card" | "timeline"
-       layoutWidth: string
-       children: [Heading, ...LayoutSlot[]] | LayoutSlot[]
+	   type: "layout"
+	   layoutName: "auto" | "card" | "timeline"
+	   layoutWidth: string
+	   children: [Heading, ...LayoutSlot[]] | LayoutSlot[]
 }
 ```
 
-**Layout** nodes are a generic component used to display a combination of other nodes (usually headings, images and paragraphs) in a visually distinctive way.
+**Layout** nodes are a generic component used to display a combination of other
+nodes (usually headings, images and paragraphs) in a visually distinctive way.
 
 The `layoutName` acts as a sort of theme for the component.
 
-TODO: Editorial actually have named / well-defined components that all publish as layouts (InfoBox, Comparison, ImagePair, Timeline etc). At some point in the future, we should try and define these.
+TODO: Editorial actually have named / well-defined components that all publish
+as layouts (InfoBox, Comparison, ImagePair, Timeline etc). At some point in the
+future, we should try and define these.
 
 ### `LayoutSlot`
 
 
 ```ts
 interface LayoutSlot extends Parent {
-       type: "layout-slot"
-       children: (Heading | Paragraph | LayoutImage )[]
+	type: "layout-slot"
+	children: (Heading | Paragraph | LayoutImage )[]
 }
 ```
 
-A **Layout** can contain a number of **LayoutSlots**, which can be arranged visually
+A **Layout** can contain a number of **LayoutSlots**, which can be arranged
+visually
 
-_Non-normative note_: typically these would be displayed as flex items, so they would appear next to each other taking up equal width.
+_Non-normative note_: typically these would be displayed as flex items, so they
+would appear next to each other taking up equal width.
 
 ### `LayoutImage`
 
@@ -548,71 +605,68 @@ interface LayoutImage extends Node {
 	alt: string
 	caption: string
 	credit: string
-	picture?: ImageSetPicture
+	external picture: ImageSetPicture
 }
 ```
 
-- **LayoutImage** is a workaround to handle pre-existing articles that were published using `<img>` tags rather than `<ft-content>` images. The reason for this was that in the bodyXML, layout nodes were inside an `<experimental>` tag, and that didn't support publishing `<ft-content>`.
+- **LayoutImage** is a workaround to handle pre-existing articles that were
+  published using `<img>` tags rather than `<ft-content>` images. The reason for
+  this was that in the bodyXML, layout nodes were inside an `<experimental>`
+  tag, and that didn't support publishing `<ft-content>`.
 
 ### `Table`
 
 ```ts
 type TableColumnSettings = {
-    hideOnMobile: boolean;
-    sortable: boolean;
-    sortType: 'text' | 'number' | 'date' | 'currency' | 'percent';
-};
-
-interface Table extends Parent {
-    type: 'table';
-    children: [Caption | TableHead | TableBody];
-    stripes: boolean;
-    compact: boolean;
-    layoutWidth:
-      | 'auto'
-      | 'full-grid'
-      | 'inset-left'
-      | 'inset-right'
-      | 'full-bleed';
-    collapseAfterHowManyRows: number;
-    responsiveStyle: 'overflow' | 'flat';
-    columnSettings: TableColumnSettings[];
+	hideOnMobile: boolean
+	sortable: boolean
+	sortType: 'text' | 'number' | 'date' | 'currency' | 'percent'
 }
 
 interface TableCaption extends Parent {
-    type: 'table-caption';
-    children: Phrasing[];
+	type: 'table-caption'
+	children: Phrasing[]
 }
+
 interface TableCell extends Parent {
-   type: 'table-cell';
-    heading?: boolean;
-    children: Phrasing[];
+   type: 'table-cell'
+	heading?: boolean
+	children: Phrasing[]
 }
+
+interface TableRow extends Parent {
+	type: 'table-row'
+	children: TableCell[]
+}
+
 interface TableBody extends Parent {
-    type: 'table-body';
-    children: TableRow[];
+	type: 'table-body'
+	children: TableRow[]
 }
 
 interface TableFooter extends Parent {
-    type: 'table-footer';
-    children: Phrasing[];
+	type: 'table-footer'
+	children: Phrasing[]
 }
-interface TableRow extends Parent {
-    type: 'table-row';
-    children: TableCell[];
+
+interface Table extends Parent {
+	type: 'table'
+	stripes: boolean
+	compact: boolean
+	layoutWidth:
+		| 'auto'
+		| 'full-grid'
+		| 'inset-left'
+		| 'inset-right'
+		| 'full-bleed'
+	collapseAfterHowManyRows: number
+	responsiveStyle: 'overflow' | 'flat'
+	children: [TableCaption, TableBody, TableFooter]
+	columnSettings: TableColumnSettings[]
 }
 ```
 
 **Table** represents 2d data.
-
-look here https://github.com/Financial-Times/body-validation-service/blob/master/src/main/resources/xsd/ft-html-types.xsd#L214
-
-maybe we can be more strict than this? i don't know. we might not be able to
-because we don't know what old articles have done. however, we could find out
-what old articles have done... we could validate all old articles by trying to
-convert their bodyxml to this format, validating them etc,... and then make
-changes. maybe we wantto restrict old articles from being able to do anything
-Spark can't do? who knows. we need more eyes on this whole document.
 
 ## License
 

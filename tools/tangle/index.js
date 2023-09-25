@@ -5,6 +5,9 @@ import * as url from "node:url"
 export default function tangle(doc) {
 	function walk(node) {
 		if (node.type == "code") {
+			if (node.meta && node.meta.includes("notangle")) {
+				return
+			}
 			return node.value
 		} else if ("children" in node && Array.isArray(node.children)) {
 			for (let child of node.children) {
@@ -21,7 +24,7 @@ export default function tangle(doc) {
 		}
 	}
 
-	return blocks.join("\n")
+	return blocks.join("\n\n")
 }
 
 if (import.meta.url.startsWith("file:")) {
