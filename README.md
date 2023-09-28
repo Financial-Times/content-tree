@@ -313,6 +313,39 @@ that it is more confusing if a pullquote falls back to text than if it
 doesn't. The text is taken from elsewhere in the article.
 
 
+### `ClipSet`
+
+```ts
+interface ClipSet extends Node {
+	type: "clip-set"
+	id: string // uuid
+	autoplay: boolean
+	loop: boolean
+	muted: boolean
+	layoutWidth: LayoutWidth
+	external clip: Clip
+}
+```
+
+### `Clip`
+
+```ts
+type Clip {
+	url: string
+	autoplay: boolean
+	loop: boolean
+	muted: boolean
+	dataLayout: string
+	description: string
+	poster: string
+	posterAlt: string
+	posterCredits: string
+	caption: string
+	credits: string
+}
+```
+
+
 ### `ImageSet`
 
 ```ts
