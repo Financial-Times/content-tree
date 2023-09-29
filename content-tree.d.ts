@@ -168,6 +168,10 @@ export declare namespace ContentTree {
         id: string;
         embedded: boolean;
     }
+    interface YoutubeVideo extends Node {
+        type: "youtube-video";
+        url: string;
+    }
     interface ScrollyBlock extends Parent {
         type: "scrolly-block";
         theme: "sans" | "serif";
@@ -413,6 +417,15 @@ export declare namespace ContentTree {
             number: string;
             description: string;
         }
+        interface Video extends Node {
+            type: "video";
+            id: string;
+            embedded: boolean;
+        }
+        interface YoutubeVideo extends Node {
+            type: "youtube-video";
+            url: string;
+        }
         interface ScrollyBlock extends Parent {
             type: "scrolly-block";
             theme: "sans" | "serif";
@@ -420,28 +433,24 @@ export declare namespace ContentTree {
         }
         interface ScrollySection extends Parent {
             type: "scrolly-section";
-            theme: "dark-text" | "light-text" | "dark-text-no-box" | "light-text-no-box";
+            display: "dark-background" | "light-background";
+            noBox?: true;
             position: "left" | "center" | "right";
             transition?: "delay-before" | "delay-after";
-            children: [ImageSet, ...ScrollyCopy[]];
+            children: [ScrollyImage, ...ScrollyCopy[]];
+        }
+        interface ScrollyImage extends Node {
+            type: "scrolly-image";
+            id: string;
         }
         interface ScrollyCopy extends Parent {
             type: "scrolly-copy";
-            children: ScrollyText[];
+            children: (ScrollyHeading | Paragraph)[];
         }
-        interface ScrollyText extends Parent {
-            type: "scrolly-text";
-            level: string;
-        }
-        interface ScrollyHeading extends ScrollyText {
-            type: "scrolly-text";
+        interface ScrollyHeading extends Parent {
+            type: "scrolly-heading";
             level: "chapter" | "heading" | "subheading";
             children: Text[];
-        }
-        interface ScrollyParagraph extends ScrollyText {
-            type: "scrolly-text";
-            level: "text";
-            children: Phrasing[];
         }
         interface Layout extends Parent {
             type: "layout";
@@ -660,6 +669,15 @@ export declare namespace ContentTree {
             number: string;
             description: string;
         }
+        interface Video extends Node {
+            type: "video";
+            id: string;
+            embedded: boolean;
+        }
+        interface YoutubeVideo extends Node {
+            type: "youtube-video";
+            url: string;
+        }
         interface ScrollyBlock extends Parent {
             type: "scrolly-block";
             theme: "sans" | "serif";
@@ -667,28 +685,24 @@ export declare namespace ContentTree {
         }
         interface ScrollySection extends Parent {
             type: "scrolly-section";
-            theme: "dark-text" | "light-text" | "dark-text-no-box" | "light-text-no-box";
+            display: "dark-background" | "light-background";
+            noBox?: true;
             position: "left" | "center" | "right";
             transition?: "delay-before" | "delay-after";
-            children: [ImageSet, ...ScrollyCopy[]];
+            children: [ScrollyImage, ...ScrollyCopy[]];
+        }
+        interface ScrollyImage extends Node {
+            type: "scrolly-image";
+            id: string;
         }
         interface ScrollyCopy extends Parent {
             type: "scrolly-copy";
-            children: ScrollyText[];
+            children: (ScrollyHeading | Paragraph)[];
         }
-        interface ScrollyText extends Parent {
-            type: "scrolly-text";
-            level: string;
-        }
-        interface ScrollyHeading extends ScrollyText {
-            type: "scrolly-text";
+        interface ScrollyHeading extends Parent {
+            type: "scrolly-heading";
             level: "chapter" | "heading" | "subheading";
             children: Text[];
-        }
-        interface ScrollyParagraph extends ScrollyText {
-            type: "scrolly-text";
-            level: "text";
-            children: Phrasing[];
         }
         interface Layout extends Parent {
             type: "layout";
