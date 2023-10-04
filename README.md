@@ -13,7 +13,6 @@ content as an abstract tree. It implements the **[unist][unist]** spec.
 - [Types](#types)
 - [Mixins](#mixins)
 - [Nodes](#nodes)
-- [TODO](#todo)
 - [License](#license)
 
 ## Introduction
@@ -551,8 +550,6 @@ interface ScrollySection extends Parent {
 
 **ScrollySection** represents a section of a [ScrollyBlock](#scrollyblock)
 
-- TODO: could `transition` have a `"none"` value so it isn't optional?
-
 ### `ScrollyImage`
 
 ```ts
@@ -572,8 +569,6 @@ interface ScrollyCopy extends Parent {
 	children: (ScrollyHeading | Paragraph)[]
 }
 ```
-
-TODO is this badly named?
 
 **ScrollyCopy** represents a collection of **ScrollyHeading** or **Paragraph** nodes.
 
@@ -599,13 +594,9 @@ interface Layout extends Parent {
 ```
 
 **Layout** nodes are a generic component used to display a combination of other
-nodes (usually headings, images and paragraphs) in a visually distinctive way.
+nodes (headings, images and paragraphs) in a visually distinctive way.
 
 The `layoutName` acts as a sort of theme for the component.
-
-TODO: Editorial actually have named / well-defined components that all publish
-as layouts (InfoBox, Comparison, ImagePair, Timeline etc). At some point in the
-future, we should try and define these.
 
 ### `LayoutSlot`
 
