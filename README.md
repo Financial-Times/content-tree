@@ -332,9 +332,6 @@ interface ClipSet extends Node {
 ```ts
 type Clip {
 	url: string
-	autoplay: boolean
-	loop: boolean
-	muted: boolean
 	dataLayout: string
 	description: string
 	poster: string
