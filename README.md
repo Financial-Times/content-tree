@@ -686,6 +686,21 @@ interface Table extends Parent {
 
 **Table** represents 2d data.
 
+
+### `ClipSet`
+
+```ts
+interface ClipSet extends ContentTree.Node {
+  type: 'clip-set'
+  id: string
+  autoplay: boolean
+  loop: boolean
+  muted: boolean
+  dataLayout: 'in-line' | 'mid-grid' | 'full-grid'
+}
+```
+
+
 ## License
 
 This software is published by the Financial Times under the [MIT licence](mit).
