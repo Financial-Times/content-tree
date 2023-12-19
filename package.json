@@ -1,5 +1,5 @@
 {
-	"name": "@financial-times/content-tree",
+	"name": "@content-tree/types",
 	"version": "0.0.0",
 	"description": "content tree format",
 	"main": "README.md",
@@ -26,6 +26,7 @@
 	},
 	"homepage": "https://github.com/Financial-Times/content-tree#readme",
 	"workspaces": [
+		"libraries/*",
 		"tools/*"
 	],
 	"devDependencies": {
