@@ -84,17 +84,17 @@ It is the state of the tree in the network that we call "in transit".
 These abstract helper types define special types a [Parent](#parent) can use as
 [children][term-child].
 
-### `BodyBlock`
+### `TopLevelBodyBlock`
 
 ```ts
-type BodyBlock =
+type TopLevelBodyBlock = |
 	| Paragraph
+	| BigNumber
+	| Blockquote
 	| Heading
 	| ImageSet
-	| BigNumber
 	| Layout
 	| List
-	| Blockquote
 	| Pullquote
 	| ScrollyBlock
 	| ThematicBreak
@@ -164,7 +164,11 @@ interface Root extends Node {
 interface Body extends Parent {
 	type: "body"
 	version: number
+<<<<<<< HEAD
 	children: BodyBlock[]
+=======
+	children: TopLevelBodyBlock[]
+>>>>>>> 17e8471 (add TopLevelBodyBlock def to content-tree)
 }
 ```
 
