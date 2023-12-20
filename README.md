@@ -19,7 +19,7 @@ content as an abstract tree. It implements the **[unist][unist]** spec.
 
 This document defines a format for representing Financial Times article content
 as a tree. This specification is written in a
-[typescript][https://www.typescriptlang.org/]-like grammar, augmented by the
+[typescript](https://www.typescriptlang.org/)-like grammar, augmented by the
 addition of the `external` property modifier.
 
 The `external` property modifier indicates that the specified field is absent
@@ -84,10 +84,23 @@ It is the state of the tree in the network that we call "in transit".
 These abstract helper types define special types a [Parent](#parent) can use as
 [children][term-child].
 
-### `Block`
+### `TopLevelBodyBlock`
 
 ```ts
-type Block = Node // TODO
+type TopLevelBodyBlock = |
+	| Paragraph 
+	| Heading 
+	| ImageSet
+	| Layout 
+	| List 
+	| Pullquote
+	| ScrollyBlock
+	| ThematicBreak
+	| Table
+	| Recommended
+	| Tweet
+	| Video
+	| YoutubeVideo
 ```
 
 ### `Phrasing`
@@ -147,7 +160,7 @@ interface Root extends Node {
 interface Body extends Parent {
 	type: "body"
 	version: number
-	children: Block[]
+	children: TopLevelBodyBlock[]
 }
 ```
 
@@ -292,7 +305,7 @@ interface Blockquote extends Parent {
 }
 ```
 
-**BlockQuote** represents a quotation.
+**Blockquote** represents a quotation.
 
 ### `Pullquote`
 
