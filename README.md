@@ -87,7 +87,7 @@ These abstract helper types define special types a [Parent](#parent) can use as
 ### `TopLevelBodyBlock`
 
 ```ts
-type TopLevelBodyBlock = |
+type TopLevelBodyBlock =
 	| Paragraph 
 	| Heading 
 	| ImageSet

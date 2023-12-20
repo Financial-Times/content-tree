@@ -1,5 +1,5 @@
 export declare namespace ContentTree {
-    type Block = Node;
+    type TopLevelBodyBlock = Paragraph | Heading | ImageSet | Layout | List | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
     type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
     interface Node {
         type: string;
@@ -15,7 +15,7 @@ export declare namespace ContentTree {
     interface Body extends Parent {
         type: "body";
         version: number;
-        children: Block[];
+        children: TopLevelBodyBlock[];
     }
     interface Text extends Node {
         type: "text";
@@ -253,7 +253,7 @@ export declare namespace ContentTree {
         columnSettings: TableColumnSettings[];
     }
     namespace full {
-        type Block = Node;
+        type TopLevelBodyBlock = Paragraph | Heading | ImageSet | Layout | List | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
             type: string;
@@ -269,7 +269,7 @@ export declare namespace ContentTree {
         interface Body extends Parent {
             type: "body";
             version: number;
-            children: Block[];
+            children: TopLevelBodyBlock[];
         }
         interface Text extends Node {
             type: "text";
@@ -508,7 +508,7 @@ export declare namespace ContentTree {
         }
     }
     namespace transit {
-        type Block = Node;
+        type TopLevelBodyBlock = Paragraph | Heading | ImageSet | Layout | List | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
             type: string;
@@ -524,7 +524,7 @@ export declare namespace ContentTree {
         interface Body extends Parent {
             type: "body";
             version: number;
-            children: Block[];
+            children: TopLevelBodyBlock[];
         }
         interface Text extends Node {
             type: "text";
