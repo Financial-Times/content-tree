@@ -8,7 +8,7 @@
 		"url": "git+https://github.com/Financial-Times/content-tree.git"
 	},
 	"scripts": {
-		"build": "node tools/maketypes <README.md> content-tree.ts; tsc -d content-tree.ts; rm content-tree.ts; rm content-tree.js",
+		"build": "bash build.bash",
 		"test": "npm --workspaces test --if-present"
 	},
 	"keywords": [
@@ -31,7 +31,9 @@
 		"tools/*"
 	],
 	"devDependencies": {
-		"prettier": "^2.8.2"
+		"ajv-cli": "^5.0.0",
+		"prettier": "^2.8.2",
+		"typescript-json-schema": "^0.62.0"
 	},
 	"volta": {
 		"node": "20.7.0"
