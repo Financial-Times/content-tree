@@ -1,5 +1,5 @@
 export declare namespace ContentTree {
-    type TopLevelBodyBlock = Paragraph | Heading | ImageSet | Layout | List | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+    type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
     type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
     interface Node {
         type: string;
@@ -15,7 +15,7 @@ export declare namespace ContentTree {
     interface Body extends Parent {
         type: "body";
         version: number;
-        children: TopLevelBodyBlock[];
+        children: BodyBlock[];
     }
     interface Text extends Node {
         type: "text";
@@ -61,11 +61,11 @@ export declare namespace ContentTree {
     }
     interface ListItem extends Parent {
         type: "list-item";
-        children: Phrasing[];
+        children: (Paragraph | Phrasing)[];
     }
     interface Blockquote extends Parent {
         type: "blockquote";
-        children: Phrasing[];
+        children: (Paragraph | Phrasing)[];
     }
     interface Pullquote extends Node {
         type: "pullquote";
@@ -202,7 +202,7 @@ export declare namespace ContentTree {
         type: "layout";
         layoutName: "auto" | "card" | "timeline";
         layoutWidth: string;
-        children: [Heading, ...LayoutSlot[]] | LayoutSlot[];
+        children: [Heading, LayoutImage, ...LayoutSlot[]] | [Heading, ...LayoutSlot[]] | LayoutSlot[];
     }
     interface LayoutSlot extends Parent {
         type: "layout-slot";
@@ -253,7 +253,7 @@ export declare namespace ContentTree {
         columnSettings: TableColumnSettings[];
     }
     namespace full {
-        type TopLevelBodyBlock = Paragraph | Heading | ImageSet | Layout | List | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+        type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
             type: string;
@@ -269,7 +269,7 @@ export declare namespace ContentTree {
         interface Body extends Parent {
             type: "body";
             version: number;
-            children: TopLevelBodyBlock[];
+            children: BodyBlock[];
         }
         interface Text extends Node {
             type: "text";
@@ -315,11 +315,11 @@ export declare namespace ContentTree {
         }
         interface ListItem extends Parent {
             type: "list-item";
-            children: Phrasing[];
+            children: (Paragraph | Phrasing)[];
         }
         interface Blockquote extends Parent {
             type: "blockquote";
-            children: Phrasing[];
+            children: (Paragraph | Phrasing)[];
         }
         interface Pullquote extends Node {
             type: "pullquote";
@@ -456,7 +456,7 @@ export declare namespace ContentTree {
             type: "layout";
             layoutName: "auto" | "card" | "timeline";
             layoutWidth: string;
-            children: [Heading, ...LayoutSlot[]] | LayoutSlot[];
+            children: [Heading, LayoutImage, ...LayoutSlot[]] | [Heading, ...LayoutSlot[]] | LayoutSlot[];
         }
         interface LayoutSlot extends Parent {
             type: "layout-slot";
@@ -508,7 +508,7 @@ export declare namespace ContentTree {
         }
     }
     namespace transit {
-        type TopLevelBodyBlock = Paragraph | Heading | ImageSet | Layout | List | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+        type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
             type: string;
@@ -524,7 +524,7 @@ export declare namespace ContentTree {
         interface Body extends Parent {
             type: "body";
             version: number;
-            children: TopLevelBodyBlock[];
+            children: BodyBlock[];
         }
         interface Text extends Node {
             type: "text";
@@ -570,11 +570,11 @@ export declare namespace ContentTree {
         }
         interface ListItem extends Parent {
             type: "list-item";
-            children: Phrasing[];
+            children: (Paragraph | Phrasing)[];
         }
         interface Blockquote extends Parent {
             type: "blockquote";
-            children: Phrasing[];
+            children: (Paragraph | Phrasing)[];
         }
         interface Pullquote extends Node {
             type: "pullquote";
@@ -708,7 +708,7 @@ export declare namespace ContentTree {
             type: "layout";
             layoutName: "auto" | "card" | "timeline";
             layoutWidth: string;
-            children: [Heading, ...LayoutSlot[]] | LayoutSlot[];
+            children: [Heading, LayoutImage, ...LayoutSlot[]] | [Heading, ...LayoutSlot[]] | LayoutSlot[];
         }
         interface LayoutSlot extends Parent {
             type: "layout-slot";

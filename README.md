@@ -84,15 +84,17 @@ It is the state of the tree in the network that we call "in transit".
 These abstract helper types define special types a [Parent](#parent) can use as
 [children][term-child].
 
-### `TopLevelBodyBlock`
+### `BodyBlock`
 
 ```ts
-type TopLevelBodyBlock =
-	| Paragraph 
-	| Heading 
+type BodyBlock =
+	| Paragraph
+	| Heading
 	| ImageSet
-	| Layout 
-	| List 
+	| BigNumber
+	| Layout
+	| List
+	| Blockquote
 	| Pullquote
 	| ScrollyBlock
 	| ThematicBreak
@@ -102,6 +104,8 @@ type TopLevelBodyBlock =
 	| Video
 	| YoutubeVideo
 ```
+
+`BodyBlock` nodes are the only things that are valid as the top level of a `Body`.
 
 ### `Phrasing`
 
@@ -160,7 +164,7 @@ interface Root extends Node {
 interface Body extends Parent {
 	type: "body"
 	version: number
-	children: TopLevelBodyBlock[]
+	children: BodyBlock[]
 }
 ```
 
@@ -292,7 +296,7 @@ interface List extends Parent {
 ```ts
 interface ListItem extends Parent {
 	type: "list-item"
-	children: Phrasing[]
+	children: (Paragraph | Phrasing)[]
 }
 ```
 
@@ -301,7 +305,7 @@ interface ListItem extends Parent {
 ```ts
 interface Blockquote extends Parent {
 	type: "blockquote"
-	children: Phrasing[]
+	children: (Paragraph | Phrasing)[]
 }
 ```
 
@@ -602,7 +606,7 @@ interface Layout extends Parent {
 	   type: "layout"
 	   layoutName: "auto" | "card" | "timeline"
 	   layoutWidth: string
-	   children: [Heading, ...LayoutSlot[]] | LayoutSlot[]
+	   children: [Heading, LayoutImage, ...LayoutSlot[]] | [Heading, ...LayoutSlot[]] | LayoutSlot[]
 }
 ```
 
