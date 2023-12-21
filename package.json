@@ -1,6 +1,6 @@
 {
-	"name": "@content-tree/types",
-	"version": "0.0.0",
+	"name": "@content-tree",
+	"private": true,
 	"description": "content tree format",
 	"main": "README.md",
 	"repository": {
@@ -9,7 +9,7 @@
 	},
 	"scripts": {
 		"build": "bash build.bash",
-		"test": "npm --workspaces test --if-present"
+		"test": "npm --workspaces test --if-present; bash test.bash"
 	},
 	"keywords": [
 		"unified",

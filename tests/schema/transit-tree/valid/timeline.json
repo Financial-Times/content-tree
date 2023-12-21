@@ -1,0 +1,184 @@
+{
+	"type": "root",
+	"body": {
+		"type": "body",
+		"children": [
+			{
+				"type": "layout",
+				"layoutName": "timeline",
+				"layoutWidth": "full-width",
+				"data": {
+					"layout": "timeline"
+				},
+				"children": [
+					{
+						"type": "heading",
+						"level": "subheading",
+						"children": [
+							{
+								"type": "text",
+								"value": "The evolution of kitchen sink drama films "
+							}
+						]
+					},
+					{
+						"type": "layout-image",
+						"id": "a978ba29-505f-4ce4-951b-387d60441fc4"
+					},
+					{
+						"type": "layout-slot",
+						"children": [
+							{
+								"type": "heading",
+								"level": "label",
+								"children": [
+									{
+										"type": "strong",
+										"children": [
+											{
+												"type": "text",
+												"value": "1959"
+											}
+										]
+									}
+								]
+							},
+							{
+								"type": "paragraph",
+								"children": [
+									{
+										"type": "text",
+										"value": "Look Back in Anger"
+									}
+								]
+							},
+							{
+								"type": "paragraph",
+								"children": [
+									{
+										"type": "text",
+										"value": "Room at the Top"
+									}
+								]
+							}
+						]
+					},
+					{
+						"type": "layout-slot",
+						"children": [
+							{
+								"type": "heading",
+								"level": "label",
+								"children": [
+									{
+										"type": "strong",
+										"children": [
+											{
+												"type": "text",
+												"value": "1960"
+											}
+										]
+									}
+								]
+							},
+							{
+								"type": "paragraph",
+								"children": [
+									{
+										"type": "text",
+										"value": "Saturday Night and Sunday Morning"
+									}
+								]
+							},
+							{
+								"type": "paragraph",
+								"children": [
+									{
+										"type": "text",
+										"value": "The Entertainer"
+									}
+								]
+							}
+						]
+					},
+					{
+						"type": "layout-slot",
+						"children": [
+							{
+								"type": "heading",
+								"level": "label",
+								"children": [
+									{
+										"type": "strong",
+										"children": [
+											{
+												"type": "text",
+												"value": "1961"
+											}
+										]
+									}
+								]
+							},
+							{
+								"type": "paragraph",
+								"children": [
+									{
+										"type": "text",
+										"value": "A Taste of Honey"
+									}
+								]
+							}
+						]
+					},
+					{
+						"type": "layout-slot",
+						"children": [
+							{
+								"type": "heading",
+								"level": "label",
+								"children": [
+									{
+										"type": "strong",
+										"children": [
+											{
+												"type": "text",
+												"value": "1962"
+											}
+										]
+									}
+								]
+							},
+							{
+								"type": "paragraph",
+								"children": [
+									{
+										"type": "text",
+										"value": "A Kind of Loving"
+									}
+								]
+							},
+							{
+								"type": "paragraph",
+								"children": [
+									{
+										"type": "text",
+										"value": "The L-Shaped Room"
+									}
+								]
+							},
+							{
+								"type": "paragraph",
+								"children": [
+									{
+										"type": "text",
+										"value": "The Loneliness of the Long Distance Runner"
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+}
