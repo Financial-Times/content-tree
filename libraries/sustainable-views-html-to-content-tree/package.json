@@ -1,0 +1,18 @@
+{
+	"name": "@content-tree/sv-wp-html-to-content-tree",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"test": "node test.js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"hast-util-from-html": "^2.0.1",
+		"hast-util-to-string": "^3.0.0",
+		"unist-util-visit": "^5.0.0"
+	}
+}
