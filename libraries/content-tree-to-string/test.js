@@ -1,5 +1,5 @@
-import t from "tap"
-import {u} from "unist-builder"
+import test from "node:test"
+import assert from "node:assert"
 import stringify from "@content-tree/content-tree-to-string"
 import fs from "fs/promises"
 
@@ -14,25 +14,23 @@ for (let inputName of inputNames) {
 	let input = JSON.parse(inputText)
 	try {
 		let output = await fs.readFile(outputPath, "utf8")
-		t.test(`${inputName} -> ${outputName}`, t => {
-			t.equal(stringify(input).trim(), output.trim())
-			t.end()
+		test(`${inputName} -> ${outputName}`, () => {
+			assert.strictEqual(stringify(input).trim(), output.trim())
 		})
 	} catch (error) {
 		// couldn't read output, so expecting an error case
-		t.test(`${inputName} -> failure`, t => {
+		test(`${inputName} -> failure`, t => {
 			try {
 				stringify(input)
-				t.fail("unexpected success")
+				assert.fail("unexpected success")
 			} catch (error) {
-				t.pass("threw an error, as expected")
+				assert.ok("threw an error, as expected")
 			}
-			t.end()
 		})
 	}
 }
 
-t.test("Supports a custom transformer", t => {
+test("Supports a custom transformer", t => {
 	let result = stringify(
 		{
 			type: "media",
@@ -48,6 +46,5 @@ t.test("Supports a custom transformer", t => {
 			},
 		}
 	)
-	t.equal("hello :) cool beans © chee", result)
-	t.end()
+	assert.strictEqual("hello :) cool beans © chee", result)
 })
