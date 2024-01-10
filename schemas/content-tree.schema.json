@@ -939,6 +939,125 @@
                 "id": {
                     "type": "string"
                 },
+                "picture": {
+                    "properties": {
+                        "alt": {
+                            "type": "string"
+                        },
+                        "caption": {
+                            "type": "string"
+                        },
+                        "credit": {
+                            "type": "string"
+                        },
+                        "fallbackImage": {
+                            "properties": {
+                                "format": {
+                                    "enum": [
+                                        "desktop",
+                                        "mobile",
+                                        "square",
+                                        "square-ftedit",
+                                        "standard",
+                                        "standard-inline",
+                                        "wide"
+                                    ],
+                                    "type": "string"
+                                },
+                                "height": {
+                                    "type": "number"
+                                },
+                                "id": {
+                                    "type": "string"
+                                },
+                                "sourceSet": {
+                                    "items": {
+                                        "properties": {
+                                            "dpr": {
+                                                "type": "number"
+                                            },
+                                            "url": {
+                                                "type": "string"
+                                            },
+                                            "width": {
+                                                "type": "number"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "type": "array"
+                                },
+                                "url": {
+                                    "type": "string"
+                                },
+                                "width": {
+                                    "type": "number"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "imageType": {
+                            "enum": [
+                                "graphic",
+                                "image"
+                            ],
+                            "type": "string"
+                        },
+                        "images": {
+                            "items": {
+                                "properties": {
+                                    "format": {
+                                        "enum": [
+                                            "desktop",
+                                            "mobile",
+                                            "square",
+                                            "square-ftedit",
+                                            "standard",
+                                            "standard-inline",
+                                            "wide"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "height": {
+                                        "type": "number"
+                                    },
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "sourceSet": {
+                                        "items": {
+                                            "properties": {
+                                                "dpr": {
+                                                    "type": "number"
+                                                },
+                                                "url": {
+                                                    "type": "string"
+                                                },
+                                                "width": {
+                                                    "type": "number"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "url": {
+                                        "type": "string"
+                                    },
+                                    "width": {
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "layoutWidth": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
                 "type": {
                     "const": "scrolly-image",
                     "type": "string"

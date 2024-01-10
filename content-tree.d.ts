@@ -188,6 +188,7 @@ export declare namespace ContentTree {
     interface ScrollyImage extends Node {
         type: "scrolly-image";
         id: string;
+        picture: ImageSetPicture;
     }
     interface ScrollyCopy extends Parent {
         type: "scrolly-copy";
@@ -442,6 +443,7 @@ export declare namespace ContentTree {
         interface ScrollyImage extends Node {
             type: "scrolly-image";
             id: string;
+            picture: ImageSetPicture;
         }
         interface ScrollyCopy extends Parent {
             type: "scrolly-copy";
