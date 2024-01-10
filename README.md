@@ -573,6 +573,7 @@ interface ScrollySection extends Parent {
 interface ScrollyImage extends Node {
 	type: "scrolly-image"
 	id: string
+	external picture: ImageSetPicture
 }
 ```
 
