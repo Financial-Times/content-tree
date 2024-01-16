@@ -121,15 +121,6 @@ export declare namespace ContentTree {
         width: number;
         height: number;
     };
-    type Indicators = {
-        accessLevel: "premium" | "subscribed" | "registered" | "free";
-        isOpinion?: boolean;
-        isColumn?: boolean;
-        isPodcast?: boolean;
-        isEditorsChoice?: boolean;
-        isExclusive?: boolean;
-        isScoop?: boolean;
-    };
     type Teaser = {
         id: string;
         url: string;
@@ -141,7 +132,15 @@ export declare namespace ContentTree {
         metaAltLink?: TeaserConcept;
         metaPrefixText?: string;
         metaSuffixText?: string;
-        indicators: Indicators;
+        indicators: {
+            accessLevel: "premium" | "subscribed" | "registered" | "free";
+            isOpinion?: boolean;
+            isColumn?: boolean;
+            isPodcast?: boolean;
+            isEditorsChoice?: boolean;
+            isExclusive?: boolean;
+            isScoop?: boolean;
+        };
         image: Image;
     };
     interface Tweet extends Node {
@@ -376,15 +375,6 @@ export declare namespace ContentTree {
             width: number;
             height: number;
         };
-        type Indicators = {
-            accessLevel: "premium" | "subscribed" | "registered" | "free";
-            isOpinion?: boolean;
-            isColumn?: boolean;
-            isPodcast?: boolean;
-            isEditorsChoice?: boolean;
-            isExclusive?: boolean;
-            isScoop?: boolean;
-        };
         type Teaser = {
             id: string;
             url: string;
@@ -396,7 +386,15 @@ export declare namespace ContentTree {
             metaAltLink?: TeaserConcept;
             metaPrefixText?: string;
             metaSuffixText?: string;
-            indicators: Indicators;
+            indicators: {
+                accessLevel: "premium" | "subscribed" | "registered" | "free";
+                isOpinion?: boolean;
+                isColumn?: boolean;
+                isPodcast?: boolean;
+                isEditorsChoice?: boolean;
+                isExclusive?: boolean;
+                isScoop?: boolean;
+            };
             image: Image;
         };
         interface Tweet extends Node {
@@ -630,15 +628,6 @@ export declare namespace ContentTree {
             width: number;
             height: number;
         };
-        type Indicators = {
-            accessLevel: "premium" | "subscribed" | "registered" | "free";
-            isOpinion?: boolean;
-            isColumn?: boolean;
-            isPodcast?: boolean;
-            isEditorsChoice?: boolean;
-            isExclusive?: boolean;
-            isScoop?: boolean;
-        };
         type Teaser = {
             id: string;
             url: string;
@@ -650,7 +639,15 @@ export declare namespace ContentTree {
             metaAltLink?: TeaserConcept;
             metaPrefixText?: string;
             metaSuffixText?: string;
-            indicators: Indicators;
+            indicators: {
+                accessLevel: "premium" | "subscribed" | "registered" | "free";
+                isOpinion?: boolean;
+                isColumn?: boolean;
+                isPodcast?: boolean;
+                isEditorsChoice?: boolean;
+                isExclusive?: boolean;
+                isScoop?: boolean;
+            };
             image: Image;
         };
         interface Tweet extends Node {
