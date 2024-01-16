@@ -116,11 +116,6 @@ export declare namespace ContentTree {
         types: string[];
         url: string;
     };
-    type TeaserImage = {
-        url: string;
-        width: number;
-        height: number;
-    };
     type Teaser = {
         id: string;
         url: string;
@@ -141,7 +136,11 @@ export declare namespace ContentTree {
             isExclusive?: boolean;
             isScoop?: boolean;
         };
-        image: Image;
+        image: {
+            url: string;
+            width: number;
+            height: number;
+        };
     };
     interface Tweet extends Node {
         id: string;
@@ -370,11 +369,6 @@ export declare namespace ContentTree {
             types: string[];
             url: string;
         };
-        type TeaserImage = {
-            url: string;
-            width: number;
-            height: number;
-        };
         type Teaser = {
             id: string;
             url: string;
@@ -395,7 +389,11 @@ export declare namespace ContentTree {
                 isExclusive?: boolean;
                 isScoop?: boolean;
             };
-            image: Image;
+            image: {
+                url: string;
+                width: number;
+                height: number;
+            };
         };
         interface Tweet extends Node {
             id: string;
@@ -623,11 +621,6 @@ export declare namespace ContentTree {
             types: string[];
             url: string;
         };
-        type TeaserImage = {
-            url: string;
-            width: number;
-            height: number;
-        };
         type Teaser = {
             id: string;
             url: string;
@@ -648,7 +641,11 @@ export declare namespace ContentTree {
                 isExclusive?: boolean;
                 isScoop?: boolean;
             };
-            image: Image;
+            image: {
+                url: string;
+                width: number;
+                height: number;
+            };
         };
         interface Tweet extends Node {
             id: string;
