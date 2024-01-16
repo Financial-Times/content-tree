@@ -440,16 +440,6 @@ type TeaserImage = {
 	height: number
 }
 
-type Indicators = {
-	accessLevel: "premium" | "subscribed" | "registered" | "free"
-	isOpinion?: boolean
-	isColumn?: boolean
-	isPodcast?: boolean
-	isEditorsChoice?: boolean
-	isExclusive?: boolean
-	isScoop?: boolean
-}
-
 type Teaser = {
 	id: string
 	url: string
@@ -469,7 +459,15 @@ type Teaser = {
 	metaAltLink?: TeaserConcept
 	metaPrefixText?: string
 	metaSuffixText?: string
-	indicators: Indicators
+	indicators: {
+		accessLevel: "premium" | "subscribed" | "registered" | "free"
+		isOpinion?: boolean
+		isColumn?: boolean
+		isPodcast?: boolean
+		isEditorsChoice?: boolean
+		isExclusive?: boolean
+		isScoop?: boolean
+	}
 	image: Image
 }
 ```
