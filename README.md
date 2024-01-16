@@ -434,12 +434,6 @@ type TeaserConcept = {
 	url: string
 }
 
-type TeaserImage = {
-	url: string
-	width: number
-	height: number
-}
-
 type Teaser = {
 	id: string
 	url: string
@@ -468,7 +462,11 @@ type Teaser = {
 		isExclusive?: boolean
 		isScoop?: boolean
 	}
-	image: Image
+	image: {
+		url: string
+		width: number
+		height: number
+	}
 }
 ```
 
