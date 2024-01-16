@@ -682,40 +682,8 @@
                         },
                         "image": {
                             "properties": {
-                                "format": {
-                                    "enum": [
-                                        "desktop",
-                                        "mobile",
-                                        "square",
-                                        "square-ftedit",
-                                        "standard",
-                                        "standard-inline",
-                                        "wide"
-                                    ],
-                                    "type": "string"
-                                },
                                 "height": {
                                     "type": "number"
-                                },
-                                "id": {
-                                    "type": "string"
-                                },
-                                "sourceSet": {
-                                    "items": {
-                                        "properties": {
-                                            "dpr": {
-                                                "type": "number"
-                                            },
-                                            "url": {
-                                                "type": "string"
-                                            },
-                                            "width": {
-                                                "type": "number"
-                                            }
-                                        },
-                                        "type": "object"
-                                    },
-                                    "type": "array"
                                 },
                                 "url": {
                                     "type": "string"
