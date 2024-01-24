@@ -1,5 +1,5 @@
 {
-	"name": "@content-tree/content-tree-to-string",
+	"name": "@content-tree/to-string",
 	"type": "module",
 	"version": "1.0.0",
 	"description": "extract text from a content-tree",
