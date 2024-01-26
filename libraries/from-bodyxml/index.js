@@ -68,8 +68,6 @@ export let defaultTransformers = {
 	 * @returns {TransNode<ContentTree.transit.Pullquote>}
 	 */
 	["pull-quote"](pq) {
-		// find children pull-quote-text
-		// find children pull-quote-source
 		let text = find(pq, {name: "pull-quote-text"})
 		let source = find(pq, {name: "pull-quote-source"})
 		return {
