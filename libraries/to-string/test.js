@@ -1,6 +1,6 @@
 import test from "node:test"
 import assert from "node:assert"
-import stringify from "@content-tree/content-tree-to-string"
+import stringify from "@content-tree/to-string"
 import fs from "fs/promises"
 
 let testBase = "../../tests/content-tree-to-string"
