@@ -9,5 +9,10 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "unist-util-find": "^3.0.0",
+    "xast-util-from-xml": "^4.0.0",
+    "xast-util-to-string": "^3.0.0"
+  }
 }
