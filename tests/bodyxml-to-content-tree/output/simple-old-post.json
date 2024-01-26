@@ -33,7 +33,7 @@
 					},
 					{
 						"type": "link",
-						"url": "https://ft.com/content/396d9102-9845-4ce2-8783-49b73f8f1302",
+						"url": "https://www.ft.com/content/396d9102-9845-4ce2-8783-49b73f8f1302",
 						"title": "",
 						"children": [
 							{
@@ -93,25 +93,8 @@
 			},
 			{
 				"type": "pullquote",
-				"children": [
-					{
-						"type": "text",
-						"value": "\n    "
-					},
-					{
-						"type": "__UNKNOWN__"
-					},
-					{
-						"type": "__UNKNOWN__"
-					},
-					{
-						"type": "__UNKNOWN__"
-					},
-					{
-						"type": "text",
-						"value": "\n"
-					}
-				]
+				"text": "Maecenas ac ipsum in elit aliquam consectetur. Proin felis metus, efficitur et nulla eu, interdum malesuada diam.",
+				"source": "Pellentesque habitant, morbi tristique"
 			},
 			{
 				"type": "text",
@@ -125,8 +108,9 @@
 						"value": "Donec id faucibus erat. Suspendisse tempor laoreet lorem, sit amet vehicula massa facilisis at. Nulla quis feugiat massa. Praesent viverra non lectus ut ullamcorper. Phasellus "
 					},
 					{
-						"type": "recommended",
-						"id": "c71efed9-fe5a-488d-9f47-20c15d177153",
+						"type": "link",
+						"url": "https://www.ft.com/content/c71efed9-fe5a-488d-9f47-20c15d177153",
+						"title": "",
 						"children": [
 							{
 								"type": "text",
