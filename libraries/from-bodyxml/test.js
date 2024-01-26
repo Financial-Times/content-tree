@@ -14,7 +14,7 @@ for (let inputName of inputNames) {
 	try {
 		let output = await fs.readFile(outputPath, "utf8")
 		test(`${inputName} -> ${outputName}`, () => {
-			assert.strictEqual(convert(input), output)
+			assert.deepStrictEqual(convert(input), JSON.parse(output))
 		})
 	} catch (error) {
 		// couldn't read output, so expecting an error case
