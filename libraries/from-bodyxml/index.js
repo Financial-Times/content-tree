@@ -64,6 +64,44 @@ export let defaultTransformers = {
 		}
 	},
 	/**
+	 * @param {import("xast").Element} ol
+	 * @returns {TransNode<ContentTree.transit.List>}
+	 */
+	ol(ol) {
+		return {
+			type: "list",
+			ordered: true,
+		}
+	},
+	/**
+	 * @param {import("xast").Element} ul
+	 * @returns {TransNode<ContentTree.transit.List>}
+	 */
+	ul(ul) {
+		return {
+			type: "list",
+			ordered: false,
+		}
+	},
+	/**
+	 * @param {import("xast").Element} li
+	 * @returns {TransNode<ContentTree.transit.ListItem>}
+	 */
+	li(li) {
+		return {
+			type: "list-item",
+		}
+	},
+	/**
+	 * @param {import("xast").Element} blockquote
+	 * @returns {TransNode<ContentTree.transit.Blockquote>}
+	 */
+	blockquote(blockquote) {
+		return {
+			type: "blockquote",
+		}
+	},
+	/**
 	 * @param {import("xast").Element} pq
 	 * @returns {TransNode<ContentTree.transit.Pullquote>}
 	 */
