@@ -19,18 +19,25 @@ let ContentType = {
  */
 
 /**
+ * @template {ContentTree.Node} NodeType
+ * @template {ContentTree.Node} ChildType
+ * @typedef {(el: import("xast").Element, walk: Transformer<ChildType, ContentTree.Node>) => NodeType[] | NodeType} Transformer
+ */
+
+/**
  * @template {UNode & UParent} Node
  * @typedef {Omit<Node, "children"> & (Node extends UParent ? {children?: Node["children"]} : {children?: null})} TransNode
  */
-
 export let defaultTransformers = {
 	/**
-	 * @param {import("xast").Element} p
-	 * @returns {TransNode<ContentTree.transit.Paragraph>}
+	 * @type {Transformer<ContentTree.Paragraph, ContentTree.Phrasing>}
 	 */
-	p(p) {
+	p(p, walk) {
 		return {
 			type: "paragraph",
+			children: p.children.flatMap(element =>
+				walk(/** @type {import("xast").Element} element */ (element), walk)
+			),
 		}
 	},
 	/**
