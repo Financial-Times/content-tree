@@ -19,30 +19,18 @@ let ContentType = {
  */
 
 /**
- * @template {ContentTree.Node} NodeType
- * @template {ContentTree.Node} ChildType
- * @typedef {(el: import("xast").Element, walk: Transformer<ChildType, ContentTree.Node>) => NodeType[] | NodeType} Transformer
+ * @template {UNode} NodeType
+ * @typedef {(el: import("xast").Element) => TransNode<NodeType>} Transformer
  */
 
 /**
- * @template {UNode & UParent} Node
+ * @template {UNode | UParent} Node
  * @typedef {Omit<Node, "children"> & (Node extends UParent ? {children?: Node["children"]} : {children?: null})} TransNode
  */
+
 export let defaultTransformers = {
 	/**
-	 * @type {Transformer<ContentTree.Paragraph, ContentTree.Phrasing>}
-	 */
-	p(p, walk) {
-		return {
-			type: "paragraph",
-			children: p.children.flatMap(element =>
-				walk(/** @type {import("xast").Element} element */ (element), walk)
-			),
-		}
-	},
-	/**
-	 * @param {import("xast").Element} h1
-	 * @returns {TransNode<ContentTree.transit.Heading>}
+	 * @type {Transformer<ContentTree.transit.Heading>}
 	 */
 	h1(h1) {
 		return {
@@ -51,8 +39,7 @@ export let defaultTransformers = {
 		}
 	},
 	/**
-	 * @param {import("xast").Element} h2
-	 * @returns {TransNode<ContentTree.transit.Heading>}
+	 * @type {Transformer<ContentTree.transit.Heading>}
 	 */
 	h2(h2) {
 		return {
@@ -61,8 +48,7 @@ export let defaultTransformers = {
 		}
 	},
 	/**
-	 * @param {import("xast").Element} h4
-	 * @returns {TransNode<ContentTree.transit.Heading>}
+	 * @type {Transformer<ContentTree.transit.Heading>}
 	 */
 	h4(h4) {
 		return {
@@ -71,8 +57,65 @@ export let defaultTransformers = {
 		}
 	},
 	/**
-	 * @param {import("xast").Element} ol
-	 * @returns {TransNode<ContentTree.transit.List>}
+	 * @type {Transformer<ContentTree.transit.Paragraph>}
+	 */
+	p(p) {
+		return {
+			type: "paragraph",
+		}
+	},
+	/**
+	 * @type {Transformer<ContentTree.transit.Emphasis>}
+	 */
+	em(em) {
+		return {
+			type: "emphasis",
+		}
+	},
+	/**
+	 * @type {Transformer<ContentTree.transit.Strong>}
+	 */
+	strong(strong) {
+		return {
+			type: "strong",
+		}
+	},
+	/**
+	 * @type {Transformer<ContentTree.transit.Strikethrough>}
+	 */
+	s(s) {
+		return {
+			type: "strikethrough",
+		}
+	},
+	/**
+	 * @type {Transformer<ContentTree.transit.Break>}
+	 */
+	br(br) {
+		return {
+			type: "break",
+		}
+	},
+	/**
+	 * @type {Transformer<ContentTree.transit.ThematicBreak>}
+	 */
+	hr(hr) {
+		return {
+			type: "thematic-break",
+		}
+	},
+	/**
+	 * @type {Transformer<ContentTree.transit.Link>}
+	 */
+	a(a) {
+		return {
+			type: "link",
+			title: a.attributes.title ?? "",
+			url: a.attributes.href ?? "",
+		}
+	},
+	/**
+	 * @type {Transformer<ContentTree.transit.List>}
 	 */
 	ol(ol) {
 		return {
@@ -81,8 +124,7 @@ export let defaultTransformers = {
 		}
 	},
 	/**
-	 * @param {import("xast").Element} ul
-	 * @returns {TransNode<ContentTree.transit.List>}
+	 * @type {Transformer<ContentTree.transit.List>}
 	 */
 	ul(ul) {
 		return {
@@ -91,8 +133,7 @@ export let defaultTransformers = {
 		}
 	},
 	/**
-	 * @param {import("xast").Element} li
-	 * @returns {TransNode<ContentTree.transit.ListItem>}
+	 * @type {Transformer<ContentTree.transit.ListItem>}
 	 */
 	li(li) {
 		return {
@@ -100,8 +141,7 @@ export let defaultTransformers = {
 		}
 	},
 	/**
-	 * @param {import("xast").Element} blockquote
-	 * @returns {TransNode<ContentTree.transit.Blockquote>}
+	 * @type {Transformer<ContentTree.transit.Blockquote>}
 	 */
 	blockquote(blockquote) {
 		return {
@@ -109,8 +149,7 @@ export let defaultTransformers = {
 		}
 	},
 	/**
-	 * @param {import("xast").Element} pq
-	 * @returns {TransNode<ContentTree.transit.Pullquote>}
+	 * @type {Transformer<ContentTree.transit.Pullquote>}
 	 */
 	["pull-quote"](pq) {
 		let text = find(pq, {name: "pull-quote-text"})
@@ -123,8 +162,7 @@ export let defaultTransformers = {
 		}
 	},
 	/**
-	 * @param {import("xast").Element} img
-	 * @returns {TransNode<ContentTree.transit.LayoutImage>}
+	 * @type {Transformer<ContentTree.transit.LayoutImage>}
 	 */
 	img(img) {
 		return {
@@ -137,35 +175,7 @@ export let defaultTransformers = {
 		}
 	},
 	/**
-	 * @param {import("xast").Element} em
-	 * @returns {TransNode<ContentTree.transit.Emphasis>}
-	 */
-	em(em) {
-		return {
-			type: "emphasis",
-		}
-	},
-	/**
-	 * @param {import("xast").Element} strong
-	 * @returns {TransNode<ContentTree.transit.Strong>}
-	 */
-	strong(strong) {
-		return {
-			type: "strong",
-		}
-	},
-	/**
-	 * @param {import("xast").Element} s
-	 * @returns {TransNode<ContentTree.transit.Strikethrough>}
-	 */
-	s(s) {
-		return {
-			type: "strikethrough",
-		}
-	},
-	/**
-	 * @param {import("xast").Element} content
-	 * @returns {TransNode<ContentTree.transit.ImageSet>}
+	 * @type {Transformer<ContentTree.transit.ImageSet>}
 	 */
 	[ContentType.imageset](content) {
 		return {
@@ -175,8 +185,7 @@ export let defaultTransformers = {
 		}
 	},
 	/**
-	 * @param {import("xast").Element} content
-	 * @returns {TransNode<ContentTree.transit.Video>}
+	 * @type {Transformer<ContentTree.transit.Video>}
 	 */
 	[ContentType.video](content) {
 		return {
@@ -186,9 +195,9 @@ export let defaultTransformers = {
 			children: null,
 		}
 	},
+	// TODO these two Link transforms may be wrong. what is a "content" or an "article"?
 	/**
-	 * @param {import("xast").Element} content
-	 * @returns {TransNode<ContentTree.transit.Link>}
+	 * @type {Transformer<ContentTree.transit.Link>}
 	 */
 	[ContentType.content](content) {
 		return {
@@ -198,8 +207,7 @@ export let defaultTransformers = {
 		}
 	},
 	/**
-	 * @param {import("xast").Element} content
-	 * @returns {TransNode<ContentTree.transit.Link>}
+	 * @type {Transformer<ContentTree.transit.Link>}
 	 */
 	[ContentType.article](content) {
 		return {
@@ -214,7 +222,7 @@ export let defaultTransformers = {
  * @param {import("xast").Node} node
  * @returns {node is import("xast").Element}
  */
-function isElement(node) {
+function isXElement(node) {
 	return node.type == "element"
 }
 
@@ -222,7 +230,7 @@ function isElement(node) {
  * @param {import("xast").Node} node
  * @returns {node is import("xast").Text}
  */
-function isText(node) {
+function isXText(node) {
 	return node.type == "text"
 }
 
@@ -230,7 +238,7 @@ function isText(node) {
  * @param {import("xast").Node} node
  * @returns {node is import("xast").Root}
  */
-function isRoot(node) {
+function isXRoot(node) {
 	return node.type == "root"
 }
 
@@ -240,7 +248,7 @@ function isRoot(node) {
  */
 export function fromXast(bodyxast, transformers = defaultTransformers) {
 	return (function walk(xmlnode) {
-		if (isRoot(xmlnode)) {
+		if (isXRoot(xmlnode)) {
 			return {
 				type: "root",
 				body: {
@@ -248,7 +256,7 @@ export function fromXast(bodyxast, transformers = defaultTransformers) {
 					children: xmlnode.children[0].children.map(walk),
 				},
 			}
-		} else if (isElement(xmlnode)) {
+		} else if (isXElement(xmlnode)) {
 			// i thought about this solution for no more than 5 seconds
 			if (xmlnode.name == "experimental") {
 				return xmlnode.children.map(walk)
@@ -278,7 +286,7 @@ export function fromXast(bodyxast, transformers = defaultTransformers) {
 			} else {
 				return {type: "__UNKNOWN__"}
 			}
-		} else if (isText(xmlnode)) {
+		} else if (isXText(xmlnode)) {
 			return {
 				type: "text",
 				value: xmlnode.value,
