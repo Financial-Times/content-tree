@@ -207,6 +207,7 @@ export let defaultTransformers = {
 				layoutWidth: content.attributes["data-layout-width"] || "",
 				description: content.attributes["alt"] || "",
 				timestamp: content.attributes["data-time-stamp"] || "",
+				// fallbackImage -- TODO should this be external in content-tree?
 			}
 		}
 		return {
