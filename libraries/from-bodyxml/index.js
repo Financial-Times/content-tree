@@ -197,9 +197,18 @@ export let defaultTransformers = {
 	},
 	// TODO these two Link transforms may be wrong. what is a "content" or an "article"?
 	/**
-	 * @type {Transformer<ContentTree.transit.Link>}
+	 * @type {Transformer<ContentTree.transit.Flourish>}
 	 */
 	[ContentType.content](content) {
+		if (content.attributes["data-asset-type"] == "flourish") {
+			return {
+				type: "flourish",
+				flourishType: content.attributes["data-flourish-type"] || "",
+				layoutWidth: content.attributes["data-layout-width"] || "",
+				description: content.attributes["alt"] || "",
+				timestamp: content.attributes["data-time-stamp"] || "",
+			}
+		}
 		return {
 			type: "link",
 			url: `https://www.ft.com/content/${content.attributes.id}`,
