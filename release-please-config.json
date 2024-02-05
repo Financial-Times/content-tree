@@ -1,0 +1,6 @@
+{
+	"packages": {
+		"libraries/from-bodyxml/impl/js/": {},
+		"libraries/to-string/impl/js/": {}
+	}
+}

@@ -1,0 +1,24 @@
+{
+	"name": "@content-tree/types",
+	"description": "content tree format typescript types",
+	"main": "content-tree.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Financial-Times/content-tree.git"
+	},
+	"keywords": [
+		"unified",
+		"tree",
+		"ft",
+		"article",
+		"content",
+		"body"
+	],
+	"types": "content-tree.d.ts",
+	"author": "chee",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/Financial-Times/content-tree/issues"
+	},
+	"homepage": "https://github.com/Financial-Times/content-tree#readme"
+}

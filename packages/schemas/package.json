@@ -1,0 +1,26 @@
+{
+	"name": "@content-tree/schemas",
+	"description": "content tree format json schemas",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Financial-Times/content-tree.git"
+	},
+	"keywords": [
+		"ft",
+		"article",
+		"content",
+		"tree",
+		"json",
+		"schema",
+		"body"
+	],
+	"author": "chee",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/Financial-Times/content-tree/issues"
+	},
+	"homepage": "https://github.com/Financial-Times/content-tree#readme",
+	"scripts": {
+		"test": "bash test.bash"
+	}
+}

@@ -1,5 +1,5 @@
 {
-	"name": "@content-tree",
+	"name": "@content-tree/monorepo",
 	"private": true,
 	"description": "content tree format",
 	"main": "README.md",
@@ -9,7 +9,7 @@
 	},
 	"scripts": {
 		"build": "bash build.bash",
-		"test": "npm --workspaces test --if-present; bash test.bash"
+		"test": "npm --workspaces test --if-present"
 	},
 	"keywords": [
 		"unified",
@@ -27,10 +27,11 @@
 	},
 	"homepage": "https://github.com/Financial-Times/content-tree#readme",
 	"workspaces": [
-		"libraries/*",
+		"libraries/*/impl/js",
+		"packages/*",
 		"tools/*"
 	],
-	"devDependencies": {
+	"dependencies": {
 		"ajv-cli": "^5.0.0",
 		"prettier": "^2.8.2",
 		"typescript-json-schema": "^0.62.0"

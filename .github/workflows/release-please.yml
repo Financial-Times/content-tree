@@ -1,0 +1,31 @@
+# on:
+#   push:
+#     branches:
+#       - main
+# name: release-please
+# jobs:
+#   release-please:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: google-github-actions/release-please-action@v4
+#         id: release
+#         with:
+#           token: ${{ secrets.SPARK_DOG_ACCESS_TOKEN }}
+#           command: manifest
+#           monorepo-tags: true
+#       - uses: actions/checkout@v2
+#         if: ${{ steps.release.outputs.releases_created }}
+#       - uses: actions/setup-node@v2
+#         with:
+#           cache: "npm"
+#           node-version: 20
+#           registry-url: "https://registry.npmjs.org"
+#         if: ${{ steps.release.outputs.releases_created }}
+#       - run: npm ci
+#         if: ${{ steps.release.outputs.releases_created }}
+#       - run: node publish.js '${{toJSON(steps.release.outputs)}}'
+#         env:
+#           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+#           REPO_DATA_KEY: ${{secrets.REPO_DATA_KEY}}
+#           REPO_DATA_SECRET: ${{secrets.REPO_DATA_SECRET}}
+#         if: ${{ steps.release.outputs.releases_created }}
