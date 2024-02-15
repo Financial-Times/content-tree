@@ -272,7 +272,7 @@ export function fromXast(bodyxast, transformers = defaultTransformers) {
 				return xmlnode.children.map(walk)
 			}
 			let transformer =
-				xmlnode.name == "content"
+				(xmlnode.name == "content" || xmlnode.name == "ft-content")
 					? String(xmlnode.attributes.type)
 					: xmlnode.name
 
