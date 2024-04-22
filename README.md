@@ -702,7 +702,7 @@ interface Table extends Parent {
 
 ### CustomCodeComponent
 
-```
+```ts
 interface CustomCodeComponent extends Node {
   type: "custom-code-component"
   path: string
@@ -720,7 +720,7 @@ interface CustomCodeComponent extends Node {
 
 ### CustomCodeComponentChildren
 
-```
+```ts
 type CustomCodeComponentChildren = ImageSet | Paragraph | CustomCodeComponent
 ```
 
