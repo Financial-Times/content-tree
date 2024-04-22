@@ -753,5 +753,17 @@ export declare namespace ContentTree {
             children: [TableCaption, TableBody, TableFooter];
             columnSettings: TableColumnSettings[];
         }
+        interface CustomCodeComponent extends Parent {
+          type: 'custom-code-component';
+          path: string;
+          versionRange: string;
+          lastModified: string;
+          dataIdentifier: string;
+          attributes: {
+            [key: string]: string | boolean | undefined
+          };
+          children: CustomCodeComponentChildren[];
+        }
+        type CustomCodeComponentChildren = ImageSet | Paragraph | CustomCodeComponent;
     }
 }
