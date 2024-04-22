@@ -700,6 +700,32 @@ interface Table extends Parent {
 
 **Table** represents 2d data.
 
+### CustomCodeComponent
+
+```
+interface CustomCodeComponent extends Node {
+  type: "custom-code-component"
+  path: string
+  versionRange: string
+  lastModified: string
+  dataIdentifier: string
+  attributes: {
+    [key: string]: string | boolean | undefined
+  }
+  children: CustomCodeComponentChildren[]
+}
+```
+
+**CustomCodeComponent** represents a Custom Code Component block.
+
+### CustomCodeComponentChildren
+
+```
+type CustomCodeComponentChildren = ImageSet | Paragraph | CustomCodeComponent
+```
+
+**CustomCodeComponentChildren** nodes are valid children for CustomCodeComponent.
+
 ## License
 
 This software is published by the Financial Times under the [MIT licence](mit).
