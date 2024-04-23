@@ -1,5 +1,5 @@
 export declare namespace ContentTree {
-    type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+    type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
     type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
     interface Node {
         type: string;
@@ -251,7 +251,7 @@ export declare namespace ContentTree {
         children: [TableCaption, TableBody, TableFooter];
         columnSettings: TableColumnSettings[];
     }
-    interface CustomCodeComponent extends Node {
+    interface CustomCodeComponent extends Parent {
         type: "custom-code-component";
         path: string;
         versionRange: string;
@@ -263,7 +263,7 @@ export declare namespace ContentTree {
         children: (ImageSet | Paragraph | CustomCodeComponent)[];
     }
     namespace full {
-        type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+        type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
             type: string;
@@ -515,7 +515,7 @@ export declare namespace ContentTree {
             children: [TableCaption, TableBody, TableFooter];
             columnSettings: TableColumnSettings[];
         }
-        interface CustomCodeComponent extends Node {
+        interface CustomCodeComponent extends Parent {
             type: "custom-code-component";
             path: string;
             versionRange: string;
@@ -528,7 +528,7 @@ export declare namespace ContentTree {
         }
     }
     namespace transit {
-        type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+        type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
             type: string;
@@ -775,7 +775,7 @@ export declare namespace ContentTree {
             children: [TableCaption, TableBody, TableFooter];
             columnSettings: TableColumnSettings[];
         }
-        interface CustomCodeComponent extends Node {
+        interface CustomCodeComponent extends Parent {
             type: "custom-code-component";
             path: string;
             versionRange: string;

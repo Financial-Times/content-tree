@@ -89,6 +89,9 @@
                     "$ref": "#/definitions/ContentTree.full.BigNumber"
                 },
                 {
+                    "$ref": "#/definitions/ContentTree.full.CustomCodeComponent"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.full.Layout"
                 },
                 {
@@ -128,6 +131,53 @@
                 "data": {},
                 "type": {
                     "const": "break",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "ContentTree.full.CustomCodeComponent": {
+            "properties": {
+                "attributes": {
+                    "additionalProperties": {
+                        "type": [
+                            "string",
+                            "boolean"
+                        ]
+                    },
+                    "type": "object"
+                },
+                "children": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Paragraph"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.ImageSet"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.CustomCodeComponent"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "dataIdentifier": {
+                    "type": "string"
+                },
+                "lastModified": {
+                    "type": "string"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "custom-code-component",
+                    "type": "string"
+                },
+                "versionRange": {
                     "type": "string"
                 }
             },

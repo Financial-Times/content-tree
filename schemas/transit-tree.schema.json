@@ -89,6 +89,9 @@
                     "$ref": "#/definitions/ContentTree.transit.BigNumber"
                 },
                 {
+                    "$ref": "#/definitions/ContentTree.transit.CustomCodeComponent"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.transit.Layout"
                 },
                 {
@@ -128,6 +131,53 @@
                 "data": {},
                 "type": {
                     "const": "break",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "ContentTree.transit.CustomCodeComponent": {
+            "properties": {
+                "attributes": {
+                    "additionalProperties": {
+                        "type": [
+                            "string",
+                            "boolean"
+                        ]
+                    },
+                    "type": "object"
+                },
+                "children": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Paragraph"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.CustomCodeComponent"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "dataIdentifier": {
+                    "type": "string"
+                },
+                "lastModified": {
+                    "type": "string"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "custom-code-component",
+                    "type": "string"
+                },
+                "versionRange": {
                     "type": "string"
                 }
             },
