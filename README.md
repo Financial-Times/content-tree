@@ -704,7 +704,7 @@ interface Table extends Parent {
 ### CustomCodeComponent
 
 ```ts
-interface CustomCodeComponent extends Node {
+interface CustomCodeComponent extends Parent {
   type: "custom-code-component"
   path: string
   versionRange: string
