@@ -92,6 +92,7 @@ type BodyBlock =
 	| Heading
 	| ImageSet
 	| BigNumber
+	| CustomCodeComponent
 	| Layout
 	| List
 	| Blockquote
