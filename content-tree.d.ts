@@ -251,6 +251,17 @@ export declare namespace ContentTree {
         children: [TableCaption, TableBody, TableFooter];
         columnSettings: TableColumnSettings[];
     }
+    interface CustomCodeComponent extends Node {
+        type: "custom-code-component";
+        path: string;
+        versionRange: string;
+        lastModified: string;
+        dataIdentifier: string;
+        attributes: {
+            [key: string]: string | boolean | undefined;
+        };
+        children: (ImageSet | Paragraph | CustomCodeComponent)[];
+    }
     namespace full {
         type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
@@ -504,6 +515,17 @@ export declare namespace ContentTree {
             children: [TableCaption, TableBody, TableFooter];
             columnSettings: TableColumnSettings[];
         }
+        interface CustomCodeComponent extends Node {
+            type: "custom-code-component";
+            path: string;
+            versionRange: string;
+            lastModified: string;
+            dataIdentifier: string;
+            attributes: {
+                [key: string]: string | boolean | undefined;
+            };
+            children: (ImageSet | Paragraph | CustomCodeComponent)[];
+        }
     }
     namespace transit {
         type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
@@ -753,17 +775,16 @@ export declare namespace ContentTree {
             children: [TableCaption, TableBody, TableFooter];
             columnSettings: TableColumnSettings[];
         }
-        interface CustomCodeComponent extends Parent {
-          type: 'custom-code-component';
-          path: string;
-          versionRange: string;
-          lastModified: string;
-          dataIdentifier: string;
-          attributes: {
-            [key: string]: string | boolean | undefined
-          };
-          children: CustomCodeComponentChildren[];
+        interface CustomCodeComponent extends Node {
+            type: "custom-code-component";
+            path: string;
+            versionRange: string;
+            lastModified: string;
+            dataIdentifier: string;
+            attributes: {
+                [key: string]: string | boolean | undefined;
+            };
+            children: (ImageSet | Paragraph | CustomCodeComponent)[];
         }
-        type CustomCodeComponentChildren = ImageSet | Paragraph | CustomCodeComponent;
     }
 }

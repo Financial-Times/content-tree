@@ -712,19 +712,12 @@ interface CustomCodeComponent extends Node {
   attributes: {
     [key: string]: string | boolean | undefined
   }
-  children: CustomCodeComponentChildren[]
+  children: (ImageSet | Paragraph | CustomCodeComponent)[]
 }
 ```
 
 **CustomCodeComponent** represents a Custom Code Component block.
 
-### CustomCodeComponentChildren
-
-```ts
-type CustomCodeComponentChildren = ImageSet | Paragraph | CustomCodeComponent
-```
-
-**CustomCodeComponentChildren** nodes are valid children for CustomCodeComponent.
 
 ## License
 
