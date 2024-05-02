@@ -717,7 +717,10 @@ interface CustomCodeComponent extends Parent {
 }
 ```
 
-**CustomCodeComponent** represents a Custom Code Component block.
+- The **CustomCodeComponent*** allows for more experimental forms of journalism, allowing editors to provide properties via Spark.
+- The component itself lives off-platform, and an example might be a git repository with a standard structure. This structure would include the rendering instructions, and the data structure that is expected to be provided to the component for it to render if necessary.
+- The basic interface in Spark to make reference to this system above (eg. the git repo URL or a public S3 bucket), and provide some data for it if necessary. This will be the Custom Component storyblock.
+- The data Spark receives from entering a specific ID will be used to render dynamic fields (the `attributes`).
 
 
 ## License
