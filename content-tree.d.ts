@@ -253,10 +253,15 @@ export declare namespace ContentTree {
     }
     interface CustomCodeComponent extends Parent {
         type: "custom-code-component";
+        /** Repository for the code of the component in the format "[github org]/[github repo]/[component name]". */
         path: string;
+        /** Semantic version of the code of the component, e.g. "^0.3.5". */
         versionRange: string;
+        /** Last date-time where the instance of this block was modified, in ISO-8601 format. */
         lastModified: string;
+        /** A unique identifier to track component metrics in analytics. */
         dataIdentifier: string;
+        /** Configuration data to be passed to the component. */
         attributes: {
             [key: string]: string | boolean | undefined;
         };
@@ -517,10 +522,15 @@ export declare namespace ContentTree {
         }
         interface CustomCodeComponent extends Parent {
             type: "custom-code-component";
+            /** Repository for the code of the component in the format "[github org]/[github repo]/[component name]". */
             path: string;
+            /** Semantic version of the code of the component, e.g. "^0.3.5". */
             versionRange: string;
+            /** Last date-time where the instance of this block was modified, in ISO-8601 format. */
             lastModified: string;
+            /** A unique identifier to track component metrics in analytics. */
             dataIdentifier: string;
+            /** Configuration data to be passed to the component. */
             attributes: {
                 [key: string]: string | boolean | undefined;
             };
@@ -777,10 +787,15 @@ export declare namespace ContentTree {
         }
         interface CustomCodeComponent extends Parent {
             type: "custom-code-component";
+            /** Repository for the code of the component in the format "[github org]/[github repo]/[component name]". */
             path: string;
+            /** Semantic version of the code of the component, e.g. "^0.3.5". */
             versionRange: string;
+            /** Last date-time where the instance of this block was modified, in ISO-8601 format. */
             lastModified: string;
+            /** A unique identifier to track component metrics in analytics. */
             dataIdentifier: string;
+            /** Configuration data to be passed to the component. */
             attributes: {
                 [key: string]: string | boolean | undefined;
             };
