@@ -1,5 +1,5 @@
 {
-	"name": "@content-tree",
+	"name": "@content-tree/root",
 	"version": "0.0.0",
 	"private": true,
 	"description": "content tree format",
