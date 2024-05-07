@@ -693,7 +693,7 @@ interface Table extends Parent {
 		| 'full-bleed'
 	collapseAfterHowManyRows: number
 	responsiveStyle: 'overflow' | 'flat' | 'scroll'
-	children: [TableCaption, TableBody, TableFooter]
+	children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody]
 	columnSettings: TableColumnSettings[]
 }
 ```
