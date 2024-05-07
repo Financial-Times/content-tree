@@ -246,7 +246,7 @@ export declare namespace ContentTree {
         stripes: boolean;
         compact: boolean;
         layoutWidth: 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed';
-        collapseAfterHowManyRows: number;
+        collapseAfterHowManyRows?: number;
         responsiveStyle: 'overflow' | 'flat' | 'scroll';
         children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
         columnSettings: TableColumnSettings[];
@@ -499,7 +499,7 @@ export declare namespace ContentTree {
             stripes: boolean;
             compact: boolean;
             layoutWidth: 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed';
-            collapseAfterHowManyRows: number;
+            collapseAfterHowManyRows?: number;
             responsiveStyle: 'overflow' | 'flat' | 'scroll';
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
@@ -748,7 +748,7 @@ export declare namespace ContentTree {
             stripes: boolean;
             compact: boolean;
             layoutWidth: 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed';
-            collapseAfterHowManyRows: number;
+            collapseAfterHowManyRows?: number;
             responsiveStyle: 'overflow' | 'flat' | 'scroll';
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
