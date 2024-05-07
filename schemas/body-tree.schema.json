@@ -650,7 +650,8 @@
                 "responsiveStyle": {
                     "enum": [
                         "flat",
-                        "overflow"
+                        "overflow",
+                        "scroll"
                     ],
                     "type": "string"
                 },

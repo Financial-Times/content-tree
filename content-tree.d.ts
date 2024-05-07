@@ -247,7 +247,7 @@ export declare namespace ContentTree {
         compact: boolean;
         layoutWidth: 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed';
         collapseAfterHowManyRows: number;
-        responsiveStyle: 'overflow' | 'flat';
+        responsiveStyle: 'overflow' | 'flat' | 'scroll';
         children: [TableCaption, TableBody, TableFooter];
         columnSettings: TableColumnSettings[];
     }
@@ -500,7 +500,7 @@ export declare namespace ContentTree {
             compact: boolean;
             layoutWidth: 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed';
             collapseAfterHowManyRows: number;
-            responsiveStyle: 'overflow' | 'flat';
+            responsiveStyle: 'overflow' | 'flat' | 'scroll';
             children: [TableCaption, TableBody, TableFooter];
             columnSettings: TableColumnSettings[];
         }
@@ -749,7 +749,7 @@ export declare namespace ContentTree {
             compact: boolean;
             layoutWidth: 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed';
             collapseAfterHowManyRows: number;
-            responsiveStyle: 'overflow' | 'flat';
+            responsiveStyle: 'overflow' | 'flat' | 'scroll';
             children: [TableCaption, TableBody, TableFooter];
             columnSettings: TableColumnSettings[];
         }
