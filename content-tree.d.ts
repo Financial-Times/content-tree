@@ -248,7 +248,7 @@ export declare namespace ContentTree {
         layoutWidth: 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed';
         collapseAfterHowManyRows: number;
         responsiveStyle: 'overflow' | 'flat' | 'scroll';
-        children: [TableCaption, TableBody, TableFooter];
+        children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
         columnSettings: TableColumnSettings[];
     }
     namespace full {
@@ -501,7 +501,7 @@ export declare namespace ContentTree {
             layoutWidth: 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed';
             collapseAfterHowManyRows: number;
             responsiveStyle: 'overflow' | 'flat' | 'scroll';
-            children: [TableCaption, TableBody, TableFooter];
+            children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
         }
     }
@@ -750,7 +750,7 @@ export declare namespace ContentTree {
             layoutWidth: 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed';
             collapseAfterHowManyRows: number;
             responsiveStyle: 'overflow' | 'flat' | 'scroll';
-            children: [TableCaption, TableBody, TableFooter];
+            children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
         }
     }
