@@ -591,20 +591,60 @@
         "ContentTree.transit.Table": {
             "properties": {
                 "children": {
-                    "items": [
+                    "anyOf": [
                         {
-                            "$ref": "#/definitions/ContentTree.transit.TableCaption"
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/ContentTree.transit.TableCaption"
+                                },
+                                {
+                                    "$ref": "#/definitions/ContentTree.transit.TableBody"
+                                },
+                                {
+                                    "$ref": "#/definitions/ContentTree.transit.TableFooter"
+                                }
+                            ],
+                            "maxItems": 3,
+                            "minItems": 3,
+                            "type": "array"
                         },
                         {
-                            "$ref": "#/definitions/ContentTree.transit.TableBody"
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/ContentTree.transit.TableCaption"
+                                },
+                                {
+                                    "$ref": "#/definitions/ContentTree.transit.TableBody"
+                                }
+                            ],
+                            "maxItems": 2,
+                            "minItems": 2,
+                            "type": "array"
                         },
                         {
-                            "$ref": "#/definitions/ContentTree.transit.TableFooter"
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/ContentTree.transit.TableBody"
+                                },
+                                {
+                                    "$ref": "#/definitions/ContentTree.transit.TableFooter"
+                                }
+                            ],
+                            "maxItems": 2,
+                            "minItems": 2,
+                            "type": "array"
+                        },
+                        {
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/ContentTree.transit.TableBody"
+                                }
+                            ],
+                            "maxItems": 1,
+                            "minItems": 1,
+                            "type": "array"
                         }
-                    ],
-                    "maxItems": 3,
-                    "minItems": 3,
-                    "type": "array"
+                    ]
                 },
                 "collapseAfterHowManyRows": {
                     "type": "number"
