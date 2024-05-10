@@ -619,7 +619,7 @@ The `layoutName` acts as a sort of theme for the component.
 ```ts
 interface LayoutSlot extends Parent {
 	type: "layout-slot"
-	children: (Heading | Paragraph | LayoutImage)[]
+	children: (Heading | Paragraph | LayoutImage | CustomCodeComponent)[]
 }
 ```
 
