@@ -711,9 +711,9 @@ interface CustomCodeComponent extends Parent {
   /** Semantic version of the code of the component, e.g. "^0.3.5". */
   versionRange: string
   /** Last date-time where the instance of this block was modified, in ISO-8601 format. */
-  lastModified: string
+  attributesLastModified: string
   /** A unique identifier to track component metrics in analytics. */
-  dataIdentifier: string
+  id: string
   /** Configuration data to be passed to the component. */
   attributes: {
     [key: string]: string | boolean | undefined
