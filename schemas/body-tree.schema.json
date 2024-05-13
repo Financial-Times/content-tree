@@ -129,6 +129,10 @@
                     "description": "Configuration data to be passed to the component.",
                     "type": "object"
                 },
+                "attributesLastModified": {
+                    "description": "Last date-time where the instance of this block was modified, in ISO-8601 format.",
+                    "type": "string"
+                },
                 "children": {
                     "items": {
                         "anyOf": [
@@ -146,12 +150,8 @@
                     "type": "array"
                 },
                 "data": {},
-                "dataIdentifier": {
+                "id": {
                     "description": "A unique identifier to track component metrics in analytics.",
-                    "type": "string"
-                },
-                "lastModified": {
-                    "description": "Last date-time where the instance of this block was modified, in ISO-8601 format.",
                     "type": "string"
                 },
                 "path": {
@@ -312,6 +312,9 @@
                             },
                             {
                                 "$ref": "#/definitions/ContentTree.transit.Heading"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.CustomCodeComponent"
                             },
                             {
                                 "$ref": "#/definitions/ContentTree.transit.LayoutImage"

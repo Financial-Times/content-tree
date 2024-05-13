@@ -205,7 +205,7 @@ export declare namespace ContentTree {
     }
     interface LayoutSlot extends Parent {
         type: "layout-slot";
-        children: (Heading | Paragraph | LayoutImage)[];
+        children: (Heading | Paragraph | LayoutImage | CustomCodeComponent)[];
     }
     interface LayoutImage extends Node {
         type: "layout-image";
@@ -258,9 +258,9 @@ export declare namespace ContentTree {
         /** Semantic version of the code of the component, e.g. "^0.3.5". */
         versionRange: string;
         /** Last date-time where the instance of this block was modified, in ISO-8601 format. */
-        lastModified: string;
+        attributesLastModified: string;
         /** A unique identifier to track component metrics in analytics. */
-        dataIdentifier: string;
+        id: string;
         /** Configuration data to be passed to the component. */
         attributes: {
             [key: string]: string | boolean | undefined;
@@ -474,7 +474,7 @@ export declare namespace ContentTree {
         }
         interface LayoutSlot extends Parent {
             type: "layout-slot";
-            children: (Heading | Paragraph | LayoutImage)[];
+            children: (Heading | Paragraph | LayoutImage | CustomCodeComponent)[];
         }
         interface LayoutImage extends Node {
             type: "layout-image";
@@ -527,9 +527,9 @@ export declare namespace ContentTree {
             /** Semantic version of the code of the component, e.g. "^0.3.5". */
             versionRange: string;
             /** Last date-time where the instance of this block was modified, in ISO-8601 format. */
-            lastModified: string;
+            attributesLastModified: string;
             /** A unique identifier to track component metrics in analytics. */
-            dataIdentifier: string;
+            id: string;
             /** Configuration data to be passed to the component. */
             attributes: {
                 [key: string]: string | boolean | undefined;
@@ -740,7 +740,7 @@ export declare namespace ContentTree {
         }
         interface LayoutSlot extends Parent {
             type: "layout-slot";
-            children: (Heading | Paragraph | LayoutImage)[];
+            children: (Heading | Paragraph | LayoutImage | CustomCodeComponent)[];
         }
         interface LayoutImage extends Node {
             type: "layout-image";
@@ -785,9 +785,25 @@ export declare namespace ContentTree {
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
         }
+        interface CustomCodeComponent extends Parent {
+            type: "custom-code-component";
+            /** Repository for the code of the component in the format "[github org]/[github repo]/[component name]". */
+            path: string;
+            /** Semantic version of the code of the component, e.g. "^0.3.5". */
+            versionRange: string;
+            /** Last date-time where the instance of this block was modified, in ISO-8601 format. */
+            attributesLastModified: string;
+            /** A unique identifier to track component metrics in analytics. */
+            id: string;
+            /** Configuration data to be passed to the component. */
+            attributes: {
+                [key: string]: string | boolean | undefined;
+            };
+            children: (ImageSet | Paragraph | CustomCodeComponent)[];
+        }
     }
     namespace loose {
-        type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+        type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
             type: string;
@@ -993,7 +1009,7 @@ export declare namespace ContentTree {
         }
         interface LayoutSlot extends Parent {
             type: "layout-slot";
-            children: (Heading | Paragraph | LayoutImage)[];
+            children: (Heading | Paragraph | LayoutImage | CustomCodeComponent)[];
         }
         interface LayoutImage extends Node {
             type: "layout-image";
@@ -1046,9 +1062,9 @@ export declare namespace ContentTree {
             /** Semantic version of the code of the component, e.g. "^0.3.5". */
             versionRange: string;
             /** Last date-time where the instance of this block was modified, in ISO-8601 format. */
-            lastModified: string;
+            attributesLastModified: string;
             /** A unique identifier to track component metrics in analytics. */
-            dataIdentifier: string;
+            id: string;
             /** Configuration data to be passed to the component. */
             attributes: {
                 [key: string]: string | boolean | undefined;
