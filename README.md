@@ -692,9 +692,9 @@ interface Table extends Parent {
 		| 'inset-left'
 		| 'inset-right'
 		| 'full-bleed'
-	collapseAfterHowManyRows: number
-	responsiveStyle: 'overflow' | 'flat'
-	children: [TableCaption, TableBody, TableFooter]
+	collapseAfterHowManyRows?: number
+	responsiveStyle: 'overflow' | 'flat' | 'scroll'
+	children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody]
 	columnSettings: TableColumnSettings[]
 }
 ```

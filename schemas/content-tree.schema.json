@@ -1171,20 +1171,60 @@
         "ContentTree.full.Table": {
             "properties": {
                 "children": {
-                    "items": [
+                    "anyOf": [
                         {
-                            "$ref": "#/definitions/ContentTree.full.TableCaption"
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/ContentTree.full.TableCaption"
+                                },
+                                {
+                                    "$ref": "#/definitions/ContentTree.full.TableBody"
+                                },
+                                {
+                                    "$ref": "#/definitions/ContentTree.full.TableFooter"
+                                }
+                            ],
+                            "maxItems": 3,
+                            "minItems": 3,
+                            "type": "array"
                         },
                         {
-                            "$ref": "#/definitions/ContentTree.full.TableBody"
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/ContentTree.full.TableCaption"
+                                },
+                                {
+                                    "$ref": "#/definitions/ContentTree.full.TableBody"
+                                }
+                            ],
+                            "maxItems": 2,
+                            "minItems": 2,
+                            "type": "array"
                         },
                         {
-                            "$ref": "#/definitions/ContentTree.full.TableFooter"
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/ContentTree.full.TableBody"
+                                },
+                                {
+                                    "$ref": "#/definitions/ContentTree.full.TableFooter"
+                                }
+                            ],
+                            "maxItems": 2,
+                            "minItems": 2,
+                            "type": "array"
+                        },
+                        {
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/ContentTree.full.TableBody"
+                                }
+                            ],
+                            "maxItems": 1,
+                            "minItems": 1,
+                            "type": "array"
                         }
-                    ],
-                    "maxItems": 3,
-                    "minItems": 3,
-                    "type": "array"
+                    ]
                 },
                 "collapseAfterHowManyRows": {
                     "type": "number"
@@ -1230,7 +1270,8 @@
                 "responsiveStyle": {
                     "enum": [
                         "flat",
-                        "overflow"
+                        "overflow",
+                        "scroll"
                     ],
                     "type": "string"
                 },
