@@ -714,6 +714,12 @@ interface CustomCodeComponent extends Parent {
   attributesLastModified: string
   /** A unique identifier for this instance */
   id: string
+  /** How the component should be presented in the article page according to the column layout system */
+  layoutWidth:
+      | 'inline'
+	  | 'mid-grid'
+	  | 'full-grid'
+	  | 'full-bleed'
   /** Configuration data to be passed to the component. */
   attributes: {
     [key: string]: string | boolean | undefined
