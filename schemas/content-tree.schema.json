@@ -170,7 +170,17 @@
                 },
                 "data": {},
                 "id": {
-                    "description": "A unique identifier to track component metrics in analytics.",
+                    "description": "A unique identifier for this instance",
+                    "type": "string"
+                },
+                "layoutWidth": {
+                    "description": "How the component should be presented in the article page according to the column layout system",
+                    "enum": [
+                        "full-bleed",
+                        "full-grid",
+                        "inline",
+                        "mid-grid"
+                    ],
                     "type": "string"
                 },
                 "path": {
@@ -569,9 +579,6 @@
                             },
                             {
                                 "$ref": "#/definitions/ContentTree.full.Heading"
-                            },
-                            {
-                                "$ref": "#/definitions/ContentTree.full.CustomCodeComponent"
                             },
                             {
                                 "$ref": "#/definitions/ContentTree.full.LayoutImage"

@@ -205,7 +205,7 @@ export declare namespace ContentTree {
     }
     interface LayoutSlot extends Parent {
         type: "layout-slot";
-        children: (Heading | Paragraph | LayoutImage | CustomCodeComponent)[];
+        children: (Heading | Paragraph | LayoutImage)[];
     }
     interface LayoutImage extends Node {
         type: "layout-image";
@@ -259,8 +259,10 @@ export declare namespace ContentTree {
         versionRange: string;
         /** Last date-time where the attributes for this block were modified, in ISO-8601 format. */
         attributesLastModified: string;
-        /** A unique identifier to track component metrics in analytics. */
+        /** A unique identifier for this instance */
         id: string;
+        /** How the component should be presented in the article page according to the column layout system */
+        layoutWidth: 'inline' | 'mid-grid' | 'full-grid' | 'full-bleed';
         /** Configuration data to be passed to the component. */
         attributes: {
             [key: string]: string | boolean | undefined;
@@ -474,7 +476,7 @@ export declare namespace ContentTree {
         }
         interface LayoutSlot extends Parent {
             type: "layout-slot";
-            children: (Heading | Paragraph | LayoutImage | CustomCodeComponent)[];
+            children: (Heading | Paragraph | LayoutImage)[];
         }
         interface LayoutImage extends Node {
             type: "layout-image";
@@ -528,8 +530,10 @@ export declare namespace ContentTree {
             versionRange: string;
             /** Last date-time where the attributes for this block were modified, in ISO-8601 format. */
             attributesLastModified: string;
-            /** A unique identifier to track component metrics in analytics. */
+            /** A unique identifier for this instance */
             id: string;
+            /** How the component should be presented in the article page according to the column layout system */
+            layoutWidth: 'inline' | 'mid-grid' | 'full-grid' | 'full-bleed';
             /** Configuration data to be passed to the component. */
             attributes: {
                 [key: string]: string | boolean | undefined;
@@ -740,7 +744,7 @@ export declare namespace ContentTree {
         }
         interface LayoutSlot extends Parent {
             type: "layout-slot";
-            children: (Heading | Paragraph | LayoutImage | CustomCodeComponent)[];
+            children: (Heading | Paragraph | LayoutImage)[];
         }
         interface LayoutImage extends Node {
             type: "layout-image";
@@ -793,8 +797,10 @@ export declare namespace ContentTree {
             versionRange: string;
             /** Last date-time where the attributes for this block were modified, in ISO-8601 format. */
             attributesLastModified: string;
-            /** A unique identifier to track component metrics in analytics. */
+            /** A unique identifier for this instance */
             id: string;
+            /** How the component should be presented in the article page according to the column layout system */
+            layoutWidth: 'inline' | 'mid-grid' | 'full-grid' | 'full-bleed';
             /** Configuration data to be passed to the component. */
             attributes: {
                 [key: string]: string | boolean | undefined;
@@ -1009,7 +1015,7 @@ export declare namespace ContentTree {
         }
         interface LayoutSlot extends Parent {
             type: "layout-slot";
-            children: (Heading | Paragraph | LayoutImage | CustomCodeComponent)[];
+            children: (Heading | Paragraph | LayoutImage)[];
         }
         interface LayoutImage extends Node {
             type: "layout-image";
@@ -1063,8 +1069,10 @@ export declare namespace ContentTree {
             versionRange: string;
             /** Last date-time where the attributes for this block were modified, in ISO-8601 format. */
             attributesLastModified: string;
-            /** A unique identifier to track component metrics in analytics. */
+            /** A unique identifier for this instance */
             id: string;
+            /** How the component should be presented in the article page according to the column layout system */
+            layoutWidth: 'inline' | 'mid-grid' | 'full-grid' | 'full-bleed';
             /** Configuration data to be passed to the component. */
             attributes: {
                 [key: string]: string | boolean | undefined;
