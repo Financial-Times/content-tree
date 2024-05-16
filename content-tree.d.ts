@@ -257,7 +257,7 @@ export declare namespace ContentTree {
         path: string;
         /** Semantic version of the code of the component, e.g. "^0.3.5". */
         versionRange: string;
-        /** Last date-time where the instance of this block was modified, in ISO-8601 format. */
+        /** Last date-time where the attributes for this block were modified, in ISO-8601 format. */
         attributesLastModified: string;
         /** A unique identifier to track component metrics in analytics. */
         id: string;
@@ -526,7 +526,7 @@ export declare namespace ContentTree {
             path: string;
             /** Semantic version of the code of the component, e.g. "^0.3.5". */
             versionRange: string;
-            /** Last date-time where the instance of this block was modified, in ISO-8601 format. */
+            /** Last date-time where the attributes for this block were modified, in ISO-8601 format. */
             attributesLastModified: string;
             /** A unique identifier to track component metrics in analytics. */
             id: string;
@@ -791,7 +791,7 @@ export declare namespace ContentTree {
             path: string;
             /** Semantic version of the code of the component, e.g. "^0.3.5". */
             versionRange: string;
-            /** Last date-time where the instance of this block was modified, in ISO-8601 format. */
+            /** Last date-time where the attributes for this block were modified, in ISO-8601 format. */
             attributesLastModified: string;
             /** A unique identifier to track component metrics in analytics. */
             id: string;
@@ -1061,7 +1061,7 @@ export declare namespace ContentTree {
             path: string;
             /** Semantic version of the code of the component, e.g. "^0.3.5". */
             versionRange: string;
-            /** Last date-time where the instance of this block was modified, in ISO-8601 format. */
+            /** Last date-time where the attributes for this block were modified, in ISO-8601 format. */
             attributesLastModified: string;
             /** A unique identifier to track component metrics in analytics. */
             id: string;

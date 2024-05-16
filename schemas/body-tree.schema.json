@@ -130,7 +130,7 @@
                     "type": "object"
                 },
                 "attributesLastModified": {
-                    "description": "Last date-time where the instance of this block was modified, in ISO-8601 format.",
+                    "description": "Last date-time where the attributes for this block were modified, in ISO-8601 format.",
                     "type": "string"
                 },
                 "children": {
