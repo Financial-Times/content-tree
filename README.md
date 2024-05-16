@@ -712,7 +712,7 @@ interface CustomCodeComponent extends Parent {
   versionRange: string
   /** Last date-time where the attributes for this block were modified, in ISO-8601 format. */
   attributesLastModified: string
-  /** A unique identifier to track component metrics in analytics. */
+  /** A unique identifier for this instance */
   id: string
   /** Configuration data to be passed to the component. */
   attributes: {
