@@ -108,6 +108,21 @@ type BodyBlock =
 
 `BodyBlock` nodes are the only things that are valid as the top level of a `Body`.
 
+### `LayoutWidth`
+
+```ts
+type LayoutWidth =
+	| "auto"
+	| "inline"
+	| "inset-left"
+	| "inset-right"
+	| "full-bleed"
+	| "full-grid"
+	| "mid-grid"
+```
+
+`LayoutWidth` defines how the component should be presented in the article page according to the column layout system.
+
 ### `Phrasing`
 
 ```ts
@@ -715,11 +730,7 @@ interface CustomCodeComponent extends Parent {
   /** A unique identifier for this instance */
   id: string
   /** How the component should be presented in the article page according to the column layout system */
-  layoutWidth:
-      | 'inline'
-	  | 'mid-grid'
-	  | 'full-grid'
-	  | 'full-bleed'
+  layoutWidth: LayoutWidth
   /** Configuration data to be passed to the component. */
   attributes: {
     [key: string]: string | boolean | undefined
