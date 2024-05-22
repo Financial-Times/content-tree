@@ -174,14 +174,8 @@
                     "type": "string"
                 },
                 "layoutWidth": {
-                    "description": "How the component should be presented in the article page according to the column layout system",
-                    "enum": [
-                        "full-bleed",
-                        "full-grid",
-                        "inline",
-                        "mid-grid"
-                    ],
-                    "type": "string"
+                    "$ref": "#/definitions/ContentTree.transit.LayoutWidth",
+                    "description": "How the component should be presented in the article page according to the column layout system"
                 },
                 "path": {
                     "description": "Repository for the code of the component in the format \"[github org]/[github repo]/[component name]\".",
@@ -356,6 +350,18 @@
                 }
             },
             "type": "object"
+        },
+        "ContentTree.transit.LayoutWidth": {
+            "enum": [
+                "auto",
+                "full-bleed",
+                "full-grid",
+                "inline",
+                "inset-left",
+                "inset-right",
+                "mid-grid"
+            ],
+            "type": "string"
         },
         "ContentTree.transit.Link": {
             "properties": {
