@@ -1,5 +1,6 @@
 export declare namespace ContentTree {
-    type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+    type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+    type LayoutWidth = "auto" | "inline" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid";
     type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
     interface Node {
         type: string;
@@ -251,8 +252,27 @@ export declare namespace ContentTree {
         children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
         columnSettings: TableColumnSettings[];
     }
+    interface CustomCodeComponent extends Parent {
+        type: "custom-code-component";
+        /** Repository for the code of the component in the format "[github org]/[github repo]/[component name]". */
+        path: string;
+        /** Semantic version of the code of the component, e.g. "^0.3.5". */
+        versionRange: string;
+        /** Last date-time where the attributes for this block were modified, in ISO-8601 format. */
+        attributesLastModified: string;
+        /** A unique identifier for this instance */
+        id: string;
+        /** How the component should be presented in the article page according to the column layout system */
+        layoutWidth: LayoutWidth;
+        /** Configuration data to be passed to the component. */
+        attributes: {
+            [key: string]: string | boolean | undefined;
+        };
+        children: (ImageSet | Paragraph | CustomCodeComponent)[];
+    }
     namespace full {
-        type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+        type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+        type LayoutWidth = "auto" | "inline" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
             type: string;
@@ -504,9 +524,28 @@ export declare namespace ContentTree {
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
         }
+        interface CustomCodeComponent extends Parent {
+            type: "custom-code-component";
+            /** Repository for the code of the component in the format "[github org]/[github repo]/[component name]". */
+            path: string;
+            /** Semantic version of the code of the component, e.g. "^0.3.5". */
+            versionRange: string;
+            /** Last date-time where the attributes for this block were modified, in ISO-8601 format. */
+            attributesLastModified: string;
+            /** A unique identifier for this instance */
+            id: string;
+            /** How the component should be presented in the article page according to the column layout system */
+            layoutWidth: LayoutWidth;
+            /** Configuration data to be passed to the component. */
+            attributes: {
+                [key: string]: string | boolean | undefined;
+            };
+            children: (ImageSet | Paragraph | CustomCodeComponent)[];
+        }
     }
     namespace transit {
-        type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+        type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+        type LayoutWidth = "auto" | "inline" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
             type: string;
@@ -753,9 +792,28 @@ export declare namespace ContentTree {
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
         }
+        interface CustomCodeComponent extends Parent {
+            type: "custom-code-component";
+            /** Repository for the code of the component in the format "[github org]/[github repo]/[component name]". */
+            path: string;
+            /** Semantic version of the code of the component, e.g. "^0.3.5". */
+            versionRange: string;
+            /** Last date-time where the attributes for this block were modified, in ISO-8601 format. */
+            attributesLastModified: string;
+            /** A unique identifier for this instance */
+            id: string;
+            /** How the component should be presented in the article page according to the column layout system */
+            layoutWidth: LayoutWidth;
+            /** Configuration data to be passed to the component. */
+            attributes: {
+                [key: string]: string | boolean | undefined;
+            };
+            children: (ImageSet | Paragraph | CustomCodeComponent)[];
+        }
     }
     namespace loose {
-        type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+        type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+        type LayoutWidth = "auto" | "inline" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
             type: string;
@@ -1006,6 +1064,24 @@ export declare namespace ContentTree {
             responsiveStyle: 'overflow' | 'flat' | 'scroll';
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
+        }
+        interface CustomCodeComponent extends Parent {
+            type: "custom-code-component";
+            /** Repository for the code of the component in the format "[github org]/[github repo]/[component name]". */
+            path: string;
+            /** Semantic version of the code of the component, e.g. "^0.3.5". */
+            versionRange: string;
+            /** Last date-time where the attributes for this block were modified, in ISO-8601 format. */
+            attributesLastModified: string;
+            /** A unique identifier for this instance */
+            id: string;
+            /** How the component should be presented in the article page according to the column layout system */
+            layoutWidth: LayoutWidth;
+            /** Configuration data to be passed to the component. */
+            attributes: {
+                [key: string]: string | boolean | undefined;
+            };
+            children: (ImageSet | Paragraph | CustomCodeComponent)[];
         }
     }
 }

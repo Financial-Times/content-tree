@@ -92,6 +92,7 @@ type BodyBlock =
 	| Heading
 	| ImageSet
 	| BigNumber
+	| CustomCodeComponent
 	| Layout
 	| List
 	| Blockquote
@@ -106,6 +107,21 @@ type BodyBlock =
 ```
 
 `BodyBlock` nodes are the only things that are valid as the top level of a `Body`.
+
+### `LayoutWidth`
+
+```ts
+type LayoutWidth =
+	| "auto"
+	| "inline"
+	| "inset-left"
+	| "inset-right"
+	| "full-bleed"
+	| "full-grid"
+	| "mid-grid"
+```
+
+`LayoutWidth` defines how the component should be presented in the article page according to the column layout system.
 
 ### `Phrasing`
 
@@ -699,6 +715,35 @@ interface Table extends Parent {
 ```
 
 **Table** represents 2d data.
+
+### CustomCodeComponent
+
+```ts
+interface CustomCodeComponent extends Parent {
+  type: "custom-code-component"
+  /** Repository for the code of the component in the format "[github org]/[github repo]/[component name]". */
+  path: string
+  /** Semantic version of the code of the component, e.g. "^0.3.5". */
+  versionRange: string
+  /** Last date-time where the attributes for this block were modified, in ISO-8601 format. */
+  attributesLastModified: string
+  /** A unique identifier for this instance */
+  id: string
+  /** How the component should be presented in the article page according to the column layout system */
+  layoutWidth: LayoutWidth
+  /** Configuration data to be passed to the component. */
+  attributes: {
+    [key: string]: string | boolean | undefined
+  }
+  children: (ImageSet | Paragraph | CustomCodeComponent)[]
+}
+```
+
+- The **CustomCodeComponent*** allows for more experimental forms of journalism, allowing editors to provide properties via Spark.
+- The component itself lives off-platform, and an example might be a git repository with a standard structure. This structure would include the rendering instructions, and the data structure that is expected to be provided to the component for it to render if necessary.
+- The basic interface in Spark to make reference to this system above (eg. the git repo URL or a public S3 bucket), and provide some data for it if necessary. This will be the Custom Component storyblock.
+- The data Spark receives from entering a specific ID will be used to render dynamic fields (the `attributes`).
+
 
 ## License
 

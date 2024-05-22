@@ -89,6 +89,9 @@
                     "$ref": "#/definitions/ContentTree.full.BigNumber"
                 },
                 {
+                    "$ref": "#/definitions/ContentTree.full.CustomCodeComponent"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.full.Layout"
                 },
                 {
@@ -128,6 +131,62 @@
                 "data": {},
                 "type": {
                     "const": "break",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "ContentTree.full.CustomCodeComponent": {
+            "properties": {
+                "attributes": {
+                    "additionalProperties": {
+                        "type": [
+                            "string",
+                            "boolean"
+                        ]
+                    },
+                    "description": "Configuration data to be passed to the component.",
+                    "type": "object"
+                },
+                "attributesLastModified": {
+                    "description": "Last date-time where the attributes for this block were modified, in ISO-8601 format.",
+                    "type": "string"
+                },
+                "children": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Paragraph"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.ImageSet"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.CustomCodeComponent"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "id": {
+                    "description": "A unique identifier for this instance",
+                    "type": "string"
+                },
+                "layoutWidth": {
+                    "$ref": "#/definitions/ContentTree.full.LayoutWidth",
+                    "description": "How the component should be presented in the article page according to the column layout system"
+                },
+                "path": {
+                    "description": "Repository for the code of the component in the format \"[github org]/[github repo]/[component name]\".",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "custom-code-component",
+                    "type": "string"
+                },
+                "versionRange": {
+                    "description": "Semantic version of the code of the component, e.g. \"^0.3.5\".",
                     "type": "string"
                 }
             },
@@ -529,6 +588,18 @@
                 }
             },
             "type": "object"
+        },
+        "ContentTree.full.LayoutWidth": {
+            "enum": [
+                "auto",
+                "full-bleed",
+                "full-grid",
+                "inline",
+                "inset-left",
+                "inset-right",
+                "mid-grid"
+            ],
+            "type": "string"
         },
         "ContentTree.full.Link": {
             "properties": {
