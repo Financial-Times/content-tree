@@ -356,7 +356,8 @@
                 "auto",
                 "full-bleed",
                 "full-grid",
-                "inline",
+                "full-width",
+                "in-line",
                 "inset-left",
                 "inset-right",
                 "mid-grid"
