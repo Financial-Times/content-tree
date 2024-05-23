@@ -113,7 +113,7 @@ type BodyBlock =
 ```ts
 type LayoutWidth =
 	| "auto"
-	| "inline"
+	| "in-line"
 	| "inset-left"
 	| "inset-right"
 	| "full-bleed"
