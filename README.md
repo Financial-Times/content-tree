@@ -113,12 +113,13 @@ type BodyBlock =
 ```ts
 type LayoutWidth =
 	| "auto"
-	| "inline"
+	| "in-line"
 	| "inset-left"
 	| "inset-right"
 	| "full-bleed"
 	| "full-grid"
 	| "mid-grid"
+	| "full-width"
 ```
 
 `LayoutWidth` defines how the component should be presented in the article page according to the column layout system.
