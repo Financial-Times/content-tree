@@ -119,6 +119,7 @@ type LayoutWidth =
 	| "full-bleed"
 	| "full-grid"
 	| "mid-grid"
+	| "full-width"
 ```
 
 `LayoutWidth` defines how the component should be presented in the article page according to the column layout system.
