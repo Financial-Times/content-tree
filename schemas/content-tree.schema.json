@@ -136,6 +136,22 @@
             },
             "type": "object"
         },
+        "ContentTree.full.CccFallbackText": {
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.full.Paragraph"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "ccc-fallback-text",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
         "ContentTree.full.CustomCodeComponent": {
             "properties": {
                 "attributes": {
@@ -156,21 +172,20 @@
                     "items": {
                         "anyOf": [
                             {
-                                "$ref": "#/definitions/ContentTree.full.Paragraph"
-                            },
-                            {
                                 "$ref": "#/definitions/ContentTree.full.ImageSet"
                             },
                             {
-                                "$ref": "#/definitions/ContentTree.full.CustomCodeComponent"
+                                "$ref": "#/definitions/ContentTree.full.CccFallbackText"
                             }
                         ]
                     },
                     "type": "array"
                 },
                 "data": {},
+                "embedded": {
+                    "type": "boolean"
+                },
                 "id": {
-                    "description": "A unique identifier for this instance",
                     "type": "string"
                 },
                 "layoutWidth": {

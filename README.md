@@ -720,23 +720,30 @@ interface Table extends Parent {
 ### CustomCodeComponent
 
 ```ts
-interface CustomCodeComponent extends Parent {
+interface CccFallbackText extends Node {
+    type: 'ccc-fallback-text'
+    children: Paragraph[]
+}
+
+type CccAttributes = {
+    [key: string]: string | boolean | undefined
+}
+
+interface CustomCodeComponent extends Node {
   type: "custom-code-component"
-  /** Repository for the code of the component in the format "[github org]/[github repo]/[component name]". */
-  path: string
-  /** Semantic version of the code of the component, e.g. "^0.3.5". */
-  versionRange: string
-  /** Last date-time where the attributes for this block were modified, in ISO-8601 format. */
-  attributesLastModified: string
-  /** A unique identifier for this instance */
   id: string
+  embedded: boolean
   /** How the component should be presented in the article page according to the column layout system */
   layoutWidth: LayoutWidth
+  /** Repository for the code of the component in the format "[github org]/[github repo]/[component name]". */
+  external path: string
+  /** Semantic version of the code of the component, e.g. "^0.3.5". */
+  external versionRange: string
+  /** Last date-time where the attributes for this block were modified, in ISO-8601 format. */
+  external attributesLastModified: string
   /** Configuration data to be passed to the component. */
-  attributes: {
-    [key: string]: string | boolean | undefined
-  }
-  children: (ImageSet | Paragraph | CustomCodeComponent)[]
+  external attributes: CccAttributes
+  external children: (ImageSet | CccFallbackText)[]
 }
 ```
 
