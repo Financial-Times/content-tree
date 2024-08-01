@@ -720,12 +720,12 @@ interface Table extends Parent {
 ### CustomCodeComponent
 
 ```ts
-interface CccFallbackText extends Node {
-    type: 'ccc-fallback-text'
+interface FallbackText extends Node {
+    type: 'fallback-text'
     children: Paragraph[]
 }
 
-type CccAttributes = {
+type Attributes = {
     [key: string]: string | boolean | undefined
 }
 
@@ -742,8 +742,8 @@ interface CustomCodeComponent extends Node {
   /** Last date-time where the attributes for this block were modified, in ISO-8601 format. */
   external attributesLastModified: string
   /** Configuration data to be passed to the component. */
-  external attributes: CccAttributes
-  external children: (ImageSet | CccFallbackText)[]
+  external attributes: Attributes
+  external children: (ImageSet | FallbackText)[]
 }
 ```
 
