@@ -730,8 +730,11 @@ type Attributes = {
 }
 
 interface CustomCodeComponent extends Node {
+  /** Component type */
   type: "custom-code-component"
+  /** Id taken from the CAPI url */
   id: string
+  /** Whether the component contains external fields that will be unrolled and returned in the article's "embeds" array */
   embedded: boolean
   /** How the component should be presented in the article page according to the column layout system */
   layoutWidth: LayoutWidth
@@ -739,7 +742,7 @@ interface CustomCodeComponent extends Node {
   external path: string
   /** Semantic version of the code of the component, e.g. "^0.3.5". */
   external versionRange: string
-  /** Last date-time where the attributes for this block were modified, in ISO-8601 format. */
+  /** Last date-time when the attributes for this block were modified, in ISO-8601 format. */
   external attributesLastModified: string
   /** Configuration data to be passed to the component. */
   external attributes: Attributes

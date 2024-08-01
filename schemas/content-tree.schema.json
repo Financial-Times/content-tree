@@ -149,7 +149,7 @@
                     "type": "object"
                 },
                 "attributesLastModified": {
-                    "description": "Last date-time where the attributes for this block were modified, in ISO-8601 format.",
+                    "description": "Last date-time when the attributes for this block were modified, in ISO-8601 format.",
                     "type": "string"
                 },
                 "children": {
@@ -167,9 +167,11 @@
                 },
                 "data": {},
                 "embedded": {
+                    "description": "Whether the component contains external fields that will be unrolled and returned in the article's \"embeds\" array",
                     "type": "boolean"
                 },
                 "id": {
+                    "description": "Id taken from the CAPI url",
                     "type": "string"
                 },
                 "layoutWidth": {
@@ -182,6 +184,7 @@
                 },
                 "type": {
                     "const": "custom-code-component",
+                    "description": "Component type",
                     "type": "string"
                 },
                 "versionRange": {
