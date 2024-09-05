@@ -252,10 +252,6 @@ export declare namespace ContentTree {
         children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
         columnSettings: TableColumnSettings[];
     }
-    interface CccFallbackText extends Node {
-        type: 'ccc-fallback-text';
-        children: Paragraph[];
-    }
     type Attributes = {
         [key: string]: string | boolean | undefined;
     };
@@ -276,7 +272,6 @@ export declare namespace ContentTree {
         attributesLastModified: string;
         /** Configuration data to be passed to the component. */
         attributes: Attributes;
-        children: (ImageSet | CccFallbackText)[];
     }
     namespace full {
         type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
@@ -532,10 +527,6 @@ export declare namespace ContentTree {
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
         }
-        interface CccFallbackText extends Node {
-            type: 'ccc-fallback-text';
-            children: Paragraph[];
-        }
         type Attributes = {
             [key: string]: string | boolean | undefined;
         };
@@ -556,7 +547,6 @@ export declare namespace ContentTree {
             attributesLastModified: string;
             /** Configuration data to be passed to the component. */
             attributes: Attributes;
-            children: (ImageSet | CccFallbackText)[];
         }
     }
     namespace transit {
@@ -807,10 +797,6 @@ export declare namespace ContentTree {
             responsiveStyle: 'overflow' | 'flat' | 'scroll';
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
-        }
-        interface CccFallbackText extends Node {
-            type: 'ccc-fallback-text';
-            children: Paragraph[];
         }
         type Attributes = {
             [key: string]: string | boolean | undefined;
@@ -1080,10 +1066,6 @@ export declare namespace ContentTree {
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
         }
-        interface CccFallbackText extends Node {
-            type: 'ccc-fallback-text';
-            children: Paragraph[];
-        }
         type Attributes = {
             [key: string]: string | boolean | undefined;
         };
@@ -1104,7 +1086,6 @@ export declare namespace ContentTree {
             attributesLastModified?: string;
             /** Configuration data to be passed to the component. */
             attributes?: Attributes;
-            children?: (ImageSet | CccFallbackText)[];
         }
     }
 }
