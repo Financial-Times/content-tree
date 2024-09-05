@@ -153,10 +153,6 @@
                     "type": "string"
                 },
                 "data": {},
-                "embedded": {
-                    "description": "Whether the component contains external fields that will be unrolled and returned in the article's \"embeds\" array",
-                    "type": "boolean"
-                },
                 "id": {
                     "description": "Id taken from the CAPI url",
                     "type": "string"

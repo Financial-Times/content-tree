@@ -729,8 +729,6 @@ interface CustomCodeComponent extends Node {
   type: "custom-code-component"
   /** Id taken from the CAPI url */
   id: string
-  /** Whether the component contains external fields that will be unrolled and returned in the article's "embeds" array */
-  embedded: boolean
   /** How the component should be presented in the article page according to the column layout system */
   layoutWidth: LayoutWidth
   /** Repository for the code of the component in the format "[github org]/[github repo]/[component name]". */
