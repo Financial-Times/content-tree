@@ -252,7 +252,7 @@ export declare namespace ContentTree {
         children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
         columnSettings: TableColumnSettings[];
     }
-    type Attributes = {
+    type CustomCodeComponentAttributes = {
         [key: string]: string | boolean | undefined;
     };
     interface CustomCodeComponent extends Node {
@@ -269,7 +269,7 @@ export declare namespace ContentTree {
         /** Last date-time when the attributes for this block were modified, in ISO-8601 format. */
         attributesLastModified: string;
         /** Configuration data to be passed to the component. */
-        attributes: Attributes;
+        attributes: CustomCodeComponentAttributes;
     }
     namespace full {
         type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
@@ -525,7 +525,7 @@ export declare namespace ContentTree {
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
         }
-        type Attributes = {
+        type CustomCodeComponentAttributes = {
             [key: string]: string | boolean | undefined;
         };
         interface CustomCodeComponent extends Node {
@@ -542,7 +542,7 @@ export declare namespace ContentTree {
             /** Last date-time when the attributes for this block were modified, in ISO-8601 format. */
             attributesLastModified: string;
             /** Configuration data to be passed to the component. */
-            attributes: Attributes;
+            attributes: CustomCodeComponentAttributes;
         }
     }
     namespace transit {
@@ -794,7 +794,7 @@ export declare namespace ContentTree {
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
         }
-        type Attributes = {
+        type CustomCodeComponentAttributes = {
             [key: string]: string | boolean | undefined;
         };
         interface CustomCodeComponent extends Node {
@@ -1060,7 +1060,7 @@ export declare namespace ContentTree {
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
         }
-        type Attributes = {
+        type CustomCodeComponentAttributes = {
             [key: string]: string | boolean | undefined;
         };
         interface CustomCodeComponent extends Node {
@@ -1077,7 +1077,7 @@ export declare namespace ContentTree {
             /** Last date-time when the attributes for this block were modified, in ISO-8601 format. */
             attributesLastModified?: string;
             /** Configuration data to be passed to the component. */
-            attributes?: Attributes;
+            attributes?: CustomCodeComponentAttributes;
         }
     }
 }

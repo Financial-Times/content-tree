@@ -720,7 +720,7 @@ interface Table extends Parent {
 ### CustomCodeComponent
 
 ```ts
-type Attributes = {
+type CustomCodeComponentAttributes = {
     [key: string]: string | boolean | undefined
 }
 
@@ -738,7 +738,7 @@ interface CustomCodeComponent extends Node {
   /** Last date-time when the attributes for this block were modified, in ISO-8601 format. */
   external attributesLastModified: string
   /** Configuration data to be passed to the component. */
-  external attributes: Attributes
+  external attributes: CustomCodeComponentAttributes
 }
 ```
 
