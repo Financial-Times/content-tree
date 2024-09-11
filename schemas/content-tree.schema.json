@@ -149,28 +149,12 @@
                     "type": "object"
                 },
                 "attributesLastModified": {
-                    "description": "Last date-time where the attributes for this block were modified, in ISO-8601 format.",
+                    "description": "Last date-time when the attributes for this block were modified, in ISO-8601 format.",
                     "type": "string"
-                },
-                "children": {
-                    "items": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/definitions/ContentTree.full.Paragraph"
-                            },
-                            {
-                                "$ref": "#/definitions/ContentTree.full.ImageSet"
-                            },
-                            {
-                                "$ref": "#/definitions/ContentTree.full.CustomCodeComponent"
-                            }
-                        ]
-                    },
-                    "type": "array"
                 },
                 "data": {},
                 "id": {
-                    "description": "A unique identifier for this instance",
+                    "description": "Id taken from the CAPI url",
                     "type": "string"
                 },
                 "layoutWidth": {
@@ -183,6 +167,7 @@
                 },
                 "type": {
                     "const": "custom-code-component",
+                    "description": "Component type",
                     "type": "string"
                 },
                 "versionRange": {

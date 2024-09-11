@@ -138,55 +138,18 @@
         },
         "ContentTree.transit.CustomCodeComponent": {
             "properties": {
-                "attributes": {
-                    "additionalProperties": {
-                        "type": [
-                            "string",
-                            "boolean"
-                        ]
-                    },
-                    "description": "Configuration data to be passed to the component.",
-                    "type": "object"
-                },
-                "attributesLastModified": {
-                    "description": "Last date-time where the attributes for this block were modified, in ISO-8601 format.",
-                    "type": "string"
-                },
-                "children": {
-                    "items": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/definitions/ContentTree.transit.Paragraph"
-                            },
-                            {
-                                "$ref": "#/definitions/ContentTree.transit.ImageSet"
-                            },
-                            {
-                                "$ref": "#/definitions/ContentTree.transit.CustomCodeComponent"
-                            }
-                        ]
-                    },
-                    "type": "array"
-                },
                 "data": {},
                 "id": {
-                    "description": "A unique identifier for this instance",
+                    "description": "Id taken from the CAPI url",
                     "type": "string"
                 },
                 "layoutWidth": {
                     "$ref": "#/definitions/ContentTree.transit.LayoutWidth",
                     "description": "How the component should be presented in the article page according to the column layout system"
                 },
-                "path": {
-                    "description": "Repository for the code of the component in the format \"[github org]/[github repo]/[component name]\".",
-                    "type": "string"
-                },
                 "type": {
                     "const": "custom-code-component",
-                    "type": "string"
-                },
-                "versionRange": {
-                    "description": "Semantic version of the code of the component, e.g. \"^0.3.5\".",
+                    "description": "Component type",
                     "type": "string"
                 }
             },
