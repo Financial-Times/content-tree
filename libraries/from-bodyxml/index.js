@@ -89,6 +89,22 @@ export let defaultTransformers = {
 		}
 	},
 	/**
+	 * @type {Transformer<ContentTree.transit.Subscript>}
+	 */
+	sub(sub) {
+		return {
+			type: "subscript",
+		}
+	},
+	/**
+	 * @type {Transformer<ContentTree.transit.Superscript>}
+	 */
+	sup(sup) {
+		return {
+			type: "superscript",
+		}
+	},
+	/**
 	 * @type {Transformer<ContentTree.transit.Break>}
 	 */
 	br(br) {
