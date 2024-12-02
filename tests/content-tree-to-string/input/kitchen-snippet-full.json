@@ -672,7 +672,16 @@
 					},
 					{
 						"type": "text",
-						"value": " is a graduate, but he is working in a manual occupation. It dealt with social alienation, the claustrophobia and frustrations of a provincial life on low incomes.[citation needed]"
+						"value": " is a graduate, but he is working in a manual occupation. It dealt with social alienation, the claustrophobia and frustrations of a provincial life on low incomes."
+					},
+					{
+						"type": "superscript",
+						"children": [
+							{
+								"type": "text",
+								"value": "[citation needed]"
+							}
+						]
 					}
 				]
 			},
@@ -685,10 +694,23 @@
 				"children": [
 					{
 						"type": "text",
-						"value": "The impact of this work inspired Arnold Wesker and Shelagh Delaney, among numerous others, to write plays of their own.[citation needed] The English Stage Company at the Royal Court Theatre, headed by George Devine and Theatre Workshop organised by Joan Littlewood were particularly prominent in bringing these plays to public attention. Critic John Heilpern wrote that Look Back in Anger expressed such “immensity of feeling and class hatred” that it altered the course of English theatre. The term “Angry theatre” was coined by critic John Russell Taylor."
-					}
-				]
-			},
+						"value": "The impact of this work inspired Arnold Wesker and Shelagh Delaney, among numerous others, to write plays of their own."
+					},
+					{
+						"type": "superscript",
+						"children": [
+							{
+								"type": "text",
+								"value": "[citation needed]"
+							}
+						]
+					},
+          {
+            "type": "text",
+            "value": " The English Stage Company at the Royal Court Theatre, headed by George Devine and Theatre Workshop organised by Joan Littlewood were particularly prominent in bringing these plays to public attention. Critic John Heilpern wrote that Look Back in Anger expressed such “immensity of feeling and class hatred” that it altered the course of English theatre. The term “Angry theatre” was coined by critic John Russell Taylor."
+          }
+        ]
+      },
 			{
 				"type": "image-set",
 				"id": "52b9ebb3-24db-4768-8894-77f200702bb0",

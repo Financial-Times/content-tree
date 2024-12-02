@@ -283,6 +283,28 @@ interface Strikethrough extends Parent {
 
 **Strikethrough** represents a piece of text that has been stricken.
 
+### `Subscript`
+
+```ts
+interface Subscript extends Parent {
+	type: "subscript"
+	children: Phrasing[]
+}
+```
+
+**Subscript** represents a piece of text that has a lowered baseline.
+
+### `Superscript`
+
+```ts
+interface Superscript extends Parent {
+	type: "superscript"
+	children: Phrasing[]
+}
+```
+
+**Superscript** represents a piece of text with a raised baseline.
+
 ### `Link`
 
 ```ts
