@@ -1,7 +1,7 @@
 export declare namespace ContentTree {
     type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
     type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
-    type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
+    type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | Subscript | Superscript;
     interface Node {
         type: string;
         data?: any;
@@ -282,7 +282,7 @@ export declare namespace ContentTree {
     namespace full {
         type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
-        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
+        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | Subscript | Superscript;
         interface Node {
             type: string;
             data?: any;
@@ -564,7 +564,7 @@ export declare namespace ContentTree {
     namespace transit {
         type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
-        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
+        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | Subscript | Superscript;
         interface Node {
             type: string;
             data?: any;
@@ -833,7 +833,7 @@ export declare namespace ContentTree {
     namespace loose {
         type BodyBlock = Paragraph | Heading | ImageSet | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
-        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
+        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | Subscript | Superscript;
         interface Node {
             type: string;
             data?: any;

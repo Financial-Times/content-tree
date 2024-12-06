@@ -127,7 +127,7 @@ type LayoutWidth =
 ### `Phrasing`
 
 ```ts
-type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link
+type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | Subscript | Superscript
 ```
 
 A phrasing node cannot have ancestor of the same type.

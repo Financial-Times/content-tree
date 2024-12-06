@@ -42,6 +42,12 @@
                             },
                             {
                                 "$ref": "#/definitions/ContentTree.transit.Link"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Subscript"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Superscript"
                             }
                         ]
                     },
@@ -374,6 +380,12 @@
                             },
                             {
                                 "$ref": "#/definitions/ContentTree.transit.Link"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Subscript"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Superscript"
                             }
                         ]
                     },
@@ -422,6 +434,12 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.Link"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Subscript"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Superscript"
                 }
             ]
         },
@@ -618,6 +636,38 @@
                 "data": {},
                 "type": {
                     "const": "strong",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "ContentTree.transit.Subscript": {
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.transit.Phrasing"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "subscript",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "ContentTree.transit.Superscript": {
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.transit.Phrasing"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "superscript",
                     "type": "string"
                 }
             },

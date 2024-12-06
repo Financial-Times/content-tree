@@ -42,6 +42,12 @@
                             },
                             {
                                 "$ref": "#/definitions/ContentTree.full.Link"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Subscript"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Superscript"
                             }
                         ]
                     },
@@ -653,6 +659,12 @@
                             },
                             {
                                 "$ref": "#/definitions/ContentTree.full.Link"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Subscript"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Superscript"
                             }
                         ]
                     },
@@ -701,6 +713,12 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.Link"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Subscript"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Superscript"
                 }
             ]
         },
@@ -1165,6 +1183,38 @@
                 "data": {},
                 "type": {
                     "const": "strong",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "ContentTree.full.Subscript": {
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.full.Phrasing"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "subscript",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "ContentTree.full.Superscript": {
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.full.Phrasing"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "superscript",
                     "type": "string"
                 }
             },
