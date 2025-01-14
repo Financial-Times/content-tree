@@ -2,19 +2,102 @@
 	"type": "root",
 	"body": {
 		"type": "body",
+		"version": 1,
 		"children": [
 			{
 				"type": "paragraph",
 				"children": [
 					{
 						"type": "text",
-						"value": "Kitchen sink realism (or kitchen sink drama) is a British cultural movement that developed in the late 1950s and early 1960s in theatre, art, novels, film, and television plays, whose protagonists usually could be described as \"angry young men\" who were disillusioned with modern society. It used a style of social realism, which depicted the domestic situations of working class Britons, living in cramped rented accommodation and spending their off-hours drinking in grimy pubs, to explore controversial social and political issues ranging from abortion to homelessness. The harsh, realistic style contrasted sharply with the escapism of the previous generation's so-called \"well-made plays\".€¥"
+						"value": "Kitchen sink realism (or "
+					},
+					{
+						"type": "link",
+						"url": "https://www.ft.com/kitchenus-sinkus-articlus",
+						"title": "",
+						"children": [
+							{
+								"type": "text",
+								"value": "kitchen sink drama"
+							}
+						]
+					},
+					{
+						"type": "text",
+						"value": ") is a British cultural movement that developed in the late 1950s and early 1960s in theatre, art, novels, film, and television plays, whose protagonists usually could be described as "
+					},
+					{
+						"type": "strong",
+						"children": [
+							{
+								"type": "text",
+								"value": "\"angry young men\""
+							}
+						]
+					},
+					{
+						"type": "text",
+						"value": " who were disillusioned with modern society. It used a style of social realism, which depicted the domestic situations of working class Britons, living in cramped rented accommodation and spending their off-hours drinking in "
+					},
+					{
+						"type": "strikethrough",
+						"children": [
+							{
+								"type": "text",
+								"value": "grimy"
+							}
+						]
+					},
+					{
+						"type": "text",
+						"value": " pubs, to explore "
+					},
+					{
+						"type": "emphasis",
+						"children": [
+							{
+								"type": "strong",
+								"children": [
+									{
+										"type": "text",
+										"value": "controversial social"
+									}
+								]
+							}
+						]
+					},
+					{
+						"type": "text",
+						"value": " and "
+					},
+					{
+						"type": "emphasis",
+						"children": [
+							{
+								"type": "strong",
+								"children": [
+									{
+										"type": "strikethrough",
+										"children": [
+											{
+												"type": "text",
+												"value": "political issues"
+											}
+										]
+									}
+								]
+							}
+						]
+					},
+					{
+						"type": "text",
+						"value": " ranging from abortion to homelessness. The harsh, realistic style contrasted sharply with the escapism of the previous generation's so-called \"well-made plays\".€¥"
 					}
 				]
 			},
 			{
 				"type": "image-set",
-				"id": "0cfc1752-84a6-4477-b225-a4872f07324a"
+				"id": "http://api-t.ft.com/content/0cfc1752-84a6-4477-b225-a4872f07324a"
 			},
 			{
 				"type": "paragraph",
@@ -132,7 +215,6 @@
 			},
 			{
 				"type": "list",
-				"ordered": false,
 				"children": [
 					{
 						"type": "list-item",
@@ -318,7 +400,8 @@
 							}
 						]
 					}
-				]
+				],
+				"ordered": false
 			},
 			{
 				"type": "heading",
@@ -342,7 +425,6 @@
 			},
 			{
 				"type": "list",
-				"ordered": true,
 				"children": [
 					{
 						"type": "list-item",
@@ -505,7 +587,8 @@
 							}
 						]
 					}
-				]
+				],
+				"ordered": true
 			},
 			{
 				"type": "paragraph",
@@ -517,9 +600,14 @@
 				]
 			},
 			{
+				"type": "text",
+				"value": " "
+			},
+			{
 				"type": "pullquote",
 				"text": "Before the 1950s, the United Kingdom's working class were often depicted stereotypically in Noël Coward's drawing room comedies and British films",
-				"source": "Wikipedia"
+				"source": "Wikipedia",
+				"children": []
 			},
 			{
 				"type": "paragraph",
@@ -629,7 +717,7 @@
 			},
 			{
 				"type": "video",
-				"id": "9eef331b-04f0-4774-b487-a5aef2995e4d",
+				"id": "http://api-t.ft.com/content/9eef331b-04f0-4774-b487-a5aef2995e4d",
 				"embedded": true
 			},
 			{
@@ -643,7 +731,7 @@
 			},
 			{
 				"type": "image-set",
-				"id": "52b9ebb3-24db-4768-8894-77f200702bb0"
+				"id": "http://api-t.ft.com/content/52b9ebb3-24db-4768-8894-77f200702bb0"
 			},
 			{
 				"type": "paragraph",
@@ -694,29 +782,10 @@
 				]
 			},
 			{
+				"id": "http://api-t.ft.com/content/146da558-4dee-11e3-8fa5-00144feabdc0",
 				"type": "recommended",
-				"id": "146da558-4dee-11e3-8fa5-00144feabdc0",
 				"heading": "Recommended",
-				"teaserTitleOverride": "Kitchenus sinkus articlus",
-				"teaser": {
-					"id": "146da558-4dee-11e3-8fa5-00144feabdc0",
-					"url": "https://www.ft.com/content/146da558-4dee-11e3-8fa5-00144feabdc0",
-					"indicators": {
-						"isScoop": true,
-						"accessLevel": "subscribed"
-					},
-					"type": "article",
-					"title": "Kitchenus sinkus articlus",
-					"publishedDate": "???",
-					"firstPublishedDate": "???",
-					"image": {
-						"format": "standard-inline",
-						"height": 0,
-						"width": 0,
-						"id": "https://www.ft.com/__origami/service/image/v2/images/raw/https%3A%2F%2Fwww.ft.com%2F__assets%2Fcreatives%2Fopen-graph%2Fft-v1.jpg?source=next-opengraph&fit=scale-down&width=900",
-						"url": "https://www.ft.com/__origami/service/image/v2/images/raw/https%3A%2F%2Fwww.ft.com%2F__assets%2Fcreatives%2Fopen-graph%2Fft-v1.jpg?source=next-opengraph&fit=scale-down&width=900"
-					}
-				}
+				"teaserTitleOverride": "Kitchenus sinkus articlus"
 			},
 			{
 				"type": "paragraph",
@@ -783,16 +852,16 @@
 				"type": "layout",
 				"layoutName": "auto",
 				"layoutWidth": "full-grid",
-				"data": {
-					"layout": "image-pair"
-				},
 				"children": [
 					{
 						"type": "layout-slot",
 						"children": [
 							{
-								"id": "21ee9162-d988-450a-8c1c-1551bbaae51b",
-								"type": "layout-image"
+								"type": "layout-image",
+								"id": "https://d1e00ek4ebabms.cloudfront.net/staging/cb0650f2-581e-47c3-a8e8-133105299fb4.png",
+								"caption": "Billy Liar ",
+								"alt": "",
+								"credit": "© Rex Features"
 							}
 						]
 					},
@@ -800,8 +869,11 @@
 						"type": "layout-slot",
 						"children": [
 							{
-								"id": "8ccaf42d-774e-4195-8a94-4aaa384a80d0",
-								"type": "layout-image"
+								"type": "layout-image",
+								"id": "https://d1e00ek4ebabms.cloudfront.net/staging/23421e94-1858-46fc-a710-f3ffffa96719.png",
+								"caption": "Michael Caine is Alfie",
+								"alt": "",
+								"credit": "© HULTON ARCHIVE"
 							}
 						]
 					}
@@ -857,9 +929,6 @@
 				"type": "layout",
 				"layoutName": "card",
 				"layoutWidth": "full-width",
-				"data": {
-					"layout": "explainer"
-				},
 				"children": [
 					{
 						"type": "heading",
@@ -936,9 +1005,6 @@
 				"type": "layout",
 				"layoutName": "card",
 				"layoutWidth": "inset-left",
-				"data": {
-					"layout": "explainer"
-				},
 				"children": [
 					{
 						"type": "heading",
@@ -1015,13 +1081,10 @@
 				"type": "layout",
 				"layoutName": "timeline",
 				"layoutWidth": "full-width",
-				"data": {
-					"layout": "timeline"
-				},
 				"children": [
 					{
 						"type": "heading",
-						"level": "subheading",
+						"level": "chapter",
 						"children": [
 							{
 								"type": "text",
@@ -1031,8 +1094,10 @@
 					},
 					{
 						"type": "layout-image",
-						"id": "a978ba29-505f-4ce4-951b-387d60441fc4",
-						"children": []
+						"id": "https://d1e00ek4ebabms.cloudfront.net/staging/cfbbc7af-6c2c-412c-b54e-54df47791a46.png",
+						"caption": "Alfie",
+						"alt": "",
+						"credit": "© HULTON ARCHIVE"
 					},
 					{
 						"type": "layout-slot",
