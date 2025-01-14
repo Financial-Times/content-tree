@@ -204,7 +204,7 @@ export let defaultTransformers = {
 	[ContentType.imageset](content) {
 		return {
 			type: "image-set",
-			id: content.attributes.id ?? "",
+			id: content.attributes.url ?? "",
 			children: null,
 		}
 	},
@@ -214,39 +214,43 @@ export let defaultTransformers = {
 	[ContentType.video](content) {
 		return {
 			type: "video",
-			id: content.attributes.id ?? "",
+			id: content.attributes.url ?? "",
 			embedded: content.attributes["data-embedded"] == "true" ? true : false,
 			children: null,
 		}
 	},
 	// TODO these two Link transforms may be wrong. what is a "content" or an "article"?
 	/**
-	 * @type {Transformer<ContentTree.transit.Flourish>}
+	 * @type {Transformer<ContentTree.transit.Flourish | ContentTree.transit.Link>}
 	 */
 	[ContentType.content](content) {
 		if (content.attributes["data-asset-type"] == "flourish") {
-			return {
+			return /** @type {ContentTree.transit.Flourish} */ ({
 				type: "flourish",
 				flourishType: content.attributes["data-flourish-type"] || "",
 				layoutWidth: content.attributes["data-layout-width"] || "",
 				description: content.attributes["alt"] || "",
 				timestamp: content.attributes["data-time-stamp"] || "",
 				// fallbackImage -- TODO should this be external in content-tree?
-			}
+			})
 		}
-		return {
+		const id = content.attributes.url ?? "";
+		const uuid = id.split('/').pop();
+		return /** @type {ContentTree.transit.Link} */({
 			type: "link",
-			url: `https://www.ft.com/content/${content.attributes.id}`,
+			url: `https://www.ft.com/content/${uuid}`,
 			title: content.attributes.dataTitle ?? "",
-		}
+		})
 	},
 	/**
 	 * @type {Transformer<ContentTree.transit.Link>}
 	 */
 	[ContentType.article](content) {
+		const id = content.attributes.url ?? "";
+		const uuid = id.split('/').pop();
 		return {
 			type: "link",
-			url: `https://www.ft.com/content/${content.attributes.id}`,
+			url: `https://www.ft.com/content/${uuid}`,
 			title: content.attributes.dataTitle ?? "",
 		}
 	},
