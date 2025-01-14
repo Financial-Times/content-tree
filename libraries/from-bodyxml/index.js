@@ -161,6 +161,19 @@ export let defaultTransformers = {
 			children: null,
 		}
 	},
+  	/**
+	 * @type {Transformer<ContentTree.transit.BigNumber>}
+	 */
+	["big-number"](bn) {
+		let number = find(bn, {name: "big-number-headline"})
+		let description = find(bn, {name: "big-number-intro"})
+		return {
+			type: "big-number",
+			number: number ? xastToString(number) : "",
+			description: description ? xastToString(description) : "",
+			children: null,
+		}
+	},
 	/**
 	 * @type {Transformer<ContentTree.transit.LayoutImage>}
 	 */
