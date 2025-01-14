@@ -629,7 +629,8 @@
 			},
 			{
 				"type": "video",
-				"id": "9eef331b-04f0-4774-b487-a5aef2995e4d"
+				"id": "9eef331b-04f0-4774-b487-a5aef2995e4d",
+				"embedded": true
 			},
 			{
 				"type": "paragraph",
