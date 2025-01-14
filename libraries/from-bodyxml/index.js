@@ -254,6 +254,20 @@ export let defaultTransformers = {
 			title: content.attributes.dataTitle ?? "",
 		}
 	},
+	/**
+	 * @type {Transformer<ContentTree.transit.Recommended>}
+	 */
+	recommended(rl) {
+		const link = find(rl, { name: 'ft-content'});
+		const heading = find(rl, { name: 'recommended-title'});
+		return {
+			type: "recommended",
+			id: link?.attributes?.url ?? "",
+			heading: heading ? xastToString(heading) : "",
+			teaserTitleOverride: link ? xastToString(link) : "",
+			children: null
+		}
+	},
 }
 
 /**
