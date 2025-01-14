@@ -105,14 +105,25 @@ export let defaultTransformers = {
 		}
 	},
 	/**
-	 * @type {Transformer<ContentTree.transit.Link>}
+	 * @type {Transformer<ContentTree.transit.Link | ContentTree.transit.YoutubeVideo>}
 	 */
 	a(a) {
-		return {
+		if(a.attributes['data-asset-type'] === 'video') {
+			const url = a.attributes.href ?? '';
+			if(url.includes('youtube.com')) {
+				return /** @type {ContentTree.transit.YoutubeVideo} */({
+					type: "youtube-video",
+					url: url,
+					children: null
+				})
+			}
+			//TODO: specialist support Vimeo, but this isn't in the Content Tree spec yet
+		}
+		return /** @type {ContentTree.transit.Link} */({
 			type: "link",
 			title: a.attributes.title ?? "",
 			url: a.attributes.href ?? "",
-		}
+		})
 	},
 	/**
 	 * @type {Transformer<ContentTree.transit.List>}

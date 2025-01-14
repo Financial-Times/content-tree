@@ -57,8 +57,24 @@
 				"children": [
 					{
 						"type": "text",
-						"value": "Sed posuere vestibulum metus non cursus. Fusce ac blandit erat. Fusce turpis turpis, vehicula et condimentum quis, dapibus eget odio. Vivamus lobortis vulputate sapien quis ultrices. "
+						"value": "Sed posuere vestibulum metus non "
+					},
+					{
+						"type": "link",
+						"url": "https://www.ft.com",
+						"title": "",
+						"children": [
+							{
+								"type": "text",
+								"value": "cursus"
+							}
+						]
+					},
+					{
+						"type": "text",
+						"value": ". Fusce ac blandit erat. Fusce turpis turpis, vehicula et condimentum quis, dapibus eget odio. Vivamus lobortis vulputate sapien quis ultrices. "
 					}
+					
 				]
 			},
 			{
