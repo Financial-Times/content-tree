@@ -10,6 +10,17 @@ let ContentType = {
 }
 
 /**
+ * @param {string} layoutWidth
+ * @returns {ContentTree.LayoutWidth}
+ */
+function toValidLayoutWidth(layoutWidth) {
+	if(["auto", "in-line",  "inset-left", "inset-right", "full-bleed", "full-grid",  "mid-grid", "full-width"].includes(layoutWidth)) {
+		return /** @type {ContentTree.LayoutWidth} */(layoutWidth);
+	} else {
+		return 'full-width';
+	}
+}
+/**
  * @typedef {import("unist").Parent} UParent
  * @typedef {import("unist").Node} UNode
  */
@@ -238,7 +249,7 @@ export let defaultTransformers = {
 			return /** @type {ContentTree.transit.Flourish} */ ({
 				type: "flourish",
 				flourishType: content.attributes["data-flourish-type"] || "",
-				layoutWidth: content.attributes["data-layout-width"] || "",
+				layoutWidth: toValidLayoutWidth(content.attributes["data-layout-width"] || ""),
 				description: content.attributes["alt"] || "",
 				timestamp: content.attributes["data-time-stamp"] || "",
 				// fallbackImage -- TODO should this be external in content-tree?
@@ -291,7 +302,7 @@ export let defaultTransformers = {
 			return /** @type {ContentTree.transit.Layout} */({
 				type: "layout",
 				layoutName: div.attributes['data-layout-name'] ?? "auto",
-				layoutWidth: div.attributes['data-layout-width'] ?? "",
+				layoutWidth: toValidLayoutWidth(div.attributes['data-layout-width'] ?? ""),
 			});
 		}
 		if(div.attributes.class === "n-content-layout__container") {
