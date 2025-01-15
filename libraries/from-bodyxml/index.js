@@ -192,10 +192,11 @@ export let defaultTransformers = {
 		return {
 			type: "layout-image",
 			id: img.attributes.src ?? "",
-			credit: img.attributes["data-copyright"]?.replace(/^© /, "") ?? "",
+			credit: img.attributes["data-copyright"] ?? "",
 			// todo this can't be right
-			alt: img.attributes.longdesc ?? "",
+			alt: img.attributes.alt ?? "",
 			caption: img.attributes.longdesc ?? "",
+			children: null,
 		}
 	},
 	/**
@@ -268,6 +269,35 @@ export let defaultTransformers = {
 			children: null
 		}
 	},
+	/**
+	 * @type {Transformer<
+	 * 	ContentTree.transit.Layout | 
+	 *  ContentTree.transit.LayoutSlot |
+	 *  { type: "__LIFT_CHILDREN__"} |
+	 * 	{ type: "__UNKNOWN__"}
+	 * >}
+	 */
+	div(div) {
+		if(div.attributes.class === "n-content-layout") {
+			return /** @type {ContentTree.transit.Layout} */({
+				type: "layout",
+				layoutName: div.attributes['data-layout-name'] ?? "auto",
+				layoutWidth: div.attributes['data-layout-width'] ?? "",
+			});
+		}
+		if(div.attributes.class === "n-content-layout__container") {
+			return { type: "__LIFT_CHILDREN__" };
+		}
+		if(div.attributes.class === "n-content-layout__slot") {
+			return /** @type { ContentTree.transit.LayoutSlot } */({
+				type: "layout-slot"
+			})
+		}
+		return { type: "__UNKNOWN__" };
+	},
+	experimental() {
+		return { type: "__LIFT_CHILDREN__" }
+	}
 }
 
 /**
@@ -305,14 +335,13 @@ export function fromXast(bodyxast, transformers = defaultTransformers) {
 				type: "root",
 				body: {
 					type: "body",
-					children: xmlnode.children[0].children.map(walk),
+					// this is a flatmap because of <experimental/>
+					children: xmlnode.children[0].children.flatMap(walk),
 				},
 			}
 		} else if (isXElement(xmlnode)) {
 			// i thought about this solution for no more than 5 seconds
-			if (xmlnode.name == "experimental") {
-				return xmlnode.children.map(walk)
-			}
+
 			let transformer =
 				(xmlnode.name == "content" || xmlnode.name == "ft-content")
 					? String(xmlnode.attributes.type)
@@ -320,7 +349,10 @@ export function fromXast(bodyxast, transformers = defaultTransformers) {
 
 			if (transformer in transformers) {
 				let ctnode = transformers[transformer](xmlnode)
-				if ("children" in ctnode && ctnode.children === null) {
+				if(ctnode.type === "__LIFT_CHILDREN__") {
+					// we don't want this node to stick around, but we want to keep its' children
+					return xmlnode.children.flatMap(walk);
+				} else if ("children" in ctnode && ctnode.children === null) {
 					// this is how we indicate we shouldn't iterate, but this thing
 					// shouldn't have any children
 					delete ctnode.children
