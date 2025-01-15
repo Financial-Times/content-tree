@@ -50,6 +50,15 @@ export let defaultTransformers = {
 	/**
 	 * @type {Transformer<ContentTree.transit.Heading>}
 	 */
+	h3(h3) {
+		return {
+			type: "heading",
+			level: "subheading",
+		}
+	},
+	/**
+	 * @type {Transformer<ContentTree.transit.Heading>}
+	 */
 	h4(h4) {
 		return {
 			type: "heading",
