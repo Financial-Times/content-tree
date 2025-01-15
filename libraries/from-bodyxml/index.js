@@ -355,6 +355,7 @@ export function fromXast(bodyxast, transformers = defaultTransformers) {
 				type: "root",
 				body: {
 					type: "body",
+					version: 1,
 					// this is a flatmap because of <experimental/>
 					children: xmlnode.children[0].children.flatMap(walk),
 				},

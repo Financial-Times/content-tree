@@ -2,6 +2,7 @@
 	"type": "root",
 	"body": {
 		"type": "body",
+		"version": 1,
 		"children": [
 			{
 				"type": "image-set",
