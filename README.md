@@ -91,6 +91,7 @@ type BodyBlock =
 	| Paragraph
 	| Heading
 	| ImageSet
+	| Flourish
 	| BigNumber
 	| CustomCodeComponent
 	| Layout

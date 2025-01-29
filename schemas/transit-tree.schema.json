@@ -86,6 +86,9 @@
                     "$ref": "#/definitions/ContentTree.transit.ImageSet"
                 },
                 {
+                    "$ref": "#/definitions/ContentTree.transit.Flourish"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.transit.BigNumber"
                 },
                 {
@@ -166,6 +169,77 @@
                 "data": {},
                 "type": {
                     "const": "emphasis",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "ContentTree.transit.Flourish": {
+            "properties": {
+                "data": {},
+                "description": {
+                    "type": "string"
+                },
+                "fallbackImage": {
+                    "properties": {
+                        "format": {
+                            "enum": [
+                                "desktop",
+                                "mobile",
+                                "square",
+                                "square-ftedit",
+                                "standard",
+                                "standard-inline",
+                                "wide"
+                            ],
+                            "type": "string"
+                        },
+                        "height": {
+                            "type": "number"
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "sourceSet": {
+                            "items": {
+                                "properties": {
+                                    "dpr": {
+                                        "type": "number"
+                                    },
+                                    "url": {
+                                        "type": "string"
+                                    },
+                                    "width": {
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "url": {
+                            "type": "string"
+                        },
+                        "width": {
+                            "type": "number"
+                        }
+                    },
+                    "type": "object"
+                },
+                "flourishType": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "layoutWidth": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "flourish",
                     "type": "string"
                 }
             },
