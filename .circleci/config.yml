@@ -3,7 +3,7 @@ version: 2.1
 references:
   default_container_config: &default_container_config
     docker:
-      - image: cimg/node:20.2
+      - image: cimg/node:22
 
 
 jobs:
