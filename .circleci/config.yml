@@ -1,13 +1,14 @@
 version: 2.1
 
-executors:
-  node-executor:
+references:
+  default_container_config: &default_container_config
     docker:
-      - image: circleci/node:latest
+      - image: cimg/node:20.2
+
 
 jobs:
   smoke-test:
-    executor: node-executor
+    <<: *default_container_config
     steps:
       - checkout
       - run:
