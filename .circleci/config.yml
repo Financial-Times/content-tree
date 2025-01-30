@@ -1,0 +1,35 @@
+version: 2.1
+
+executors:
+  node-executor:
+    docker:
+      - image: circleci/node:latest
+
+jobs:
+  smoke-test:
+    executor: node-executor
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Run smoke tests
+          command: npm run test:smoke -w libraries/frombodyxml
+
+workflows:
+  version: 2
+  hourly:
+    triggers:
+      - schedule:
+          cron: "0 * * * *"
+          filters:
+            branches:
+              only:
+                - from-bodyxml-validation
+    jobs:
+      - smoke-test
+  main:
+    jobs:
+      - smoke-test
+      
