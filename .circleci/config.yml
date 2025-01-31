@@ -1,0 +1,32 @@
+version: 2.1
+
+references:
+  default_container_config: &default_container_config
+    docker:
+      - image: cimg/node:lts
+
+
+jobs:
+  smoke-test:
+    <<: *default_container_config
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm install
+
+workflows:
+  version: 2
+  hourly:
+    triggers:
+      - schedule:
+          cron: "5 * * * *"
+          filters:
+            branches:
+              only:
+                - from-bodyxml-validation
+    jobs:
+      - smoke-test
+  main:
+    jobs:
+      - smoke-test
