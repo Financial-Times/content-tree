@@ -47,6 +47,3 @@ workflows:
                 - main
     jobs:
       - smoke-test
-  main:
-    jobs:
-      - smoke-test
