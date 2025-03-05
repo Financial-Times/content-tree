@@ -1,7 +1,9 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
     "definitions": {
         "ContentTree.transit.BigNumber": {
+            "additionalProperties": false,
             "properties": {
                 "data": {},
                 "description": {
@@ -15,9 +17,15 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "description",
+                "number",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.Blockquote": {
+            "additionalProperties": false,
             "properties": {
                 "children": {
                     "items": {
@@ -53,6 +61,10 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "children",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.BodyBlock": {
@@ -111,6 +123,7 @@
             ]
         },
         "ContentTree.transit.Break": {
+            "additionalProperties": false,
             "properties": {
                 "data": {},
                 "type": {
@@ -118,9 +131,13 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.CustomCodeComponent": {
+            "additionalProperties": false,
             "properties": {
                 "data": {},
                 "id": {
@@ -137,9 +154,15 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "id",
+                "layoutWidth",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.Emphasis": {
+            "additionalProperties": false,
             "properties": {
                 "children": {
                     "items": {
@@ -153,15 +176,21 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "children",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.Flourish": {
+            "additionalProperties": false,
             "properties": {
                 "data": {},
                 "description": {
                     "type": "string"
                 },
                 "fallbackImage": {
+                    "additionalProperties": false,
                     "properties": {
                         "format": {
                             "enum": [
@@ -183,6 +212,7 @@
                         },
                         "sourceSet": {
                             "items": {
+                                "additionalProperties": false,
                                 "properties": {
                                     "dpr": {
                                         "type": "number"
@@ -194,6 +224,11 @@
                                         "type": "number"
                                     }
                                 },
+                                "required": [
+                                    "dpr",
+                                    "url",
+                                    "width"
+                                ],
                                 "type": "object"
                             },
                             "type": "array"
@@ -205,6 +240,13 @@
                             "type": "number"
                         }
                     },
+                    "required": [
+                        "format",
+                        "height",
+                        "id",
+                        "url",
+                        "width"
+                    ],
                     "type": "object"
                 },
                 "flourishType": {
@@ -224,9 +266,16 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "flourishType",
+                "id",
+                "layoutWidth",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.Heading": {
+            "additionalProperties": false,
             "properties": {
                 "children": {
                     "items": {
@@ -248,9 +297,15 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "children",
+                "level",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.ImageSet": {
+            "additionalProperties": false,
             "properties": {
                 "data": {},
                 "id": {
@@ -261,9 +316,14 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "id",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.Layout": {
+            "additionalProperties": false,
             "properties": {
                 "children": {
                     "anyOf": [
@@ -319,9 +379,16 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "children",
+                "layoutName",
+                "layoutWidth",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.LayoutImage": {
+            "additionalProperties": false,
             "properties": {
                 "alt": {
                     "type": "string"
@@ -341,9 +408,17 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "alt",
+                "caption",
+                "credit",
+                "id",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.LayoutSlot": {
+            "additionalProperties": false,
             "properties": {
                 "children": {
                     "items": {
@@ -367,6 +442,10 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "children",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.LayoutWidth": {
@@ -383,6 +462,7 @@
             "type": "string"
         },
         "ContentTree.transit.Link": {
+            "additionalProperties": false,
             "properties": {
                 "children": {
                     "items": {
@@ -402,9 +482,16 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "children",
+                "title",
+                "type",
+                "url"
+            ],
             "type": "object"
         },
         "ContentTree.transit.List": {
+            "additionalProperties": false,
             "properties": {
                 "children": {
                     "items": {
@@ -421,9 +508,15 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "children",
+                "ordered",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.ListItem": {
+            "additionalProperties": false,
             "properties": {
                 "children": {
                     "items": {
@@ -459,9 +552,14 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "children",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.Paragraph": {
+            "additionalProperties": false,
             "properties": {
                 "children": {
                     "items": {
@@ -475,6 +573,10 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "children",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.Phrasing": {
@@ -500,6 +602,7 @@
             ]
         },
         "ContentTree.transit.Pullquote": {
+            "additionalProperties": false,
             "properties": {
                 "data": {},
                 "source": {
@@ -513,9 +616,14 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "text",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.Recommended": {
+            "additionalProperties": false,
             "properties": {
                 "data": {},
                 "heading": {
@@ -532,9 +640,14 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "id",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.ScrollyBlock": {
+            "additionalProperties": false,
             "properties": {
                 "children": {
                     "items": {
@@ -555,9 +668,15 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "children",
+                "theme",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.ScrollyCopy": {
+            "additionalProperties": false,
             "properties": {
                 "children": {
                     "items": {
@@ -578,9 +697,14 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "children",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.ScrollyHeading": {
+            "additionalProperties": false,
             "properties": {
                 "children": {
                     "items": {
@@ -602,9 +726,15 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "children",
+                "level",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.ScrollyImage": {
+            "additionalProperties": false,
             "properties": {
                 "data": {},
                 "id": {
@@ -615,9 +745,14 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "id",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.ScrollySection": {
+            "additionalProperties": false,
             "properties": {
                 "children": {
                     "additionalItems": {
@@ -663,9 +798,16 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "children",
+                "display",
+                "position",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.Strikethrough": {
+            "additionalProperties": false,
             "properties": {
                 "children": {
                     "items": {
@@ -679,9 +821,14 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "children",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.Strong": {
+            "additionalProperties": false,
             "properties": {
                 "children": {
                     "items": {
@@ -695,9 +842,14 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "children",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.Table": {
+            "additionalProperties": false,
             "properties": {
                 "children": {
                     "anyOf": [
@@ -760,6 +912,7 @@
                 },
                 "columnSettings": {
                     "items": {
+                        "additionalProperties": false,
                         "properties": {
                             "hideOnMobile": {
                                 "type": "boolean"
@@ -778,6 +931,11 @@
                                 "type": "boolean"
                             }
                         },
+                        "required": [
+                            "hideOnMobile",
+                            "sortType",
+                            "sortable"
+                        ],
                         "type": "object"
                     },
                     "type": "array"
@@ -812,9 +970,19 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "children",
+                "columnSettings",
+                "compact",
+                "layoutWidth",
+                "responsiveStyle",
+                "stripes",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.TableBody": {
+            "additionalProperties": false,
             "properties": {
                 "children": {
                     "items": {
@@ -828,9 +996,14 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "children",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.TableCaption": {
+            "additionalProperties": false,
             "properties": {
                 "children": {
                     "items": {
@@ -844,9 +1017,14 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "children",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.TableCell": {
+            "additionalProperties": false,
             "properties": {
                 "children": {
                     "items": {
@@ -863,9 +1041,14 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "children",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.TableFooter": {
+            "additionalProperties": false,
             "properties": {
                 "children": {
                     "items": {
@@ -879,9 +1062,14 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "children",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.TableRow": {
+            "additionalProperties": false,
             "properties": {
                 "children": {
                     "items": {
@@ -895,9 +1083,14 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "children",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.Text": {
+            "additionalProperties": false,
             "properties": {
                 "data": {},
                 "type": {
@@ -908,9 +1101,14 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "type",
+                "value"
+            ],
             "type": "object"
         },
         "ContentTree.transit.ThematicBreak": {
+            "additionalProperties": false,
             "properties": {
                 "data": {},
                 "type": {
@@ -918,9 +1116,13 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.Tweet": {
+            "additionalProperties": false,
             "properties": {
                 "data": {},
                 "id": {
@@ -931,9 +1133,14 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "id",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.Video": {
+            "additionalProperties": false,
             "properties": {
                 "data": {},
                 "embedded": {
@@ -947,9 +1154,15 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "embedded",
+                "id",
+                "type"
+            ],
             "type": "object"
         },
         "ContentTree.transit.YoutubeVideo": {
+            "additionalProperties": false,
             "properties": {
                 "data": {},
                 "type": {
@@ -960,6 +1173,10 @@
                     "type": "string"
                 }
             },
+            "required": [
+                "type",
+                "url"
+            ],
             "type": "object"
         }
     },
@@ -979,6 +1196,11 @@
             "type": "number"
         }
     },
+    "required": [
+        "children",
+        "type",
+        "version"
+    ],
     "type": "object"
 }
 
