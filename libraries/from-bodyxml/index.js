@@ -402,9 +402,19 @@ export function fromXast(bodyxast, transformers = defaultTransformers) {
 	})(bodyxast)
 }
 
+/**
+ * Turns e.g. </p> </body> into </p></body>, which a lot of our content has
+ * This prevents random strat text nodes being created in bodyTree
+ * @param {string} xml 
+ * @returns {string}
+ */
+function removeWhitespaceBetweenTags(xml) {
+	return xml.replace(/>\s+(?=<)/g, '>');
+}
+
 /** @param {string} bodyxml */
 export function fromXML(bodyxml) {
-	return fromXast(xastFromXml(bodyxml))
+	return fromXast(xastFromXml(removeWhitespaceBetweenTags(bodyxml)))
 }
 
 export default fromXML
