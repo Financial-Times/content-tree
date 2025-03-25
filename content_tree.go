@@ -539,6 +539,7 @@ func (n *BodyBlock) UnmarshalJSON(data []byte) error {
 		if err := json.Unmarshal(data, &v); err != nil {
 			return err
 		}
+		n.CustomCodeComponent = &v
 	default:
 		return fmt.Errorf("failed to unmarshal BodyBlock from %s: %w", data, ErrUnmarshalInvalidNode)
 	}
