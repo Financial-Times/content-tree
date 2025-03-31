@@ -355,6 +355,31 @@
             ],
             "type": "object"
         },
+        "ContentTree.full.Headline": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.full.Text"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "isLarge": {
+                    "type": "boolean"
+                },
+                "type": {
+                    "const": "headline",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "isLarge",
+                "type"
+            ],
+            "type": "object"
+        },
         "ContentTree.full.ImageSet": {
             "additionalProperties": false,
             "properties": {
@@ -527,6 +552,48 @@
             "required": [
                 "id",
                 "picture",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.Intro": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "anyOf": [
+                        {
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/ContentTree.full.Text"
+                                }
+                            ],
+                            "maxItems": 1,
+                            "minItems": 1,
+                            "type": "array"
+                        },
+                        {
+                            "items": {
+                                "anyOf": [
+                                    {
+                                        "$ref": "#/definitions/ContentTree.full.Paragraph"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/ContentTree.full.List"
+                                    }
+                                ]
+                            },
+                            "type": "array"
+                        }
+                    ]
+                },
+                "data": {},
+                "type": {
+                    "const": "intro",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
                 "type"
             ],
             "type": "object"
@@ -1839,6 +1906,99 @@
             ],
             "type": "object"
         },
+        "ContentTree.full.Topper": {
+            "additionalProperties": false,
+            "properties": {
+                "backgroundColor": {
+                    "type": "string"
+                },
+                "children": {
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.full.Headline"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.full.Intro"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.full.TopperVisual"
+                        }
+                    ],
+                    "maxItems": 3,
+                    "minItems": 2,
+                    "type": "array"
+                },
+                "data": {},
+                "topperType": {
+                    "$ref": "#/definitions/ContentTree.full.TopperType"
+                },
+                "type": {
+                    "const": "topper",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "backgroundColor",
+                "children",
+                "topperType",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.TopperType": {
+            "enum": [
+                "BasicTopper",
+                "BrandedTopper",
+                "DeepLandscapeTopper",
+                "DeepPortraitTopper",
+                "FullBleedTopper",
+                "OpinionTopper",
+                "PartnerContentTopper",
+                "PodcastTopper",
+                "SplitTextTopper",
+                "TopperWithFlourish"
+            ],
+            "type": "string"
+        },
+        "ContentTree.full.TopperVisual": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "anyOf": [
+                        {
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/ContentTree.full.CustomCodeComponent"
+                                }
+                            ],
+                            "maxItems": 1,
+                            "minItems": 1,
+                            "type": "array"
+                        },
+                        {
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/ContentTree.full.ImageSet"
+                                }
+                            ],
+                            "maxItems": 1,
+                            "minItems": 1,
+                            "type": "array"
+                        }
+                    ]
+                },
+                "data": {},
+                "type": {
+                    "const": "topper-visual",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "type"
+            ],
+            "type": "object"
+        },
         "ContentTree.full.Tweet": {
             "additionalProperties": false,
             "properties": {
@@ -1907,6 +2067,9 @@
             "$ref": "#/definitions/ContentTree.full.Body"
         },
         "data": {},
+        "topper": {
+            "$ref": "#/definitions/ContentTree.full.Topper"
+        },
         "type": {
             "const": "root",
             "type": "string"
@@ -1914,6 +2077,7 @@
     },
     "required": [
         "body",
+        "topper",
         "type"
     ],
     "type": "object"

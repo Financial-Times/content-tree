@@ -11,7 +11,28 @@ export declare namespace ContentTree {
     }
     interface Root extends Node {
         type: "root";
+        topper: Topper;
         body: Body;
+    }
+    type TopperType = 'DeepPortraitTopper' | 'DeepLandscapeTopper' | 'SplitTextTopper' | 'FullBleedTopper' | 'PodcastTopper' | 'OpinionTopper' | 'BrandedTopper' | 'BasicTopper' | 'TopperWithFlourish' | 'PartnerContentTopper';
+    interface Topper extends Parent {
+        type: 'topper';
+        topperType: TopperType;
+        backgroundColor: string;
+        children: [Headline, Intro, TopperVisual?];
+    }
+    interface Headline extends Parent {
+        type: 'headline';
+        children: Text[];
+        isLarge: boolean;
+    }
+    interface Intro extends Parent {
+        type: 'intro';
+        children: [Text] | (Paragraph | List)[];
+    }
+    interface TopperVisual extends Parent {
+        type: 'topper-visual';
+        children: [CustomCodeComponent] | [ImageSet];
     }
     interface Body extends Parent {
         type: "body";
@@ -284,7 +305,28 @@ export declare namespace ContentTree {
         }
         interface Root extends Node {
             type: "root";
+            topper: Topper;
             body: Body;
+        }
+        type TopperType = 'DeepPortraitTopper' | 'DeepLandscapeTopper' | 'SplitTextTopper' | 'FullBleedTopper' | 'PodcastTopper' | 'OpinionTopper' | 'BrandedTopper' | 'BasicTopper' | 'TopperWithFlourish' | 'PartnerContentTopper';
+        interface Topper extends Parent {
+            type: 'topper';
+            topperType: TopperType;
+            backgroundColor: string;
+            children: [Headline, Intro, TopperVisual?];
+        }
+        interface Headline extends Parent {
+            type: 'headline';
+            children: Text[];
+            isLarge: boolean;
+        }
+        interface Intro extends Parent {
+            type: 'intro';
+            children: [Text] | (Paragraph | List)[];
+        }
+        interface TopperVisual extends Parent {
+            type: 'topper-visual';
+            children: [CustomCodeComponent] | [ImageSet];
         }
         interface Body extends Parent {
             type: "body";
@@ -558,7 +600,27 @@ export declare namespace ContentTree {
         }
         interface Root extends Node {
             type: "root";
+            topper: Topper;
             body: Body;
+        }
+        type TopperType = 'DeepPortraitTopper' | 'DeepLandscapeTopper' | 'SplitTextTopper' | 'FullBleedTopper' | 'PodcastTopper' | 'OpinionTopper' | 'BrandedTopper' | 'BasicTopper' | 'TopperWithFlourish' | 'PartnerContentTopper';
+        interface Topper extends Parent {
+            type: 'topper';
+            topperType: TopperType;
+            backgroundColor: string;
+            children: [Headline, Intro, TopperVisual?];
+        }
+        interface Headline extends Parent {
+            type: 'headline';
+            children: Text[];
+        }
+        interface Intro extends Parent {
+            type: 'intro';
+            children: [Text] | (Paragraph | List)[];
+        }
+        interface TopperVisual extends Parent {
+            type: 'topper-visual';
+            children: [CustomCodeComponent] | [ImageSet];
         }
         interface Body extends Parent {
             type: "body";
@@ -819,7 +881,28 @@ export declare namespace ContentTree {
         }
         interface Root extends Node {
             type: "root";
+            topper: Topper;
             body: Body;
+        }
+        type TopperType = 'DeepPortraitTopper' | 'DeepLandscapeTopper' | 'SplitTextTopper' | 'FullBleedTopper' | 'PodcastTopper' | 'OpinionTopper' | 'BrandedTopper' | 'BasicTopper' | 'TopperWithFlourish' | 'PartnerContentTopper';
+        interface Topper extends Parent {
+            type: 'topper';
+            topperType: TopperType;
+            backgroundColor: string;
+            children: [Headline, Intro, TopperVisual?];
+        }
+        interface Headline extends Parent {
+            type: 'headline';
+            children: Text[];
+            isLarge?: boolean;
+        }
+        interface Intro extends Parent {
+            type: 'intro';
+            children: [Text] | (Paragraph | List)[];
+        }
+        interface TopperVisual extends Parent {
+            type: 'topper-visual';
+            children: [CustomCodeComponent] | [ImageSet];
         }
         interface Body extends Parent {
             type: "body";

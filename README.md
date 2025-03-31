@@ -168,6 +168,7 @@ Its content is limited to only other content-tree content.
 ```ts
 interface Root extends Node {
 	type: "root"
+	topper: Topper
 	body: Body
 }
 ```
@@ -175,6 +176,65 @@ interface Root extends Node {
 **Root** (**[Parent][term-parent]**) represents the root of a content-tree.
 
 **Root** can be used as the _[root][term-root]_ of a _[tree][term-tree]_.
+
+### `Topper`
+
+```ts
+type TopperType =
+| 'DeepPortraitTopper'
+| 'DeepLandscapeTopper'
+| 'SplitTextTopper'
+| 'FullBleedTopper'
+| 'PodcastTopper'
+| 'OpinionTopper'
+| 'BrandedTopper'
+| 'BasicTopper'
+| 'TopperWithFlourish'
+| 'PartnerContentTopper'
+```
+
+```ts
+interface Topper extends Parent {
+	type: 'topper'
+	topperType: TopperType
+	backgroundColor: string // maybe a type? is this external??
+	children: [Headline, Intro, TopperVisual?]
+}
+```
+**Topper** represents the topper of an article
+
+### Headline
+
+```ts
+interface Headline extends Parent {
+	type: 'headline'
+	children: Text[]
+	external isLarge: boolean //is this external? it's based on some business logic, partly derived by topper type? should it be external?
+}
+```
+
+**Headline** represents the title of the article as displayed on the article page
+
+
+### Intro
+
+```ts
+interface Intro extends Parent {
+	type: 'intro'
+	children: [Text] | (Paragraph | List)[]
+}
+```
+The article **Intro** can be either a one-line standfirst, or a longer summary
+
+### TopperVisual
+
+```ts
+interface TopperVisual extends Parent {
+	type: 'topper-visual'
+	children: [CustomCodeComponent] | [ImageSet] // | ClipSet
+}
+```
+**TopperVisual** contains the visual element of the topper, which can be an image, clip, or custom component
 
 ### `Body`
 
@@ -747,7 +807,6 @@ interface CustomCodeComponent extends Node {
 - The component itself lives off-platform, and an example might be a git repository with a standard structure. This structure would include the rendering instructions, and the data structure that is expected to be provided to the component for it to render if necessary.
 - The basic interface in Spark to make reference to this system above (eg. the git repo URL or a public S3 bucket), and provide some data for it if necessary. This will be the Custom Component storyblock.
 - The data Spark receives from entering a specific ID will be used to render dynamic fields (the `attributes`).
-
 
 ## License
 

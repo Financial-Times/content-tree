@@ -1,0 +1,451 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "definitions": {
+        "ContentTree.transit.Break": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "type": {
+                    "const": "break",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.CustomCodeComponent": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "id": {
+                    "description": "Id taken from the CAPI url",
+                    "type": "string"
+                },
+                "layoutWidth": {
+                    "$ref": "#/definitions/ContentTree.transit.LayoutWidth",
+                    "description": "How the component should be presented in the article page according to the column layout system"
+                },
+                "type": {
+                    "const": "custom-code-component",
+                    "description": "Component type",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "layoutWidth",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.Emphasis": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.transit.Phrasing"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "emphasis",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.Headline": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.transit.Text"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "headline",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.ImageSet": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "id": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "image-set",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.Intro": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "anyOf": [
+                        {
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/ContentTree.transit.Text"
+                                }
+                            ],
+                            "maxItems": 1,
+                            "minItems": 1,
+                            "type": "array"
+                        },
+                        {
+                            "items": {
+                                "anyOf": [
+                                    {
+                                        "$ref": "#/definitions/ContentTree.transit.Paragraph"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/ContentTree.transit.List"
+                                    }
+                                ]
+                            },
+                            "type": "array"
+                        }
+                    ]
+                },
+                "data": {},
+                "type": {
+                    "const": "intro",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.LayoutWidth": {
+            "enum": [
+                "auto",
+                "full-bleed",
+                "full-grid",
+                "full-width",
+                "in-line",
+                "inset-left",
+                "inset-right",
+                "mid-grid"
+            ],
+            "type": "string"
+        },
+        "ContentTree.transit.Link": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.transit.Phrasing"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "link",
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "title",
+                "type",
+                "url"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.List": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.transit.ListItem"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "ordered": {
+                    "type": "boolean"
+                },
+                "type": {
+                    "const": "list",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "ordered",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.ListItem": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Paragraph"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Text"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Break"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Strong"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Emphasis"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Strikethrough"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Link"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "list-item",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.Paragraph": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.transit.Phrasing"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "paragraph",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.Phrasing": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Text"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Break"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Strong"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Emphasis"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Strikethrough"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Link"
+                }
+            ]
+        },
+        "ContentTree.transit.Strikethrough": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.transit.Phrasing"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "strikethrough",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.Strong": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.transit.Phrasing"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "strong",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.Text": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "type": {
+                    "const": "text",
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "type",
+                "value"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.TopperType": {
+            "enum": [
+                "BasicTopper",
+                "BrandedTopper",
+                "DeepLandscapeTopper",
+                "DeepPortraitTopper",
+                "FullBleedTopper",
+                "OpinionTopper",
+                "PartnerContentTopper",
+                "PodcastTopper",
+                "SplitTextTopper",
+                "TopperWithFlourish"
+            ],
+            "type": "string"
+        },
+        "ContentTree.transit.TopperVisual": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "anyOf": [
+                        {
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/ContentTree.transit.CustomCodeComponent"
+                                }
+                            ],
+                            "maxItems": 1,
+                            "minItems": 1,
+                            "type": "array"
+                        },
+                        {
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                                }
+                            ],
+                            "maxItems": 1,
+                            "minItems": 1,
+                            "type": "array"
+                        }
+                    ]
+                },
+                "data": {},
+                "type": {
+                    "const": "topper-visual",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "type"
+            ],
+            "type": "object"
+        }
+    },
+    "properties": {
+        "backgroundColor": {
+            "type": "string"
+        },
+        "children": {
+            "items": [
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Headline"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Intro"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.TopperVisual"
+                }
+            ],
+            "maxItems": 3,
+            "minItems": 2,
+            "type": "array"
+        },
+        "data": {},
+        "topperType": {
+            "$ref": "#/definitions/ContentTree.transit.TopperType"
+        },
+        "type": {
+            "const": "topper",
+            "type": "string"
+        }
+    },
+    "required": [
+        "backgroundColor",
+        "children",
+        "topperType",
+        "type"
+    ],
+    "type": "object"
+}
+
