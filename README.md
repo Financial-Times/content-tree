@@ -180,25 +180,29 @@ interface Root extends Node {
 ### `Topper`
 
 ```ts
-type TopperType =
-| 'DeepPortraitTopper'
-| 'DeepLandscapeTopper'
-| 'SplitTextTopper'
-| 'FullBleedTopper'
-| 'PodcastTopper'
-| 'OpinionTopper'
-| 'BrandedTopper'
-| 'BasicTopper'
-| 'TopperWithFlourish'
-| 'PartnerContentTopper'
+type TopperLayout =
+| 'deep-portrait'
+| 'deep-landscape'
+| 'split-text-left'
+| 'full-bleed'
+// I think the things below are based on other factors, so maybe shouldn't be published??
+// | 'PodcastTopper'
+// | 'OpinionTopper'
+// | 'BrandedTopper'
+// | 'BasicTopper'
+// | 'TopperWithFlourish'
+// | 'PartnerContentTopper'
 ```
 
 ```ts
-interface Topper extends Parent {
+interface Topper extends Node {
 	type: 'topper'
-	topperType: TopperType
-	backgroundColor: string // maybe a type? is this external??
-	children: [Headline, Intro, TopperVisual?]
+	suggestedTopperLayout: TopperLayout
+	suggestedBackgroundColor: string // this is what editorial select, but can be overridden based on other content properties
+	headline: Headline
+	intro: Intro
+	visual: CustomCodeComponent | ImageSet // | ClipSet
+	external displayConcept: TeaserConcept
 }
 ```
 **Topper** represents the topper of an article
@@ -225,16 +229,6 @@ interface Intro extends Parent {
 }
 ```
 The article **Intro** can be either a one-line standfirst, or a longer summary
-
-### TopperVisual
-
-```ts
-interface TopperVisual extends Parent {
-	type: 'topper-visual'
-	children: [CustomCodeComponent] | [ImageSet] // | ClipSet
-}
-```
-**TopperVisual** contains the visual element of the topper, which can be an image, clip, or custom component
 
 ### `Body`
 

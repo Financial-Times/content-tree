@@ -14,12 +14,15 @@ export declare namespace ContentTree {
         topper: Topper;
         body: Body;
     }
-    type TopperType = 'DeepPortraitTopper' | 'DeepLandscapeTopper' | 'SplitTextTopper' | 'FullBleedTopper' | 'PodcastTopper' | 'OpinionTopper' | 'BrandedTopper' | 'BasicTopper' | 'TopperWithFlourish' | 'PartnerContentTopper';
-    interface Topper extends Parent {
+    type TopperLayout = 'deep-portrait' | 'deep-landscape' | 'split-text-left' | 'full-bleed';
+    interface Topper extends Node {
         type: 'topper';
-        topperType: TopperType;
-        backgroundColor: string;
-        children: [Headline, Intro, TopperVisual?];
+        suggestedTopperLayout: TopperLayout;
+        suggestedBackgroundColor: string;
+        headline: Headline;
+        intro: Intro;
+        visual: CustomCodeComponent | ImageSet;
+        displayConcept: TeaserConcept;
     }
     interface Headline extends Parent {
         type: 'headline';
@@ -29,10 +32,6 @@ export declare namespace ContentTree {
     interface Intro extends Parent {
         type: 'intro';
         children: [Text] | (Paragraph | List)[];
-    }
-    interface TopperVisual extends Parent {
-        type: 'topper-visual';
-        children: [CustomCodeComponent] | [ImageSet];
     }
     interface Body extends Parent {
         type: "body";
@@ -308,12 +307,15 @@ export declare namespace ContentTree {
             topper: Topper;
             body: Body;
         }
-        type TopperType = 'DeepPortraitTopper' | 'DeepLandscapeTopper' | 'SplitTextTopper' | 'FullBleedTopper' | 'PodcastTopper' | 'OpinionTopper' | 'BrandedTopper' | 'BasicTopper' | 'TopperWithFlourish' | 'PartnerContentTopper';
-        interface Topper extends Parent {
+        type TopperLayout = 'deep-portrait' | 'deep-landscape' | 'split-text-left' | 'full-bleed';
+        interface Topper extends Node {
             type: 'topper';
-            topperType: TopperType;
-            backgroundColor: string;
-            children: [Headline, Intro, TopperVisual?];
+            suggestedTopperLayout: TopperLayout;
+            suggestedBackgroundColor: string;
+            headline: Headline;
+            intro: Intro;
+            visual: CustomCodeComponent | ImageSet;
+            displayConcept: TeaserConcept;
         }
         interface Headline extends Parent {
             type: 'headline';
@@ -323,10 +325,6 @@ export declare namespace ContentTree {
         interface Intro extends Parent {
             type: 'intro';
             children: [Text] | (Paragraph | List)[];
-        }
-        interface TopperVisual extends Parent {
-            type: 'topper-visual';
-            children: [CustomCodeComponent] | [ImageSet];
         }
         interface Body extends Parent {
             type: "body";
@@ -603,12 +601,14 @@ export declare namespace ContentTree {
             topper: Topper;
             body: Body;
         }
-        type TopperType = 'DeepPortraitTopper' | 'DeepLandscapeTopper' | 'SplitTextTopper' | 'FullBleedTopper' | 'PodcastTopper' | 'OpinionTopper' | 'BrandedTopper' | 'BasicTopper' | 'TopperWithFlourish' | 'PartnerContentTopper';
-        interface Topper extends Parent {
+        type TopperLayout = 'deep-portrait' | 'deep-landscape' | 'split-text-left' | 'full-bleed';
+        interface Topper extends Node {
             type: 'topper';
-            topperType: TopperType;
-            backgroundColor: string;
-            children: [Headline, Intro, TopperVisual?];
+            suggestedTopperLayout: TopperLayout;
+            suggestedBackgroundColor: string;
+            headline: Headline;
+            intro: Intro;
+            visual: CustomCodeComponent | ImageSet;
         }
         interface Headline extends Parent {
             type: 'headline';
@@ -617,10 +617,6 @@ export declare namespace ContentTree {
         interface Intro extends Parent {
             type: 'intro';
             children: [Text] | (Paragraph | List)[];
-        }
-        interface TopperVisual extends Parent {
-            type: 'topper-visual';
-            children: [CustomCodeComponent] | [ImageSet];
         }
         interface Body extends Parent {
             type: "body";
@@ -884,12 +880,15 @@ export declare namespace ContentTree {
             topper: Topper;
             body: Body;
         }
-        type TopperType = 'DeepPortraitTopper' | 'DeepLandscapeTopper' | 'SplitTextTopper' | 'FullBleedTopper' | 'PodcastTopper' | 'OpinionTopper' | 'BrandedTopper' | 'BasicTopper' | 'TopperWithFlourish' | 'PartnerContentTopper';
-        interface Topper extends Parent {
+        type TopperLayout = 'deep-portrait' | 'deep-landscape' | 'split-text-left' | 'full-bleed';
+        interface Topper extends Node {
             type: 'topper';
-            topperType: TopperType;
-            backgroundColor: string;
-            children: [Headline, Intro, TopperVisual?];
+            suggestedTopperLayout: TopperLayout;
+            suggestedBackgroundColor: string;
+            headline: Headline;
+            intro: Intro;
+            visual: CustomCodeComponent | ImageSet;
+            displayConcept?: TeaserConcept;
         }
         interface Headline extends Parent {
             type: 'headline';
@@ -899,10 +898,6 @@ export declare namespace ContentTree {
         interface Intro extends Parent {
             type: 'intro';
             children: [Text] | (Paragraph | List)[];
-        }
-        interface TopperVisual extends Parent {
-            type: 'topper-visual';
-            children: [CustomCodeComponent] | [ImageSet];
         }
         interface Body extends Parent {
             type: "body";

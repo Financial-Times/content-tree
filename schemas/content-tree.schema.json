@@ -1909,95 +1909,96 @@
         "ContentTree.full.Topper": {
             "additionalProperties": false,
             "properties": {
-                "backgroundColor": {
+                "data": {},
+                "displayConcept": {
+                    "additionalProperties": false,
+                    "properties": {
+                        "apiUrl": {
+                            "type": "string"
+                        },
+                        "directType": {
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "predicate": {
+                            "type": "string"
+                        },
+                        "prefLabel": {
+                            "type": "string"
+                        },
+                        "type": {
+                            "type": "string"
+                        },
+                        "types": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "url": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "apiUrl",
+                        "directType",
+                        "id",
+                        "predicate",
+                        "prefLabel",
+                        "type",
+                        "types",
+                        "url"
+                    ],
+                    "type": "object"
+                },
+                "headline": {
+                    "$ref": "#/definitions/ContentTree.full.Headline"
+                },
+                "intro": {
+                    "$ref": "#/definitions/ContentTree.full.Intro"
+                },
+                "suggestedBackgroundColor": {
                     "type": "string"
                 },
-                "children": {
-                    "items": [
-                        {
-                            "$ref": "#/definitions/ContentTree.full.Headline"
-                        },
-                        {
-                            "$ref": "#/definitions/ContentTree.full.Intro"
-                        },
-                        {
-                            "$ref": "#/definitions/ContentTree.full.TopperVisual"
-                        }
-                    ],
-                    "maxItems": 3,
-                    "minItems": 2,
-                    "type": "array"
-                },
-                "data": {},
-                "topperType": {
-                    "$ref": "#/definitions/ContentTree.full.TopperType"
+                "suggestedTopperLayout": {
+                    "$ref": "#/definitions/ContentTree.full.TopperLayout"
                 },
                 "type": {
                     "const": "topper",
                     "type": "string"
-                }
-            },
-            "required": [
-                "backgroundColor",
-                "children",
-                "topperType",
-                "type"
-            ],
-            "type": "object"
-        },
-        "ContentTree.full.TopperType": {
-            "enum": [
-                "BasicTopper",
-                "BrandedTopper",
-                "DeepLandscapeTopper",
-                "DeepPortraitTopper",
-                "FullBleedTopper",
-                "OpinionTopper",
-                "PartnerContentTopper",
-                "PodcastTopper",
-                "SplitTextTopper",
-                "TopperWithFlourish"
-            ],
-            "type": "string"
-        },
-        "ContentTree.full.TopperVisual": {
-            "additionalProperties": false,
-            "properties": {
-                "children": {
+                },
+                "visual": {
                     "anyOf": [
                         {
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/ContentTree.full.CustomCodeComponent"
-                                }
-                            ],
-                            "maxItems": 1,
-                            "minItems": 1,
-                            "type": "array"
+                            "$ref": "#/definitions/ContentTree.full.ImageSet"
                         },
                         {
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/ContentTree.full.ImageSet"
-                                }
-                            ],
-                            "maxItems": 1,
-                            "minItems": 1,
-                            "type": "array"
+                            "$ref": "#/definitions/ContentTree.full.CustomCodeComponent"
                         }
                     ]
-                },
-                "data": {},
-                "type": {
-                    "const": "topper-visual",
-                    "type": "string"
                 }
             },
             "required": [
-                "children",
-                "type"
+                "displayConcept",
+                "headline",
+                "intro",
+                "suggestedBackgroundColor",
+                "suggestedTopperLayout",
+                "type",
+                "visual"
             ],
             "type": "object"
+        },
+        "ContentTree.full.TopperLayout": {
+            "enum": [
+                "deep-landscape",
+                "deep-portrait",
+                "full-bleed",
+                "split-text-left"
+            ],
+            "type": "string"
         },
         "ContentTree.full.Tweet": {
             "additionalProperties": false,

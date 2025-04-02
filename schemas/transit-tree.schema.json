@@ -1212,95 +1212,52 @@
         "ContentTree.transit.Topper": {
             "additionalProperties": false,
             "properties": {
-                "backgroundColor": {
+                "data": {},
+                "headline": {
+                    "$ref": "#/definitions/ContentTree.transit.Headline"
+                },
+                "intro": {
+                    "$ref": "#/definitions/ContentTree.transit.Intro"
+                },
+                "suggestedBackgroundColor": {
                     "type": "string"
                 },
-                "children": {
-                    "items": [
-                        {
-                            "$ref": "#/definitions/ContentTree.transit.Headline"
-                        },
-                        {
-                            "$ref": "#/definitions/ContentTree.transit.Intro"
-                        },
-                        {
-                            "$ref": "#/definitions/ContentTree.transit.TopperVisual"
-                        }
-                    ],
-                    "maxItems": 3,
-                    "minItems": 2,
-                    "type": "array"
-                },
-                "data": {},
-                "topperType": {
-                    "$ref": "#/definitions/ContentTree.transit.TopperType"
+                "suggestedTopperLayout": {
+                    "$ref": "#/definitions/ContentTree.transit.TopperLayout"
                 },
                 "type": {
                     "const": "topper",
                     "type": "string"
-                }
-            },
-            "required": [
-                "backgroundColor",
-                "children",
-                "topperType",
-                "type"
-            ],
-            "type": "object"
-        },
-        "ContentTree.transit.TopperType": {
-            "enum": [
-                "BasicTopper",
-                "BrandedTopper",
-                "DeepLandscapeTopper",
-                "DeepPortraitTopper",
-                "FullBleedTopper",
-                "OpinionTopper",
-                "PartnerContentTopper",
-                "PodcastTopper",
-                "SplitTextTopper",
-                "TopperWithFlourish"
-            ],
-            "type": "string"
-        },
-        "ContentTree.transit.TopperVisual": {
-            "additionalProperties": false,
-            "properties": {
-                "children": {
+                },
+                "visual": {
                     "anyOf": [
                         {
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/ContentTree.transit.CustomCodeComponent"
-                                }
-                            ],
-                            "maxItems": 1,
-                            "minItems": 1,
-                            "type": "array"
+                            "$ref": "#/definitions/ContentTree.transit.ImageSet"
                         },
                         {
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/ContentTree.transit.ImageSet"
-                                }
-                            ],
-                            "maxItems": 1,
-                            "minItems": 1,
-                            "type": "array"
+                            "$ref": "#/definitions/ContentTree.transit.CustomCodeComponent"
                         }
                     ]
-                },
-                "data": {},
-                "type": {
-                    "const": "topper-visual",
-                    "type": "string"
                 }
             },
             "required": [
-                "children",
-                "type"
+                "headline",
+                "intro",
+                "suggestedBackgroundColor",
+                "suggestedTopperLayout",
+                "type",
+                "visual"
             ],
             "type": "object"
+        },
+        "ContentTree.transit.TopperLayout": {
+            "enum": [
+                "deep-landscape",
+                "deep-portrait",
+                "full-bleed",
+                "split-text-left"
+            ],
+            "type": "string"
         },
         "ContentTree.transit.Tweet": {
             "additionalProperties": false,
