@@ -181,7 +181,7 @@ interface Root extends Node {
 ```ts
 interface Body extends Parent {
 	type: "body"
-	version: number
+	version: 1
 	children: BodyBlock[]
 }
 ```
