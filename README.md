@@ -535,7 +535,6 @@ interface BigNumber extends Node {
 interface Video extends Node {
 	type: "video"
 	id: string
-	embedded: boolean
 }
 ```
 
