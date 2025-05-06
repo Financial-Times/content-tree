@@ -47,7 +47,7 @@ function toValidLayoutWidth(layoutWidth) {
 
 /**
  * @template {UNode | UParent} Node
- * @typedef {Omit<Node, "children"> & (Node extends UParent ? {children?: Node["children"]} : {children?: null})} TransNode
+ * @typedef {Omit<Node, "children"> & (Node extends UParent ? {children?: Node["children"]} : {children: null})} TransNode
  */
 
 export let defaultTransformers = {
@@ -125,6 +125,7 @@ export let defaultTransformers = {
   br(br) {
     return {
       type: "break",
+      children: null,
     };
   },
   /**
@@ -133,6 +134,7 @@ export let defaultTransformers = {
   hr(hr) {
     return {
       type: "thematic-break",
+      children: null,
     };
   },
   /**
