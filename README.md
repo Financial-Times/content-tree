@@ -535,10 +535,13 @@ interface BigNumber extends Node {
 interface Video extends Node {
 	type: "video"
 	id: string
+    external title: string
 }
 ```
 
 **Video** represents for an FT video referenced by a URL.
+
+The `title` can be obtained by fetching the Video from the content API.
 
 TODO: Figure out how Clips work, how they are different?
 
