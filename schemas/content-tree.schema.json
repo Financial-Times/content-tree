@@ -1868,6 +1868,9 @@
                 "id": {
                     "type": "string"
                 },
+                "title": {
+                    "type": "string"
+                },
                 "type": {
                     "const": "video",
                     "type": "string"
@@ -1875,6 +1878,7 @@
             },
             "required": [
                 "id",
+                "title",
                 "type"
             ],
             "type": "object"
