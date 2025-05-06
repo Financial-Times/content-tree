@@ -165,7 +165,6 @@ export declare namespace ContentTree {
     interface Video extends Node {
         type: "video";
         id: string;
-        embedded: boolean;
     }
     interface YoutubeVideo extends Node {
         type: "youtube-video";
@@ -438,7 +437,6 @@ export declare namespace ContentTree {
         interface Video extends Node {
             type: "video";
             id: string;
-            embedded: boolean;
         }
         interface YoutubeVideo extends Node {
             type: "youtube-video";
@@ -709,7 +707,6 @@ export declare namespace ContentTree {
         interface Video extends Node {
             type: "video";
             id: string;
-            embedded: boolean;
         }
         interface YoutubeVideo extends Node {
             type: "youtube-video";
@@ -973,7 +970,6 @@ export declare namespace ContentTree {
         interface Video extends Node {
             type: "video";
             id: string;
-            embedded: boolean;
         }
         interface YoutubeVideo extends Node {
             type: "youtube-video";

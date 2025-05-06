@@ -1143,9 +1143,6 @@
             "additionalProperties": false,
             "properties": {
                 "data": {},
-                "embedded": {
-                    "type": "boolean"
-                },
                 "id": {
                     "type": "string"
                 },
@@ -1155,7 +1152,6 @@
                 }
             },
             "required": [
-                "embedded",
                 "id",
                 "type"
             ],
