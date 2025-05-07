@@ -249,7 +249,6 @@ export let defaultTransformers = {
     return {
       type: "video",
       id: content.attributes.url ?? "",
-      embedded: content.attributes["data-embedded"] == "true" ? true : false,
       children: null,
     };
   },
