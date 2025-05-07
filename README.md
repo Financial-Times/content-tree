@@ -511,7 +511,7 @@ interface Flourish extends Node {
 	flourishType: string
 	description?: string
 	timestamp?: string
-	fallbackImage?: Image
+	external fallbackImage?: Image
 }
 ```
 
