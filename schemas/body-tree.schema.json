@@ -189,66 +189,6 @@
                 "description": {
                     "type": "string"
                 },
-                "fallbackImage": {
-                    "additionalProperties": false,
-                    "properties": {
-                        "format": {
-                            "enum": [
-                                "desktop",
-                                "mobile",
-                                "square",
-                                "square-ftedit",
-                                "standard",
-                                "standard-inline",
-                                "wide"
-                            ],
-                            "type": "string"
-                        },
-                        "height": {
-                            "type": "number"
-                        },
-                        "id": {
-                            "type": "string"
-                        },
-                        "sourceSet": {
-                            "items": {
-                                "additionalProperties": false,
-                                "properties": {
-                                    "dpr": {
-                                        "type": "number"
-                                    },
-                                    "url": {
-                                        "type": "string"
-                                    },
-                                    "width": {
-                                        "type": "number"
-                                    }
-                                },
-                                "required": [
-                                    "dpr",
-                                    "url",
-                                    "width"
-                                ],
-                                "type": "object"
-                            },
-                            "type": "array"
-                        },
-                        "url": {
-                            "type": "string"
-                        },
-                        "width": {
-                            "type": "number"
-                        }
-                    },
-                    "required": [
-                        "format",
-                        "height",
-                        "id",
-                        "url",
-                        "width"
-                    ],
-                    "type": "object"
-                },
                 "flourishType": {
                     "type": "string"
                 },

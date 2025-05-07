@@ -20,8 +20,9 @@ const full = code.replace(/^(\s+)external (.+)$/gm, "$1$2")
 // in the transit tree, externals must not be present
 const transit = code.replace(/^\s+external (.+:).+$/gm, "")
 // in the loose tree, externals are optional
-const loose = code.replace(/^(\s+)external (.+):(.+)$/gm, "$1$2?:$3")
-
+const loose = code
+	.replace(/^(\s+)external (.+)\?:(.+)$/gm, "$1$2?:$3")
+	.replace(/^(\s+)external (.+):(.+)$/gm, "$1$2?:$3")
 process.stdout.write("export namespace ContentTree {\n")
 // make content-tree nodes available on the root namespace
 process.stdout.write(full.replace(/^/gm, "\t"))

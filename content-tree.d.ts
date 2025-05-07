@@ -699,7 +699,6 @@ export declare namespace ContentTree {
             flourishType: string;
             description?: string;
             timestamp?: string;
-            fallbackImage?: Image;
         }
         interface BigNumber extends Node {
             type: "big-number";
