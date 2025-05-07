@@ -257,20 +257,23 @@ export let defaultTransformers = {
    * @type {Transformer<ContentTree.transit.Flourish | ContentTree.transit.Link>}
    */
   [ContentType.content](content) {
+    const id = content.attributes.url ?? "";
+    const uuid = id.split("/").pop();
+
     if (content.attributes["data-asset-type"] == "flourish") {
       return /** @type {ContentTree.transit.Flourish} */ ({
         type: "flourish",
+        id: uuid,
         flourishType: content.attributes["data-flourish-type"] || "",
         layoutWidth: toValidLayoutWidth(
           content.attributes["data-layout-width"] || ""
         ),
         description: content.attributes["alt"] || "",
         timestamp: content.attributes["data-time-stamp"] || "",
-        // fallbackImage -- TODO should this be external in content-tree?
+        children: null,
       });
     }
-    const id = content.attributes.url ?? "";
-    const uuid = id.split("/").pop();
+
     return /** @type {ContentTree.transit.Link} */ ({
       type: "link",
       url: `https://www.ft.com/content/${uuid}`,
