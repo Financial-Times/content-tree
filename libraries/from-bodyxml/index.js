@@ -7,6 +7,7 @@ let ContentType = {
   video: "http://www.ft.com/ontology/content/Video",
   content: "http://www.ft.com/ontology/content/Content",
   article: "http://www.ft.com/ontology/content/Article",
+  customCodeComponent: "http://www.ft.com/ontology/content/CustomCodeComponent",
 };
 
 /**
@@ -292,6 +293,21 @@ export let defaultTransformers = {
       title: content.attributes.dataTitle ?? "",
     };
   },
+    /**
+   * @type {Transformer<ContentTree.transit.CustomCodeComponent>}
+   */
+    [ContentType.customCodeComponent](content) {
+      const id = content.attributes.url ?? "";
+      const uuid = id.split("/").pop();
+      return {
+        type: "custom-code-component",
+        id: uuid ?? "",
+        layoutWidth: toValidLayoutWidth(
+          content.attributes["data-layout-width"] || ""
+        ),
+        children: null,
+      };
+    },
   /**
    * @type {Transformer<ContentTree.transit.Recommended>}
    */
@@ -311,7 +327,7 @@ export let defaultTransformers = {
    * 	ContentTree.transit.Layout |
    *  ContentTree.transit.LayoutSlot |
    *  { type: "__LIFT_CHILDREN__"} |
-   * 	{ type: "__UNKNOWN__"}
+   * 	{ type: "__UNKNOWN__", data?: any}
    * >}
    */
   div(div) {
@@ -332,7 +348,7 @@ export let defaultTransformers = {
         type: "layout-slot",
       });
     }
-    return { type: "__UNKNOWN__" };
+    return { type: "__UNKNOWN__", data: div };
   },
   experimental() {
     return { type: "__LIFT_CHILDREN__" };
@@ -408,7 +424,7 @@ export function fromXast(bodyxast, transformers = defaultTransformers) {
         }
         return ctnode;
       } else {
-        return { type: "__UNKNOWN__" };
+        return { type: "__UNKNOWN__", data: xmlnode };
       }
     } else if (isXText(xmlnode)) {
       return {
@@ -416,7 +432,7 @@ export function fromXast(bodyxast, transformers = defaultTransformers) {
         value: xmlnode.value,
       };
     } else {
-      return { type: "__UNKNOWN__" };
+      return { type: "__UNKNOWN__" , data: xmlnode };
     }
   })(bodyxast);
 }
