@@ -328,11 +328,22 @@ export let defaultTransformers = {
       return { type: "__LIFT_CHILDREN__" };
     }
     if (div.attributes.class === "n-content-layout__slot") {
+
+      // this is a bit of a hack, but some Spark explainers double up the layout-slot divs
+      // so we need to flatten them out before proceeding
+      // https://github.com/Financial-Times/cp-content-pipeline/blob/f9deff5227f6f5d3d0dfd5e3eabee6599c86aba5/packages/schema/src/resolvers/content-tree/tagMappings.ts#L359
+      div.children = div.children.flatMap((child) => {
+        if (isXElement(child) && child.name === "div") {
+          return child.children || [];
+        } else {
+          return [child];
+        }
+      });
       return /** @type { ContentTree.transit.LayoutSlot } */ ({
         type: "layout-slot",
       });
     }
-    return { type: "__UNKNOWN__" };
+    return { type: "__UNKNOWN__", data: div };  
   },
   experimental() {
     return { type: "__LIFT_CHILDREN__" };
@@ -408,7 +419,7 @@ export function fromXast(bodyxast, transformers = defaultTransformers) {
         }
         return ctnode;
       } else {
-        return { type: "__UNKNOWN__" };
+        return { type: "__UNKNOWN__", data: xmlnode };
       }
     } else if (isXText(xmlnode)) {
       return {
@@ -416,7 +427,7 @@ export function fromXast(bodyxast, transformers = defaultTransformers) {
         value: xmlnode.value,
       };
     } else {
-      return { type: "__UNKNOWN__" };
+      return { type: "__UNKNOWN__", data: xmlnode };
     }
   })(bodyxast);
 }
