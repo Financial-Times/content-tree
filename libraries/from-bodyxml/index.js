@@ -444,7 +444,7 @@ export function fromXast(bodyxast, transformers = defaultTransformers) {
  * @returns {string}
  */
 function removeWhitespaceBeforeBodyTag(xml) {
-  return xml.replace("</p> </body>", "</p></body>");
+  return xml.replace(/<\/p>\s+<\/body>/gi, '</p></body>');
 }
 
 /** @param {string} bodyxml */
