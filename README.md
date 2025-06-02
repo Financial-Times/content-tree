@@ -109,6 +109,17 @@ type BodyBlock =
 
 `BodyBlock` nodes are the only things that are valid as the top level of a `Body`.
 
+### `ExperimentalBodyBlock`
+
+```ts
+type ExperimentalBodyBlock =
+	| PullquoteWithImage
+	| BigNumberWithImage
+
+```
+
+`ExperimentalBodyBlock` nodes are also valid body blocks, but like, experimental
+
 ### `LayoutWidth`
 
 ```ts
@@ -182,7 +193,7 @@ interface Root extends Node {
 interface Body extends Parent {
 	type: "body"
 	version: number
-	children: BodyBlock[]
+	children: (BodyBlock | ExperimentalBodyBlock)[]
 }
 ```
 
@@ -345,6 +356,36 @@ article.
 _non normative note:_ the reason this is string properties and not children is
 that it is more confusing if a pullquote falls back to text than if it
 doesn't. The text is taken from elsewhere in the article.
+
+### `PullquoteWithImage`
+
+```ts
+interface PullquoteWithImage extends Node {
+	type: "pullquote"
+	text: string
+	source?: string
+	image?: ImageSet
+}
+```
+
+**Pullquote** represents a brief quotation taken from the main text of an
+article.
+
+
+### `BigNumberWithImage`
+
+```ts
+interface BigNumberWithImage extends Node {
+	type: "big-number"
+	number: string
+	description: string
+	image?: ImageSet
+}
+```
+
+**BigNumberWithImage** represents a brief quotation taken from the main text of an
+article.
+
 
 
 ### `ImageSet`

@@ -1,0 +1,81 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "anyOf": [
+        {
+            "$ref": "#/definitions/ContentTree.transit.PullquoteWithImage"
+        },
+        {
+            "$ref": "#/definitions/ContentTree.transit.BigNumberWithImage"
+        }
+    ],
+    "definitions": {
+        "ContentTree.transit.BigNumberWithImage": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "description": {
+                    "type": "string"
+                },
+                "image": {
+                    "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                },
+                "number": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "big-number",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "description",
+                "number",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.ImageSet": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "id": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "image-set",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.PullquoteWithImage": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "image": {
+                    "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                },
+                "source": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "pullquote",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "text",
+                "type"
+            ],
+            "type": "object"
+        }
+    }
+}
+
