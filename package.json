@@ -10,7 +10,8 @@
 	},
 	"scripts": {
 		"build": "bash build.bash",
-		"test": "npm --workspaces test --if-present; bash test.bash"
+		"test": "npm --workspaces test --if-present; bash test.bash",
+    "test:schemas": "bash test.bash"
 	},
 	"keywords": [
 		"unified",
