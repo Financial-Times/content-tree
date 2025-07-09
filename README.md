@@ -105,6 +105,7 @@ type BodyBlock =
 	| Tweet
 	| Video
 	| YoutubeVideo
+	| ClipSet
 ```
 
 `BodyBlock` nodes are the only things that are valid as the top level of a `Body`.
@@ -543,8 +544,6 @@ interface Video extends Node {
 
 The `title` can be obtained by fetching the Video from the content API.
 
-TODO: Figure out how Clips work, how they are different?
-
 ### `YoutubeVideo`
 
 ```ts
@@ -554,7 +553,51 @@ interface YoutubeVideo extends Node {
 }
 ```
 
+
 **YoutubeVideo** represents a video referenced by a Youtube URL.
+
+### `ClipSet`
+
+```ts
+interface ClipSet extends Node {
+	type: "clip-set"
+	id: string
+	autoplay: boolean
+	loop: boolean
+	muted: boolean
+	layoutWidth: 'in-line' | 'mid-grid' | 'full-grid'
+	external noAudio: boolean
+	external caption: string
+	external credits: string
+	external description: string
+	external displayTitle: string
+	external subtitle: string
+	external clips: Clip[]
+}
+```
+
+```ts
+type Clip = {
+	id: string
+	format: 'standard-inline' | 'mobile'
+	dataSource: ClipSource[]
+	poster: string
+}
+```
+
+```ts
+type ClipSource = {
+	audioCodec: string
+	binaryUrl: string
+	duration: number
+	mediaType: string
+	pixelHeight: number
+	pixelWidth: number
+	videoCodec: string
+}
+```
+
+**ClipSet** represents a short piece of possibly-looping video content for an article.
 
 ### `ScrollyBlock`
 

@@ -144,6 +144,9 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.YoutubeVideo"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.ClipSet"
                 }
             ]
         },
@@ -157,6 +160,45 @@
                 }
             },
             "required": [
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.ClipSet": {
+            "additionalProperties": false,
+            "properties": {
+                "autoplay": {
+                    "type": "boolean"
+                },
+                "data": {},
+                "id": {
+                    "type": "string"
+                },
+                "layoutWidth": {
+                    "enum": [
+                        "full-grid",
+                        "in-line",
+                        "mid-grid"
+                    ],
+                    "type": "string"
+                },
+                "loop": {
+                    "type": "boolean"
+                },
+                "muted": {
+                    "type": "boolean"
+                },
+                "type": {
+                    "const": "clip-set",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "autoplay",
+                "id",
+                "layoutWidth",
+                "loop",
+                "muted",
                 "type"
             ],
             "type": "object"

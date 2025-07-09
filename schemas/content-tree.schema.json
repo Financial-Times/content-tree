@@ -144,6 +144,9 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.YoutubeVideo"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.ClipSet"
                 }
             ]
         },
@@ -157,6 +160,137 @@
                 }
             },
             "required": [
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.ClipSet": {
+            "additionalProperties": false,
+            "properties": {
+                "autoplay": {
+                    "type": "boolean"
+                },
+                "caption": {
+                    "type": "string"
+                },
+                "clips": {
+                    "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "dataSource": {
+                                "items": {
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "audioCodec": {
+                                            "type": "string"
+                                        },
+                                        "binaryUrl": {
+                                            "type": "string"
+                                        },
+                                        "duration": {
+                                            "type": "number"
+                                        },
+                                        "mediaType": {
+                                            "type": "string"
+                                        },
+                                        "pixelHeight": {
+                                            "type": "number"
+                                        },
+                                        "pixelWidth": {
+                                            "type": "number"
+                                        },
+                                        "videoCodec": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "audioCodec",
+                                        "binaryUrl",
+                                        "duration",
+                                        "mediaType",
+                                        "pixelHeight",
+                                        "pixelWidth",
+                                        "videoCodec"
+                                    ],
+                                    "type": "object"
+                                },
+                                "type": "array"
+                            },
+                            "format": {
+                                "enum": [
+                                    "mobile",
+                                    "standard-inline"
+                                ],
+                                "type": "string"
+                            },
+                            "id": {
+                                "type": "string"
+                            },
+                            "poster": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "dataSource",
+                            "format",
+                            "id",
+                            "poster"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "credits": {
+                    "type": "string"
+                },
+                "data": {},
+                "description": {
+                    "type": "string"
+                },
+                "displayTitle": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "layoutWidth": {
+                    "enum": [
+                        "full-grid",
+                        "in-line",
+                        "mid-grid"
+                    ],
+                    "type": "string"
+                },
+                "loop": {
+                    "type": "boolean"
+                },
+                "muted": {
+                    "type": "boolean"
+                },
+                "noAudio": {
+                    "type": "boolean"
+                },
+                "subtitle": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "clip-set",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "autoplay",
+                "caption",
+                "clips",
+                "credits",
+                "description",
+                "displayTitle",
+                "id",
+                "layoutWidth",
+                "loop",
+                "muted",
+                "noAudio",
+                "subtitle",
                 "type"
             ],
             "type": "object"
