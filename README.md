@@ -33,7 +33,7 @@ when the `content-tree` is in
 from its [ecosystem of utilities][unist-utilities].
 
 `content-tree` relates to [JavaScript][js] in that it has an [ecosystem of
-utilities][unist-utilities] for working with trees in JavaScript.  However,
+utilities][unist-utilities] for working with trees in JavaScript. However,
 `content-tree` is not limited to JavaScript and can be used in other programming
 languages.
 
@@ -56,9 +56,9 @@ import type {ContentTree} from "@financial-times/content-tree"
 function makeBigNumber(): ContentTree.BigNumber {
 	return {
 		type: "|<tab>"
-		        +--------------+
-		        | "big-number" |
-		        +--------------+
+				+--------------+
+				| "big-number" |
+				+--------------+
 	}
 }
 
@@ -88,23 +88,24 @@ These abstract helper types define special types a [Parent](#parent) can use as
 
 ```ts
 type BodyBlock =
-	| Paragraph
-	| Heading
-	| ImageSet
-	| Flourish
-	| BigNumber
-	| CustomCodeComponent
-	| Layout
-	| List
-	| Blockquote
-	| Pullquote
-	| ScrollyBlock
-	| ThematicBreak
-	| Table
-	| Recommended
-	| Tweet
-	| Video
-	| YoutubeVideo
+  | Paragraph
+  | Heading
+  | ImageSet
+  | Flourish
+  | BigNumber
+  | CustomComponent
+  | ExperimentalGallery
+  | Layout
+  | List
+  | Blockquote
+  | Pullquote
+  | ScrollyBlock
+  | ThematicBreak
+  | Table
+  | Recommended
+  | Tweet
+  | Video
+  | YoutubeVideo;
 ```
 
 `BodyBlock` nodes are the only things that are valid as the top level of a `Body`.
@@ -113,14 +114,14 @@ type BodyBlock =
 
 ```ts
 type LayoutWidth =
-	| "auto"
-	| "in-line"
-	| "inset-left"
-	| "inset-right"
-	| "full-bleed"
-	| "full-grid"
-	| "mid-grid"
-	| "full-width"
+  | "auto"
+  | "in-line"
+  | "inset-left"
+  | "inset-right"
+  | "full-bleed"
+  | "full-grid"
+  | "mid-grid"
+  | "full-width";
 ```
 
 `LayoutWidth` defines how the component should be presented in the article page according to the column layout system.
@@ -128,7 +129,7 @@ type LayoutWidth =
 ### `Phrasing`
 
 ```ts
-type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link
+type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
 ```
 
 A phrasing node cannot have ancestor of the same type.
@@ -142,8 +143,8 @@ is inside a Strong.
 
 ```ts
 interface Node {
-	type: string
-	data?: any
+  type: string;
+  data?: any;
 }
 ```
 
@@ -154,7 +155,7 @@ will never be defined in the content-tree spec.
 
 ```ts
 interface Parent extends Node {
-	children: Node[]
+  children: Node[];
 }
 ```
 
@@ -167,8 +168,8 @@ Its content is limited to only other content-tree content.
 
 ```ts
 interface Root extends Node {
-	type: "root"
-	body: Body
+  type: "root";
+  body: Body;
 }
 ```
 
@@ -180,9 +181,9 @@ interface Root extends Node {
 
 ```ts
 interface Body extends Parent {
-	type: "body"
-	version: number
-	children: BodyBlock[]
+  type: "body";
+  version: number;
+  children: BodyBlock[];
 }
 ```
 
@@ -194,8 +195,8 @@ interface Body extends Parent {
 
 ```ts
 interface Text extends Node {
-	type: "text"
-	value: string
+  type: "text";
+  value: string;
 }
 ```
 
@@ -205,7 +206,7 @@ interface Text extends Node {
 
 ```ts
 interface Break extends Node {
-	type: "break"
+  type: "break";
 }
 ```
 
@@ -218,7 +219,7 @@ html._
 
 ```ts
 interface ThematicBreak extends Node {
-	type: "thematic-break"
+  type: "thematic-break";
 }
 ```
 
@@ -231,8 +232,8 @@ _Non-normative note: this would be represented by an `<hr>` in the html._
 
 ```ts
 interface Paragraph extends Parent {
-	type: "paragraph"
-	children: Phrasing[]
+  type: "paragraph";
+  children: Phrasing[];
 }
 ```
 
@@ -242,9 +243,9 @@ Paragraph represents a unit of text.
 
 ```ts
 interface Heading extends Parent {
-	type: "heading"
-	children: Text[]
-	level: "chapter" | "subheading" | "label"
+  type: "heading";
+  children: Text[];
+  level: "chapter" | "subheading" | "label";
 }
 ```
 
@@ -255,8 +256,8 @@ section.
 
 ```ts
 interface Strong extends Parent {
-	type: "strong"
-	children: Phrasing[]
+  type: "strong";
+  children: Phrasing[];
 }
 ```
 
@@ -266,8 +267,8 @@ interface Strong extends Parent {
 
 ```ts
 interface Emphasis extends Parent {
-	type: "emphasis"
-	children: Phrasing[]
+  type: "emphasis";
+  children: Phrasing[];
 }
 ```
 
@@ -277,8 +278,8 @@ interface Emphasis extends Parent {
 
 ```ts
 interface Strikethrough extends Parent {
-	type: "strikethrough"
-	children: Phrasing[]
+  type: "strikethrough";
+  children: Phrasing[];
 }
 ```
 
@@ -288,10 +289,10 @@ interface Strikethrough extends Parent {
 
 ```ts
 interface Link extends Parent {
-	type: "link"
-	url: string
-	title: string
-	children: Phrasing[]
+  type: "link";
+  url: string;
+  title: string;
+  children: Phrasing[];
 }
 ```
 
@@ -301,9 +302,9 @@ interface Link extends Parent {
 
 ```ts
 interface List extends Parent {
-	type: "list"
-	ordered: boolean
-	children: ListItem[]
+  type: "list";
+  ordered: boolean;
+  children: ListItem[];
 }
 ```
 
@@ -313,8 +314,8 @@ interface List extends Parent {
 
 ```ts
 interface ListItem extends Parent {
-	type: "list-item"
-	children: (Paragraph | Phrasing)[]
+  type: "list-item";
+  children: (Paragraph | Phrasing)[];
 }
 ```
 
@@ -322,8 +323,8 @@ interface ListItem extends Parent {
 
 ```ts
 interface Blockquote extends Parent {
-	type: "blockquote"
-	children: (Paragraph | Phrasing)[]
+  type: "blockquote";
+  children: (Paragraph | Phrasing)[];
 }
 ```
 
@@ -333,9 +334,9 @@ interface Blockquote extends Parent {
 
 ```ts
 interface Pullquote extends Node {
-	type: "pullquote"
-	text: string
-	source?: string
+  type: "pullquote";
+  text: string;
+  source?: string;
 }
 ```
 
@@ -345,7 +346,6 @@ article.
 _non normative note:_ the reason this is string properties and not children is
 that it is more confusing if a pullquote falls back to text than if it
 doesn't. The text is taken from elsewhere in the article.
-
 
 ### `ImageSet`
 
@@ -363,14 +363,14 @@ interface ImageSet extends Node {
 
 ```ts
 type ImageSetPicture = {
-	layoutWidth: string
-	imageType: "image" | "graphic"
-	alt: string
-	caption: string
-	credit: string
-	images: Image[]
-	fallbackImage: Image
-}
+  layoutWidth: string;
+  imageType: "image" | "graphic";
+  alt: string;
+  caption: string;
+  credit: string;
+  images: Image[];
+  fallbackImage: Image;
+};
 ```
 
 `ImageSetPicture` defines the data associated with an [ImageSet](#ImageSet)
@@ -379,20 +379,20 @@ type ImageSetPicture = {
 
 ```ts
 type Image = {
-	id: string
-	width: number
-	height: number
-	format:
-		| "desktop"
-		| "mobile"
-		| "square"
-		| "square-ftedit"
-		| "standard"
-		| "wide"
-		| "standard-inline"
-	url: string
-	sourceSet?: ImageSource[]
-}
+  id: string;
+  width: number;
+  height: number;
+  format:
+    | "desktop"
+    | "mobile"
+    | "square"
+    | "square-ftedit"
+    | "standard"
+    | "wide"
+    | "standard-inline";
+  url: string;
+  sourceSet?: ImageSource[];
+};
 ```
 
 `Image` defines a single use-case of a Picture[#ImageSetPicture].
@@ -401,17 +401,15 @@ type Image = {
 
 ```ts
 type ImageSource = {
-	url: string
-	width: number
-	dpr: number
-}
+  url: string;
+  width: number;
+  dpr: number;
+};
 ```
 
 **ImageSource** defines a single resource for an [image](#image).
 
-
 ### `Recommended`
-
 
 ```ts
 interface Recommended extends Node {
@@ -442,52 +440,51 @@ These types were extracted from x-dash's
 
 ```ts
 type TeaserConcept = {
-	apiUrl: string
-	directType: string
-	id: string
-	predicate: string
-	prefLabel: string
-	type: string
-	types: string[]
-	url: string
-}
+  apiUrl: string;
+  directType: string;
+  id: string;
+  predicate: string;
+  prefLabel: string;
+  type: string;
+  types: string[];
+  url: string;
+};
 
 type Teaser = {
-	id: string
-	url: string
-	type:
-		| "article"
-		| "video"
-		| "podcast"
-		| "audio"
-		| "package"
-		| "liveblog"
-		| "promoted-content"
-		| "paid-post"
-	title: string
-	publishedDate: string
-	firstPublishedDate: string
-	metaLink?: TeaserConcept
-	metaAltLink?: TeaserConcept
-	metaPrefixText?: string
-	metaSuffixText?: string
-	indicators: {
-		accessLevel: "premium" | "subscribed" | "registered" | "free"
-		isOpinion?: boolean
-		isColumn?: boolean
-		isPodcast?: boolean
-		isEditorsChoice?: boolean
-		isExclusive?: boolean
-		isScoop?: boolean
-	}
-	image: {
-		url: string
-		width: number
-		height: number
-	}
-}
+  id: string;
+  url: string;
+  type:
+    | "article"
+    | "video"
+    | "podcast"
+    | "audio"
+    | "package"
+    | "liveblog"
+    | "promoted-content"
+    | "paid-post";
+  title: string;
+  publishedDate: string;
+  firstPublishedDate: string;
+  metaLink?: TeaserConcept;
+  metaAltLink?: TeaserConcept;
+  metaPrefixText?: string;
+  metaSuffixText?: string;
+  indicators: {
+    accessLevel: "premium" | "subscribed" | "registered" | "free";
+    isOpinion?: boolean;
+    isColumn?: boolean;
+    isPodcast?: boolean;
+    isEditorsChoice?: boolean;
+    isExclusive?: boolean;
+    isScoop?: boolean;
+  };
+  image: {
+    url: string;
+    width: number;
+    height: number;
+  };
+};
 ```
-
 
 ### `Tweet`
 
@@ -505,13 +502,13 @@ interface Tweet extends Node {
 
 ```ts
 interface Flourish extends Node {
-	type: "flourish"
-	id: string
-	layoutWidth: string
-	flourishType: string
-	description?: string
-	timestamp?: string
-	fallbackImage?: Image
+  type: "flourish";
+  id: string;
+  layoutWidth: string;
+  flourishType: string;
+  description?: string;
+  timestamp?: string;
+  fallbackImage?: Image;
 }
 ```
 
@@ -521,9 +518,9 @@ interface Flourish extends Node {
 
 ```ts
 interface BigNumber extends Node {
-	type: "big-number"
-	number: string
-	description: string
+  type: "big-number";
+  number: string;
+  description: string;
 }
 ```
 
@@ -533,9 +530,9 @@ interface BigNumber extends Node {
 
 ```ts
 interface Video extends Node {
-	type: "video"
-	id: string
-	embedded: boolean
+  type: "video";
+  id: string;
+  embedded: boolean;
 }
 ```
 
@@ -547,8 +544,8 @@ TODO: Figure out how Clips work, how they are different?
 
 ```ts
 interface YoutubeVideo extends Node {
-	type: "youtube-video"
-	url: string
+  type: "youtube-video";
+  url: string;
 }
 ```
 
@@ -558,9 +555,9 @@ interface YoutubeVideo extends Node {
 
 ```ts
 interface ScrollyBlock extends Parent {
-	type: "scrolly-block"
-	theme: "sans" | "serif"
-	children: ScrollySection[]
+  type: "scrolly-block";
+  theme: "sans" | "serif";
+  children: ScrollySection[];
 }
 ```
 
@@ -570,12 +567,12 @@ interface ScrollyBlock extends Parent {
 
 ```ts
 interface ScrollySection extends Parent {
-	type: "scrolly-section"
-	display: "dark-background" | "light-background"
-	noBox?: true,
-	position: "left" | "center" | "right"
-	transition?: "delay-before" | "delay-after"
-	children: [ScrollyImage, ...ScrollyCopy[]]
+  type: "scrolly-section";
+  display: "dark-background" | "light-background";
+  noBox?: true;
+  position: "left" | "center" | "right";
+  transition?: "delay-before" | "delay-after";
+  children: [ScrollyImage, ...ScrollyCopy[]];
 }
 ```
 
@@ -597,8 +594,8 @@ interface ScrollyImage extends Node {
 
 ```ts
 interface ScrollyCopy extends Parent {
-	type: "scrolly-copy"
-	children: (ScrollyHeading | Paragraph)[]
+  type: "scrolly-copy";
+  children: (ScrollyHeading | Paragraph)[];
 }
 ```
 
@@ -606,9 +603,9 @@ interface ScrollyCopy extends Parent {
 
 ```ts
 interface ScrollyHeading extends Parent {
-	type: "scrolly-heading"
-	level: "chapter" | "heading" | "subheading"
-	children: Text[]
+  type: "scrolly-heading";
+  level: "chapter" | "heading" | "subheading";
+  children: Text[];
 }
 ```
 
@@ -618,10 +615,13 @@ interface ScrollyHeading extends Parent {
 
 ```ts
 interface Layout extends Parent {
-	   type: "layout"
-	   layoutName: "auto" | "card" | "timeline"
-	   layoutWidth: string
-	   children: [Heading, LayoutImage, ...LayoutSlot[]] | [Heading, ...LayoutSlot[]] | LayoutSlot[]
+  type: "layout";
+  layoutName: "auto" | "card" | "timeline";
+  layoutWidth: string;
+  children:
+    | [Heading, LayoutImage, ...LayoutSlot[]]
+    | [Heading, ...LayoutSlot[]]
+    | LayoutSlot[];
 }
 ```
 
@@ -632,11 +632,10 @@ The `layoutName` acts as a sort of theme for the component.
 
 ### `LayoutSlot`
 
-
 ```ts
 interface LayoutSlot extends Parent {
-	type: "layout-slot"
-	children: (Heading | Paragraph | LayoutImage)[]
+  type: "layout-slot";
+  children: (Heading | Paragraph | LayoutImage)[];
 }
 ```
 
@@ -668,51 +667,55 @@ interface LayoutImage extends Node {
 
 ```ts
 type TableColumnSettings = {
-	hideOnMobile: boolean
-	sortable: boolean
-	sortType: 'text' | 'number' | 'date' | 'currency' | 'percent'
-}
+  hideOnMobile: boolean;
+  sortable: boolean;
+  sortType: "text" | "number" | "date" | "currency" | "percent";
+};
 
 interface TableCaption extends Parent {
-	type: 'table-caption'
-	children: Phrasing[]
+  type: "table-caption";
+  children: Phrasing[];
 }
 
 interface TableCell extends Parent {
-   type: 'table-cell'
-	heading?: boolean
-	children: Phrasing[]
+  type: "table-cell";
+  heading?: boolean;
+  children: Phrasing[];
 }
 
 interface TableRow extends Parent {
-	type: 'table-row'
-	children: TableCell[]
+  type: "table-row";
+  children: TableCell[];
 }
 
 interface TableBody extends Parent {
-	type: 'table-body'
-	children: TableRow[]
+  type: "table-body";
+  children: TableRow[];
 }
 
 interface TableFooter extends Parent {
-	type: 'table-footer'
-	children: Phrasing[]
+  type: "table-footer";
+  children: Phrasing[];
 }
 
 interface Table extends Parent {
-	type: 'table'
-	stripes: boolean
-	compact: boolean
-	layoutWidth:
-		| 'auto'
-		| 'full-grid'
-		| 'inset-left'
-		| 'inset-right'
-		| 'full-bleed'
-	collapseAfterHowManyRows?: number
-	responsiveStyle: 'overflow' | 'flat' | 'scroll'
-	children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody]
-	columnSettings: TableColumnSettings[]
+  type: "table";
+  stripes: boolean;
+  compact: boolean;
+  layoutWidth:
+    | "auto"
+    | "full-grid"
+    | "inset-left"
+    | "inset-right"
+    | "full-bleed";
+  collapseAfterHowManyRows?: number;
+  responsiveStyle: "overflow" | "flat" | "scroll";
+  children:
+    | [TableCaption, TableBody, TableFooter]
+    | [TableCaption, TableBody]
+    | [TableBody, TableFooter]
+    | [TableBody];
+  columnSettings: TableColumnSettings[];
 }
 ```
 
@@ -722,10 +725,19 @@ interface Table extends Parent {
 
 ```ts
 type CustomCodeComponentAttributes = {
-    [key: string]: string | boolean | undefined
+	[key: string]: string | boolean | undefined
 }
-
-interface CustomCodeComponent extends Node {
+type OptionalContent={
+  image?: Image
+}
+type repeaters={
+  /**
+   * @description this sets of fields are going to be repeated
+   */
+  path: 'text'
+  txt: 'text'
+}
+interface CustomComponent extends Node {
   /** Component type */
   type: "custom-code-component"
   /** Id taken from the CAPI url */
@@ -740,14 +752,69 @@ interface CustomCodeComponent extends Node {
   external attributesLastModified: string
   /** Configuration data to be passed to the component. */
   external attributes: CustomCodeComponentAttributes
+
+  optional?:OptionalContent
+    /**
+   * @description repeatable fields
+   * @maxItems 5
+   * @minItems 1
+   */
+  repeater: [repeaters]
+
 }
 ```
 
-- The **CustomCodeComponent*** allows for more experimental forms of journalism, allowing editors to provide properties via Spark.
+- The **CustomCodeComponent\*** allows for more experimental forms of journalism, allowing editors to provide properties via Spark.
 - The component itself lives off-platform, and an example might be a git repository with a standard structure. This structure would include the rendering instructions, and the data structure that is expected to be provided to the component for it to render if necessary.
 - The basic interface in Spark to make reference to this system above (eg. the git repo URL or a public S3 bucket), and provide some data for it if necessary. This will be the Custom Component storyblock.
 - The data Spark receives from entering a specific ID will be used to render dynamic fields (the `attributes`).
 
+### ExperimentalGallery
+
+```ts
+type galleryItem = {
+  /**
+   * @description link for the image
+   */
+  imageLink?: "text";
+  /**
+   * @description this is the first Image
+   * @default false
+   */
+  firstImage: boolean;
+  /**
+   * @description image description
+   */
+
+  imageDescription?: string;
+  /**
+   * @description select or upload image
+   */
+  picture?: Image;
+};
+
+interface ExperimentalGallery extends Node {
+  type: "Gallery";
+
+  /**
+   * @description gallery description
+   * @default default text for the source field
+   */
+  galleryDescription?: string;
+  /**
+   * @description autoplay the gallery
+   * @default false
+   */
+  autoPlay?: boolean;
+
+  /**
+   * @description each gallery item
+   * @maxItems 10
+   * @minItems 1
+   */
+  galleryItems: [galleryItem];
+}
+```
 
 ## License
 

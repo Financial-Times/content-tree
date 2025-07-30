@@ -1,5 +1,5 @@
 export declare namespace ContentTree {
-    type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+    type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomComponent | ExperimentalGallery | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
     type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
     type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
     interface Node {
@@ -219,43 +219,53 @@ export declare namespace ContentTree {
     type TableColumnSettings = {
         hideOnMobile: boolean;
         sortable: boolean;
-        sortType: 'text' | 'number' | 'date' | 'currency' | 'percent';
+        sortType: "text" | "number" | "date" | "currency" | "percent";
     };
     interface TableCaption extends Parent {
-        type: 'table-caption';
+        type: "table-caption";
         children: Phrasing[];
     }
     interface TableCell extends Parent {
-        type: 'table-cell';
+        type: "table-cell";
         heading?: boolean;
         children: Phrasing[];
     }
     interface TableRow extends Parent {
-        type: 'table-row';
+        type: "table-row";
         children: TableCell[];
     }
     interface TableBody extends Parent {
-        type: 'table-body';
+        type: "table-body";
         children: TableRow[];
     }
     interface TableFooter extends Parent {
-        type: 'table-footer';
+        type: "table-footer";
         children: Phrasing[];
     }
     interface Table extends Parent {
-        type: 'table';
+        type: "table";
         stripes: boolean;
         compact: boolean;
-        layoutWidth: 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed';
+        layoutWidth: "auto" | "full-grid" | "inset-left" | "inset-right" | "full-bleed";
         collapseAfterHowManyRows?: number;
-        responsiveStyle: 'overflow' | 'flat' | 'scroll';
+        responsiveStyle: "overflow" | "flat" | "scroll";
         children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
         columnSettings: TableColumnSettings[];
     }
     type CustomCodeComponentAttributes = {
         [key: string]: string | boolean | undefined;
     };
-    interface CustomCodeComponent extends Node {
+    type OptionalContent = {
+        image?: Image;
+    };
+    type repeaters = {
+        /**
+         * @description this sets of fields are going to be repeated
+         */
+        path: 'text';
+        txt: 'text';
+    };
+    interface CustomComponent extends Node {
         /** Component type */
         type: "custom-code-component";
         /** Id taken from the CAPI url */
@@ -270,9 +280,54 @@ export declare namespace ContentTree {
         attributesLastModified: string;
         /** Configuration data to be passed to the component. */
         attributes: CustomCodeComponentAttributes;
+        optional?: OptionalContent;
+        /**
+       * @description repeatable fields
+       * @maxItems 5
+       * @minItems 1
+       */
+        repeater: [repeaters];
+    }
+    type galleryItem = {
+        /**
+         * @description link for the image
+         */
+        imageLink?: "text";
+        /**
+         * @description this is the first Image
+         * @default false
+         */
+        firstImage: boolean;
+        /**
+         * @description image description
+         */
+        imageDescription?: string;
+        /**
+         * @description select or upload image
+         */
+        picture?: Image;
+    };
+    interface ExperimentalGallery extends Node {
+        type: "Gallery";
+        /**
+         * @description gallery description
+         * @default default text for the source field
+         */
+        galleryDescription?: string;
+        /**
+         * @description autoplay the gallery
+         * @default false
+         */
+        autoPlay?: boolean;
+        /**
+         * @description each gallery item
+         * @maxItems 10
+         * @minItems 1
+         */
+        galleryItems: [galleryItem];
     }
     namespace full {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomComponent | ExperimentalGallery | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -492,43 +547,53 @@ export declare namespace ContentTree {
         type TableColumnSettings = {
             hideOnMobile: boolean;
             sortable: boolean;
-            sortType: 'text' | 'number' | 'date' | 'currency' | 'percent';
+            sortType: "text" | "number" | "date" | "currency" | "percent";
         };
         interface TableCaption extends Parent {
-            type: 'table-caption';
+            type: "table-caption";
             children: Phrasing[];
         }
         interface TableCell extends Parent {
-            type: 'table-cell';
+            type: "table-cell";
             heading?: boolean;
             children: Phrasing[];
         }
         interface TableRow extends Parent {
-            type: 'table-row';
+            type: "table-row";
             children: TableCell[];
         }
         interface TableBody extends Parent {
-            type: 'table-body';
+            type: "table-body";
             children: TableRow[];
         }
         interface TableFooter extends Parent {
-            type: 'table-footer';
+            type: "table-footer";
             children: Phrasing[];
         }
         interface Table extends Parent {
-            type: 'table';
+            type: "table";
             stripes: boolean;
             compact: boolean;
-            layoutWidth: 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed';
+            layoutWidth: "auto" | "full-grid" | "inset-left" | "inset-right" | "full-bleed";
             collapseAfterHowManyRows?: number;
-            responsiveStyle: 'overflow' | 'flat' | 'scroll';
+            responsiveStyle: "overflow" | "flat" | "scroll";
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
         }
         type CustomCodeComponentAttributes = {
             [key: string]: string | boolean | undefined;
         };
-        interface CustomCodeComponent extends Node {
+        type OptionalContent = {
+            image?: Image;
+        };
+        type repeaters = {
+            /**
+             * @description this sets of fields are going to be repeated
+             */
+            path: 'text';
+            txt: 'text';
+        };
+        interface CustomComponent extends Node {
             /** Component type */
             type: "custom-code-component";
             /** Id taken from the CAPI url */
@@ -543,10 +608,55 @@ export declare namespace ContentTree {
             attributesLastModified: string;
             /** Configuration data to be passed to the component. */
             attributes: CustomCodeComponentAttributes;
+            optional?: OptionalContent;
+            /**
+           * @description repeatable fields
+           * @maxItems 5
+           * @minItems 1
+           */
+            repeater: [repeaters];
+        }
+        type galleryItem = {
+            /**
+             * @description link for the image
+             */
+            imageLink?: "text";
+            /**
+             * @description this is the first Image
+             * @default false
+             */
+            firstImage: boolean;
+            /**
+             * @description image description
+             */
+            imageDescription?: string;
+            /**
+             * @description select or upload image
+             */
+            picture?: Image;
+        };
+        interface ExperimentalGallery extends Node {
+            type: "Gallery";
+            /**
+             * @description gallery description
+             * @default default text for the source field
+             */
+            galleryDescription?: string;
+            /**
+             * @description autoplay the gallery
+             * @default false
+             */
+            autoPlay?: boolean;
+            /**
+             * @description each gallery item
+             * @maxItems 10
+             * @minItems 1
+             */
+            galleryItems: [galleryItem];
         }
     }
     namespace transit {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomComponent | ExperimentalGallery | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -761,53 +871,112 @@ export declare namespace ContentTree {
         type TableColumnSettings = {
             hideOnMobile: boolean;
             sortable: boolean;
-            sortType: 'text' | 'number' | 'date' | 'currency' | 'percent';
+            sortType: "text" | "number" | "date" | "currency" | "percent";
         };
         interface TableCaption extends Parent {
-            type: 'table-caption';
+            type: "table-caption";
             children: Phrasing[];
         }
         interface TableCell extends Parent {
-            type: 'table-cell';
+            type: "table-cell";
             heading?: boolean;
             children: Phrasing[];
         }
         interface TableRow extends Parent {
-            type: 'table-row';
+            type: "table-row";
             children: TableCell[];
         }
         interface TableBody extends Parent {
-            type: 'table-body';
+            type: "table-body";
             children: TableRow[];
         }
         interface TableFooter extends Parent {
-            type: 'table-footer';
+            type: "table-footer";
             children: Phrasing[];
         }
         interface Table extends Parent {
-            type: 'table';
+            type: "table";
             stripes: boolean;
             compact: boolean;
-            layoutWidth: 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed';
+            layoutWidth: "auto" | "full-grid" | "inset-left" | "inset-right" | "full-bleed";
             collapseAfterHowManyRows?: number;
-            responsiveStyle: 'overflow' | 'flat' | 'scroll';
+            responsiveStyle: "overflow" | "flat" | "scroll";
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
         }
         type CustomCodeComponentAttributes = {
             [key: string]: string | boolean | undefined;
         };
-        interface CustomCodeComponent extends Node {
+        type OptionalContent = {
+            image?: Image;
+        };
+        type repeaters = {
+            /**
+             * @description this sets of fields are going to be repeated
+             */
+            path: 'text';
+            txt: 'text';
+        };
+        interface CustomComponent extends Node {
             /** Component type */
             type: "custom-code-component";
             /** Id taken from the CAPI url */
             id: string;
             /** How the component should be presented in the article page according to the column layout system */
             layoutWidth: LayoutWidth;
+            /** Repository for the code of the component in the format "[github org]/[github repo]/[component name]". */
+            /** Semantic version of the code of the component, e.g. "^0.3.5". */
+            /** Last date-time when the attributes for this block were modified, in ISO-8601 format. */
+            /** Configuration data to be passed to the component. */
+            optional?: OptionalContent;
+            /**
+           * @description repeatable fields
+           * @maxItems 5
+           * @minItems 1
+           */
+            repeater: [repeaters];
+        }
+        type galleryItem = {
+            /**
+             * @description link for the image
+             */
+            imageLink?: "text";
+            /**
+             * @description this is the first Image
+             * @default false
+             */
+            firstImage: boolean;
+            /**
+             * @description image description
+             */
+            imageDescription?: string;
+            /**
+             * @description select or upload image
+             */
+            picture?: Image;
+        };
+        interface ExperimentalGallery extends Node {
+            type: "Gallery";
+            /**
+             * @description gallery description
+             * @default default text for the source field
+             */
+            galleryDescription?: string;
+            /**
+             * @description autoplay the gallery
+             * @default false
+             */
+            autoPlay?: boolean;
+            /**
+             * @description each gallery item
+             * @maxItems 10
+             * @minItems 1
+             */
+            galleryItems: [galleryItem];
         }
     }
     namespace loose {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomComponent | ExperimentalGallery | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -1027,43 +1196,53 @@ export declare namespace ContentTree {
         type TableColumnSettings = {
             hideOnMobile: boolean;
             sortable: boolean;
-            sortType: 'text' | 'number' | 'date' | 'currency' | 'percent';
+            sortType: "text" | "number" | "date" | "currency" | "percent";
         };
         interface TableCaption extends Parent {
-            type: 'table-caption';
+            type: "table-caption";
             children: Phrasing[];
         }
         interface TableCell extends Parent {
-            type: 'table-cell';
+            type: "table-cell";
             heading?: boolean;
             children: Phrasing[];
         }
         interface TableRow extends Parent {
-            type: 'table-row';
+            type: "table-row";
             children: TableCell[];
         }
         interface TableBody extends Parent {
-            type: 'table-body';
+            type: "table-body";
             children: TableRow[];
         }
         interface TableFooter extends Parent {
-            type: 'table-footer';
+            type: "table-footer";
             children: Phrasing[];
         }
         interface Table extends Parent {
-            type: 'table';
+            type: "table";
             stripes: boolean;
             compact: boolean;
-            layoutWidth: 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed';
+            layoutWidth: "auto" | "full-grid" | "inset-left" | "inset-right" | "full-bleed";
             collapseAfterHowManyRows?: number;
-            responsiveStyle: 'overflow' | 'flat' | 'scroll';
+            responsiveStyle: "overflow" | "flat" | "scroll";
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
         }
         type CustomCodeComponentAttributes = {
             [key: string]: string | boolean | undefined;
         };
-        interface CustomCodeComponent extends Node {
+        type OptionalContent = {
+            image?: Image;
+        };
+        type repeaters = {
+            /**
+             * @description this sets of fields are going to be repeated
+             */
+            path: 'text';
+            txt: 'text';
+        };
+        interface CustomComponent extends Node {
             /** Component type */
             type: "custom-code-component";
             /** Id taken from the CAPI url */
@@ -1078,6 +1257,51 @@ export declare namespace ContentTree {
             attributesLastModified?: string;
             /** Configuration data to be passed to the component. */
             attributes?: CustomCodeComponentAttributes;
+            optional?: OptionalContent;
+            /**
+           * @description repeatable fields
+           * @maxItems 5
+           * @minItems 1
+           */
+            repeater: [repeaters];
+        }
+        type galleryItem = {
+            /**
+             * @description link for the image
+             */
+            imageLink?: "text";
+            /**
+             * @description this is the first Image
+             * @default false
+             */
+            firstImage: boolean;
+            /**
+             * @description image description
+             */
+            imageDescription?: string;
+            /**
+             * @description select or upload image
+             */
+            picture?: Image;
+        };
+        interface ExperimentalGallery extends Node {
+            type: "Gallery";
+            /**
+             * @description gallery description
+             * @default default text for the source field
+             */
+            galleryDescription?: string;
+            /**
+             * @description autoplay the gallery
+             * @default false
+             */
+            autoPlay?: boolean;
+            /**
+             * @description each gallery item
+             * @maxItems 10
+             * @minItems 1
+             */
+            galleryItems: [galleryItem];
         }
     }
 }

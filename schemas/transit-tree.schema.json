@@ -110,7 +110,10 @@
                     "$ref": "#/definitions/ContentTree.transit.BigNumber"
                 },
                 {
-                    "$ref": "#/definitions/ContentTree.transit.CustomCodeComponent"
+                    "$ref": "#/definitions/ContentTree.transit.CustomComponent"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.ExperimentalGallery"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.Layout"
@@ -161,7 +164,7 @@
             ],
             "type": "object"
         },
-        "ContentTree.transit.CustomCodeComponent": {
+        "ContentTree.transit.CustomComponent": {
             "additionalProperties": false,
             "properties": {
                 "data": {},
@@ -173,6 +176,100 @@
                     "$ref": "#/definitions/ContentTree.transit.LayoutWidth",
                     "description": "How the component should be presented in the article page according to the column layout system"
                 },
+                "optional": {
+                    "additionalProperties": false,
+                    "description": "Configuration data to be passed to the component.",
+                    "properties": {
+                        "image": {
+                            "additionalProperties": false,
+                            "properties": {
+                                "format": {
+                                    "enum": [
+                                        "desktop",
+                                        "mobile",
+                                        "square",
+                                        "square-ftedit",
+                                        "standard",
+                                        "standard-inline",
+                                        "wide"
+                                    ],
+                                    "type": "string"
+                                },
+                                "height": {
+                                    "type": "number"
+                                },
+                                "id": {
+                                    "type": "string"
+                                },
+                                "sourceSet": {
+                                    "items": {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "dpr": {
+                                                "type": "number"
+                                            },
+                                            "url": {
+                                                "type": "string"
+                                            },
+                                            "width": {
+                                                "type": "number"
+                                            }
+                                        },
+                                        "required": [
+                                            "dpr",
+                                            "url",
+                                            "width"
+                                        ],
+                                        "type": "object"
+                                    },
+                                    "type": "array"
+                                },
+                                "url": {
+                                    "type": "string"
+                                },
+                                "width": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "format",
+                                "height",
+                                "id",
+                                "url",
+                                "width"
+                            ],
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "repeater": {
+                    "description": "repeatable fields",
+                    "items": [
+                        {
+                            "additionalProperties": false,
+                            "properties": {
+                                "path": {
+                                    "const": "text",
+                                    "description": "this sets of fields are going to be repeated",
+                                    "type": "string"
+                                },
+                                "txt": {
+                                    "const": "text",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "path",
+                                "txt"
+                            ],
+                            "type": "object"
+                        }
+                    ],
+                    "maxItems": 1,
+                    "minItems": 1,
+                    "type": "array"
+                },
                 "type": {
                     "const": "custom-code-component",
                     "description": "Component type",
@@ -182,6 +279,7 @@
             "required": [
                 "id",
                 "layoutWidth",
+                "repeater",
                 "type"
             ],
             "type": "object"
@@ -203,6 +301,123 @@
             },
             "required": [
                 "children",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.ExperimentalGallery": {
+            "additionalProperties": false,
+            "properties": {
+                "autoPlay": {
+                    "default": false,
+                    "description": "autoplay the gallery",
+                    "type": "boolean"
+                },
+                "data": {},
+                "galleryDescription": {
+                    "default": "default text for the source field",
+                    "description": "gallery description",
+                    "type": "string"
+                },
+                "galleryItems": {
+                    "description": "each gallery item",
+                    "items": [
+                        {
+                            "additionalProperties": false,
+                            "properties": {
+                                "firstImage": {
+                                    "default": false,
+                                    "description": "this is the first Image",
+                                    "type": "boolean"
+                                },
+                                "imageDescription": {
+                                    "description": "image description",
+                                    "type": "string"
+                                },
+                                "imageLink": {
+                                    "const": "text",
+                                    "description": "link for the image",
+                                    "type": "string"
+                                },
+                                "picture": {
+                                    "additionalProperties": false,
+                                    "description": "select or upload image",
+                                    "properties": {
+                                        "format": {
+                                            "enum": [
+                                                "desktop",
+                                                "mobile",
+                                                "square",
+                                                "square-ftedit",
+                                                "standard",
+                                                "standard-inline",
+                                                "wide"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "height": {
+                                            "type": "number"
+                                        },
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "sourceSet": {
+                                            "items": {
+                                                "additionalProperties": false,
+                                                "properties": {
+                                                    "dpr": {
+                                                        "type": "number"
+                                                    },
+                                                    "url": {
+                                                        "type": "string"
+                                                    },
+                                                    "width": {
+                                                        "type": "number"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "dpr",
+                                                    "url",
+                                                    "width"
+                                                ],
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "width": {
+                                            "type": "number"
+                                        }
+                                    },
+                                    "required": [
+                                        "format",
+                                        "height",
+                                        "id",
+                                        "url",
+                                        "width"
+                                    ],
+                                    "type": "object"
+                                }
+                            },
+                            "required": [
+                                "firstImage"
+                            ],
+                            "type": "object"
+                        }
+                    ],
+                    "maxItems": 1,
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "type": {
+                    "const": "Gallery",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "galleryItems",
                 "type"
             ],
             "type": "object"
