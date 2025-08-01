@@ -1752,10 +1752,9 @@ func (n *Tweet) GetChildren() []Node {
 }
 
 type Video struct {
-	Type     string      `json:"type"`
-	Data     interface{} `json:"data,omitempty"`
-	Embedded bool        `json:"embedded,omitempty"`
-	ID       string      `json:"id,omitempty"`
+	Type string      `json:"type"`
+	Data interface{} `json:"data,omitempty"`
+	ID   string      `json:"id,omitempty"`
 }
 
 func (n *Video) GetType() string {
