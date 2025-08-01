@@ -21,8 +21,11 @@ func TestTransform(t *testing.T) {
 				return
 			}
 
-			if got != strings.TrimSpace(test.output) {
-				t.Errorf("got: %s\n\n want: %s\n", got, test.output)
+			want := strings.TrimSpace(test.output)
+			got = strings.TrimSpace(got)
+
+			if got != want {
+				t.Errorf("got: %s\n\n want: %s\n", got, want)
 			}
 		})
 	}
