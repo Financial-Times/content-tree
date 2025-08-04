@@ -102,12 +102,11 @@ func transformNode(n contenttree.Node) (string, error) {
 		return fmt.Sprintf("<s>%s</s>", innerXML), nil
 
 	case *contenttree.Link:
-		parts := strings.Split(node.URL, "/")
 		if node.Title != "" {
-			return fmt.Sprintf("<a href=\"https://ft.com/content/%s\" title=\"%s\">%s</a>", parts[len(parts)-1], node.Title, innerXML), nil
+			return fmt.Sprintf("<a href=\"%s\" title=\"%s\">%s</a>", node.URL, node.Title, innerXML), nil
 		}
 
-		return fmt.Sprintf("<a href=\"https://ft.com/content/%s\">%s</a>", parts[len(parts)-1], innerXML), nil
+		return fmt.Sprintf("<a href=\"%s\">%s</a>", node.URL, innerXML), nil
 
 	case *contenttree.List:
 		tag := "ul"
