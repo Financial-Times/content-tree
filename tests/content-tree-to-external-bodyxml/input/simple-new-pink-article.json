@@ -1,0 +1,170 @@
+{
+  "type": "root",
+  "body": {
+    "type": "body",
+    "version": 1,
+    "children": [
+      {
+        "type": "image-set",
+        "id": "daa1e687-b90d-4271-8422-7f6e26f35f9c"
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "Wall Street’s relentless rally this summer has driven stock valuations close to record levels, prompting warnings that “euphoric” markets are entering bubble territory. "
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "The S&P 500 index has hit a string of all-time peaks this month, while US corporate borrowing costs are nearing their lowest level in decades, in a dramatic turnaround from the April slump sparked by Donald Trump’s trade war. "
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "Even as the president signs deals that confirm US import tariffs at their highest in decades, signs of market froth have multiplied. Highly-valued tech stocks have roared to new highs — making Nvidia the first $4tn public company — while the 2021 “meme stock” craze has resurfaced, with retail traders piling into shares of camera maker GoPro and doughnut chain Krispy Kreme. "
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "“I think you’re beginning to see perhaps some very early parallels to what you saw back with the internet boom in the late 90s, early 2000s,” said Dan Ivascyn, chief investment officer at $2.1tn asset manager Pimco. “There’s this lottery ticket mentality that tends to exist . . . It’s a dangerous set up.”"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "Stocks in the S&P 500 are now valued by investors at more than 3.3 times their sales according to Bloomberg data, an all-time high."
+          }
+        ]
+      },
+      {
+        "type": "image-set",
+        "id": "73f76830-6941-11f0-96a0-c5df9adee3ce"
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "A Barclays “equity euphoria” indicator, a composite of derivatives flows, volatility and sentiment, has surged to twice its normal level, into territory associated in the past with asset bubbles. "
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "“[The indicator] is clearly showing that the market is euphoric,” said Stefano Pascale, head of US equities derivatives strategy at the bank. "
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "Investors have greeted with relief a US-Japan deal setting tariffs on imports from Japan at 15 per cent and the prospect of a similar deal with the EU. Although those levies are far above levels that prevailed before Trump entered the White House, they are less extreme than those threatened by his “liberation day” announcement, which had sent markets into a tailspin. "
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "“These first deals are bad, but investors are happy with anything but a full trade war,” said Luca Paolini, chief strategist at Pictet Asset Management."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "Equities have been immune to concerns about excessive US government borrowing and Federal Reserve independence that have knocked Treasuries and the dollar, which is down nearly 10 per cent this year against a basket of rival currencies."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "Many of the large-cap tech stocks responsible for the bulk of the US market’s rally in recent years have driven the rebound from the sell-off earlier in the year. Chipmaker Nvidia and Facebook-parent Meta are up 100 per cent and 49 per cent since their April intraday lows. "
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "Across the S&P, “price to sales, price to cash flow, price to book, price to dividends, they’re all near record levels”, said Rob Arnott, founder and chair of asset management group Research Affiliates, who likened investing in the small group of tech stocks that dominate the index to picking up pennies in front of a steamroller."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "“The market is pricing the current dominant AI players as if they will have no competition in the future,” he said. “At the same time there’s caution about moving away from the popular and frothy names because if you’re too early, you’re in trouble.”"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "A cluster of smaller companies have fared even better. Strong sales from government contracts have helped defence group Palantir rise 130 per cent since its shares bottomed out in April. Crypto exchange Coinbase has surged nearly 180 per cent, carried higher by a tide of optimism in the digital asset industry triggered by Trump’s election victory in November. "
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "Bitcoin climbed above $120,000 for the first time last week, as companies and investors continue to pile into crypto assets that are being brought into the financial market mainstream."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "The exuberance has spread to corporate credit, where the additional interest rate on highly rated US companies over benchmark government debt has shrunk to 0.8 percentage points, close to its lowest since 2005. "
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "Analysts at Deutsche Bank in a note on Thursday questioned whether a rise in borrowing to fund stock purchases was a sign of the “hottest euphoria” since 1999 and 2007."
+          }
+        ]
+      }
+    ]
+  }
+}
