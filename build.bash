@@ -4,5 +4,7 @@ tsc -d content-tree.ts
 typescript-json-schema --noExtraProps --required content-tree.ts ContentTree.full.Root > schemas/content-tree.schema.json
 typescript-json-schema --noExtraProps --required content-tree.ts ContentTree.transit.Root > schemas/transit-tree.schema.json
 typescript-json-schema --noExtraProps --required content-tree.ts ContentTree.transit.Body > schemas/body-tree.schema.json
+typescript-json-schema --noExtraProps --required content-tree.ts ContentTree.transit.ExperimentalBodyBlock > schemas/experiments.schema.json
+
 rm content-tree.ts
 rm content-tree.js

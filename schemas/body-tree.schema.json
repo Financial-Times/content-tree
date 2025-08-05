@@ -24,6 +24,31 @@
             ],
             "type": "object"
         },
+        "ContentTree.transit.BigNumberWithImage": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "description": {
+                    "type": "string"
+                },
+                "image": {
+                    "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                },
+                "number": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "big-number",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "description",
+                "number",
+                "type"
+            ],
+            "type": "object"
+        },
         "ContentTree.transit.Blockquote": {
             "additionalProperties": false,
             "properties": {
@@ -66,61 +91,6 @@
                 "type"
             ],
             "type": "object"
-        },
-        "ContentTree.transit.BodyBlock": {
-            "anyOf": [
-                {
-                    "$ref": "#/definitions/ContentTree.transit.Paragraph"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.Heading"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.ImageSet"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.Flourish"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.BigNumber"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.CustomCodeComponent"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.Layout"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.List"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.Blockquote"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.Pullquote"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.ScrollyBlock"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.ThematicBreak"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.Table"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.Recommended"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.Tweet"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.Video"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.YoutubeVideo"
-                }
-            ]
         },
         "ContentTree.transit.Break": {
             "additionalProperties": false,
@@ -545,6 +515,30 @@
             "additionalProperties": false,
             "properties": {
                 "data": {},
+                "source": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "pullquote",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "text",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.PullquoteWithImage": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "image": {
+                    "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                },
                 "source": {
                     "type": "string"
                 },
@@ -1119,7 +1113,65 @@
     "properties": {
         "children": {
             "items": {
-                "$ref": "#/definitions/ContentTree.transit.BodyBlock"
+                "anyOf": [
+                    {
+                        "$ref": "#/definitions/ContentTree.transit.Paragraph"
+                    },
+                    {
+                        "$ref": "#/definitions/ContentTree.transit.Heading"
+                    },
+                    {
+                        "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                    },
+                    {
+                        "$ref": "#/definitions/ContentTree.transit.Flourish"
+                    },
+                    {
+                        "$ref": "#/definitions/ContentTree.transit.BigNumber"
+                    },
+                    {
+                        "$ref": "#/definitions/ContentTree.transit.CustomCodeComponent"
+                    },
+                    {
+                        "$ref": "#/definitions/ContentTree.transit.Layout"
+                    },
+                    {
+                        "$ref": "#/definitions/ContentTree.transit.List"
+                    },
+                    {
+                        "$ref": "#/definitions/ContentTree.transit.Blockquote"
+                    },
+                    {
+                        "$ref": "#/definitions/ContentTree.transit.Pullquote"
+                    },
+                    {
+                        "$ref": "#/definitions/ContentTree.transit.ScrollyBlock"
+                    },
+                    {
+                        "$ref": "#/definitions/ContentTree.transit.ThematicBreak"
+                    },
+                    {
+                        "$ref": "#/definitions/ContentTree.transit.Table"
+                    },
+                    {
+                        "$ref": "#/definitions/ContentTree.transit.Recommended"
+                    },
+                    {
+                        "$ref": "#/definitions/ContentTree.transit.Tweet"
+                    },
+                    {
+                        "$ref": "#/definitions/ContentTree.transit.Video"
+                    },
+                    {
+                        "$ref": "#/definitions/ContentTree.transit.YoutubeVideo"
+                    },
+                    {
+                        "$ref": "#/definitions/ContentTree.transit.PullquoteWithImage"
+                    },
+                    {
+                        "$ref": "#/definitions/ContentTree.transit.BigNumberWithImage"
+                    }
+                ]
             },
             "type": "array"
         },
