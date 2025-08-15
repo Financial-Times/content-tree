@@ -94,7 +94,6 @@ type BodyBlock =
   | Flourish
   | BigNumber
   | CustomComponent
-  | ExperimentalGallery
   | Layout
   | List
   | Blockquote
@@ -177,13 +176,21 @@ interface Root extends Node {
 
 **Root** can be used as the _[root][term-root]_ of a _[tree][term-tree]_.
 
+### UnstableBodyBlocks
+
+```ts
+type UnstableBodyBlocks = UnstableGallery ;
+```
+
+`UnstableBodyBlocks` nodes are also valid body blocks, but like, experimental. you can add more unstable nodes to this block like `UnstableGallery | UnstableComponent`.
+
 ### `Body`
 
 ```ts
 interface Body extends Parent {
   type: "body";
   version: number;
-  children: BodyBlock[];
+  children: (BodyBlock | UnstableBodyBlocks)[];
 }
 ```
 
@@ -793,7 +800,7 @@ type galleryItem = {
   picture?: Image;
 };
 
-interface ExperimentalGallery extends Node {
+interface UnstableGallery extends Node {
   type: "Gallery";
 
   /**
