@@ -72,7 +72,62 @@
             "properties": {
                 "children": {
                     "items": {
-                        "$ref": "#/definitions/ContentTree.full.BodyBlock"
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Paragraph"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Heading"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.ImageSet"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Flourish"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.BigNumber"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.CustomCodeComponent"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Layout"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.List"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Blockquote"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Pullquote"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.ScrollyBlock"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.ThematicBreak"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Table"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Recommended"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Tweet"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Video"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.YoutubeVideo"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.UnstableGallery"
+                            }
+                        ]
                     },
                     "type": "array"
                 },
@@ -91,61 +146,6 @@
                 "version"
             ],
             "type": "object"
-        },
-        "ContentTree.full.BodyBlock": {
-            "anyOf": [
-                {
-                    "$ref": "#/definitions/ContentTree.full.Paragraph"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.Heading"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.ImageSet"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.Flourish"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.BigNumber"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.CustomCodeComponent"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.Layout"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.List"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.Blockquote"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.Pullquote"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.ScrollyBlock"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.ThematicBreak"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.Table"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.Recommended"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.Tweet"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.Video"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.YoutubeVideo"
-                }
-            ]
         },
         "ContentTree.full.Break": {
             "additionalProperties": false,
@@ -1857,6 +1857,123 @@
             "required": [
                 "html",
                 "id",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.UnstableGallery": {
+            "additionalProperties": false,
+            "properties": {
+                "autoPlay": {
+                    "default": false,
+                    "description": "autoplay the gallery",
+                    "type": "boolean"
+                },
+                "data": {},
+                "galleryDescription": {
+                    "default": "default text for the source field",
+                    "description": "gallery description",
+                    "type": "string"
+                },
+                "galleryItems": {
+                    "description": "each gallery item",
+                    "items": [
+                        {
+                            "additionalProperties": false,
+                            "properties": {
+                                "firstImage": {
+                                    "default": false,
+                                    "description": "this is the first Image",
+                                    "type": "boolean"
+                                },
+                                "imageDescription": {
+                                    "description": "image description",
+                                    "type": "string"
+                                },
+                                "imageLink": {
+                                    "const": "text",
+                                    "description": "link for the image",
+                                    "type": "string"
+                                },
+                                "picture": {
+                                    "additionalProperties": false,
+                                    "description": "select or upload image",
+                                    "properties": {
+                                        "format": {
+                                            "enum": [
+                                                "desktop",
+                                                "mobile",
+                                                "square",
+                                                "square-ftedit",
+                                                "standard",
+                                                "standard-inline",
+                                                "wide"
+                                            ],
+                                            "type": "string"
+                                        },
+                                        "height": {
+                                            "type": "number"
+                                        },
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "sourceSet": {
+                                            "items": {
+                                                "additionalProperties": false,
+                                                "properties": {
+                                                    "dpr": {
+                                                        "type": "number"
+                                                    },
+                                                    "url": {
+                                                        "type": "string"
+                                                    },
+                                                    "width": {
+                                                        "type": "number"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "dpr",
+                                                    "url",
+                                                    "width"
+                                                ],
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "width": {
+                                            "type": "number"
+                                        }
+                                    },
+                                    "required": [
+                                        "format",
+                                        "height",
+                                        "id",
+                                        "url",
+                                        "width"
+                                    ],
+                                    "type": "object"
+                                }
+                            },
+                            "required": [
+                                "firstImage"
+                            ],
+                            "type": "object"
+                        }
+                    ],
+                    "maxItems": 1,
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "type": {
+                    "const": "Gallery",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "galleryItems",
                 "type"
             ],
             "type": "object"
