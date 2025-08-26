@@ -1,5 +1,6 @@
 export declare namespace ContentTree {
     type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+    type UnstableBodyBlock = Gallery;
     type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
     type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
     interface Node {
@@ -13,11 +14,10 @@ export declare namespace ContentTree {
         type: "root";
         body: Body;
     }
-    type UnstableBodyBlocks = UnstableGallery;
     interface Body extends Parent {
         type: "body";
         version: number;
-        children: (BodyBlock | UnstableBodyBlocks)[];
+        children: (BodyBlock | UnstableBodyBlock)[];
     }
     interface Text extends Node {
         type: "text";
@@ -291,7 +291,7 @@ export declare namespace ContentTree {
          */
         picture?: Image;
     };
-    interface UnstableGallery extends Node {
+    interface Gallery extends Node {
         type: "Gallery";
         /**
          * @description gallery description
@@ -312,6 +312,7 @@ export declare namespace ContentTree {
     }
     namespace full {
         type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+        type UnstableBodyBlock = Gallery;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -325,11 +326,10 @@ export declare namespace ContentTree {
             type: "root";
             body: Body;
         }
-        type UnstableBodyBlocks = UnstableGallery;
         interface Body extends Parent {
             type: "body";
             version: number;
-            children: (BodyBlock | UnstableBodyBlocks)[];
+            children: (BodyBlock | UnstableBodyBlock)[];
         }
         interface Text extends Node {
             type: "text";
@@ -603,7 +603,7 @@ export declare namespace ContentTree {
              */
             picture?: Image;
         };
-        interface UnstableGallery extends Node {
+        interface Gallery extends Node {
             type: "Gallery";
             /**
              * @description gallery description
@@ -625,6 +625,7 @@ export declare namespace ContentTree {
     }
     namespace transit {
         type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+        type UnstableBodyBlock = Gallery;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -638,11 +639,10 @@ export declare namespace ContentTree {
             type: "root";
             body: Body;
         }
-        type UnstableBodyBlocks = UnstableGallery;
         interface Body extends Parent {
             type: "body";
             version: number;
-            children: (BodyBlock | UnstableBodyBlocks)[];
+            children: (BodyBlock | UnstableBodyBlock)[];
         }
         interface Text extends Node {
             type: "text";
@@ -903,7 +903,7 @@ export declare namespace ContentTree {
              */
             picture?: Image;
         };
-        interface UnstableGallery extends Node {
+        interface Gallery extends Node {
             type: "Gallery";
             /**
              * @description gallery description
@@ -925,6 +925,7 @@ export declare namespace ContentTree {
     }
     namespace loose {
         type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+        type UnstableBodyBlock = Gallery;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -938,11 +939,10 @@ export declare namespace ContentTree {
             type: "root";
             body: Body;
         }
-        type UnstableBodyBlocks = UnstableGallery;
         interface Body extends Parent {
             type: "body";
             version: number;
-            children: (BodyBlock | UnstableBodyBlocks)[];
+            children: (BodyBlock | UnstableBodyBlock)[];
         }
         interface Text extends Node {
             type: "text";
@@ -1216,7 +1216,7 @@ export declare namespace ContentTree {
              */
             picture?: Image;
         };
-        interface UnstableGallery extends Node {
+        interface Gallery extends Node {
             type: "Gallery";
             /**
              * @description gallery description

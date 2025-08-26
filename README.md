@@ -109,6 +109,14 @@ type BodyBlock =
 
 `BodyBlock` nodes are the only things that are valid as the top level of a `Body`.
 
+### UnstableBodyBlock
+
+```ts
+type UnstableBodyBlock = Gallery ;
+```
+
+`UnstableBodyBlocks` nodes are also valid body blocks, but like, experimental. you can add more unstable nodes to this block like `UnstableGallery | UnstableComponent`.
+
 ### `LayoutWidth`
 
 ```ts
@@ -176,21 +184,13 @@ interface Root extends Node {
 
 **Root** can be used as the _[root][term-root]_ of a _[tree][term-tree]_.
 
-### UnstableBodyBlocks
-
-```ts
-type UnstableBodyBlocks = UnstableGallery;
-```
-
-`UnstableBodyBlocks` nodes are also valid body blocks, but like, experimental. you can add more unstable nodes to this block like `UnstableGallery | UnstableComponent`.
-
 ### `Body`
 
 ```ts
 interface Body extends Parent {
 	type: "body"
 	version: number
-	children: (BodyBlock | UnstableBodyBlocks)[]
+	children: (BodyBlock | UnstableBodyBlock)[]
 }
 ```
 
@@ -775,7 +775,7 @@ type galleryItem = {
 	picture?: Image
 }
 
-interface UnstableGallery extends Node {
+interface Gallery extends Node {
 	type: "Gallery"
 
 	/**
