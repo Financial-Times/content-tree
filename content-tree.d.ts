@@ -291,6 +291,9 @@ export declare namespace ContentTree {
          */
         picture?: Image;
     };
+    /**
+     * @sparkGenerateStoryblock true
+     */
     interface Gallery extends Node {
         type: "Gallery";
         /**
@@ -603,6 +606,9 @@ export declare namespace ContentTree {
              */
             picture?: Image;
         };
+        /**
+         * @sparkGenerateStoryblock true
+         */
         interface Gallery extends Node {
             type: "Gallery";
             /**
@@ -903,6 +909,9 @@ export declare namespace ContentTree {
              */
             picture?: Image;
         };
+        /**
+         * @sparkGenerateStoryblock true
+         */
         interface Gallery extends Node {
             type: "Gallery";
             /**
@@ -1216,6 +1225,9 @@ export declare namespace ContentTree {
              */
             picture?: Image;
         };
+        /**
+         * @sparkGenerateStoryblock true
+         */
         interface Gallery extends Node {
             type: "Gallery";
             /**

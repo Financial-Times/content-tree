@@ -414,6 +414,7 @@
                 "galleryItems",
                 "type"
             ],
+            "sparkGenerateStoryblock": true,
             "type": "object"
         },
         "ContentTree.transit.Heading": {

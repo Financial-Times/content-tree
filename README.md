@@ -775,6 +775,9 @@ type galleryItem = {
 	picture?: Image
 }
 
+/**
+ * @sparkGenerateStoryblock true
+ */
 interface Gallery extends Node {
 	type: "Gallery"
 
