@@ -10,22 +10,58 @@ import (
 	contenttree "github.com/Financial-Times/content-tree"
 )
 
-// Transform converts content from the content tree format, provided as unmarshalled JSON (json.RawMessage),
-// into an "external" XHTML-formatted version of the same content.
+type Schema interface {
+	fmt.Stringer
+}
+
+type schema string
+
+func (s schema) String() string { return string(s) }
+
+var (
+	TransitTree Schema = schema("transit-tree")
+	BodyTree    Schema = schema("body-tree")
+)
+
+var (
+	ErrUnknownKind = errors.New("unknown tree kind")
+)
+
+// Transform converts content from a content tree representation into an external XHTML-formatted version.
+//
+// The tree is provided as unmarshalled JSON (json.RawMessage) and must conform to one of the
+// supported Schema kinds: TransitTree or BodyTree.
+//
+// The Schema interface is used to distinguish which type of content tree should be unmarshalled
+// and transformed. Implementations of Schema (TransitTree, BodyTree) serve as markers to select
+// the appropriate unmarshal/transform logic.
 //
 // The XHTML output is intended for distribution to consumers that only support widely recognized formats like HTML
 // or those that should not receive internal-specific details contained in the content tree format.
 // Such consumers may be external (non-FT) users, automated systems processing HTML-based content,
 // republishing platforms, and more.
-func Transform(root json.RawMessage) (string, error) {
-	tree := contenttree.Root{}
+func Transform(tree json.RawMessage, s Schema) (string, error) {
+	switch s {
+	case TransitTree:
+		{
+			n := contenttree.Root{}
+			return unmarshalAndTransform(tree, &n)
+		}
+	case BodyTree:
+		{
+			n := contenttree.Body{}
+			return unmarshalAndTransform(tree, &n)
+		}
+	default:
+		return "", fmt.Errorf("%w: %q (expected %q or %q)", ErrUnknownKind, s, TransitTree, BodyTree)
+	}
+}
 
-	err := json.Unmarshal(root, &tree)
-	if err != nil {
+func unmarshalAndTransform(tree json.RawMessage, n contenttree.Node) (string, error) {
+	if err := json.Unmarshal(tree, n); err != nil {
 		return "", fmt.Errorf("failed to instantiate content tree: %w", err)
 	}
-
-	return transformNode(&tree)
+	return transformNode(n)
 }
 
 func transformNode(n contenttree.Node) (string, error) {
