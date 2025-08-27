@@ -3,6 +3,7 @@ package tostring
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -10,22 +11,25 @@ import (
 )
 
 func TestTransform(t *testing.T) {
-	for _, test := range getTestCases(t) {
-		t.Run(test.name, func(t *testing.T) {
-			got, err := Transform(test.input)
+	schemas := []Schema{BodyTree, TransitTree}
+	for _, s := range schemas {
+		for _, test := range getTestCases(t, s) {
+			t.Run(test.name, func(t *testing.T) {
+				got, err := Transform(test.input, s)
 
-			if err != nil && !test.wantErr {
-				t.Errorf("Failed with unexpected error: %v", err)
-			}
+				if err != nil && !test.wantErr {
+					t.Errorf("Failed with unexpected error: %v", err)
+				}
 
-			if err != nil && test.wantErr {
-				return
-			}
+				if err != nil && test.wantErr {
+					return
+				}
 
-			if got != strings.TrimSpace(test.output) {
-				t.Errorf("got: <%v>\n want: <%v>\n", got, test.output)
-			}
-		})
+				if got != strings.TrimSpace(test.output) {
+					t.Errorf("got: <%v>\n want: <%v>\n", got, test.output)
+				}
+			})
+		}
 	}
 }
 
@@ -36,11 +40,11 @@ type TestCase struct {
 	wantErr bool
 }
 
-func getTestCases(t *testing.T) []TestCase {
+func getTestCases(t *testing.T, s Schema) []TestCase {
 	t.Helper()
 
-	inputPath := "../../../tests/content-tree-to-string/input"
-	outputPath := "../../../tests/content-tree-to-string/output"
+	inputPath := fmt.Sprintf("../../../tests/%s-to-string/input", s)
+	outputPath := fmt.Sprintf("../../../tests/%s-to-string/output", s)
 
 	entries, err := os.ReadDir(inputPath)
 	if err != nil {
@@ -66,7 +70,7 @@ func getTestCases(t *testing.T) []TestCase {
 
 		if _, err := os.Stat(outputFile); errors.Is(err, os.ErrNotExist) {
 			testCases = append(testCases, TestCase{
-				name:    caseName,
+				name:    fmt.Sprintf("%s-%s", s, caseName),
 				input:   input,
 				output:  "",
 				wantErr: true,
@@ -78,7 +82,7 @@ func getTestCases(t *testing.T) []TestCase {
 			}
 
 			testCases = append(testCases, TestCase{
-				name:    caseName,
+				name:    fmt.Sprintf("%s-%s", s, caseName),
 				input:   input,
 				output:  string(output),
 				wantErr: false,
