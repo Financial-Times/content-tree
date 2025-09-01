@@ -56,44 +56,54 @@ export let defaultTransformers = {
    * @type {Transformer<ContentTree.transit.Heading>}
    */
   h1(h1) {
+    const fragmentId = h1.attributes["data-fragment-id"] || h1.attributes["id"];
     return {
       type: "heading",
       level: "chapter",
+      ...(fragmentId && { fragmentIdentifier: fragmentId }),
     };
   },
   /**
    * @type {Transformer<ContentTree.transit.Heading>}
    */
   h2(h2) {
+    const fragmentId = h2.attributes["data-fragment-id"] || h2.attributes["id"];
     return {
       type: "heading",
       level: "subheading",
+      ...(fragmentId && { fragmentIdentifier: fragmentId }),
     };
   },
   /**
    * @type {Transformer<ContentTree.transit.Heading>}
    */
   h3(h3) {
+    const fragmentId = h3.attributes["data-fragment-id"] || h3.attributes["id"];
     return {
       type: "heading",
       level: "subheading",
+      ...(fragmentId && { fragmentIdentifier: fragmentId }),
     };
   },
   /**
    * @type {Transformer<ContentTree.transit.Heading>}
    */
   h4(h4) {
+    const fragmentId = h4.attributes["data-fragment-id"] || h4.attributes["id"];
     return {
       type: "heading",
       level: "label",
+      ...(fragmentId && { fragmentIdentifier: fragmentId }),
     };
   },
   /**
    * @type {Transformer<ContentTree.transit.Paragraph>}
    */
   p(p) {
+    const fragmentId = p.attributes["data-fragment-id"] || p.attributes["id"];
     return {
       type: "paragraph",
+      ...(fragmentId && { fragmentIdentifier: fragmentId }),
     };
   },
   /**
@@ -163,18 +173,22 @@ export let defaultTransformers = {
    * @type {Transformer<ContentTree.transit.List>}
    */
   ol(ol) {
+    const fragmentId = ol.attributes["data-fragment-id"] || ol.attributes["id"];
     return {
       type: "list",
       ordered: true,
+      ...(fragmentId && { fragmentIdentifier: fragmentId }),
     };
   },
   /**
    * @type {Transformer<ContentTree.transit.List>}
    */
   ul(ul) {
+    const fragmentId = ul.attributes["data-fragment-id"] || ul.attributes["id"];
     return {
       type: "list",
       ordered: false,
+      ...(fragmentId && { fragmentIdentifier: fragmentId }),
     };
   },
   /**
@@ -210,12 +224,14 @@ export let defaultTransformers = {
    * @type {Transformer<ContentTree.transit.BigNumber>}
    */
   ["big-number"](bn) {
+    const fragmentId = bn.attributes["data-fragment-id"] || bn.attributes["id"];
     let number = find(bn, { name: "big-number-headline" });
     let description = find(bn, { name: "big-number-intro" });
     return {
       type: "big-number",
       number: number ? xastToString(number) : "",
       description: description ? xastToString(description) : "",
+      ...(fragmentId && { fragmentIdentifier: fragmentId }),
       children: null,
     };
   },
@@ -223,6 +239,7 @@ export let defaultTransformers = {
    * @type {Transformer<ContentTree.transit.LayoutImage>}
    */
   img(img) {
+    const fragmentId = img.attributes["data-fragment-id"] || img.attributes["id"];
     return {
       type: "layout-image",
       id: img.attributes.src ?? "",
@@ -230,6 +247,7 @@ export let defaultTransformers = {
       // todo this can't be right
       alt: img.attributes.alt ?? "",
       caption: img.attributes.longdesc ?? "",
+      ...(fragmentId && { fragmentIdentifier: fragmentId }),
       children: null,
     };
   },
@@ -237,9 +255,11 @@ export let defaultTransformers = {
    * @type {Transformer<ContentTree.transit.ImageSet>}
    */
   [ContentType.imageset](content) {
+    const fragmentId = content.attributes["data-fragment-id"] || content.attributes["id"];
     return {
       type: "image-set",
       id: content.attributes.url ?? "",
+      ...(fragmentId && { fragmentIdentifier: fragmentId }),
       children: null,
     };
   },
@@ -247,9 +267,11 @@ export let defaultTransformers = {
    * @type {Transformer<ContentTree.transit.Video>}
    */
   [ContentType.video](content) {
+    const fragmentId = content.attributes["data-fragment-id"] || content.attributes["id"];
     return {
       type: "video",
       id: content.attributes.url ?? "",
+      ...(fragmentId && { fragmentIdentifier: fragmentId }),
       children: null,
     };
   },
@@ -260,6 +282,7 @@ export let defaultTransformers = {
   [ContentType.content](content) {
     const id = content.attributes.url ?? "";
     const uuid = id.split("/").pop();
+    const fragmentId = content.attributes["data-fragment-id"] || content.attributes["id"];
 
     if (content.attributes["data-asset-type"] == "flourish") {
       return /** @type {ContentTree.transit.Flourish} */ ({
@@ -271,6 +294,7 @@ export let defaultTransformers = {
         ),
         description: content.attributes["alt"] || "",
         timestamp: content.attributes["data-time-stamp"] || "",
+        ...(fragmentId && { fragmentIdentifier: fragmentId }),
         children: null,
       });
     }
@@ -297,6 +321,7 @@ export let defaultTransformers = {
    * @type {Transformer<ContentTree.transit.CustomCodeComponent>}
    */
     [ContentType.customCodeComponent](content) {
+      const fragmentId = content.attributes["data-fragment-id"] || content.attributes["id"];
       const id = content.attributes.url ?? "";
       const uuid = id.split("/").pop();
       return {
@@ -305,6 +330,7 @@ export let defaultTransformers = {
         layoutWidth: toValidLayoutWidth(
           content.attributes["data-layout-width"] || ""
         ),
+        ...(fragmentId && { fragmentIdentifier: fragmentId }),
         children: null,
       };
     },
@@ -331,6 +357,8 @@ export let defaultTransformers = {
    * >}
    */
   div(div) {
+    const fragmentId = div.attributes["data-fragment-id"] || div.attributes["id"];
+    
     if (div.attributes.class === "n-content-layout") {
       return /** @type {ContentTree.transit.Layout} */ ({
         type: "layout",
@@ -338,6 +366,7 @@ export let defaultTransformers = {
         layoutWidth: toValidLayoutWidth(
           div.attributes["data-layout-width"] ?? ""
         ),
+        ...(fragmentId && { fragmentIdentifier: fragmentId }),
       });
     }
     if (div.attributes.class === "n-content-layout__container") {

@@ -31,11 +31,13 @@ export declare namespace ContentTree {
     interface Paragraph extends Parent {
         type: "paragraph";
         children: Phrasing[];
+        fragmentIdentifier?: string;
     }
     interface Heading extends Parent {
         type: "heading";
         children: Text[];
         level: "chapter" | "subheading" | "label";
+        fragmentIdentifier?: string;
     }
     interface Strong extends Parent {
         type: "strong";
@@ -59,6 +61,7 @@ export declare namespace ContentTree {
         type: "list";
         ordered: boolean;
         children: ListItem[];
+        fragmentIdentifier?: string;
     }
     interface ListItem extends Parent {
         type: "list-item";
@@ -77,6 +80,7 @@ export declare namespace ContentTree {
         type: "image-set";
         id: string;
         picture: ImageSetPicture;
+        fragmentIdentifier?: string;
     }
     type ImageSetPicture = {
         layoutWidth: string;
@@ -156,20 +160,24 @@ export declare namespace ContentTree {
         description?: string;
         timestamp?: string;
         fallbackImage?: Image;
+        fragmentIdentifier?: string;
     }
     interface BigNumber extends Node {
         type: "big-number";
         number: string;
         description: string;
+        fragmentIdentifier?: string;
     }
     interface Video extends Node {
         type: "video";
         id: string;
         title: string;
+        fragmentIdentifier?: string;
     }
     interface YoutubeVideo extends Node {
         type: "youtube-video";
         url: string;
+        fragmentIdentifier?: string;
     }
     interface ScrollyBlock extends Parent {
         type: "scrolly-block";
@@ -203,6 +211,7 @@ export declare namespace ContentTree {
         layoutName: "auto" | "card" | "timeline";
         layoutWidth: string;
         children: [Heading, LayoutImage, ...LayoutSlot[]] | [Heading, ...LayoutSlot[]] | LayoutSlot[];
+        fragmentIdentifier?: string;
     }
     interface LayoutSlot extends Parent {
         type: "layout-slot";
@@ -215,6 +224,7 @@ export declare namespace ContentTree {
         caption: string;
         credit: string;
         picture: ImageSetPicture;
+        fragmentIdentifier?: string;
     }
     type TableColumnSettings = {
         hideOnMobile: boolean;
@@ -251,6 +261,7 @@ export declare namespace ContentTree {
         responsiveStyle: 'overflow' | 'flat' | 'scroll';
         children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
         columnSettings: TableColumnSettings[];
+        fragmentIdentifier?: string;
     }
     type CustomCodeComponentAttributes = {
         [key: string]: string | boolean | undefined;
@@ -270,6 +281,8 @@ export declare namespace ContentTree {
         attributesLastModified: string;
         /** Configuration data to be passed to the component. */
         attributes: CustomCodeComponentAttributes;
+        /** Unique fragmentIdentifier to identify the component, for things such as anchor links. */
+        fragmentIdentifier?: string;
     }
     namespace full {
         type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
@@ -304,11 +317,13 @@ export declare namespace ContentTree {
         interface Paragraph extends Parent {
             type: "paragraph";
             children: Phrasing[];
+            fragmentIdentifier?: string;
         }
         interface Heading extends Parent {
             type: "heading";
             children: Text[];
             level: "chapter" | "subheading" | "label";
+            fragmentIdentifier?: string;
         }
         interface Strong extends Parent {
             type: "strong";
@@ -332,6 +347,7 @@ export declare namespace ContentTree {
             type: "list";
             ordered: boolean;
             children: ListItem[];
+            fragmentIdentifier?: string;
         }
         interface ListItem extends Parent {
             type: "list-item";
@@ -350,6 +366,7 @@ export declare namespace ContentTree {
             type: "image-set";
             id: string;
             picture: ImageSetPicture;
+            fragmentIdentifier?: string;
         }
         type ImageSetPicture = {
             layoutWidth: string;
@@ -429,20 +446,24 @@ export declare namespace ContentTree {
             description?: string;
             timestamp?: string;
             fallbackImage?: Image;
+            fragmentIdentifier?: string;
         }
         interface BigNumber extends Node {
             type: "big-number";
             number: string;
             description: string;
+            fragmentIdentifier?: string;
         }
         interface Video extends Node {
             type: "video";
             id: string;
             title: string;
+            fragmentIdentifier?: string;
         }
         interface YoutubeVideo extends Node {
             type: "youtube-video";
             url: string;
+            fragmentIdentifier?: string;
         }
         interface ScrollyBlock extends Parent {
             type: "scrolly-block";
@@ -476,6 +497,7 @@ export declare namespace ContentTree {
             layoutName: "auto" | "card" | "timeline";
             layoutWidth: string;
             children: [Heading, LayoutImage, ...LayoutSlot[]] | [Heading, ...LayoutSlot[]] | LayoutSlot[];
+            fragmentIdentifier?: string;
         }
         interface LayoutSlot extends Parent {
             type: "layout-slot";
@@ -488,6 +510,7 @@ export declare namespace ContentTree {
             caption: string;
             credit: string;
             picture: ImageSetPicture;
+            fragmentIdentifier?: string;
         }
         type TableColumnSettings = {
             hideOnMobile: boolean;
@@ -524,6 +547,7 @@ export declare namespace ContentTree {
             responsiveStyle: 'overflow' | 'flat' | 'scroll';
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
+            fragmentIdentifier?: string;
         }
         type CustomCodeComponentAttributes = {
             [key: string]: string | boolean | undefined;
@@ -543,6 +567,8 @@ export declare namespace ContentTree {
             attributesLastModified: string;
             /** Configuration data to be passed to the component. */
             attributes: CustomCodeComponentAttributes;
+            /** Unique fragmentIdentifier to identify the component, for things such as anchor links. */
+            fragmentIdentifier?: string;
         }
     }
     namespace transit {
@@ -578,11 +604,13 @@ export declare namespace ContentTree {
         interface Paragraph extends Parent {
             type: "paragraph";
             children: Phrasing[];
+            fragmentIdentifier?: string;
         }
         interface Heading extends Parent {
             type: "heading";
             children: Text[];
             level: "chapter" | "subheading" | "label";
+            fragmentIdentifier?: string;
         }
         interface Strong extends Parent {
             type: "strong";
@@ -606,6 +634,7 @@ export declare namespace ContentTree {
             type: "list";
             ordered: boolean;
             children: ListItem[];
+            fragmentIdentifier?: string;
         }
         interface ListItem extends Parent {
             type: "list-item";
@@ -623,6 +652,7 @@ export declare namespace ContentTree {
         interface ImageSet extends Node {
             type: "image-set";
             id: string;
+            fragmentIdentifier?: string;
         }
         type ImageSetPicture = {
             layoutWidth: string;
@@ -699,19 +729,23 @@ export declare namespace ContentTree {
             flourishType: string;
             description?: string;
             timestamp?: string;
+            fragmentIdentifier?: string;
         }
         interface BigNumber extends Node {
             type: "big-number";
             number: string;
             description: string;
+            fragmentIdentifier?: string;
         }
         interface Video extends Node {
             type: "video";
             id: string;
+            fragmentIdentifier?: string;
         }
         interface YoutubeVideo extends Node {
             type: "youtube-video";
             url: string;
+            fragmentIdentifier?: string;
         }
         interface ScrollyBlock extends Parent {
             type: "scrolly-block";
@@ -744,6 +778,7 @@ export declare namespace ContentTree {
             layoutName: "auto" | "card" | "timeline";
             layoutWidth: string;
             children: [Heading, LayoutImage, ...LayoutSlot[]] | [Heading, ...LayoutSlot[]] | LayoutSlot[];
+            fragmentIdentifier?: string;
         }
         interface LayoutSlot extends Parent {
             type: "layout-slot";
@@ -755,6 +790,7 @@ export declare namespace ContentTree {
             alt: string;
             caption: string;
             credit: string;
+            fragmentIdentifier?: string;
         }
         type TableColumnSettings = {
             hideOnMobile: boolean;
@@ -791,6 +827,7 @@ export declare namespace ContentTree {
             responsiveStyle: 'overflow' | 'flat' | 'scroll';
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
+            fragmentIdentifier?: string;
         }
         type CustomCodeComponentAttributes = {
             [key: string]: string | boolean | undefined;
@@ -802,6 +839,8 @@ export declare namespace ContentTree {
             id: string;
             /** How the component should be presented in the article page according to the column layout system */
             layoutWidth: LayoutWidth;
+            /** Unique fragmentIdentifier to identify the component, for things such as anchor links. */
+            fragmentIdentifier?: string;
         }
     }
     namespace loose {
@@ -837,11 +876,13 @@ export declare namespace ContentTree {
         interface Paragraph extends Parent {
             type: "paragraph";
             children: Phrasing[];
+            fragmentIdentifier?: string;
         }
         interface Heading extends Parent {
             type: "heading";
             children: Text[];
             level: "chapter" | "subheading" | "label";
+            fragmentIdentifier?: string;
         }
         interface Strong extends Parent {
             type: "strong";
@@ -865,6 +906,7 @@ export declare namespace ContentTree {
             type: "list";
             ordered: boolean;
             children: ListItem[];
+            fragmentIdentifier?: string;
         }
         interface ListItem extends Parent {
             type: "list-item";
@@ -883,6 +925,7 @@ export declare namespace ContentTree {
             type: "image-set";
             id: string;
             picture?: ImageSetPicture;
+            fragmentIdentifier?: string;
         }
         type ImageSetPicture = {
             layoutWidth: string;
@@ -962,20 +1005,24 @@ export declare namespace ContentTree {
             description?: string;
             timestamp?: string;
             fallbackImage?: Image;
+            fragmentIdentifier?: string;
         }
         interface BigNumber extends Node {
             type: "big-number";
             number: string;
             description: string;
+            fragmentIdentifier?: string;
         }
         interface Video extends Node {
             type: "video";
             id: string;
             title?: string;
+            fragmentIdentifier?: string;
         }
         interface YoutubeVideo extends Node {
             type: "youtube-video";
             url: string;
+            fragmentIdentifier?: string;
         }
         interface ScrollyBlock extends Parent {
             type: "scrolly-block";
@@ -1009,6 +1056,7 @@ export declare namespace ContentTree {
             layoutName: "auto" | "card" | "timeline";
             layoutWidth: string;
             children: [Heading, LayoutImage, ...LayoutSlot[]] | [Heading, ...LayoutSlot[]] | LayoutSlot[];
+            fragmentIdentifier?: string;
         }
         interface LayoutSlot extends Parent {
             type: "layout-slot";
@@ -1021,6 +1069,7 @@ export declare namespace ContentTree {
             caption: string;
             credit: string;
             picture?: ImageSetPicture;
+            fragmentIdentifier?: string;
         }
         type TableColumnSettings = {
             hideOnMobile: boolean;
@@ -1057,6 +1106,7 @@ export declare namespace ContentTree {
             responsiveStyle: 'overflow' | 'flat' | 'scroll';
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
+            fragmentIdentifier?: string;
         }
         type CustomCodeComponentAttributes = {
             [key: string]: string | boolean | undefined;
@@ -1076,6 +1126,8 @@ export declare namespace ContentTree {
             attributesLastModified?: string;
             /** Configuration data to be passed to the component. */
             attributes?: CustomCodeComponentAttributes;
+            /** Unique fragmentIdentifier to identify the component, for things such as anchor links. */
+            fragmentIdentifier?: string;
         }
     }
 }
