@@ -3,7 +3,7 @@ import assert from "node:assert"
 import stringify from "@content-tree/to-string"
 import fs from "fs/promises"
 
-let testBase = "../../tests/content-tree-to-string"
+let testBase = "../../tests/transit-tree-to-string"
 let inputNames = await fs.readdir(`${testBase}/input/`)
 
 for (let inputName of inputNames) {
