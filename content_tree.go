@@ -102,10 +102,11 @@ type ColumnSettingsItems struct {
 }
 
 type BigNumber struct {
-	Type        string      `json:"type"`
-	Data        interface{} `json:"data,omitempty"`
-	Description string      `json:"description,omitempty"`
-	Number      string      `json:"number,omitempty"`
+	Type               string      `json:"type"`
+	Data               interface{} `json:"data,omitempty"`
+	Description        string      `json:"description,omitempty"`
+	Number             string      `json:"number,omitempty"`
+	FragmentIdentifier string      `json:"fragmentIdentifier,omitempty"`
 }
 
 func (n *BigNumber) GetType() string {
@@ -586,14 +587,15 @@ func (n *Emphasis) GetChildren() []Node {
 }
 
 type Flourish struct {
-	Type          string                 `json:"type"`
-	Data          interface{}            `json:"data,omitempty"`
-	Description   string                 `json:"description,omitempty"`
-	FallbackImage *FlourishFallbackImage `json:"fallbackImage,omitempty"`
-	FlourishType  string                 `json:"flourishType,omitempty"`
-	Id            string                 `json:"id,omitempty"`
-	LayoutWidth   string                 `json:"layoutWidth,omitempty"`
-	Timestamp     string                 `json:"timestamp,omitempty"`
+	Type               string                 `json:"type"`
+	Data               interface{}            `json:"data,omitempty"`
+	Description        string                 `json:"description,omitempty"`
+	FallbackImage      *FlourishFallbackImage `json:"fallbackImage,omitempty"`
+	FlourishType       string                 `json:"flourishType,omitempty"`
+	Id                 string                 `json:"id,omitempty"`
+	LayoutWidth        string                 `json:"layoutWidth,omitempty"`
+	Timestamp          string                 `json:"timestamp,omitempty"`
+	FragmentIdentifier string                 `json:"fragmentIdentifier,omitempty"`
 }
 
 func (n *Flourish) GetType() string {
@@ -628,6 +630,7 @@ type Heading struct {
 	Children []*Text     `json:"children,omitempty"`
 	Data     interface{} `json:"data,omitempty"`
 	Level    string      `json:"level,omitempty"`
+	FragmentIdentifier string      `json:"fragmentIdentifier,omitempty"`
 }
 
 func (n *Heading) GetType() string {
@@ -647,10 +650,11 @@ func (n *Heading) GetChildren() []Node {
 }
 
 type ImageSet struct {
-	Type    string      `json:"type"`
-	Data    interface{} `json:"data,omitempty"`
-	ID      string      `json:"id,omitempty"`
-	Picture *Picture    `json:"picture,omitempty"`
+	Type               string      `json:"type"`
+	Data               interface{} `json:"data,omitempty"`
+	ID                 string      `json:"id,omitempty"`
+	Picture            *Picture    `json:"picture,omitempty"`
+	FragmentIdentifier string      `json:"fragmentIdentifier,omitempty"`
 }
 
 func (n *ImageSet) GetType() string {
@@ -666,11 +670,12 @@ func (n *ImageSet) GetChildren() []Node {
 }
 
 type Layout struct {
-	Type        string         `json:"type"`
-	Children    []*LayoutChild `json:"children,omitempty"`
-	Data        interface{}    `json:"data,omitempty"`
-	LayoutName  string         `json:"layoutName,omitempty"`
-	LayoutWidth string         `json:"layoutWidth,omitempty"`
+	Type               string         `json:"type"`
+	Children           []*LayoutChild `json:"children,omitempty"`
+	Data               interface{}    `json:"data,omitempty"`
+	LayoutName         string         `json:"layoutName,omitempty"`
+	LayoutWidth        string         `json:"layoutWidth,omitempty"`
+	FragmentIdentifier string         `json:"fragmentIdentifier,omitempty"`
 }
 
 func (n *Layout) GetType() string {
@@ -757,13 +762,14 @@ func (n *LayoutChild) UnmarshalJSON(data []byte) error {
 }
 
 type LayoutImage struct {
-	Type    string      `json:"type"`
-	Alt     string      `json:"alt,omitempty"`
-	Caption string      `json:"caption,omitempty"`
-	Credit  string      `json:"credit,omitempty"`
-	Data    interface{} `json:"data,omitempty"`
-	ID      string      `json:"id,omitempty"`
-	Picture *Picture    `json:"picture,omitempty"`
+	Type               string      `json:"type"`
+	Alt                string      `json:"alt,omitempty"`
+	Caption            string      `json:"caption,omitempty"`
+	Credit             string      `json:"credit,omitempty"`
+	Data               interface{} `json:"data,omitempty"`
+	ID                 string      `json:"id,omitempty"`
+	Picture            *Picture    `json:"picture,omitempty"`
+	FragmentIdentifier string      `json:"fragmentIdentifier,omitempty"`
 }
 
 func (n *LayoutImage) GetType() string {
@@ -892,10 +898,11 @@ func (n *Link) GetChildren() []Node {
 }
 
 type List struct {
-	Type     string      `json:"type"`
-	Children []*ListItem `json:"children,omitempty"`
-	Data     interface{} `json:"data,omitempty"`
-	Ordered  bool        `json:"ordered,omitempty"`
+	Type               string      `json:"type"`
+	Children           []*ListItem `json:"children,omitempty"`
+	Data               interface{} `json:"data,omitempty"`
+	Ordered            bool        `json:"ordered,omitempty"`
+	FragmentIdentifier string      `json:"fragmentIdentifier,omitempty"`
 }
 
 func (n *List) GetType() string {
@@ -1059,9 +1066,10 @@ func (n *ListItemChild) UnmarshalJSON(data []byte) error {
 }
 
 type Paragraph struct {
-	Type     string      `json:"type"`
-	Children []*Phrasing `json:"children,omitempty"`
-	Data     interface{} `json:"data,omitempty"`
+	Type               string      `json:"type"`
+	Children           []*Phrasing `json:"children,omitempty"`
+	Data               interface{} `json:"data,omitempty"`
+	FragmentIdentifier string      `json:"fragmentIdentifier,omitempty"`
 }
 
 func (n *Paragraph) GetType() string {
@@ -1501,6 +1509,7 @@ type Table struct {
 	LayoutWidth              string                 `json:"layoutWidth,omitempty"`
 	ResponsiveStyle          string                 `json:"responsiveStyle,omitempty"`
 	Stripes                  bool                   `json:"stripes,omitempty"`
+	FragmentIdentifier       string                 `json:"fragmentIdentifier,omitempty"`
 }
 
 func (n *Table) GetType() string {
@@ -1752,9 +1761,10 @@ func (n *Tweet) GetChildren() []Node {
 }
 
 type Video struct {
-	Type string      `json:"type"`
-	Data interface{} `json:"data,omitempty"`
-	ID   string      `json:"id,omitempty"`
+	Type               string      `json:"type"`
+	Data               interface{} `json:"data,omitempty"`
+	ID                 string      `json:"id,omitempty"`
+	FragmentIdentifier string      `json:"fragmentIdentifier,omitempty"`
 }
 
 func (n *Video) GetType() string {
@@ -1770,9 +1780,10 @@ func (n *Video) GetChildren() []Node {
 }
 
 type YoutubeVideo struct {
-	Type string      `json:"type"`
-	Data interface{} `json:"data,omitempty"`
-	URL  string      `json:"url,omitempty"`
+	Type               string      `json:"type"`
+	Data               interface{} `json:"data,omitempty"`
+	URL                string      `json:"url,omitempty"`
+	FragmentIdentifier string      `json:"fragmentIdentifier,omitempty"`
 }
 
 func (n *YoutubeVideo) GetType() string {
@@ -1796,6 +1807,7 @@ type CustomCodeComponent struct {
 	AttributesLastModified string                 `json:"attributesLastModified,omitempty"`
 	Path                   string                 `json:"path,omitempty"`
 	VersionRange           string                 `json:"versionRange,omitempty"`
+	FragmentIdentifier     string                 `json:"fragmentIdentifier,omitempty"`
 }
 
 func (n *CustomCodeComponent) GetType() string {
