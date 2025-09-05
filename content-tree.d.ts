@@ -839,6 +839,10 @@ export declare namespace ContentTree {
             id: string;
             /** How the component should be presented in the article page according to the column layout system */
             layoutWidth: LayoutWidth;
+            /** Repository for the code of the component in the format "[github org]/[github repo]/[component name]". */
+            /** Semantic version of the code of the component, e.g. "^0.3.5". */
+            /** Last date-time when the attributes for this block were modified, in ISO-8601 format. */
+            /** Configuration data to be passed to the component. */
             /** Unique fragmentIdentifier to identify the component, for things such as anchor links. */
             fragmentIdentifier?: string;
         }
