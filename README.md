@@ -681,8 +681,10 @@ interface TableCaption extends Parent {
 }
 
 interface TableCell extends Parent {
-   type: 'table-cell'
+	type: 'table-cell'
 	heading?: boolean
+	columnSpan?: number 
+	rowSpan?: number 
 	children: Phrasing[]
 }
 
