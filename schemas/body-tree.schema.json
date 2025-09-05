@@ -811,60 +811,7 @@
             "additionalProperties": false,
             "properties": {
                 "children": {
-                    "anyOf": [
-                        {
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/ContentTree.transit.TableCaption"
-                                },
-                                {
-                                    "$ref": "#/definitions/ContentTree.transit.TableBody"
-                                },
-                                {
-                                    "$ref": "#/definitions/ContentTree.transit.TableFooter"
-                                }
-                            ],
-                            "maxItems": 3,
-                            "minItems": 3,
-                            "type": "array"
-                        },
-                        {
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/ContentTree.transit.TableCaption"
-                                },
-                                {
-                                    "$ref": "#/definitions/ContentTree.transit.TableBody"
-                                }
-                            ],
-                            "maxItems": 2,
-                            "minItems": 2,
-                            "type": "array"
-                        },
-                        {
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/ContentTree.transit.TableBody"
-                                },
-                                {
-                                    "$ref": "#/definitions/ContentTree.transit.TableFooter"
-                                }
-                            ],
-                            "maxItems": 2,
-                            "minItems": 2,
-                            "type": "array"
-                        },
-                        {
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/ContentTree.transit.TableBody"
-                                }
-                            ],
-                            "maxItems": 1,
-                            "minItems": 1,
-                            "type": "array"
-                        }
-                    ]
+                    "$ref": "#/definitions/ContentTree.transit.TableChildren"
                 },
                 "collapseAfterHowManyRows": {
                     "type": "number"
@@ -892,7 +839,6 @@
                         },
                         "required": [
                             "hideOnMobile",
-                            "sortType",
                             "sortable"
                         ],
                         "type": "object"
@@ -1005,6 +951,74 @@
             ],
             "type": "object"
         },
+        "ContentTree.transit.TableChildren": {
+            "anyOf": [
+                {
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.TableCaption"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.TableBody"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.TableFooter"
+                        }
+                    ],
+                    "maxItems": 3,
+                    "minItems": 2,
+                    "type": "array"
+                },
+                {
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.TableBody"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.TableFooter"
+                        }
+                    ],
+                    "maxItems": 2,
+                    "minItems": 1,
+                    "type": "array"
+                },
+                {
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.TableCaption"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.TableHeader"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.TableBody"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.TableFooter"
+                        }
+                    ],
+                    "maxItems": 4,
+                    "minItems": 3,
+                    "type": "array"
+                },
+                {
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.TableHeader"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.TableBody"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.TableFooter"
+                        }
+                    ],
+                    "maxItems": 3,
+                    "minItems": 2,
+                    "type": "array"
+                }
+            ]
+        },
         "ContentTree.transit.TableFooter": {
             "additionalProperties": false,
             "properties": {
@@ -1017,6 +1031,27 @@
                 "data": {},
                 "type": {
                     "const": "table-footer",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.TableHeader": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.transit.TableRow"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "table-header",
                     "type": "string"
                 }
             },
