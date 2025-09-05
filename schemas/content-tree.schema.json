@@ -144,6 +144,9 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.YoutubeVideo"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Text"
                 }
             ]
         },
