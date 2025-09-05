@@ -1,5 +1,6 @@
 export declare namespace ContentTree {
     type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+    type UnstableBodyBlock = Gallery;
     type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
     type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
     interface Node {
@@ -16,7 +17,7 @@ export declare namespace ContentTree {
     interface Body extends Parent {
         type: "body";
         version: number;
-        children: BodyBlock[];
+        children: (BodyBlock | UnstableBodyBlock)[];
     }
     interface Text extends Node {
         type: "text";
@@ -273,8 +274,50 @@ export declare namespace ContentTree {
         /** Configuration data to be passed to the component. */
         attributes: CustomCodeComponentAttributes;
     }
+    type galleryItem = {
+        /**
+         * @description link for the image
+         */
+        imageLink?: "text";
+        /**
+         * @description this is the first Image
+         * @default false
+         */
+        firstImage: boolean;
+        /**
+         * @description image description
+         */
+        imageDescription?: string;
+        /**
+         * @description select or upload image
+         */
+        picture?: Image;
+    };
+    /**
+     * @sparkGenerateStoryblock true
+     */
+    interface Gallery extends Node {
+        type: "Gallery";
+        /**
+         * @description gallery description
+         * @default default text for the source field
+         */
+        galleryDescription?: string;
+        /**
+         * @description autoplay the gallery
+         * @default false
+         */
+        autoPlay?: boolean;
+        /**
+         * @description each gallery item
+         * @maxItems 10
+         * @minItems 1
+         */
+        galleryItems: [galleryItem];
+    }
     namespace full {
         type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+        type UnstableBodyBlock = Gallery;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -291,7 +334,7 @@ export declare namespace ContentTree {
         interface Body extends Parent {
             type: "body";
             version: number;
-            children: BodyBlock[];
+            children: (BodyBlock | UnstableBodyBlock)[];
         }
         interface Text extends Node {
             type: "text";
@@ -548,9 +591,51 @@ export declare namespace ContentTree {
             /** Configuration data to be passed to the component. */
             attributes: CustomCodeComponentAttributes;
         }
+        type galleryItem = {
+            /**
+             * @description link for the image
+             */
+            imageLink?: "text";
+            /**
+             * @description this is the first Image
+             * @default false
+             */
+            firstImage: boolean;
+            /**
+             * @description image description
+             */
+            imageDescription?: string;
+            /**
+             * @description select or upload image
+             */
+            picture?: Image;
+        };
+        /**
+         * @sparkGenerateStoryblock true
+         */
+        interface Gallery extends Node {
+            type: "Gallery";
+            /**
+             * @description gallery description
+             * @default default text for the source field
+             */
+            galleryDescription?: string;
+            /**
+             * @description autoplay the gallery
+             * @default false
+             */
+            autoPlay?: boolean;
+            /**
+             * @description each gallery item
+             * @maxItems 10
+             * @minItems 1
+             */
+            galleryItems: [galleryItem];
+        }
     }
     namespace transit {
         type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+        type UnstableBodyBlock = Gallery;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -567,7 +652,7 @@ export declare namespace ContentTree {
         interface Body extends Parent {
             type: "body";
             version: number;
-            children: BodyBlock[];
+            children: (BodyBlock | UnstableBodyBlock)[];
         }
         interface Text extends Node {
             type: "text";
@@ -809,9 +894,51 @@ export declare namespace ContentTree {
             /** How the component should be presented in the article page according to the column layout system */
             layoutWidth: LayoutWidth;
         }
+        type galleryItem = {
+            /**
+             * @description link for the image
+             */
+            imageLink?: "text";
+            /**
+             * @description this is the first Image
+             * @default false
+             */
+            firstImage: boolean;
+            /**
+             * @description image description
+             */
+            imageDescription?: string;
+            /**
+             * @description select or upload image
+             */
+            picture?: Image;
+        };
+        /**
+         * @sparkGenerateStoryblock true
+         */
+        interface Gallery extends Node {
+            type: "Gallery";
+            /**
+             * @description gallery description
+             * @default default text for the source field
+             */
+            galleryDescription?: string;
+            /**
+             * @description autoplay the gallery
+             * @default false
+             */
+            autoPlay?: boolean;
+            /**
+             * @description each gallery item
+             * @maxItems 10
+             * @minItems 1
+             */
+            galleryItems: [galleryItem];
+        }
     }
     namespace loose {
         type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo;
+        type UnstableBodyBlock = Gallery;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -828,7 +955,7 @@ export declare namespace ContentTree {
         interface Body extends Parent {
             type: "body";
             version: number;
-            children: BodyBlock[];
+            children: (BodyBlock | UnstableBodyBlock)[];
         }
         interface Text extends Node {
             type: "text";
@@ -1084,6 +1211,47 @@ export declare namespace ContentTree {
             attributesLastModified?: string;
             /** Configuration data to be passed to the component. */
             attributes?: CustomCodeComponentAttributes;
+        }
+        type galleryItem = {
+            /**
+             * @description link for the image
+             */
+            imageLink?: "text";
+            /**
+             * @description this is the first Image
+             * @default false
+             */
+            firstImage: boolean;
+            /**
+             * @description image description
+             */
+            imageDescription?: string;
+            /**
+             * @description select or upload image
+             */
+            picture?: Image;
+        };
+        /**
+         * @sparkGenerateStoryblock true
+         */
+        interface Gallery extends Node {
+            type: "Gallery";
+            /**
+             * @description gallery description
+             * @default default text for the source field
+             */
+            galleryDescription?: string;
+            /**
+             * @description autoplay the gallery
+             * @default false
+             */
+            autoPlay?: boolean;
+            /**
+             * @description each gallery item
+             * @maxItems 10
+             * @minItems 1
+             */
+            galleryItems: [galleryItem];
         }
     }
 }
