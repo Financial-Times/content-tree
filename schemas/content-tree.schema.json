@@ -1750,9 +1750,15 @@
                     },
                     "type": "array"
                 },
+                "columnSpan": {
+                    "type": "number"
+                },
                 "data": {},
                 "heading": {
                     "type": "boolean"
+                },
+                "rowSpan": {
+                    "type": "number"
                 },
                 "type": {
                     "const": "table-cell",

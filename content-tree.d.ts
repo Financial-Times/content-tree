@@ -228,6 +228,8 @@ export declare namespace ContentTree {
     interface TableCell extends Parent {
         type: 'table-cell';
         heading?: boolean;
+        columnSpan?: number;
+        rowSpan?: number;
         children: Phrasing[];
     }
     interface TableRow extends Parent {
@@ -501,6 +503,8 @@ export declare namespace ContentTree {
         interface TableCell extends Parent {
             type: 'table-cell';
             heading?: boolean;
+            columnSpan?: number;
+            rowSpan?: number;
             children: Phrasing[];
         }
         interface TableRow extends Parent {
@@ -768,6 +772,8 @@ export declare namespace ContentTree {
         interface TableCell extends Parent {
             type: 'table-cell';
             heading?: boolean;
+            columnSpan?: number;
+            rowSpan?: number;
             children: Phrasing[];
         }
         interface TableRow extends Parent {
@@ -1034,6 +1040,8 @@ export declare namespace ContentTree {
         interface TableCell extends Parent {
             type: 'table-cell';
             heading?: boolean;
+            columnSpan?: number;
+            rowSpan?: number;
             children: Phrasing[];
         }
         interface TableRow extends Parent {
