@@ -151,7 +151,7 @@ export declare namespace ContentTree {
     interface Flourish extends Node {
         type: "flourish";
         id: string;
-        layoutWidth: string;
+        layoutWidth: "full-grid" | "in-line";
         flourishType: string;
         description?: string;
         timestamp?: string;
@@ -426,7 +426,7 @@ export declare namespace ContentTree {
         interface Flourish extends Node {
             type: "flourish";
             id: string;
-            layoutWidth: string;
+            layoutWidth: "full-grid" | "in-line";
             flourishType: string;
             description?: string;
             timestamp?: string;
@@ -699,7 +699,7 @@ export declare namespace ContentTree {
         interface Flourish extends Node {
             type: "flourish";
             id: string;
-            layoutWidth: string;
+            layoutWidth: "full-grid" | "in-line";
             flourishType: string;
             description?: string;
             timestamp?: string;
@@ -963,7 +963,7 @@ export declare namespace ContentTree {
         interface Flourish extends Node {
             type: "flourish";
             id: string;
-            layoutWidth: string;
+            layoutWidth: "full-grid" | "in-line";
             flourishType: string;
             description?: string;
             timestamp?: string;

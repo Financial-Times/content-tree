@@ -262,7 +262,7 @@ interface Strong extends Parent {
 ```
 
 **Strong** represents contents with strong importance, seriousness or urgency.
-
+ 
 ### `Emphasis`
 
 ```ts
@@ -508,7 +508,7 @@ interface Tweet extends Node {
 interface Flourish extends Node {
 	type: "flourish"
 	id: string
-	layoutWidth: string
+	layoutWidth: "full-grid" | "in-line"
 	flourishType: string
 	description?: string
 	timestamp?: string
