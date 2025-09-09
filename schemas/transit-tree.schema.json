@@ -9,9 +9,6 @@
                 "description": {
                     "type": "string"
                 },
-                "fragmentIdentifier": {
-                    "type": "string"
-                },
                 "number": {
                     "type": "string"
                 },
@@ -168,10 +165,6 @@
             "additionalProperties": false,
             "properties": {
                 "data": {},
-                "fragmentIdentifier": {
-                    "description": "Unique fragmentIdentifier to identify the component, for things such as anchor links.",
-                    "type": "string"
-                },
                 "id": {
                     "description": "Id taken from the CAPI url",
                     "type": "string"
@@ -217,14 +210,14 @@
         "ContentTree.transit.Flourish": {
             "additionalProperties": false,
             "properties": {
+                "blockIdentifier": {
+                    "type": "string"
+                },
                 "data": {},
                 "description": {
                     "type": "string"
                 },
                 "flourishType": {
-                    "type": "string"
-                },
-                "fragmentIdentifier": {
                     "type": "string"
                 },
                 "id": {
@@ -252,6 +245,9 @@
         "ContentTree.transit.Heading": {
             "additionalProperties": false,
             "properties": {
+                "blockIdentifier": {
+                    "type": "string"
+                },
                 "children": {
                     "items": {
                         "$ref": "#/definitions/ContentTree.transit.Text"
@@ -259,9 +255,6 @@
                     "type": "array"
                 },
                 "data": {},
-                "fragmentIdentifier": {
-                    "type": "string"
-                },
                 "level": {
                     "enum": [
                         "chapter",
@@ -285,10 +278,10 @@
         "ContentTree.transit.ImageSet": {
             "additionalProperties": false,
             "properties": {
-                "data": {},
-                "fragmentIdentifier": {
+                "blockIdentifier": {
                     "type": "string"
                 },
+                "data": {},
                 "id": {
                     "type": "string"
                 },
@@ -344,9 +337,6 @@
                     ]
                 },
                 "data": {},
-                "fragmentIdentifier": {
-                    "type": "string"
-                },
                 "layoutName": {
                     "enum": [
                         "auto",
@@ -384,9 +374,6 @@
                     "type": "string"
                 },
                 "data": {},
-                "fragmentIdentifier": {
-                    "type": "string"
-                },
                 "id": {
                     "type": "string"
                 },
@@ -487,9 +474,6 @@
                     "type": "array"
                 },
                 "data": {},
-                "fragmentIdentifier": {
-                    "type": "string"
-                },
                 "ordered": {
                     "type": "boolean"
                 },
@@ -558,9 +542,6 @@
                     "type": "array"
                 },
                 "data": {},
-                "fragmentIdentifier": {
-                    "type": "string"
-                },
                 "type": {
                     "const": "paragraph",
                     "type": "string"
@@ -937,9 +918,6 @@
                     "type": "boolean"
                 },
                 "data": {},
-                "fragmentIdentifier": {
-                    "type": "string"
-                },
                 "layoutWidth": {
                     "enum": [
                         "auto",
@@ -1139,9 +1117,6 @@
             "additionalProperties": false,
             "properties": {
                 "data": {},
-                "fragmentIdentifier": {
-                    "type": "string"
-                },
                 "id": {
                     "type": "string"
                 },
@@ -1160,9 +1135,6 @@
             "additionalProperties": false,
             "properties": {
                 "data": {},
-                "fragmentIdentifier": {
-                    "type": "string"
-                },
                 "type": {
                     "const": "youtube-video",
                     "type": "string"

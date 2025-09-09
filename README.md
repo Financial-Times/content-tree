@@ -233,7 +233,6 @@ _Non-normative note: this would be represented by an `<hr>` in the html._
 interface Paragraph extends Parent {
 	type: "paragraph"
 	children: Phrasing[]
-	fragmentIdentifier?: string
 }
 ```
 
@@ -246,7 +245,7 @@ interface Heading extends Parent {
 	type: "heading"
 	children: Text[]
 	level: "chapter" | "subheading" | "label"
-	fragmentIdentifier?: string
+	blockIdentifier?: string
 }
 ```
 
@@ -306,7 +305,6 @@ interface List extends Parent {
 	type: "list"
 	ordered: boolean
 	children: ListItem[]
-	fragmentIdentifier?: string
 }
 ```
 
@@ -357,7 +355,7 @@ interface ImageSet extends Node {
 	type: "image-set"
 	id: string
 	external picture: ImageSetPicture
-	fragmentIdentifier?: string
+	blockIdentifier?: string
 }
 ```
 
@@ -516,7 +514,7 @@ interface Flourish extends Node {
 	description?: string
 	timestamp?: string
 	external fallbackImage?: Image
-	fragmentIdentifier?: string
+	blockIdentifier?: string
 }
 ```
 
@@ -526,10 +524,9 @@ interface Flourish extends Node {
 
 ```ts
 interface BigNumber extends Node {
-    type: "big-number"
-    number: string
-    description: string
-    fragmentIdentifier?: string
+	type: "big-number"
+	number: string
+	description: string
 }
 ```
 
@@ -542,7 +539,6 @@ interface Video extends Node {
 	type: "video"
 	id: string
     external title: string
-	fragmentIdentifier?: string
 }
 ```
 
@@ -558,7 +554,6 @@ TODO: Figure out how Clips work, how they are different?
 interface YoutubeVideo extends Node {
 	type: "youtube-video"
 	url: string
-	fragmentIdentifier?: string
 }
 ```
 
@@ -632,7 +627,6 @@ interface Layout extends Parent {
 	   layoutName: "auto" | "card" | "timeline"
 	   layoutWidth: string
 	   children: [Heading, LayoutImage, ...LayoutSlot[]] | [Heading, ...LayoutSlot[]] | LayoutSlot[]
-	   fragmentIdentifier?: string
 }
 ```
 
@@ -667,7 +661,6 @@ interface LayoutImage extends Node {
 	caption: string
 	credit: string
 	external picture: ImageSetPicture
-	fragmentIdentifier?: string
 }
 ```
 
@@ -725,7 +718,6 @@ interface Table extends Parent {
 	responsiveStyle: 'overflow' | 'flat' | 'scroll'
 	children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody]
 	columnSettings: TableColumnSettings[]
-	fragmentIdentifier?: string
 }
 ```
 
@@ -753,8 +745,6 @@ interface CustomCodeComponent extends Node {
   external attributesLastModified: string
   /** Configuration data to be passed to the component. */
   external attributes: CustomCodeComponentAttributes
-  /** Unique fragmentIdentifier to identify the component, for things such as anchor links. */
-  fragmentIdentifier?: string
 }
 ```
 
