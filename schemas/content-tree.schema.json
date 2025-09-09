@@ -72,62 +72,7 @@
             "properties": {
                 "children": {
                     "items": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/definitions/ContentTree.full.Paragraph"
-                            },
-                            {
-                                "$ref": "#/definitions/ContentTree.full.Heading"
-                            },
-                            {
-                                "$ref": "#/definitions/ContentTree.full.ImageSet"
-                            },
-                            {
-                                "$ref": "#/definitions/ContentTree.full.Flourish"
-                            },
-                            {
-                                "$ref": "#/definitions/ContentTree.full.BigNumber"
-                            },
-                            {
-                                "$ref": "#/definitions/ContentTree.full.CustomCodeComponent"
-                            },
-                            {
-                                "$ref": "#/definitions/ContentTree.full.Layout"
-                            },
-                            {
-                                "$ref": "#/definitions/ContentTree.full.List"
-                            },
-                            {
-                                "$ref": "#/definitions/ContentTree.full.Blockquote"
-                            },
-                            {
-                                "$ref": "#/definitions/ContentTree.full.Pullquote"
-                            },
-                            {
-                                "$ref": "#/definitions/ContentTree.full.ScrollyBlock"
-                            },
-                            {
-                                "$ref": "#/definitions/ContentTree.full.ThematicBreak"
-                            },
-                            {
-                                "$ref": "#/definitions/ContentTree.full.Table"
-                            },
-                            {
-                                "$ref": "#/definitions/ContentTree.full.Recommended"
-                            },
-                            {
-                                "$ref": "#/definitions/ContentTree.full.Tweet"
-                            },
-                            {
-                                "$ref": "#/definitions/ContentTree.full.Video"
-                            },
-                            {
-                                "$ref": "#/definitions/ContentTree.full.YoutubeVideo"
-                            },
-                            {
-                                "$ref": "#/definitions/ContentTree.full.Gallery"
-                            }
-                        ]
+                        "$ref": "#/definitions/ContentTree.full.BodyBlock"
                     },
                     "type": "array"
                 },
@@ -146,6 +91,64 @@
                 "version"
             ],
             "type": "object"
+        },
+        "ContentTree.full.BodyBlock": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/ContentTree.full.Paragraph"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Heading"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.ImageSet"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Flourish"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.BigNumber"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.CustomCodeComponent"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Layout"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.List"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Blockquote"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Pullquote"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.ScrollyBlock"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.ThematicBreak"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Table"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Recommended"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Tweet"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Video"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.YoutubeVideo"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Gallery"
+                }
+            ]
         },
         "ContentTree.full.Break": {
             "additionalProperties": false,
@@ -440,6 +443,7 @@
                 "galleryItems",
                 "type"
             ],
+            "sparkGenerateStoryblock": true,
             "type": "object"
         },
         "ContentTree.full.Heading": {

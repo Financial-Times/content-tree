@@ -105,17 +105,10 @@ type BodyBlock =
 	| Tweet
 	| Video
 	| YoutubeVideo
+	| Gallery
 ```
 
 `BodyBlock` nodes are the only things that are valid as the top level of a `Body`.
-
-### UnstableBodyBlock
-
-```ts
-type UnstableBodyBlock = Gallery ;
-```
-
-`UnstableBodyBlocks` nodes are also valid body blocks, but like, experimental. you can add more unstable nodes to this block like `UnstableGallery | UnstableComponent`.
 
 ### `LayoutWidth`
 
@@ -190,7 +183,7 @@ interface Root extends Node {
 interface Body extends Parent {
 	type: "body"
 	version: number
-	children: (BodyBlock | UnstableBodyBlock)[]
+	children: BodyBlock[]
 }
 ```
 
