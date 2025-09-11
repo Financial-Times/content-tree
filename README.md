@@ -752,7 +752,7 @@ interface CustomCodeComponent extends Node {
 - The basic interface in Spark to make reference to this system above (eg. the git repo URL or a public S3 bucket), and provide some data for it if necessary. This will be the Custom Component storyblock.
 - The data Spark receives from entering a specific ID will be used to render dynamic fields (the `attributes`).
 
-### ExperimentalGallery
+### Gallery
 
 ```ts
 type galleryItem = {
@@ -801,6 +801,13 @@ interface Gallery extends Node {
 	galleryItems: [galleryItem]
 }
 ```
+- The **Gallery\*** is the first story block in Spark to be powered entirely by the schema-driven structure of the ContentTree system.Instead of hardcoding its configuration, Spark dynamically inspects the BodyBlock definition in the ContentTree schema and extracts all block types annotated with the @sparkGenerateStoryblock: true flag.These block definitions are automatically converted into ProseMirror node specs and injected into the editor's schema at runtime. The following ContentTree types are currently mapped to Spark components:
+
+- "string" → Rich text
+- "text" → Text input
+- "Image" → Responsive image container
+- "Flourish" → Flourish chart
+- "Video" → Video block
 
 ## License
 
