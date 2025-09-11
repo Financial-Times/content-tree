@@ -105,6 +105,7 @@ type BodyBlock =
 	| Tweet
 	| Video
 	| YoutubeVideo
+	| Text
 	| Gallery
 ```
 
@@ -246,6 +247,7 @@ interface Heading extends Parent {
 	type: "heading"
 	children: Text[]
 	level: "chapter" | "subheading" | "label"
+	blockIdentifier?: string
 }
 ```
 
@@ -354,6 +356,7 @@ interface ImageSet extends Node {
 	type: "image-set"
 	id: string
 	external picture: ImageSetPicture
+	blockIdentifier?: string
 }
 ```
 
@@ -508,7 +511,8 @@ interface Flourish extends Node {
 	flourishType: string
 	description?: string
 	timestamp?: string
-	fallbackImage?: Image
+	external fallbackImage?: Image
+	blockIdentifier?: string
 }
 ```
 
@@ -532,11 +536,13 @@ interface BigNumber extends Node {
 interface Video extends Node {
 	type: "video"
 	id: string
-	embedded: boolean
+    external title: string
 }
 ```
 
 **Video** represents for an FT video referenced by a URL.
+
+The `title` can be obtained by fetching the Video from the content API.
 
 TODO: Figure out how Clips work, how they are different?
 
@@ -677,6 +683,8 @@ interface TableCaption extends Parent {
 interface TableCell extends Parent {
 	type: 'table-cell'
 	heading?: boolean
+	columnSpan?: number 
+	rowSpan?: number 
 	children: Phrasing[]
 }
 

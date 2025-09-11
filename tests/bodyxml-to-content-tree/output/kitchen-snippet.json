@@ -716,8 +716,7 @@
 			},
 			{
 				"type": "video",
-				"id": "http://api-t.ft.com/content/9eef331b-04f0-4774-b487-a5aef2995e4d",
-				"embedded": true
+				"id": "http://api-t.ft.com/content/9eef331b-04f0-4774-b487-a5aef2995e4d"
 			},
 			{
 				"type": "paragraph",

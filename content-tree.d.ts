@@ -1,5 +1,5 @@
 export declare namespace ContentTree {
-    type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Gallery;
+    type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text | Gallery;
     type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
     type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
     interface Node {
@@ -36,6 +36,7 @@ export declare namespace ContentTree {
         type: "heading";
         children: Text[];
         level: "chapter" | "subheading" | "label";
+        blockIdentifier?: string;
     }
     interface Strong extends Parent {
         type: "strong";
@@ -77,6 +78,7 @@ export declare namespace ContentTree {
         type: "image-set";
         id: string;
         picture: ImageSetPicture;
+        blockIdentifier?: string;
     }
     type ImageSetPicture = {
         layoutWidth: string;
@@ -156,6 +158,7 @@ export declare namespace ContentTree {
         description?: string;
         timestamp?: string;
         fallbackImage?: Image;
+        blockIdentifier?: string;
     }
     interface BigNumber extends Node {
         type: "big-number";
@@ -165,7 +168,7 @@ export declare namespace ContentTree {
     interface Video extends Node {
         type: "video";
         id: string;
-        embedded: boolean;
+        title: string;
     }
     interface YoutubeVideo extends Node {
         type: "youtube-video";
@@ -228,6 +231,8 @@ export declare namespace ContentTree {
     interface TableCell extends Parent {
         type: 'table-cell';
         heading?: boolean;
+        columnSpan?: number;
+        rowSpan?: number;
         children: Phrasing[];
     }
     interface TableRow extends Parent {
@@ -313,7 +318,7 @@ export declare namespace ContentTree {
         galleryItems: [galleryItem];
     }
     namespace full {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Gallery;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text | Gallery;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -350,6 +355,7 @@ export declare namespace ContentTree {
             type: "heading";
             children: Text[];
             level: "chapter" | "subheading" | "label";
+            blockIdentifier?: string;
         }
         interface Strong extends Parent {
             type: "strong";
@@ -391,6 +397,7 @@ export declare namespace ContentTree {
             type: "image-set";
             id: string;
             picture: ImageSetPicture;
+            blockIdentifier?: string;
         }
         type ImageSetPicture = {
             layoutWidth: string;
@@ -470,6 +477,7 @@ export declare namespace ContentTree {
             description?: string;
             timestamp?: string;
             fallbackImage?: Image;
+            blockIdentifier?: string;
         }
         interface BigNumber extends Node {
             type: "big-number";
@@ -479,7 +487,7 @@ export declare namespace ContentTree {
         interface Video extends Node {
             type: "video";
             id: string;
-            embedded: boolean;
+            title: string;
         }
         interface YoutubeVideo extends Node {
             type: "youtube-video";
@@ -542,6 +550,8 @@ export declare namespace ContentTree {
         interface TableCell extends Parent {
             type: 'table-cell';
             heading?: boolean;
+            columnSpan?: number;
+            rowSpan?: number;
             children: Phrasing[];
         }
         interface TableRow extends Parent {
@@ -628,7 +638,7 @@ export declare namespace ContentTree {
         }
     }
     namespace transit {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Gallery;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text | Gallery;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -665,6 +675,7 @@ export declare namespace ContentTree {
             type: "heading";
             children: Text[];
             level: "chapter" | "subheading" | "label";
+            blockIdentifier?: string;
         }
         interface Strong extends Parent {
             type: "strong";
@@ -705,6 +716,7 @@ export declare namespace ContentTree {
         interface ImageSet extends Node {
             type: "image-set";
             id: string;
+            blockIdentifier?: string;
         }
         type ImageSetPicture = {
             layoutWidth: string;
@@ -781,7 +793,7 @@ export declare namespace ContentTree {
             flourishType: string;
             description?: string;
             timestamp?: string;
-            fallbackImage?: Image;
+            blockIdentifier?: string;
         }
         interface BigNumber extends Node {
             type: "big-number";
@@ -791,7 +803,6 @@ export declare namespace ContentTree {
         interface Video extends Node {
             type: "video";
             id: string;
-            embedded: boolean;
         }
         interface YoutubeVideo extends Node {
             type: "youtube-video";
@@ -852,6 +863,8 @@ export declare namespace ContentTree {
         interface TableCell extends Parent {
             type: 'table-cell';
             heading?: boolean;
+            columnSpan?: number;
+            rowSpan?: number;
             children: Phrasing[];
         }
         interface TableRow extends Parent {
@@ -930,7 +943,7 @@ export declare namespace ContentTree {
         }
     }
     namespace loose {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Gallery;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text | Gallery;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -967,6 +980,7 @@ export declare namespace ContentTree {
             type: "heading";
             children: Text[];
             level: "chapter" | "subheading" | "label";
+            blockIdentifier?: string;
         }
         interface Strong extends Parent {
             type: "strong";
@@ -1008,6 +1022,7 @@ export declare namespace ContentTree {
             type: "image-set";
             id: string;
             picture?: ImageSetPicture;
+            blockIdentifier?: string;
         }
         type ImageSetPicture = {
             layoutWidth: string;
@@ -1087,6 +1102,7 @@ export declare namespace ContentTree {
             description?: string;
             timestamp?: string;
             fallbackImage?: Image;
+            blockIdentifier?: string;
         }
         interface BigNumber extends Node {
             type: "big-number";
@@ -1096,7 +1112,7 @@ export declare namespace ContentTree {
         interface Video extends Node {
             type: "video";
             id: string;
-            embedded: boolean;
+            title?: string;
         }
         interface YoutubeVideo extends Node {
             type: "youtube-video";
@@ -1159,6 +1175,8 @@ export declare namespace ContentTree {
         interface TableCell extends Parent {
             type: 'table-cell';
             heading?: boolean;
+            columnSpan?: number;
+            rowSpan?: number;
             children: Phrasing[];
         }
         interface TableRow extends Parent {

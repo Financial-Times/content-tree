@@ -121,6 +121,9 @@
                     "$ref": "#/definitions/ContentTree.transit.YoutubeVideo"
                 },
                 {
+                    "$ref": "#/definitions/ContentTree.transit.Text"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.transit.Gallery"
                 }
             ]
@@ -188,69 +191,12 @@
         "ContentTree.transit.Flourish": {
             "additionalProperties": false,
             "properties": {
+                "blockIdentifier": {
+                    "type": "string"
+                },
                 "data": {},
                 "description": {
                     "type": "string"
-                },
-                "fallbackImage": {
-                    "additionalProperties": false,
-                    "properties": {
-                        "format": {
-                            "enum": [
-                                "desktop",
-                                "mobile",
-                                "square",
-                                "square-ftedit",
-                                "standard",
-                                "standard-inline",
-                                "wide"
-                            ],
-                            "type": "string"
-                        },
-                        "height": {
-                            "type": "number"
-                        },
-                        "id": {
-                            "type": "string"
-                        },
-                        "sourceSet": {
-                            "items": {
-                                "additionalProperties": false,
-                                "properties": {
-                                    "dpr": {
-                                        "type": "number"
-                                    },
-                                    "url": {
-                                        "type": "string"
-                                    },
-                                    "width": {
-                                        "type": "number"
-                                    }
-                                },
-                                "required": [
-                                    "dpr",
-                                    "url",
-                                    "width"
-                                ],
-                                "type": "object"
-                            },
-                            "type": "array"
-                        },
-                        "url": {
-                            "type": "string"
-                        },
-                        "width": {
-                            "type": "number"
-                        }
-                    },
-                    "required": [
-                        "format",
-                        "height",
-                        "id",
-                        "url",
-                        "width"
-                    ],
-                    "type": "object"
                 },
                 "flourishType": {
                     "type": "string"
@@ -398,6 +344,9 @@
         "ContentTree.transit.Heading": {
             "additionalProperties": false,
             "properties": {
+                "blockIdentifier": {
+                    "type": "string"
+                },
                 "children": {
                     "items": {
                         "$ref": "#/definitions/ContentTree.transit.Text"
@@ -428,6 +377,9 @@
         "ContentTree.transit.ImageSet": {
             "additionalProperties": false,
             "properties": {
+                "blockIdentifier": {
+                    "type": "string"
+                },
                 "data": {},
                 "id": {
                     "type": "string"
@@ -1153,9 +1105,15 @@
                     },
                     "type": "array"
                 },
+                "columnSpan": {
+                    "type": "number"
+                },
                 "data": {},
                 "heading": {
                     "type": "boolean"
+                },
+                "rowSpan": {
+                    "type": "number"
                 },
                 "type": {
                     "const": "table-cell",
@@ -1264,9 +1222,6 @@
             "additionalProperties": false,
             "properties": {
                 "data": {},
-                "embedded": {
-                    "type": "boolean"
-                },
                 "id": {
                     "type": "string"
                 },
@@ -1276,7 +1231,6 @@
                 }
             },
             "required": [
-                "embedded",
                 "id",
                 "type"
             ],

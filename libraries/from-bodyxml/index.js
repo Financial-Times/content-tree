@@ -7,6 +7,7 @@ let ContentType = {
   video: "http://www.ft.com/ontology/content/Video",
   content: "http://www.ft.com/ontology/content/Content",
   article: "http://www.ft.com/ontology/content/Article",
+  customCodeComponent: "http://www.ft.com/ontology/content/CustomCodeComponent",
 };
 
 /**
@@ -47,7 +48,7 @@ function toValidLayoutWidth(layoutWidth) {
 
 /**
  * @template {UNode | UParent} Node
- * @typedef {Omit<Node, "children"> & (Node extends UParent ? {children?: Node["children"]} : {children?: null})} TransNode
+ * @typedef {Omit<Node, "children"> & (Node extends UParent ? {children?: Node["children"]} : {children: null})} TransNode
  */
 
 export let defaultTransformers = {
@@ -55,36 +56,44 @@ export let defaultTransformers = {
    * @type {Transformer<ContentTree.transit.Heading>}
    */
   h1(h1) {
+    const blockId = h1.attributes["data-fragment-id"] || h1.attributes["id"];
     return {
       type: "heading",
       level: "chapter",
+      ...(blockId && { blockIdentifier: blockId }),
     };
   },
   /**
    * @type {Transformer<ContentTree.transit.Heading>}
    */
   h2(h2) {
+    const blockId = h2.attributes["data-fragment-id"] || h2.attributes["id"];
     return {
       type: "heading",
       level: "subheading",
+      ...(blockId && { blockIdentifier: blockId }),
     };
   },
   /**
    * @type {Transformer<ContentTree.transit.Heading>}
    */
   h3(h3) {
+    const blockId = h3.attributes["data-fragment-id"] || h3.attributes["id"];
     return {
       type: "heading",
       level: "subheading",
+      ...(blockId && { blockIdentifier: blockId }),
     };
   },
   /**
    * @type {Transformer<ContentTree.transit.Heading>}
    */
   h4(h4) {
+    const blockId = h4.attributes["data-fragment-id"] || h4.attributes["id"];
     return {
       type: "heading",
       level: "label",
+      ...(blockId && { blockIdentifier: blockId }),
     };
   },
   /**
@@ -125,6 +134,7 @@ export let defaultTransformers = {
   br(br) {
     return {
       type: "break",
+      children: null,
     };
   },
   /**
@@ -133,6 +143,7 @@ export let defaultTransformers = {
   hr(hr) {
     return {
       type: "thematic-break",
+      children: null,
     };
   },
   /**
@@ -234,9 +245,11 @@ export let defaultTransformers = {
    * @type {Transformer<ContentTree.transit.ImageSet>}
    */
   [ContentType.imageset](content) {
+    const blockId = content.attributes["data-fragment-id"] || content.attributes["id"];
     return {
       type: "image-set",
       id: content.attributes.url ?? "",
+      ...(blockId && { blockIdentifier: blockId }),
       children: null,
     };
   },
@@ -247,7 +260,6 @@ export let defaultTransformers = {
     return {
       type: "video",
       id: content.attributes.url ?? "",
-      embedded: content.attributes["data-embedded"] == "true" ? true : false,
       children: null,
     };
   },
@@ -256,20 +268,25 @@ export let defaultTransformers = {
    * @type {Transformer<ContentTree.transit.Flourish | ContentTree.transit.Link>}
    */
   [ContentType.content](content) {
+    const id = content.attributes.url ?? "";
+    const uuid = id.split("/").pop();
+    const blockId = content.attributes["data-fragment-id"] || content.attributes["id"];
+
     if (content.attributes["data-asset-type"] == "flourish") {
       return /** @type {ContentTree.transit.Flourish} */ ({
         type: "flourish",
+        id: uuid,
         flourishType: content.attributes["data-flourish-type"] || "",
         layoutWidth: toValidLayoutWidth(
           content.attributes["data-layout-width"] || ""
         ),
         description: content.attributes["alt"] || "",
         timestamp: content.attributes["data-time-stamp"] || "",
-        // fallbackImage -- TODO should this be external in content-tree?
+        ...(blockId && { blockIdentifier: blockId }),
+        children: null,
       });
     }
-    const id = content.attributes.url ?? "";
-    const uuid = id.split("/").pop();
+
     return /** @type {ContentTree.transit.Link} */ ({
       type: "link",
       url: `https://www.ft.com/content/${uuid}`,
@@ -288,6 +305,21 @@ export let defaultTransformers = {
       title: content.attributes.dataTitle ?? "",
     };
   },
+    /**
+   * @type {Transformer<ContentTree.transit.CustomCodeComponent>}
+   */
+    [ContentType.customCodeComponent](content) {
+      const id = content.attributes.url ?? "";
+      const uuid = id.split("/").pop();
+      return {
+        type: "custom-code-component",
+        id: uuid ?? "",
+        layoutWidth: toValidLayoutWidth(
+          content.attributes["data-layout-width"] || ""
+        ),
+        children: null,
+      };
+    },
   /**
    * @type {Transformer<ContentTree.transit.Recommended>}
    */
@@ -307,7 +339,7 @@ export let defaultTransformers = {
    * 	ContentTree.transit.Layout |
    *  ContentTree.transit.LayoutSlot |
    *  { type: "__LIFT_CHILDREN__"} |
-   * 	{ type: "__UNKNOWN__"}
+   * 	{ type: "__UNKNOWN__", data?: any}
    * >}
    */
   div(div) {
@@ -324,11 +356,22 @@ export let defaultTransformers = {
       return { type: "__LIFT_CHILDREN__" };
     }
     if (div.attributes.class === "n-content-layout__slot") {
+
+      // this is a bit of a hack, but some Spark explainers double up the layout-slot divs
+      // so we need to flatten them out before proceeding
+      // https://github.com/Financial-Times/cp-content-pipeline/blob/f9deff5227f6f5d3d0dfd5e3eabee6599c86aba5/packages/schema/src/resolvers/content-tree/tagMappings.ts#L359
+      div.children = div.children.flatMap((child) => {
+        if (isXElement(child) && child.name === "div") {
+          return child.children || [];
+        } else {
+          return [child];
+        }
+      });
       return /** @type { ContentTree.transit.LayoutSlot } */ ({
         type: "layout-slot",
       });
     }
-    return { type: "__UNKNOWN__" };
+    return { type: "__UNKNOWN__", data: div };
   },
   experimental() {
     return { type: "__LIFT_CHILDREN__" };
@@ -404,7 +447,7 @@ export function fromXast(bodyxast, transformers = defaultTransformers) {
         }
         return ctnode;
       } else {
-        return { type: "__UNKNOWN__" };
+        return { type: "__UNKNOWN__", data: xmlnode };
       }
     } else if (isXText(xmlnode)) {
       return {
@@ -412,24 +455,16 @@ export function fromXast(bodyxast, transformers = defaultTransformers) {
         value: xmlnode.value,
       };
     } else {
-      return { type: "__UNKNOWN__" };
+      return { type: "__UNKNOWN__", data: xmlnode };
     }
   })(bodyxast);
 }
 
-/**
- * Turns e.g. </p> </body> into </p></body>, which a lot of our content has
- * This prevents random strat text nodes being created in bodyTree
- * @param {string} xml
- * @returns {string}
- */
-function removeWhitespaceBeforeBodyTag(xml) {
-  return xml.replace("</p> </body>", "</p></body>");
-}
+
 
 /** @param {string} bodyxml */
 export function fromXML(bodyxml) {
-  return fromXast(xastFromXml(removeWhitespaceBeforeBodyTag(bodyxml)));
+  return fromXast(xastFromXml(bodyxml));
 }
 
 export default fromXML;
