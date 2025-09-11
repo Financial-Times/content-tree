@@ -188,6 +188,9 @@
         "ContentTree.transit.Flourish": {
             "additionalProperties": false,
             "properties": {
+                "blockIdentifier": {
+                    "type": "string"
+                },
                 "data": {},
                 "description": {
                     "type": "string"
@@ -220,6 +223,9 @@
         "ContentTree.transit.Heading": {
             "additionalProperties": false,
             "properties": {
+                "blockIdentifier": {
+                    "type": "string"
+                },
                 "children": {
                     "items": {
                         "$ref": "#/definitions/ContentTree.transit.Text"
@@ -250,6 +256,9 @@
         "ContentTree.transit.ImageSet": {
             "additionalProperties": false,
             "properties": {
+                "blockIdentifier": {
+                    "type": "string"
+                },
                 "data": {},
                 "id": {
                     "type": "string"

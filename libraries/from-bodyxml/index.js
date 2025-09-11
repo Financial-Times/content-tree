@@ -56,36 +56,44 @@ export let defaultTransformers = {
    * @type {Transformer<ContentTree.transit.Heading>}
    */
   h1(h1) {
+    const blockId = h1.attributes["data-fragment-id"] || h1.attributes["id"];
     return {
       type: "heading",
       level: "chapter",
+      ...(blockId && { blockIdentifier: blockId }),
     };
   },
   /**
    * @type {Transformer<ContentTree.transit.Heading>}
    */
   h2(h2) {
+    const blockId = h2.attributes["data-fragment-id"] || h2.attributes["id"];
     return {
       type: "heading",
       level: "subheading",
+      ...(blockId && { blockIdentifier: blockId }),
     };
   },
   /**
    * @type {Transformer<ContentTree.transit.Heading>}
    */
   h3(h3) {
+    const blockId = h3.attributes["data-fragment-id"] || h3.attributes["id"];
     return {
       type: "heading",
       level: "subheading",
+      ...(blockId && { blockIdentifier: blockId }),
     };
   },
   /**
    * @type {Transformer<ContentTree.transit.Heading>}
    */
   h4(h4) {
+    const blockId = h4.attributes["data-fragment-id"] || h4.attributes["id"];
     return {
       type: "heading",
       level: "label",
+      ...(blockId && { blockIdentifier: blockId }),
     };
   },
   /**
@@ -237,9 +245,11 @@ export let defaultTransformers = {
    * @type {Transformer<ContentTree.transit.ImageSet>}
    */
   [ContentType.imageset](content) {
+    const blockId = content.attributes["data-fragment-id"] || content.attributes["id"];
     return {
       type: "image-set",
       id: content.attributes.url ?? "",
+      ...(blockId && { blockIdentifier: blockId }),
       children: null,
     };
   },
@@ -260,6 +270,7 @@ export let defaultTransformers = {
   [ContentType.content](content) {
     const id = content.attributes.url ?? "";
     const uuid = id.split("/").pop();
+    const blockId = content.attributes["data-fragment-id"] || content.attributes["id"];
 
     if (content.attributes["data-asset-type"] == "flourish") {
       return /** @type {ContentTree.transit.Flourish} */ ({
@@ -271,6 +282,7 @@ export let defaultTransformers = {
         ),
         description: content.attributes["alt"] || "",
         timestamp: content.attributes["data-time-stamp"] || "",
+        ...(blockId && { blockIdentifier: blockId }),
         children: null,
       });
     }

@@ -246,6 +246,7 @@ interface Heading extends Parent {
 	type: "heading"
 	children: Text[]
 	level: "chapter" | "subheading" | "label"
+	blockIdentifier?: string
 }
 ```
 
@@ -355,6 +356,7 @@ interface ImageSet extends Node {
 	type: "image-set"
 	id: string
 	external picture: ImageSetPicture
+	blockIdentifier?: string
 }
 ```
 
@@ -513,6 +515,7 @@ interface Flourish extends Node {
 	description?: string
 	timestamp?: string
 	external fallbackImage?: Image
+	blockIdentifier?: string
 }
 ```
 

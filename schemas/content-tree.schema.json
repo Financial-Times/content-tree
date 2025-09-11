@@ -239,6 +239,9 @@
         "ContentTree.full.Flourish": {
             "additionalProperties": false,
             "properties": {
+                "blockIdentifier": {
+                    "type": "string"
+                },
                 "data": {},
                 "description": {
                     "type": "string"
@@ -331,6 +334,9 @@
         "ContentTree.full.Heading": {
             "additionalProperties": false,
             "properties": {
+                "blockIdentifier": {
+                    "type": "string"
+                },
                 "children": {
                     "items": {
                         "$ref": "#/definitions/ContentTree.full.Text"
@@ -361,6 +367,9 @@
         "ContentTree.full.ImageSet": {
             "additionalProperties": false,
             "properties": {
+                "blockIdentifier": {
+                    "type": "string"
+                },
                 "data": {},
                 "id": {
                     "type": "string"

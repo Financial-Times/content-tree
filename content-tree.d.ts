@@ -36,6 +36,7 @@ export declare namespace ContentTree {
         type: "heading";
         children: Text[];
         level: "chapter" | "subheading" | "label";
+        blockIdentifier?: string;
     }
     interface Strong extends Parent {
         type: "strong";
@@ -77,6 +78,7 @@ export declare namespace ContentTree {
         type: "image-set";
         id: string;
         picture: ImageSetPicture;
+        blockIdentifier?: string;
     }
     type ImageSetPicture = {
         layoutWidth: string;
@@ -156,6 +158,7 @@ export declare namespace ContentTree {
         description?: string;
         timestamp?: string;
         fallbackImage?: Image;
+        blockIdentifier?: string;
     }
     interface BigNumber extends Node {
         type: "big-number";
@@ -311,6 +314,7 @@ export declare namespace ContentTree {
             type: "heading";
             children: Text[];
             level: "chapter" | "subheading" | "label";
+            blockIdentifier?: string;
         }
         interface Strong extends Parent {
             type: "strong";
@@ -352,6 +356,7 @@ export declare namespace ContentTree {
             type: "image-set";
             id: string;
             picture: ImageSetPicture;
+            blockIdentifier?: string;
         }
         type ImageSetPicture = {
             layoutWidth: string;
@@ -431,6 +436,7 @@ export declare namespace ContentTree {
             description?: string;
             timestamp?: string;
             fallbackImage?: Image;
+            blockIdentifier?: string;
         }
         interface BigNumber extends Node {
             type: "big-number";
@@ -587,6 +593,7 @@ export declare namespace ContentTree {
             type: "heading";
             children: Text[];
             level: "chapter" | "subheading" | "label";
+            blockIdentifier?: string;
         }
         interface Strong extends Parent {
             type: "strong";
@@ -627,6 +634,7 @@ export declare namespace ContentTree {
         interface ImageSet extends Node {
             type: "image-set";
             id: string;
+            blockIdentifier?: string;
         }
         type ImageSetPicture = {
             layoutWidth: string;
@@ -703,6 +711,7 @@ export declare namespace ContentTree {
             flourishType: string;
             description?: string;
             timestamp?: string;
+            blockIdentifier?: string;
         }
         interface BigNumber extends Node {
             type: "big-number";
@@ -848,6 +857,7 @@ export declare namespace ContentTree {
             type: "heading";
             children: Text[];
             level: "chapter" | "subheading" | "label";
+            blockIdentifier?: string;
         }
         interface Strong extends Parent {
             type: "strong";
@@ -889,6 +899,7 @@ export declare namespace ContentTree {
             type: "image-set";
             id: string;
             picture?: ImageSetPicture;
+            blockIdentifier?: string;
         }
         type ImageSetPicture = {
             layoutWidth: string;
@@ -968,6 +979,7 @@ export declare namespace ContentTree {
             description?: string;
             timestamp?: string;
             fallbackImage?: Image;
+            blockIdentifier?: string;
         }
         interface BigNumber extends Node {
             type: "big-number";
