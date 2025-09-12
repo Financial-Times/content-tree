@@ -8,6 +8,7 @@ let ContentType = {
   content: "http://www.ft.com/ontology/content/Content",
   article: "http://www.ft.com/ontology/content/Article",
   customCodeComponent: "http://www.ft.com/ontology/content/CustomCodeComponent",
+  clipSet: "http://www.ft.com/ontology/content/ClipSet",
 };
 
 /**
@@ -30,6 +31,24 @@ function toValidLayoutWidth(layoutWidth) {
     return /** @type {ContentTree.LayoutWidth} */ (layoutWidth);
   } else {
     return "full-width";
+  }
+}
+
+/**
+ * @param {string} layoutWidth
+ * @returns {ContentTree.ClipSet["layoutWidth"]}
+ */
+function toValidClipLayoutWidth(layoutWidth) {
+  if (
+    [
+      "in-line",
+      "full-grid",
+      "mid-grid",
+    ].includes(layoutWidth)
+  ) {
+    return /** @type {ContentTree.ClipSet["layoutWidth"]} */ (layoutWidth);
+  } else {
+    return "in-line";
   }
 }
 /**
@@ -317,6 +336,24 @@ export let defaultTransformers = {
         layoutWidth: toValidLayoutWidth(
           content.attributes["data-layout-width"] || ""
         ),
+        children: null,
+      };
+    },
+    /**
+   * @type {Transformer<ContentTree.transit.ClipSet>}
+   */
+    [ContentType.clipSet](clip) {
+      const id = clip.attributes.url ?? "";
+      const uuid = id.split("/").pop();
+      return {
+        type: "clip-set",
+        id: uuid ?? "",
+        layoutWidth: toValidClipLayoutWidth(
+          clip.attributes["data-layout-width"] || ""
+        ),
+        autoplay: clip.attributes?.autoplay === "true",
+        loop: clip.attributes?.loop === "true",
+        muted: clip.attributes?.muted === "true",
         children: null,
       };
     },
