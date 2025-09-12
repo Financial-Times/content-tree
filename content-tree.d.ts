@@ -11,7 +11,27 @@ export declare namespace ContentTree {
     }
     interface Root extends Node {
         type: "root";
+        topper: Topper;
         body: Body;
+    }
+    type TopperLayout = 'deep-portrait' | 'deep-landscape' | 'split-text-left' | 'full-bleed';
+    interface Topper extends Node {
+        type: 'topper';
+        suggestedTopperLayout: TopperLayout;
+        suggestedBackgroundColor: string;
+        headline: Headline;
+        intro: Intro;
+        visual: CustomCodeComponent | ImageSet;
+        displayConcept: TeaserConcept;
+    }
+    interface Headline extends Parent {
+        type: 'headline';
+        children: Text[];
+        isLarge: boolean;
+    }
+    interface Intro extends Parent {
+        type: 'intro';
+        children: [Text] | (Paragraph | List)[];
     }
     interface Body extends Parent {
         type: "body";
@@ -289,7 +309,27 @@ export declare namespace ContentTree {
         }
         interface Root extends Node {
             type: "root";
+            topper: Topper;
             body: Body;
+        }
+        type TopperLayout = 'deep-portrait' | 'deep-landscape' | 'split-text-left' | 'full-bleed';
+        interface Topper extends Node {
+            type: 'topper';
+            suggestedTopperLayout: TopperLayout;
+            suggestedBackgroundColor: string;
+            headline: Headline;
+            intro: Intro;
+            visual: CustomCodeComponent | ImageSet;
+            displayConcept: TeaserConcept;
+        }
+        interface Headline extends Parent {
+            type: 'headline';
+            children: Text[];
+            isLarge: boolean;
+        }
+        interface Intro extends Parent {
+            type: 'intro';
+            children: [Text] | (Paragraph | List)[];
         }
         interface Body extends Parent {
             type: "body";
@@ -568,7 +608,25 @@ export declare namespace ContentTree {
         }
         interface Root extends Node {
             type: "root";
+            topper: Topper;
             body: Body;
+        }
+        type TopperLayout = 'deep-portrait' | 'deep-landscape' | 'split-text-left' | 'full-bleed';
+        interface Topper extends Node {
+            type: 'topper';
+            suggestedTopperLayout: TopperLayout;
+            suggestedBackgroundColor: string;
+            headline: Headline;
+            intro: Intro;
+            visual: CustomCodeComponent | ImageSet;
+        }
+        interface Headline extends Parent {
+            type: 'headline';
+            children: Text[];
+        }
+        interface Intro extends Parent {
+            type: 'intro';
+            children: [Text] | (Paragraph | List)[];
         }
         interface Body extends Parent {
             type: "body";
@@ -832,7 +890,27 @@ export declare namespace ContentTree {
         }
         interface Root extends Node {
             type: "root";
+            topper: Topper;
             body: Body;
+        }
+        type TopperLayout = 'deep-portrait' | 'deep-landscape' | 'split-text-left' | 'full-bleed';
+        interface Topper extends Node {
+            type: 'topper';
+            suggestedTopperLayout: TopperLayout;
+            suggestedBackgroundColor: string;
+            headline: Headline;
+            intro: Intro;
+            visual: CustomCodeComponent | ImageSet;
+            displayConcept?: TeaserConcept;
+        }
+        interface Headline extends Parent {
+            type: 'headline';
+            children: Text[];
+            isLarge?: boolean;
+        }
+        interface Intro extends Parent {
+            type: 'intro';
+            children: [Text] | (Paragraph | List)[];
         }
         interface Body extends Parent {
             type: "body";
