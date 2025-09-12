@@ -239,9 +239,6 @@
         "ContentTree.full.Flourish": {
             "additionalProperties": false,
             "properties": {
-                "blockIdentifier": {
-                    "type": "string"
-                },
                 "data": {},
                 "description": {
                     "type": "string"
@@ -309,6 +306,9 @@
                 "flourishType": {
                     "type": "string"
                 },
+                "fragmentIdentifier": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "string"
                 },
@@ -334,9 +334,6 @@
         "ContentTree.full.Heading": {
             "additionalProperties": false,
             "properties": {
-                "blockIdentifier": {
-                    "type": "string"
-                },
                 "children": {
                     "items": {
                         "$ref": "#/definitions/ContentTree.full.Text"
@@ -344,6 +341,9 @@
                     "type": "array"
                 },
                 "data": {},
+                "fragmentIdentifier": {
+                    "type": "string"
+                },
                 "level": {
                     "enum": [
                         "chapter",
@@ -367,10 +367,10 @@
         "ContentTree.full.ImageSet": {
             "additionalProperties": false,
             "properties": {
-                "blockIdentifier": {
+                "data": {},
+                "fragmentIdentifier": {
                     "type": "string"
                 },
-                "data": {},
                 "id": {
                     "type": "string"
                 },

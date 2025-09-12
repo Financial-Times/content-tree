@@ -586,15 +586,15 @@ func (n *Emphasis) GetChildren() []Node {
 }
 
 type Flourish struct {
-	Type            string                 `json:"type"`
-	Data            interface{}            `json:"data,omitempty"`
-	Description     string                 `json:"description,omitempty"`
-	FallbackImage   *FlourishFallbackImage `json:"fallbackImage,omitempty"`
-	FlourishType    string                 `json:"flourishType,omitempty"`
-	Id              string                 `json:"id,omitempty"`
-	LayoutWidth     string                 `json:"layoutWidth,omitempty"`
-	Timestamp       string                 `json:"timestamp,omitempty"`
-	BlockIdentifier string                 `json:"blockIdentifier,omitempty"`
+	Type			   string                 `json:"type"`
+	Data               interface{}            `json:"data,omitempty"`
+	Description        string                 `json:"description,omitempty"`
+	FallbackImage      *FlourishFallbackImage `json:"fallbackImage,omitempty"`
+	FlourishType       string                 `json:"flourishType,omitempty"`
+	Id                 string                 `json:"id,omitempty"`
+	LayoutWidth        string                 `json:"layoutWidth,omitempty"`
+	Timestamp          string                 `json:"timestamp,omitempty"`
+	FragmentIdentifier string                 `json:"fragmentIdentifier,omitempty"`
 }
 
 func (n *Flourish) GetType() string {
@@ -625,11 +625,11 @@ type FlourishFallbackImageSourceSetElem struct {
 }
 
 type Heading struct {
-	Type     string      `json:"type"`
-	Children []*Text     `json:"children,omitempty"`
-	Data     interface{} `json:"data,omitempty"`
-	Level    string      `json:"level,omitempty"`
-	BlockIdentifier string      `json:"blockIdentifier,omitempty"`
+	Type               string      `json:"type"`
+	Children           []*Text     `json:"children,omitempty"`
+	Data               interface{} `json:"data,omitempty"`
+	Level              string      `json:"level,omitempty"`
+	FragmentIdentifier string      `json:"fragmentIdentifier,omitempty"`
 }
 
 func (n *Heading) GetType() string {
@@ -649,11 +649,11 @@ func (n *Heading) GetChildren() []Node {
 }
 
 type ImageSet struct {
-	Type            string      `json:"type"`
-	Data            interface{} `json:"data,omitempty"`
-	ID              string      `json:"id,omitempty"`
-	Picture         *Picture    `json:"picture,omitempty"`
-	BlockIdentifier string      `json:"blockIdentifier,omitempty"`
+	Type               string      `json:"type"`
+	Data               interface{} `json:"data,omitempty"`
+	ID                 string      `json:"id,omitempty"`
+	Picture            *Picture    `json:"picture,omitempty"`
+	FragmentIdentifier string      `json:"fragmentIdentifier,omitempty"`
 }
 
 func (n *ImageSet) GetType() string {
