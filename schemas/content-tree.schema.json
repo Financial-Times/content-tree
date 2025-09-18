@@ -310,11 +310,7 @@
                     "type": "string"
                 },
                 "layoutWidth": {
-                    "enum": [
-                        "full-grid",
-                        "in-line"
-                    ],
-                    "type": "string"
+                    "$ref": "#/definitions/ContentTree.full.FlourishLayoutWidth"
                 },
                 "timestamp": {
                     "type": "string"
@@ -331,6 +327,13 @@
                 "type"
             ],
             "type": "object"
+        },
+        "ContentTree.full.FlourishLayoutWidth": {
+            "enum": [
+                "full-grid",
+                "in-line"
+            ],
+            "type": "string"
         },
         "ContentTree.full.Heading": {
             "additionalProperties": false,
@@ -1670,14 +1673,7 @@
                 },
                 "data": {},
                 "layoutWidth": {
-                    "enum": [
-                        "auto",
-                        "full-bleed",
-                        "full-grid",
-                        "inset-left",
-                        "inset-right"
-                    ],
-                    "type": "string"
+                    "$ref": "#/definitions/ContentTree.full.TableLayoutWidth"
                 },
                 "responsiveStyle": {
                     "enum": [
@@ -1798,6 +1794,16 @@
                 "type"
             ],
             "type": "object"
+        },
+        "ContentTree.full.TableLayoutWidth": {
+            "enum": [
+                "auto",
+                "full-bleed",
+                "full-grid",
+                "inset-left",
+                "inset-right"
+            ],
+            "type": "string"
         },
         "ContentTree.full.TableRow": {
             "additionalProperties": false,

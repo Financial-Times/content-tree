@@ -505,10 +505,13 @@ interface Tweet extends Node {
 ### `Flourish`
 
 ```ts
+
+type FlourishLayoutWidth =  Extract<LayoutWidth, "full-grid" | "in-line">
+
 interface Flourish extends Node {
 	type: "flourish"
 	id: string
-	layoutWidth: "full-grid" | "in-line"
+	layoutWidth: FlourishLayoutWidth
 	flourishType: string
 	description?: string
 	timestamp?: string
@@ -676,6 +679,14 @@ type TableColumnSettings = {
 	sortType: 'text' | 'number' | 'date' | 'currency' | 'percent'
 }
 
+type TableLayoutWidth = Extract<LayoutWidth,
+		| 'auto'
+		| 'full-grid'
+		| 'inset-left'
+		| 'inset-right'
+		| 'full-bleed'>
+
+
 interface TableCaption extends Parent {
 	type: 'table-caption'
 	children: Phrasing[]
@@ -708,12 +719,7 @@ interface Table extends Parent {
 	type: 'table'
 	stripes: boolean
 	compact: boolean
-	layoutWidth:
-		| 'auto'
-		| 'full-grid'
-		| 'inset-left'
-		| 'inset-right'
-		| 'full-bleed'
+	layoutWidth: TableLayoutWidth
 	collapseAfterHowManyRows?: number
 	responsiveStyle: 'overflow' | 'flat' | 'scroll'
 	children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody]

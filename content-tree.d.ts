@@ -148,10 +148,11 @@ export declare namespace ContentTree {
         type: "tweet";
         html: string;
     }
+    type FlourishLayoutWidth = Extract<LayoutWidth, "full-grid" | "in-line">;
     interface Flourish extends Node {
         type: "flourish";
         id: string;
-        layoutWidth: "full-grid" | "in-line";
+        layoutWidth: FlourishLayoutWidth;
         flourishType: string;
         description?: string;
         timestamp?: string;
@@ -221,6 +222,7 @@ export declare namespace ContentTree {
         sortable: boolean;
         sortType: 'text' | 'number' | 'date' | 'currency' | 'percent';
     };
+    type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
     interface TableCaption extends Parent {
         type: 'table-caption';
         children: Phrasing[];
@@ -248,7 +250,7 @@ export declare namespace ContentTree {
         type: 'table';
         stripes: boolean;
         compact: boolean;
-        layoutWidth: 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed';
+        layoutWidth: TableLayoutWidth;
         collapseAfterHowManyRows?: number;
         responsiveStyle: 'overflow' | 'flat' | 'scroll';
         children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
@@ -423,10 +425,11 @@ export declare namespace ContentTree {
             type: "tweet";
             html: string;
         }
+        type FlourishLayoutWidth = Extract<LayoutWidth, "full-grid" | "in-line">;
         interface Flourish extends Node {
             type: "flourish";
             id: string;
-            layoutWidth: "full-grid" | "in-line";
+            layoutWidth: FlourishLayoutWidth;
             flourishType: string;
             description?: string;
             timestamp?: string;
@@ -496,6 +499,7 @@ export declare namespace ContentTree {
             sortable: boolean;
             sortType: 'text' | 'number' | 'date' | 'currency' | 'percent';
         };
+        type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
         interface TableCaption extends Parent {
             type: 'table-caption';
             children: Phrasing[];
@@ -523,7 +527,7 @@ export declare namespace ContentTree {
             type: 'table';
             stripes: boolean;
             compact: boolean;
-            layoutWidth: 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed';
+            layoutWidth: TableLayoutWidth;
             collapseAfterHowManyRows?: number;
             responsiveStyle: 'overflow' | 'flat' | 'scroll';
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
@@ -696,10 +700,11 @@ export declare namespace ContentTree {
             id: string;
             type: "tweet";
         }
+        type FlourishLayoutWidth = Extract<LayoutWidth, "full-grid" | "in-line">;
         interface Flourish extends Node {
             type: "flourish";
             id: string;
-            layoutWidth: "full-grid" | "in-line";
+            layoutWidth: FlourishLayoutWidth;
             flourishType: string;
             description?: string;
             timestamp?: string;
@@ -765,6 +770,7 @@ export declare namespace ContentTree {
             sortable: boolean;
             sortType: 'text' | 'number' | 'date' | 'currency' | 'percent';
         };
+        type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
         interface TableCaption extends Parent {
             type: 'table-caption';
             children: Phrasing[];
@@ -792,7 +798,7 @@ export declare namespace ContentTree {
             type: 'table';
             stripes: boolean;
             compact: boolean;
-            layoutWidth: 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed';
+            layoutWidth: TableLayoutWidth;
             collapseAfterHowManyRows?: number;
             responsiveStyle: 'overflow' | 'flat' | 'scroll';
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
@@ -960,10 +966,11 @@ export declare namespace ContentTree {
             type: "tweet";
             html?: string;
         }
+        type FlourishLayoutWidth = Extract<LayoutWidth, "full-grid" | "in-line">;
         interface Flourish extends Node {
             type: "flourish";
             id: string;
-            layoutWidth: "full-grid" | "in-line";
+            layoutWidth: FlourishLayoutWidth;
             flourishType: string;
             description?: string;
             timestamp?: string;
@@ -1033,6 +1040,7 @@ export declare namespace ContentTree {
             sortable: boolean;
             sortType: 'text' | 'number' | 'date' | 'currency' | 'percent';
         };
+        type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
         interface TableCaption extends Parent {
             type: 'table-caption';
             children: Phrasing[];
@@ -1060,7 +1068,7 @@ export declare namespace ContentTree {
             type: 'table';
             stripes: boolean;
             compact: boolean;
-            layoutWidth: 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed';
+            layoutWidth: TableLayoutWidth;
             collapseAfterHowManyRows?: number;
             responsiveStyle: 'overflow' | 'flat' | 'scroll';
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
