@@ -72,6 +72,13 @@ const (
 	TableChildType          = "table-child"
 )
 
+var (
+	// returned when calling AppendChild on a node that doesn't own a Children slice
+	ErrCannotHaveChildren = errors.New("node cannot have children")
+	// returned when a child is not one of the allowed types for a parent
+	ErrInvalidChildType = errors.New("invalid child type for this parent")
+)
+
 // Node represents a unified interface for different types of content tree nodes.
 // It facilitates easy traversal of the tree structure without requiring type casting.
 type Node interface {
@@ -82,6 +89,16 @@ type Node interface {
 	// GetEmbedded returns the embedded node, if applicable.
 	// It is useful for traversing node structs which embed other node structs.
 	GetEmbedded() Node
+	// AppendChild attempts to append a child node, returning an error if not allowed.
+	AppendChild(child Node) error
+}
+
+// typed() is a small utility to read a node's type without full unmarshal.
+func typed(v any) string {
+	if n, ok := v.(Node); ok && n != nil {
+		return n.GetType()
+	}
+	return ""
 }
 
 // typedNode is a lightweight struct that holds only the type information of a content tree node.
@@ -103,7 +120,7 @@ type ColumnSettingsItems struct {
 
 type BigNumber struct {
 	Type        string      `json:"type"`
-	Data       	interface{} `json:"data,omitempty"`
+	Data        interface{} `json:"data,omitempty"`
 	Description string      `json:"description,omitempty"`
 	Number      string      `json:"number,omitempty"`
 }
@@ -586,7 +603,7 @@ func (n *Emphasis) GetChildren() []Node {
 }
 
 type Flourish struct {
-	Type			   string                 `json:"type"`
+	Type               string                 `json:"type"`
 	Data               interface{}            `json:"data,omitempty"`
 	Description        string                 `json:"description,omitempty"`
 	FallbackImage      *FlourishFallbackImage `json:"fallbackImage,omitempty"`
@@ -1956,3 +1973,393 @@ func (n *Teaser) GetEmbedded() Node {
 func (n *Teaser) GetChildren() []Node {
 	return nil
 }
+
+// Build a BodyBlock wrapper from any allowed top-level block node.
+func makeBodyBlock(n Node) (*BodyBlock, error) {
+	switch n.GetType() {
+	case ParagraphType:
+		return &BodyBlock{Paragraph: n.(*Paragraph)}, nil
+	case FlourishType:
+		return &BodyBlock{Flourish: n.(*Flourish)}, nil
+	case HeadingType:
+		return &BodyBlock{Heading: n.(*Heading)}, nil
+	case ImageSetType:
+		return &BodyBlock{ImageSet: n.(*ImageSet)}, nil
+	case BigNumberType:
+		return &BodyBlock{BigNumber: n.(*BigNumber)}, nil
+	case LayoutType:
+		return &BodyBlock{Layout: n.(*Layout)}, nil
+	case ListType:
+		return &BodyBlock{List: n.(*List)}, nil
+	case BlockquoteType:
+		return &BodyBlock{Blockquote: n.(*Blockquote)}, nil
+	case PullquoteType:
+		return &BodyBlock{Pullquote: n.(*Pullquote)}, nil
+	case ScrollyBlockType:
+		return &BodyBlock{ScrollyBlock: n.(*ScrollyBlock)}, nil
+	case ThematicBreakType:
+		return &BodyBlock{ThematicBreak: n.(*ThematicBreak)}, nil
+	case TableType:
+		return &BodyBlock{Table: n.(*Table)}, nil
+	case TextType:
+		return &BodyBlock{Text: n.(*Text)}, nil
+	case RecommendedType:
+		return &BodyBlock{Recommended: n.(*Recommended)}, nil
+	case TweetType:
+		return &BodyBlock{Tweet: n.(*Tweet)}, nil
+	case VideoType:
+		return &BodyBlock{Video: n.(*Video)}, nil
+	case YoutubeVideoType:
+		return &BodyBlock{YoutubeVideo: n.(*YoutubeVideo)}, nil
+	case CustomCodeComponentType:
+		return &BodyBlock{CustomCodeComponent: n.(*CustomCodeComponent)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
+}
+
+// Build a Phrasing wrapper for paragraph/phrasing-bearing parents.
+func makePhrasing(n Node) (*Phrasing, error) {
+	switch n.GetType() {
+	case TextType:
+		return &Phrasing{Text: n.(*Text)}, nil
+	case BreakType:
+		return &Phrasing{Break: n.(*Break)}, nil
+	case StrongType:
+		return &Phrasing{Strong: n.(*Strong)}, nil
+	case EmphasisType:
+		return &Phrasing{Emphasis: n.(*Emphasis)}, nil
+	case StrikethroughType:
+		return &Phrasing{Strikethrough: n.(*Strikethrough)}, nil
+	case LinkType:
+		return &Phrasing{Link: n.(*Link)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
+}
+
+// Build a BlockquoteChild wrapper.
+func makeBlockquoteChild(n Node) (*BlockquoteChild, error) {
+	switch n.GetType() {
+	case ParagraphType:
+		return &BlockquoteChild{Paragraph: n.(*Paragraph)}, nil
+	case TextType:
+		return &BlockquoteChild{Text: n.(*Text)}, nil
+	case BreakType:
+		return &BlockquoteChild{Break: n.(*Break)}, nil
+	case StrongType:
+		return &BlockquoteChild{Strong: n.(*Strong)}, nil
+	case EmphasisType:
+		return &BlockquoteChild{Emphasis: n.(*Emphasis)}, nil
+	case StrikethroughType:
+		return &BlockquoteChild{Strikethrough: n.(*Strikethrough)}, nil
+	case LinkType:
+		return &BlockquoteChild{Link: n.(*Link)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
+}
+
+// Build a ListItemChild wrapper.
+func makeListItemChild(n Node) (*ListItemChild, error) {
+	switch n.GetType() {
+	case ParagraphType:
+		return &ListItemChild{Paragraph: n.(*Paragraph)}, nil
+	case TextType:
+		return &ListItemChild{Text: n.(*Text)}, nil
+	case BreakType:
+		return &ListItemChild{Break: n.(*Break)}, nil
+	case StrongType:
+		return &ListItemChild{Strong: n.(*Strong)}, nil
+	case EmphasisType:
+		return &ListItemChild{Emphasis: n.(*Emphasis)}, nil
+	case StrikethroughType:
+		return &ListItemChild{Strikethrough: n.(*Strikethrough)}, nil
+	case LinkType:
+		return &ListItemChild{Link: n.(*Link)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
+}
+
+// Build LayoutChild wrapper.
+func makeLayoutChild(n Node) (*LayoutChild, error) {
+	switch n.GetType() {
+	case LayoutSlotType:
+		return &LayoutChild{LayoutSlot: n.(*LayoutSlot)}, nil
+	case HeadingType:
+		return &LayoutChild{Heading: n.(*Heading)}, nil
+	case LayoutImageType:
+		return &LayoutChild{LayoutImage: n.(*LayoutImage)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
+}
+
+// Build LayoutSlotChild wrapper.
+func makeLayoutSlotChild(n Node) (*LayoutSlotChild, error) {
+	switch n.GetType() {
+	case ParagraphType:
+		return &LayoutSlotChild{Paragraph: n.(*Paragraph)}, nil
+	case HeadingType:
+		return &LayoutSlotChild{Heading: n.(*Heading)}, nil
+	case LayoutImageType:
+		return &LayoutSlotChild{LayoutImage: n.(*LayoutImage)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
+}
+
+// Build ScrollySectionChild wrapper.
+func makeScrollySectionChild(n Node) (*ScrollySectionChild, error) {
+	switch n.GetType() {
+	case ScrollyCopyType:
+		return &ScrollySectionChild{ScrollyCopy: n.(*ScrollyCopy)}, nil
+	case ScrollyImageType:
+		return &ScrollySectionChild{ScrollyImage: n.(*ScrollyImage)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
+}
+
+// Build ScrollyCopyChild wrapper.
+func makeScrollyCopyChild(n Node) (*ScrollyCopyChild, error) {
+	switch n.GetType() {
+	case ParagraphType:
+		return &ScrollyCopyChild{Paragraph: n.(*Paragraph)}, nil
+	case ScrollyHeadingType:
+		return &ScrollyCopyChild{ScrollyHeading: n.(*ScrollyHeading)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
+}
+
+// Build TableChild wrapper.
+func makeTableChild(n Node) (*TableChild, error) {
+	switch n.GetType() {
+	case TableCaptionType:
+		return &TableChild{TableCaption: n.(*TableCaption)}, nil
+	case TableBodyType:
+		return &TableChild{TableBody: n.(*TableBody)}, nil
+	case TableFooterType:
+		return &TableChild{TableFooter: n.(*TableFooter)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
+}
+
+// ===== Nodes WITH children =====
+
+func (n *Body) AppendChild(child Node) error {
+	if n == nil {
+		return fmt.Errorf("nil Body: %w", ErrCannotHaveChildren)
+	}
+	bb, err := makeBodyBlock(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, bb)
+	return nil
+}
+
+func (n *Paragraph) AppendChild(child Node) error {
+	p, err := makePhrasing(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, p)
+	return nil
+}
+
+func (n *Emphasis) AppendChild(child Node) error {
+	p, err := makePhrasing(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, p)
+	return nil
+}
+
+func (n *Strong) AppendChild(child Node) error {
+	p, err := makePhrasing(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, p)
+	return nil
+}
+
+func (n *Strikethrough) AppendChild(child Node) error {
+	p, err := makePhrasing(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, p)
+	return nil
+}
+
+func (n *Link) AppendChild(child Node) error {
+	p, err := makePhrasing(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, p)
+	return nil
+}
+
+func (n *Blockquote) AppendChild(child Node) error {
+	c, err := makeBlockquoteChild(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, c)
+	return nil
+}
+
+func (n *List) AppendChild(child Node) error {
+	// Keep strict: only accept ListItem
+	if child.GetType() != ListItemType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*ListItem))
+	return nil
+}
+
+func (n *ListItem) AppendChild(child Node) error {
+	c, err := makeListItemChild(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, c)
+	return nil
+}
+
+func (n *Layout) AppendChild(child Node) error {
+	c, err := makeLayoutChild(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, c)
+	return nil
+}
+
+func (n *LayoutSlot) AppendChild(child Node) error {
+	c, err := makeLayoutSlotChild(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, c)
+	return nil
+}
+
+func (n *Heading) AppendChild(child Node) error {
+	// Heading only allows Text nodes
+	if child.GetType() != TextType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*Text))
+	return nil
+}
+
+func (n *ScrollyBlock) AppendChild(child Node) error {
+	if child.GetType() != ScrollySectionType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*ScrollySection))
+	return nil
+}
+
+func (n *ScrollySection) AppendChild(child Node) error {
+	c, err := makeScrollySectionChild(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, c)
+	return nil
+}
+
+func (n *ScrollyCopy) AppendChild(child Node) error {
+	c, err := makeScrollyCopyChild(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, c)
+	return nil
+}
+
+func (n *Table) AppendChild(child Node) error {
+	c, err := makeTableChild(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, c)
+	return nil
+}
+
+func (n *TableBody) AppendChild(child Node) error {
+	if child.GetType() != TableRowType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*TableRow))
+	return nil
+}
+
+func (n *TableRow) AppendChild(child Node) error {
+	if child.GetType() != TableCellType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*TableCell))
+	return nil
+}
+
+func (n *TableCaption) AppendChild(child Node) error {
+	if child.GetType() != TableType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*Table))
+	return nil
+}
+
+func (n *TableFooter) AppendChild(child Node) error {
+	if child.GetType() != TableType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*Table))
+	return nil
+}
+
+func (n *TableCell) AppendChild(child Node) error {
+	if child.GetType() != TableType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*Table))
+	return nil
+}
+
+func (n *BigNumber) AppendChild(child Node) error           { return ErrCannotHaveChildren }
+func (n *Break) AppendChild(child Node) error               { return ErrCannotHaveChildren }
+func (n *Flourish) AppendChild(child Node) error            { return ErrCannotHaveChildren }
+func (n *ImageSet) AppendChild(child Node) error            { return ErrCannotHaveChildren }
+func (n *LayoutImage) AppendChild(child Node) error         { return ErrCannotHaveChildren }
+func (n *Pullquote) AppendChild(child Node) error           { return ErrCannotHaveChildren }
+func (n *Recommended) AppendChild(child Node) error         { return ErrCannotHaveChildren }
+func (n *ScrollyImage) AppendChild(child Node) error        { return ErrCannotHaveChildren }
+func (n *ScrollyHeading) AppendChild(child Node) error      { return ErrCannotHaveChildren }
+func (n *Text) AppendChild(child Node) error                { return ErrCannotHaveChildren }
+func (n *ThematicBreak) AppendChild(child Node) error       { return ErrCannotHaveChildren }
+func (n *Tweet) AppendChild(child Node) error               { return ErrCannotHaveChildren }
+func (n *Video) AppendChild(child Node) error               { return ErrCannotHaveChildren }
+func (n *YoutubeVideo) AppendChild(child Node) error        { return ErrCannotHaveChildren }
+func (n *CustomCodeComponent) AppendChild(child Node) error { return ErrCannotHaveChildren }
+func (n *Root) AppendChild(child Node) error                { return ErrCannotHaveChildren }
+
+// union wrappers (no own Children slice)
+func (n *BodyBlock) AppendChild(child Node) error           { return ErrCannotHaveChildren }
+func (n *Phrasing) AppendChild(child Node) error            { return ErrCannotHaveChildren }
+func (n *BlockquoteChild) AppendChild(child Node) error     { return ErrCannotHaveChildren }
+func (n *ListItemChild) AppendChild(child Node) error       { return ErrCannotHaveChildren }
+func (n *LayoutChild) AppendChild(child Node) error         { return ErrCannotHaveChildren }
+func (n *LayoutSlotChild) AppendChild(child Node) error     { return ErrCannotHaveChildren }
+func (n *ScrollySectionChild) AppendChild(child Node) error { return ErrCannotHaveChildren }
+func (n *ScrollyCopyChild) AppendChild(child Node) error    { return ErrCannotHaveChildren }
+func (n *TableChild) AppendChild(child Node) error          { return ErrCannotHaveChildren }
