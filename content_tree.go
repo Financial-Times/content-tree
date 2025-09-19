@@ -139,7 +139,7 @@ func (n *BigNumber) GetChildren() []Node {
 
 type Blockquote struct {
 	Type     string             `json:"type"`
-	Children []*BlockquoteChild `json:"children,omitempty"`
+	Children []*BlockquoteChild `json:"children"`
 	Data     interface{}        `json:"data,omitempty"`
 }
 
@@ -280,7 +280,7 @@ func (n *BlockquoteChild) UnmarshalJSON(data []byte) error {
 
 type Body struct {
 	Type     string       `json:"type"`
-	Children []*BodyBlock `json:"children,omitempty"`
+	Children []*BodyBlock `json:"children"`
 	Data     interface{}  `json:"data,omitempty"`
 	Version  float64      `json:"version,omitempty"`
 }
@@ -582,7 +582,7 @@ func (n *Break) GetChildren() []Node {
 
 type Emphasis struct {
 	Type     string      `json:"type"`
-	Children []*Phrasing `json:"children,omitempty"`
+	Children []*Phrasing `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
 }
 
@@ -643,7 +643,7 @@ type FlourishFallbackImageSourceSetElem struct {
 
 type Heading struct {
 	Type               string      `json:"type"`
-	Children           []*Text     `json:"children,omitempty"`
+	Children           []*Text     `json:"children"`
 	Data               interface{} `json:"data,omitempty"`
 	Level              string      `json:"level,omitempty"`
 	FragmentIdentifier string      `json:"fragmentIdentifier,omitempty"`
@@ -687,7 +687,7 @@ func (n *ImageSet) GetChildren() []Node {
 
 type Layout struct {
 	Type        string         `json:"type"`
-	Children    []*LayoutChild `json:"children,omitempty"`
+	Children    []*LayoutChild `json:"children"`
 	Data        interface{}    `json:"data,omitempty"`
 	LayoutName  string         `json:"layoutName,omitempty"`
 	LayoutWidth string         `json:"layoutWidth,omitempty"`
@@ -800,7 +800,7 @@ func (n *LayoutImage) GetChildren() []Node {
 
 type LayoutSlot struct {
 	Type     string             `json:"type"`
-	Children []*LayoutSlotChild `json:"children,omitempty"`
+	Children []*LayoutSlotChild `json:"children"`
 	Data     interface{}        `json:"data,omitempty"`
 }
 
@@ -889,7 +889,7 @@ func (n *LayoutSlotChild) UnmarshalJSON(data []byte) error {
 
 type Link struct {
 	Type     string      `json:"type"`
-	Children []*Phrasing `json:"children,omitempty"`
+	Children []*Phrasing `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
 	Title    string      `json:"title,omitempty"`
 	URL      string      `json:"url,omitempty"`
@@ -913,7 +913,7 @@ func (n *Link) GetChildren() []Node {
 
 type List struct {
 	Type     string      `json:"type"`
-	Children []*ListItem `json:"children,omitempty"`
+	Children []*ListItem `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
 	Ordered  bool        `json:"ordered,omitempty"`
 }
@@ -936,7 +936,7 @@ func (n *List) GetChildren() []Node {
 
 type ListItem struct {
 	Type     string           `json:"type"`
-	Children []*ListItemChild `json:"children,omitempty"`
+	Children []*ListItemChild `json:"children"`
 	Data     interface{}      `json:"data,omitempty"`
 }
 
@@ -1080,7 +1080,7 @@ func (n *ListItemChild) UnmarshalJSON(data []byte) error {
 
 type Paragraph struct {
 	Type     string      `json:"type"`
-	Children []*Phrasing `json:"children,omitempty"`
+	Children []*Phrasing `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
 }
 
@@ -1248,7 +1248,7 @@ func (n *Recommended) GetChildren() []Node {
 
 type ScrollyBlock struct {
 	Type     string            `json:"type"`
-	Children []*ScrollySection `json:"children,omitempty"`
+	Children []*ScrollySection `json:"children"`
 	Data     interface{}       `json:"data,omitempty"`
 	Theme    string            `json:"theme,omitempty"`
 }
@@ -1271,7 +1271,7 @@ func (n *ScrollyBlock) GetChildren() []Node {
 
 type ScrollyCopy struct {
 	Type     string              `json:"type"`
-	Children []*ScrollyCopyChild `json:"children,omitempty"`
+	Children []*ScrollyCopyChild `json:"children"`
 	Data     interface{}         `json:"data,omitempty"`
 }
 
@@ -1347,7 +1347,7 @@ func (n *ScrollyCopyChild) UnmarshalJSON(data []byte) error {
 
 type ScrollyHeading struct {
 	Type     string      `json:"type"`
-	Children []*Text     `json:"children,omitempty"`
+	Children []*Text     `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
 	Level    string      `json:"level,omitempty"`
 }
@@ -1389,7 +1389,7 @@ func (n *ScrollyImage) GetChildren() []Node {
 
 type ScrollySection struct {
 	Type       string                 `json:"type"`
-	Children   []*ScrollySectionChild `json:"children,omitempty"`
+	Children   []*ScrollySectionChild `json:"children"`
 	Data       interface{}            `json:"data,omitempty"`
 	Display    string                 `json:"display,omitempty"`
 	NoBox      bool                   `json:"noBox,omitempty"`
@@ -1469,7 +1469,7 @@ func (n *ScrollySectionChild) UnmarshalJSON(data []byte) error {
 
 type Strikethrough struct {
 	Type     string      `json:"type"`
-	Children []*Phrasing `json:"children,omitempty"`
+	Children []*Phrasing `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
 }
 
@@ -1491,7 +1491,7 @@ func (n *Strikethrough) GetChildren() []Node {
 
 type Strong struct {
 	Type     string      `json:"type"`
-	Children []*Phrasing `json:"children,omitempty"`
+	Children []*Phrasing `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
 }
 
@@ -1513,7 +1513,7 @@ func (n *Strong) GetChildren() []Node {
 
 type Table struct {
 	Type                     string                 `json:"type"`
-	Children                 []*TableChild          `json:"children,omitempty"`
+	Children                 []*TableChild          `json:"children"`
 	CollapseAfterHowManyRows float64                `json:"collapseAfterHowManyRows,omitempty"`
 	ColumnSettings           []*ColumnSettingsItems `json:"columnSettings,omitempty"`
 	Compact                  bool                   `json:"compact,omitempty"`
@@ -1608,7 +1608,7 @@ func (n *TableChild) UnmarshalJSON(data []byte) error {
 
 type TableBody struct {
 	Type     string      `json:"type"`
-	Children []*TableRow `json:"children,omitempty"`
+	Children []*TableRow `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
 }
 
@@ -1630,7 +1630,7 @@ func (n *TableBody) GetChildren() []Node {
 
 type TableCaption struct {
 	Type     string      `json:"type"`
-	Children []*Table    `json:"children,omitempty"`
+	Children []*Table    `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
 }
 
@@ -1652,7 +1652,7 @@ func (n *TableCaption) GetChildren() []Node {
 
 type TableCell struct {
 	Type     string      `json:"type"`
-	Children []*Table    `json:"children,omitempty"`
+	Children []*Table    `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
 	Heading  bool        `json:"heading,omitempty"`
 }
@@ -1675,7 +1675,7 @@ func (n *TableCell) GetChildren() []Node {
 
 type TableFooter struct {
 	Type     string      `json:"type"`
-	Children []*Table    `json:"children,omitempty"`
+	Children []*Table    `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
 }
 
@@ -1697,7 +1697,7 @@ func (n *TableFooter) GetChildren() []Node {
 
 type TableRow struct {
 	Type     string       `json:"type"`
-	Children []*TableCell `json:"children,omitempty"`
+	Children []*TableCell `json:"children"`
 	Data     interface{}  `json:"data,omitempty"`
 }
 
