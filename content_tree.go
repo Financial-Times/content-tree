@@ -915,7 +915,7 @@ type List struct {
 	Type     string      `json:"type"`
 	Children []*ListItem `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
-	Ordered  bool        `json:"ordered,omitempty"`
+	Ordered  bool        `json:"ordered"`
 }
 
 func (n *List) GetType() string {
