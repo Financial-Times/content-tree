@@ -121,8 +121,8 @@ type ColumnSettingsItems struct {
 type BigNumber struct {
 	Type        string      `json:"type"`
 	Data        interface{} `json:"data,omitempty"`
-	Description string      `json:"description,omitempty"`
-	Number      string      `json:"number,omitempty"`
+	Description string      `json:"description"`
+	Number      string      `json:"number"`
 }
 
 func (n *BigNumber) GetType() string {
@@ -605,12 +605,12 @@ func (n *Emphasis) GetChildren() []Node {
 type Flourish struct {
 	Type               string                 `json:"type"`
 	Data               interface{}            `json:"data,omitempty"`
-	Description        string                 `json:"description,omitempty"`
+	Description        string                 `json:"description"`
 	FallbackImage      *FlourishFallbackImage `json:"fallbackImage,omitempty"`
 	FlourishType       string                 `json:"flourishType,omitempty"`
 	Id                 string                 `json:"id,omitempty"`
-	LayoutWidth        string                 `json:"layoutWidth,omitempty"`
-	Timestamp          string                 `json:"timestamp,omitempty"`
+	LayoutWidth        string                 `json:"layoutWidth"`
+	Timestamp          string                 `json:"timestamp"`
 	FragmentIdentifier string                 `json:"fragmentIdentifier,omitempty"`
 }
 
@@ -668,7 +668,7 @@ func (n *Heading) GetChildren() []Node {
 type ImageSet struct {
 	Type               string      `json:"type"`
 	Data               interface{} `json:"data,omitempty"`
-	ID                 string      `json:"id,omitempty"`
+	ID                 string      `json:"id"`
 	Picture            *Picture    `json:"picture,omitempty"`
 	FragmentIdentifier string      `json:"fragmentIdentifier,omitempty"`
 }
@@ -778,11 +778,11 @@ func (n *LayoutChild) UnmarshalJSON(data []byte) error {
 
 type LayoutImage struct {
 	Type    string      `json:"type"`
-	Alt     string      `json:"alt,omitempty"`
-	Caption string      `json:"caption,omitempty"`
-	Credit  string      `json:"credit,omitempty"`
+	Alt     string      `json:"alt"`
+	Caption string      `json:"caption"`
+	Credit  string      `json:"credit"`
 	Data    interface{} `json:"data,omitempty"`
-	ID      string      `json:"id,omitempty"`
+	ID      string      `json:"id"`
 	Picture *Picture    `json:"picture,omitempty"`
 }
 
@@ -891,8 +891,8 @@ type Link struct {
 	Type     string      `json:"type"`
 	Children []*Phrasing `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
-	Title    string      `json:"title,omitempty"`
-	URL      string      `json:"url,omitempty"`
+	Title    string      `json:"title"`
+	URL      string      `json:"url"`
 }
 
 func (n *Link) GetType() string {
@@ -1209,8 +1209,8 @@ func (n *Phrasing) UnmarshalJSON(data []byte) error {
 type Pullquote struct {
 	Type   string      `json:"type"`
 	Data   interface{} `json:"data,omitempty"`
-	Source string      `json:"source,omitempty"`
-	Text   string      `json:"text,omitempty"`
+	Source string      `json:"source"`
+	Text   string      `json:"text"`
 }
 
 func (n *Pullquote) GetType() string {
@@ -1228,10 +1228,10 @@ func (n *Pullquote) GetChildren() []Node {
 type Recommended struct {
 	Type                string      `json:"type"`
 	Data                interface{} `json:"data,omitempty"`
-	Heading             string      `json:"heading,omitempty"`
-	ID                  string      `json:"id,omitempty"`
+	Heading             string      `json:"heading"`
+	ID                  string      `json:"id"`
 	Teaser              *Teaser     `json:"teaser,omitempty"`
-	TeaserTitleOverride string      `json:"teaserTitleOverride,omitempty"`
+	TeaserTitleOverride string      `json:"teaserTitleOverride"`
 }
 
 func (n *Recommended) GetType() string {
@@ -1774,7 +1774,7 @@ func (n *Tweet) GetChildren() []Node {
 type Video struct {
 	Type string      `json:"type"`
 	Data interface{} `json:"data,omitempty"`
-	ID   string      `json:"id,omitempty"`
+	ID   string      `json:"id"`
 }
 
 func (n *Video) GetType() string {
@@ -1810,8 +1810,8 @@ func (n *YoutubeVideo) GetChildren() []Node {
 type CustomCodeComponent struct {
 	Type                   string                 `json:"type"`
 	Data                   interface{}            `json:"data,omitempty"`
-	ID                     string                 `json:"id,omitempty"`
-	LayoutWidth            string                 `json:"layoutWidth,omitempty"`
+	ID                     string                 `json:"id"`
+	LayoutWidth            string                 `json:"layoutWidth"`
 	Attributes             map[string]interface{} `json:"attributes,omitempty"`
 	AttributesLastModified string                 `json:"attributesLastModified,omitempty"`
 	Path                   string                 `json:"path,omitempty"`
