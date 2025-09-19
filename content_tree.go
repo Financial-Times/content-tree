@@ -2363,3 +2363,174 @@ func (n *LayoutSlotChild) AppendChild(child Node) error     { return ErrCannotHa
 func (n *ScrollySectionChild) AppendChild(child Node) error { return ErrCannotHaveChildren }
 func (n *ScrollyCopyChild) AppendChild(child Node) error    { return ErrCannotHaveChildren }
 func (n *TableChild) AppendChild(child Node) error          { return ErrCannotHaveChildren }
+
+// MarshalJSON Custom MarshalJSON methods are required for union wrapper structs (e.g. BodyBlock,
+// Phrasing, BlockquoteChild, etc.) because they embed multiple anonymous pointer
+// fields that all export overlapping JSON field names like "type" and "data".
+// The encoding/json package ignores conflicting fields when marshalling, which
+// results in empty "{}" objects. These MarshalJSON methods ensure only the active
+// (non-nil) embedded node is serialized.
+func (n *BodyBlock) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.Paragraph != nil:
+		return json.Marshal(n.Paragraph)
+	case n.Flourish != nil:
+		return json.Marshal(n.Flourish)
+	case n.Heading != nil:
+		return json.Marshal(n.Heading)
+	case n.ImageSet != nil:
+		return json.Marshal(n.ImageSet)
+	case n.BigNumber != nil:
+		return json.Marshal(n.BigNumber)
+	case n.Layout != nil:
+		return json.Marshal(n.Layout)
+	case n.List != nil:
+		return json.Marshal(n.List)
+	case n.Blockquote != nil:
+		return json.Marshal(n.Blockquote)
+	case n.Pullquote != nil:
+		return json.Marshal(n.Pullquote)
+	case n.ScrollyBlock != nil:
+		return json.Marshal(n.ScrollyBlock)
+	case n.ThematicBreak != nil:
+		return json.Marshal(n.ThematicBreak)
+	case n.Table != nil:
+		return json.Marshal(n.Table)
+	case n.Text != nil:
+		return json.Marshal(n.Text)
+	case n.Recommended != nil:
+		return json.Marshal(n.Recommended)
+	case n.Tweet != nil:
+		return json.Marshal(n.Tweet)
+	case n.Video != nil:
+		return json.Marshal(n.Video)
+	case n.YoutubeVideo != nil:
+		return json.Marshal(n.YoutubeVideo)
+	case n.CustomCodeComponent != nil:
+		return json.Marshal(n.CustomCodeComponent)
+	default:
+		return []byte(`{}`), nil
+	}
+}
+
+func (n *Phrasing) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.Text != nil:
+		return json.Marshal(n.Text)
+	case n.Break != nil:
+		return json.Marshal(n.Break)
+	case n.Strong != nil:
+		return json.Marshal(n.Strong)
+	case n.Emphasis != nil:
+		return json.Marshal(n.Emphasis)
+	case n.Strikethrough != nil:
+		return json.Marshal(n.Strikethrough)
+	case n.Link != nil:
+		return json.Marshal(n.Link)
+	default:
+		return []byte(`{}`), nil
+	}
+}
+
+func (n *BlockquoteChild) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.Paragraph != nil:
+		return json.Marshal(n.Paragraph)
+	case n.Text != nil:
+		return json.Marshal(n.Text)
+	case n.Break != nil:
+		return json.Marshal(n.Break)
+	case n.Strong != nil:
+		return json.Marshal(n.Strong)
+	case n.Emphasis != nil:
+		return json.Marshal(n.Emphasis)
+	case n.Strikethrough != nil:
+		return json.Marshal(n.Strikethrough)
+	case n.Link != nil:
+		return json.Marshal(n.Link)
+	default:
+		return []byte(`{}`), nil
+	}
+}
+
+func (n *ListItemChild) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.Paragraph != nil:
+		return json.Marshal(n.Paragraph)
+	case n.Text != nil:
+		return json.Marshal(n.Text)
+	case n.Break != nil:
+		return json.Marshal(n.Break)
+	case n.Strong != nil:
+		return json.Marshal(n.Strong)
+	case n.Emphasis != nil:
+		return json.Marshal(n.Emphasis)
+	case n.Strikethrough != nil:
+		return json.Marshal(n.Strikethrough)
+	case n.Link != nil:
+		return json.Marshal(n.Link)
+	default:
+		return []byte(`{}`), nil
+	}
+}
+
+func (n *LayoutChild) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.LayoutSlot != nil:
+		return json.Marshal(n.LayoutSlot)
+	case n.Heading != nil:
+		return json.Marshal(n.Heading)
+	case n.LayoutImage != nil:
+		return json.Marshal(n.LayoutImage)
+	default:
+		return []byte(`{}`), nil
+	}
+}
+
+func (n *LayoutSlotChild) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.Paragraph != nil:
+		return json.Marshal(n.Paragraph)
+	case n.Heading != nil:
+		return json.Marshal(n.Heading)
+	case n.LayoutImage != nil:
+		return json.Marshal(n.LayoutImage)
+	default:
+		return []byte(`{}`), nil
+	}
+}
+
+func (n *ScrollySectionChild) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.ScrollyCopy != nil:
+		return json.Marshal(n.ScrollyCopy)
+	case n.ScrollyImage != nil:
+		return json.Marshal(n.ScrollyImage)
+	default:
+		return []byte(`{}`), nil
+	}
+}
+
+func (n *ScrollyCopyChild) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.Paragraph != nil:
+		return json.Marshal(n.Paragraph)
+	case n.ScrollyHeading != nil:
+		return json.Marshal(n.ScrollyHeading)
+	default:
+		return []byte(`{}`), nil
+	}
+}
+
+func (n *TableChild) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.TableCaption != nil:
+		return json.Marshal(n.TableCaption)
+	case n.TableBody != nil:
+		return json.Marshal(n.TableBody)
+	case n.TableFooter != nil:
+		return json.Marshal(n.TableFooter)
+	default:
+		return []byte(`{}`), nil
+	}
+}
