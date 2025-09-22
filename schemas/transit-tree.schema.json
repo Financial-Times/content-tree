@@ -147,6 +147,9 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.Text"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Timeline"
                 }
             ]
         },
@@ -206,6 +209,31 @@
             },
             "required": [
                 "children",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.Event": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.transit.Paragraph"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "dateLabel": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "event",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "dateLabel",
                 "type"
             ],
             "type": "object"
@@ -1113,6 +1141,44 @@
                 "type"
             ],
             "type": "object"
+        },
+        "ContentTree.transit.Timeline": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "additionalItems": {
+                        "$ref": "#/definitions/ContentTree.transit.Event"
+                    },
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.Heading"
+                        }
+                    ],
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "data": {},
+                "layoutWidth": {
+                    "$ref": "#/definitions/ContentTree.transit.TimelineLayoutWidth"
+                },
+                "type": {
+                    "const": "timeline",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "layoutWidth",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.TimelineLayoutWidth": {
+            "enum": [
+                "full-width",
+                "inset-left"
+            ],
+            "type": "string"
         },
         "ContentTree.transit.Tweet": {
             "additionalProperties": false,
