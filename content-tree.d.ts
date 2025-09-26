@@ -278,14 +278,14 @@ export declare namespace ContentTree {
         /** Configuration data to be passed to the component. */
         attributes: CustomCodeComponentAttributes;
     }
-    type TimelineLayoutWidth = Extract<LayoutWidth, "full-width" | "inset-left">;
+    type TimelineLayoutWidth = Extract<LayoutWidth, "full-width" | "inset-left" | "full-grid">;
     interface Timeline extends Parent {
         type: "timeline";
         layoutWidth: TimelineLayoutWidth;
-        children: [Heading, ...Event[]];
+        children: [Heading, ...TimelineEvent[]];
     }
-    interface Event extends Parent {
-        type: "event";
+    interface TimelineEvent extends Parent {
+        type: "timeline-event";
         dateLabel: string;
         children: Paragraph[];
     }
@@ -569,14 +569,14 @@ export declare namespace ContentTree {
             /** Configuration data to be passed to the component. */
             attributes: CustomCodeComponentAttributes;
         }
-        type TimelineLayoutWidth = Extract<LayoutWidth, "full-width" | "inset-left">;
+        type TimelineLayoutWidth = Extract<LayoutWidth, "full-width" | "inset-left" | "full-grid">;
         interface Timeline extends Parent {
             type: "timeline";
             layoutWidth: TimelineLayoutWidth;
-            children: [Heading, ...Event[]];
+            children: [Heading, ...TimelineEvent[]];
         }
-        interface Event extends Parent {
-            type: "event";
+        interface TimelineEvent extends Parent {
+            type: "timeline-event";
             dateLabel: string;
             children: Paragraph[];
         }
@@ -846,14 +846,14 @@ export declare namespace ContentTree {
             /** How the component should be presented in the article page according to the column layout system */
             layoutWidth: LayoutWidth;
         }
-        type TimelineLayoutWidth = Extract<LayoutWidth, "full-width" | "inset-left">;
+        type TimelineLayoutWidth = Extract<LayoutWidth, "full-width" | "inset-left" | "full-grid">;
         interface Timeline extends Parent {
             type: "timeline";
             layoutWidth: TimelineLayoutWidth;
-            children: [Heading, ...Event[]];
+            children: [Heading, ...TimelineEvent[]];
         }
-        interface Event extends Parent {
-            type: "event";
+        interface TimelineEvent extends Parent {
+            type: "timeline-event";
             dateLabel: string;
             children: Paragraph[];
         }
@@ -1138,14 +1138,14 @@ export declare namespace ContentTree {
             /** Configuration data to be passed to the component. */
             attributes?: CustomCodeComponentAttributes;
         }
-        type TimelineLayoutWidth = Extract<LayoutWidth, "full-width" | "inset-left">;
+        type TimelineLayoutWidth = Extract<LayoutWidth, "full-width" | "inset-left" | "full-grid">;
         interface Timeline extends Parent {
             type: "timeline";
             layoutWidth: TimelineLayoutWidth;
-            children: [Heading, ...Event[]];
+            children: [Heading, ...TimelineEvent[]];
         }
-        interface Event extends Parent {
-            type: "event";
+        interface TimelineEvent extends Parent {
+            type: "timeline-event";
             dateLabel: string;
             children: Paragraph[];
         }

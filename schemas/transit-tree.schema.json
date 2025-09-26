@@ -213,31 +213,6 @@
             ],
             "type": "object"
         },
-        "ContentTree.transit.Event": {
-            "additionalProperties": false,
-            "properties": {
-                "children": {
-                    "items": {
-                        "$ref": "#/definitions/ContentTree.transit.Paragraph"
-                    },
-                    "type": "array"
-                },
-                "data": {},
-                "dateLabel": {
-                    "type": "string"
-                },
-                "type": {
-                    "const": "event",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "children",
-                "dateLabel",
-                "type"
-            ],
-            "type": "object"
-        },
         "ContentTree.transit.Flourish": {
             "additionalProperties": false,
             "properties": {
@@ -1147,7 +1122,7 @@
             "properties": {
                 "children": {
                     "additionalItems": {
-                        "$ref": "#/definitions/ContentTree.transit.Event"
+                        "$ref": "#/definitions/ContentTree.transit.TimelineEvent"
                     },
                     "items": [
                         {
@@ -1173,8 +1148,34 @@
             ],
             "type": "object"
         },
+        "ContentTree.transit.TimelineEvent": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.transit.Paragraph"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "dateLabel": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "timeline-event",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "dateLabel",
+                "type"
+            ],
+            "type": "object"
+        },
         "ContentTree.transit.TimelineLayoutWidth": {
             "enum": [
+                "full-grid",
                 "full-width",
                 "inset-left"
             ],
