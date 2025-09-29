@@ -13,6 +13,11 @@ because the embedded structs contain a field with the same name, the field "Type
 According to the official Go documentation (https://pkg.go.dev/encoding/json), when multiple fields with the same name
 exist, during unmarshalling they are all ignored, and no error is returned. As a result, the objects are not
 unmarshalled correctly unless custom unmarshalling logic is applied.
+
+A custom MarshalJSON method is required for union wrapper structs (e.g. BodyBlock, Phrasing, BlockquoteChild, etc.) because they embed
+multiple anonymous pointer fields that all export overlapping JSON field names like "type" and "data". The encoding/json package ignores conflicting
+fields when marshalling, which results in empty "{}" objects. These MarshalJSON methods ensure only the active
+(non-nil) embedded node is serialized.
 */
 package contenttree
 
@@ -60,6 +65,7 @@ const (
 	TableFooterType         = "table-footer"
 	TableType               = "table"
 	CustomCodeComponentType = "custom-code-component"
+	ClipSetType             = "clip-set"
 
 	BodyBlockType           = "body-block"
 	BlockquoteChildType     = "blockquote-child"
@@ -72,6 +78,13 @@ const (
 	TableChildType          = "table-child"
 )
 
+var (
+	// returned when calling AppendChild on a node that doesn't own a Children slice
+	ErrCannotHaveChildren = errors.New("node cannot have children")
+	// returned when a child is not one of the allowed types for a parent
+	ErrInvalidChildType = errors.New("invalid child type for this parent")
+)
+
 // Node represents a unified interface for different types of content tree nodes.
 // It facilitates easy traversal of the tree structure without requiring type casting.
 type Node interface {
@@ -82,6 +95,16 @@ type Node interface {
 	// GetEmbedded returns the embedded node, if applicable.
 	// It is useful for traversing node structs which embed other node structs.
 	GetEmbedded() Node
+	// AppendChild attempts to append a child node, returning an error if not allowed.
+	AppendChild(child Node) error
+}
+
+// typed() is a small utility to read a node's type without full unmarshal.
+func typed(v any) string {
+	if n, ok := v.(Node); ok && n != nil {
+		return n.GetType()
+	}
+	return ""
 }
 
 // typedNode is a lightweight struct that holds only the type information of a content tree node.
@@ -103,9 +126,9 @@ type ColumnSettingsItems struct {
 
 type BigNumber struct {
 	Type        string      `json:"type"`
-	Data       	interface{} `json:"data,omitempty"`
-	Description string      `json:"description,omitempty"`
-	Number      string      `json:"number,omitempty"`
+	Data        interface{} `json:"data,omitempty"`
+	Description string      `json:"description"`
+	Number      string      `json:"number"`
 }
 
 func (n *BigNumber) GetType() string {
@@ -120,9 +143,11 @@ func (n *BigNumber) GetChildren() []Node {
 	return nil
 }
 
+func (n *BigNumber) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
 type Blockquote struct {
 	Type     string             `json:"type"`
-	Children []*BlockquoteChild `json:"children,omitempty"`
+	Children []*BlockquoteChild `json:"children"`
 	Data     interface{}        `json:"data,omitempty"`
 }
 
@@ -140,6 +165,15 @@ func (n *Blockquote) GetChildren() []Node {
 		result[i] = v
 	}
 	return result
+}
+
+func (n *Blockquote) AppendChild(child Node) error {
+	c, err := makeBlockquoteChild(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, c)
+	return nil
 }
 
 type BlockquoteChild struct {
@@ -206,6 +240,8 @@ func (n *BlockquoteChild) GetChildren() []Node {
 	return nil
 }
 
+func (n *BlockquoteChild) AppendChild(child Node) error { return ErrCannotHaveChildren }
+
 func (n *BlockquoteChild) UnmarshalJSON(data []byte) error {
 	var tn typedNode
 	if err := json.Unmarshal(data, &tn); err != nil {
@@ -261,9 +297,52 @@ func (n *BlockquoteChild) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (n *BlockquoteChild) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.Paragraph != nil:
+		return json.Marshal(n.Paragraph)
+	case n.Text != nil:
+		return json.Marshal(n.Text)
+	case n.Break != nil:
+		return json.Marshal(n.Break)
+	case n.Strong != nil:
+		return json.Marshal(n.Strong)
+	case n.Emphasis != nil:
+		return json.Marshal(n.Emphasis)
+	case n.Strikethrough != nil:
+		return json.Marshal(n.Strikethrough)
+	case n.Link != nil:
+		return json.Marshal(n.Link)
+	default:
+		return []byte(`{}`), nil
+	}
+}
+
+// Build a BlockquoteChild wrapper.
+func makeBlockquoteChild(n Node) (*BlockquoteChild, error) {
+	switch n.GetType() {
+	case ParagraphType:
+		return &BlockquoteChild{Paragraph: n.(*Paragraph)}, nil
+	case TextType:
+		return &BlockquoteChild{Text: n.(*Text)}, nil
+	case BreakType:
+		return &BlockquoteChild{Break: n.(*Break)}, nil
+	case StrongType:
+		return &BlockquoteChild{Strong: n.(*Strong)}, nil
+	case EmphasisType:
+		return &BlockquoteChild{Emphasis: n.(*Emphasis)}, nil
+	case StrikethroughType:
+		return &BlockquoteChild{Strikethrough: n.(*Strikethrough)}, nil
+	case LinkType:
+		return &BlockquoteChild{Link: n.(*Link)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
+}
+
 type Body struct {
 	Type     string       `json:"type"`
-	Children []*BodyBlock `json:"children,omitempty"`
+	Children []*BodyBlock `json:"children"`
 	Data     interface{}  `json:"data,omitempty"`
 	Version  float64      `json:"version,omitempty"`
 }
@@ -282,6 +361,18 @@ func (n *Body) GetChildren() []Node {
 		result[i] = v
 	}
 	return result
+}
+
+func (n *Body) AppendChild(child Node) error {
+	if n == nil {
+		return fmt.Errorf("nil Body: %w", ErrCannotHaveChildren)
+	}
+	bb, err := makeBodyBlock(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, bb)
+	return nil
 }
 
 type BodyBlock struct {
@@ -303,6 +394,7 @@ type BodyBlock struct {
 	*Video
 	*YoutubeVideo
 	*CustomCodeComponent
+	*ClipSet
 }
 
 func (n *BodyBlock) GetType() string {
@@ -364,6 +456,9 @@ func (n *BodyBlock) GetEmbedded() Node {
 	if n.CustomCodeComponent != nil {
 		return n.CustomCodeComponent
 	}
+	if n.ClipSet != nil {
+		return n.ClipSet
+	}
 	return nil
 }
 
@@ -422,8 +517,13 @@ func (n *BodyBlock) GetChildren() []Node {
 	if n.CustomCodeComponent != nil {
 		return n.CustomCodeComponent.GetChildren()
 	}
+	if n.ClipSet != nil {
+		return n.ClipSet.GetChildren()
+	}
 	return nil
 }
+
+func (n *BodyBlock) AppendChild(_ Node) error { return ErrCannotHaveChildren }
 
 func (n *BodyBlock) UnmarshalJSON(data []byte) error {
 	var tn typedNode
@@ -540,10 +640,107 @@ func (n *BodyBlock) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		n.CustomCodeComponent = &v
+	case ClipSetType:
+		var v ClipSet
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.ClipSet = &v
 	default:
 		return fmt.Errorf("failed to unmarshal BodyBlock from %s: %w", data, ErrUnmarshalInvalidNode)
 	}
 	return nil
+}
+
+func (n *BodyBlock) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.Paragraph != nil:
+		return json.Marshal(n.Paragraph)
+	case n.Flourish != nil:
+		return json.Marshal(n.Flourish)
+	case n.Heading != nil:
+		return json.Marshal(n.Heading)
+	case n.ImageSet != nil:
+		return json.Marshal(n.ImageSet)
+	case n.BigNumber != nil:
+		return json.Marshal(n.BigNumber)
+	case n.Layout != nil:
+		return json.Marshal(n.Layout)
+	case n.List != nil:
+		return json.Marshal(n.List)
+	case n.Blockquote != nil:
+		return json.Marshal(n.Blockquote)
+	case n.Pullquote != nil:
+		return json.Marshal(n.Pullquote)
+	case n.ScrollyBlock != nil:
+		return json.Marshal(n.ScrollyBlock)
+	case n.ThematicBreak != nil:
+		return json.Marshal(n.ThematicBreak)
+	case n.Table != nil:
+		return json.Marshal(n.Table)
+	case n.Text != nil:
+		return json.Marshal(n.Text)
+	case n.Recommended != nil:
+		return json.Marshal(n.Recommended)
+	case n.Tweet != nil:
+		return json.Marshal(n.Tweet)
+	case n.Video != nil:
+		return json.Marshal(n.Video)
+	case n.YoutubeVideo != nil:
+		return json.Marshal(n.YoutubeVideo)
+	case n.CustomCodeComponent != nil:
+		return json.Marshal(n.CustomCodeComponent)
+	case n.ClipSet != nil:
+		return json.Marshal(n.ClipSet)
+	default:
+		return []byte(`{}`), nil
+	}
+}
+
+// Build a BodyBlock wrapper from any allowed top-level block node.
+func makeBodyBlock(n Node) (*BodyBlock, error) {
+	switch n.GetType() {
+	case ParagraphType:
+		return &BodyBlock{Paragraph: n.(*Paragraph)}, nil
+	case FlourishType:
+		return &BodyBlock{Flourish: n.(*Flourish)}, nil
+	case HeadingType:
+		return &BodyBlock{Heading: n.(*Heading)}, nil
+	case ImageSetType:
+		return &BodyBlock{ImageSet: n.(*ImageSet)}, nil
+	case BigNumberType:
+		return &BodyBlock{BigNumber: n.(*BigNumber)}, nil
+	case LayoutType:
+		return &BodyBlock{Layout: n.(*Layout)}, nil
+	case ListType:
+		return &BodyBlock{List: n.(*List)}, nil
+	case BlockquoteType:
+		return &BodyBlock{Blockquote: n.(*Blockquote)}, nil
+	case PullquoteType:
+		return &BodyBlock{Pullquote: n.(*Pullquote)}, nil
+	case ScrollyBlockType:
+		return &BodyBlock{ScrollyBlock: n.(*ScrollyBlock)}, nil
+	case ThematicBreakType:
+		return &BodyBlock{ThematicBreak: n.(*ThematicBreak)}, nil
+	case TableType:
+		return &BodyBlock{Table: n.(*Table)}, nil
+	case TextType:
+		return &BodyBlock{Text: n.(*Text)}, nil
+	case RecommendedType:
+		return &BodyBlock{Recommended: n.(*Recommended)}, nil
+	case TweetType:
+		return &BodyBlock{Tweet: n.(*Tweet)}, nil
+	case VideoType:
+		return &BodyBlock{Video: n.(*Video)}, nil
+	case YoutubeVideoType:
+		return &BodyBlock{YoutubeVideo: n.(*YoutubeVideo)}, nil
+	case CustomCodeComponentType:
+		return &BodyBlock{CustomCodeComponent: n.(*CustomCodeComponent)}, nil
+	case ClipSetType:
+		return &BodyBlock{ClipSet: n.(*ClipSet)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
 }
 
 type Break struct {
@@ -563,9 +760,11 @@ func (n *Break) GetChildren() []Node {
 	return nil
 }
 
+func (n *Break) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
 type Emphasis struct {
 	Type     string      `json:"type"`
-	Children []*Phrasing `json:"children,omitempty"`
+	Children []*Phrasing `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
 }
 
@@ -585,15 +784,24 @@ func (n *Emphasis) GetChildren() []Node {
 	return result
 }
 
+func (n *Emphasis) AppendChild(child Node) error {
+	p, err := makePhrasing(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, p)
+	return nil
+}
+
 type Flourish struct {
-	Type			   string                 `json:"type"`
+	Type               string                 `json:"type"`
 	Data               interface{}            `json:"data,omitempty"`
-	Description        string                 `json:"description,omitempty"`
+	Description        string                 `json:"description"`
 	FallbackImage      *FlourishFallbackImage `json:"fallbackImage,omitempty"`
 	FlourishType       string                 `json:"flourishType,omitempty"`
 	Id                 string                 `json:"id,omitempty"`
-	LayoutWidth        string                 `json:"layoutWidth,omitempty"`
-	Timestamp          string                 `json:"timestamp,omitempty"`
+	LayoutWidth        string                 `json:"layoutWidth"`
+	Timestamp          string                 `json:"timestamp"`
 	FragmentIdentifier string                 `json:"fragmentIdentifier,omitempty"`
 }
 
@@ -608,6 +816,8 @@ func (n *Flourish) GetEmbedded() Node {
 func (n *Flourish) GetChildren() []Node {
 	return nil
 }
+
+func (n *Flourish) AppendChild(_ Node) error { return ErrCannotHaveChildren }
 
 type FlourishFallbackImage struct {
 	Format    string                               `json:"format,omitempty"`
@@ -626,7 +836,7 @@ type FlourishFallbackImageSourceSetElem struct {
 
 type Heading struct {
 	Type               string      `json:"type"`
-	Children           []*Text     `json:"children,omitempty"`
+	Children           []*Text     `json:"children"`
 	Data               interface{} `json:"data,omitempty"`
 	Level              string      `json:"level,omitempty"`
 	FragmentIdentifier string      `json:"fragmentIdentifier,omitempty"`
@@ -648,10 +858,18 @@ func (n *Heading) GetChildren() []Node {
 	return result
 }
 
+func (n *Heading) AppendChild(child Node) error {
+	if child.GetType() != TextType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*Text))
+	return nil
+}
+
 type ImageSet struct {
 	Type               string      `json:"type"`
 	Data               interface{} `json:"data,omitempty"`
-	ID                 string      `json:"id,omitempty"`
+	ID                 string      `json:"id"`
 	Picture            *Picture    `json:"picture,omitempty"`
 	FragmentIdentifier string      `json:"fragmentIdentifier,omitempty"`
 }
@@ -668,9 +886,11 @@ func (n *ImageSet) GetChildren() []Node {
 	return nil
 }
 
+func (n *ImageSet) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
 type Layout struct {
 	Type        string         `json:"type"`
-	Children    []*LayoutChild `json:"children,omitempty"`
+	Children    []*LayoutChild `json:"children"`
 	Data        interface{}    `json:"data,omitempty"`
 	LayoutName  string         `json:"layoutName,omitempty"`
 	LayoutWidth string         `json:"layoutWidth,omitempty"`
@@ -690,6 +910,15 @@ func (n *Layout) GetChildren() []Node {
 		result[i] = v
 	}
 	return result
+}
+
+func (n *Layout) AppendChild(child Node) error {
+	c, err := makeLayoutChild(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, c)
+	return nil
 }
 
 type LayoutChild struct {
@@ -728,6 +957,8 @@ func (n *LayoutChild) GetChildren() []Node {
 	return nil
 }
 
+func (n *LayoutChild) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
 func (n *LayoutChild) UnmarshalJSON(data []byte) error {
 	var tn typedNode
 	if err := json.Unmarshal(data, &tn); err != nil {
@@ -759,13 +990,40 @@ func (n *LayoutChild) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (n *LayoutChild) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.LayoutSlot != nil:
+		return json.Marshal(n.LayoutSlot)
+	case n.Heading != nil:
+		return json.Marshal(n.Heading)
+	case n.LayoutImage != nil:
+		return json.Marshal(n.LayoutImage)
+	default:
+		return []byte(`{}`), nil
+	}
+}
+
+// Build LayoutChild wrapper.
+func makeLayoutChild(n Node) (*LayoutChild, error) {
+	switch n.GetType() {
+	case LayoutSlotType:
+		return &LayoutChild{LayoutSlot: n.(*LayoutSlot)}, nil
+	case HeadingType:
+		return &LayoutChild{Heading: n.(*Heading)}, nil
+	case LayoutImageType:
+		return &LayoutChild{LayoutImage: n.(*LayoutImage)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
+}
+
 type LayoutImage struct {
 	Type    string      `json:"type"`
-	Alt     string      `json:"alt,omitempty"`
-	Caption string      `json:"caption,omitempty"`
-	Credit  string      `json:"credit,omitempty"`
+	Alt     string      `json:"alt"`
+	Caption string      `json:"caption"`
+	Credit  string      `json:"credit"`
 	Data    interface{} `json:"data,omitempty"`
-	ID      string      `json:"id,omitempty"`
+	ID      string      `json:"id"`
 	Picture *Picture    `json:"picture,omitempty"`
 }
 
@@ -781,9 +1039,11 @@ func (n *LayoutImage) GetChildren() []Node {
 	return nil
 }
 
+func (n *LayoutImage) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
 type LayoutSlot struct {
 	Type     string             `json:"type"`
-	Children []*LayoutSlotChild `json:"children,omitempty"`
+	Children []*LayoutSlotChild `json:"children"`
 	Data     interface{}        `json:"data,omitempty"`
 }
 
@@ -801,6 +1061,15 @@ func (n *LayoutSlot) GetChildren() []Node {
 		result[i] = v
 	}
 	return result
+}
+
+func (n *LayoutSlot) AppendChild(child Node) error {
+	c, err := makeLayoutSlotChild(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, c)
+	return nil
 }
 
 type LayoutSlotChild struct {
@@ -839,6 +1108,8 @@ func (n *LayoutSlotChild) GetChildren() []Node {
 	return nil
 }
 
+func (n *LayoutSlotChild) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
 func (n *LayoutSlotChild) UnmarshalJSON(data []byte) error {
 	var tn typedNode
 	if err := json.Unmarshal(data, &tn); err != nil {
@@ -870,12 +1141,39 @@ func (n *LayoutSlotChild) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (n *LayoutSlotChild) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.Paragraph != nil:
+		return json.Marshal(n.Paragraph)
+	case n.Heading != nil:
+		return json.Marshal(n.Heading)
+	case n.LayoutImage != nil:
+		return json.Marshal(n.LayoutImage)
+	default:
+		return []byte(`{}`), nil
+	}
+}
+
+// Build LayoutSlotChild wrapper.
+func makeLayoutSlotChild(n Node) (*LayoutSlotChild, error) {
+	switch n.GetType() {
+	case ParagraphType:
+		return &LayoutSlotChild{Paragraph: n.(*Paragraph)}, nil
+	case HeadingType:
+		return &LayoutSlotChild{Heading: n.(*Heading)}, nil
+	case LayoutImageType:
+		return &LayoutSlotChild{LayoutImage: n.(*LayoutImage)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
+}
+
 type Link struct {
 	Type     string      `json:"type"`
-	Children []*Phrasing `json:"children,omitempty"`
+	Children []*Phrasing `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
-	Title    string      `json:"title,omitempty"`
-	URL      string      `json:"url,omitempty"`
+	Title    string      `json:"title"`
+	URL      string      `json:"url"`
 }
 
 func (n *Link) GetType() string {
@@ -894,11 +1192,20 @@ func (n *Link) GetChildren() []Node {
 	return result
 }
 
+func (n *Link) AppendChild(child Node) error {
+	p, err := makePhrasing(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, p)
+	return nil
+}
+
 type List struct {
 	Type     string      `json:"type"`
-	Children []*ListItem `json:"children,omitempty"`
+	Children []*ListItem `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
-	Ordered  bool        `json:"ordered,omitempty"`
+	Ordered  bool        `json:"ordered"`
 }
 
 func (n *List) GetType() string {
@@ -917,9 +1224,18 @@ func (n *List) GetChildren() []Node {
 	return result
 }
 
+func (n *List) AppendChild(child Node) error {
+	// Keep strict: only accept ListItem
+	if child.GetType() != ListItemType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*ListItem))
+	return nil
+}
+
 type ListItem struct {
 	Type     string           `json:"type"`
-	Children []*ListItemChild `json:"children,omitempty"`
+	Children []*ListItemChild `json:"children"`
 	Data     interface{}      `json:"data,omitempty"`
 }
 
@@ -937,6 +1253,15 @@ func (n *ListItem) GetChildren() []Node {
 		result[i] = v
 	}
 	return result
+}
+
+func (n *ListItem) AppendChild(child Node) error {
+	c, err := makeListItemChild(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, c)
+	return nil
 }
 
 type ListItemChild struct {
@@ -1003,6 +1328,8 @@ func (n *ListItemChild) GetChildren() []Node {
 	return nil
 }
 
+func (n *ListItemChild) AppendChild(child Node) error { return ErrCannotHaveChildren }
+
 func (n *ListItemChild) UnmarshalJSON(data []byte) error {
 	type node struct {
 		Type string `json:"type"`
@@ -1061,9 +1388,52 @@ func (n *ListItemChild) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (n *ListItemChild) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.Paragraph != nil:
+		return json.Marshal(n.Paragraph)
+	case n.Text != nil:
+		return json.Marshal(n.Text)
+	case n.Break != nil:
+		return json.Marshal(n.Break)
+	case n.Strong != nil:
+		return json.Marshal(n.Strong)
+	case n.Emphasis != nil:
+		return json.Marshal(n.Emphasis)
+	case n.Strikethrough != nil:
+		return json.Marshal(n.Strikethrough)
+	case n.Link != nil:
+		return json.Marshal(n.Link)
+	default:
+		return []byte(`{}`), nil
+	}
+}
+
+// Build a ListItemChild wrapper.
+func makeListItemChild(n Node) (*ListItemChild, error) {
+	switch n.GetType() {
+	case ParagraphType:
+		return &ListItemChild{Paragraph: n.(*Paragraph)}, nil
+	case TextType:
+		return &ListItemChild{Text: n.(*Text)}, nil
+	case BreakType:
+		return &ListItemChild{Break: n.(*Break)}, nil
+	case StrongType:
+		return &ListItemChild{Strong: n.(*Strong)}, nil
+	case EmphasisType:
+		return &ListItemChild{Emphasis: n.(*Emphasis)}, nil
+	case StrikethroughType:
+		return &ListItemChild{Strikethrough: n.(*Strikethrough)}, nil
+	case LinkType:
+		return &ListItemChild{Link: n.(*Link)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
+}
+
 type Paragraph struct {
 	Type     string      `json:"type"`
-	Children []*Phrasing `json:"children,omitempty"`
+	Children []*Phrasing `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
 }
 
@@ -1081,6 +1451,15 @@ func (n *Paragraph) GetChildren() []Node {
 		result[i] = v
 	}
 	return result
+}
+
+func (n *Paragraph) AppendChild(child Node) error {
+	p, err := makePhrasing(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, p)
+	return nil
 }
 
 type Phrasing struct {
@@ -1140,6 +1519,8 @@ func (n *Phrasing) GetChildren() []Node {
 	return nil
 }
 
+func (n *Phrasing) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
 func (n *Phrasing) UnmarshalJSON(data []byte) error {
 	var tn typedNode
 	if err := json.Unmarshal(data, &tn); err != nil {
@@ -1189,11 +1570,50 @@ func (n *Phrasing) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (n *Phrasing) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.Text != nil:
+		return json.Marshal(n.Text)
+	case n.Break != nil:
+		return json.Marshal(n.Break)
+	case n.Strong != nil:
+		return json.Marshal(n.Strong)
+	case n.Emphasis != nil:
+		return json.Marshal(n.Emphasis)
+	case n.Strikethrough != nil:
+		return json.Marshal(n.Strikethrough)
+	case n.Link != nil:
+		return json.Marshal(n.Link)
+	default:
+		return []byte(`{}`), nil
+	}
+}
+
+// Build a Phrasing wrapper for paragraph/phrasing-bearing parents.
+func makePhrasing(n Node) (*Phrasing, error) {
+	switch n.GetType() {
+	case TextType:
+		return &Phrasing{Text: n.(*Text)}, nil
+	case BreakType:
+		return &Phrasing{Break: n.(*Break)}, nil
+	case StrongType:
+		return &Phrasing{Strong: n.(*Strong)}, nil
+	case EmphasisType:
+		return &Phrasing{Emphasis: n.(*Emphasis)}, nil
+	case StrikethroughType:
+		return &Phrasing{Strikethrough: n.(*Strikethrough)}, nil
+	case LinkType:
+		return &Phrasing{Link: n.(*Link)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
+}
+
 type Pullquote struct {
 	Type   string      `json:"type"`
 	Data   interface{} `json:"data,omitempty"`
-	Source string      `json:"source,omitempty"`
-	Text   string      `json:"text,omitempty"`
+	Source string      `json:"source"`
+	Text   string      `json:"text"`
 }
 
 func (n *Pullquote) GetType() string {
@@ -1208,13 +1628,15 @@ func (n *Pullquote) GetChildren() []Node {
 	return nil
 }
 
+func (n *Pullquote) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
 type Recommended struct {
 	Type                string      `json:"type"`
 	Data                interface{} `json:"data,omitempty"`
-	Heading             string      `json:"heading,omitempty"`
-	ID                  string      `json:"id,omitempty"`
+	Heading             string      `json:"heading"`
+	ID                  string      `json:"id"`
 	Teaser              *Teaser     `json:"teaser,omitempty"`
-	TeaserTitleOverride string      `json:"teaserTitleOverride,omitempty"`
+	TeaserTitleOverride string      `json:"teaserTitleOverride"`
 }
 
 func (n *Recommended) GetType() string {
@@ -1229,9 +1651,11 @@ func (n *Recommended) GetChildren() []Node {
 	return nil
 }
 
+func (n *Recommended) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
 type ScrollyBlock struct {
 	Type     string            `json:"type"`
-	Children []*ScrollySection `json:"children,omitempty"`
+	Children []*ScrollySection `json:"children"`
 	Data     interface{}       `json:"data,omitempty"`
 	Theme    string            `json:"theme,omitempty"`
 }
@@ -1252,9 +1676,17 @@ func (n *ScrollyBlock) GetChildren() []Node {
 	return result
 }
 
+func (n *ScrollyBlock) AppendChild(child Node) error {
+	if child.GetType() != ScrollySectionType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*ScrollySection))
+	return nil
+}
+
 type ScrollyCopy struct {
 	Type     string              `json:"type"`
-	Children []*ScrollyCopyChild `json:"children,omitempty"`
+	Children []*ScrollyCopyChild `json:"children"`
 	Data     interface{}         `json:"data,omitempty"`
 }
 
@@ -1272,6 +1704,15 @@ func (n *ScrollyCopy) GetChildren() []Node {
 		result[i] = v
 	}
 	return result
+}
+
+func (n *ScrollyCopy) AppendChild(child Node) error {
+	c, err := makeScrollyCopyChild(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, c)
+	return nil
 }
 
 type ScrollyCopyChild struct {
@@ -1303,6 +1744,8 @@ func (n *ScrollyCopyChild) GetChildren() []Node {
 	return nil
 }
 
+func (n *ScrollyCopyChild) AppendChild(child Node) error { return ErrCannotHaveChildren }
+
 func (n *ScrollyCopyChild) UnmarshalJSON(data []byte) error {
 	var tn typedNode
 	if err := json.Unmarshal(data, &tn); err != nil {
@@ -1328,9 +1771,32 @@ func (n *ScrollyCopyChild) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (n *ScrollyCopyChild) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.Paragraph != nil:
+		return json.Marshal(n.Paragraph)
+	case n.ScrollyHeading != nil:
+		return json.Marshal(n.ScrollyHeading)
+	default:
+		return []byte(`{}`), nil
+	}
+}
+
+// Build ScrollyCopyChild wrapper.
+func makeScrollyCopyChild(n Node) (*ScrollyCopyChild, error) {
+	switch n.GetType() {
+	case ParagraphType:
+		return &ScrollyCopyChild{Paragraph: n.(*Paragraph)}, nil
+	case ScrollyHeadingType:
+		return &ScrollyCopyChild{ScrollyHeading: n.(*ScrollyHeading)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
+}
+
 type ScrollyHeading struct {
 	Type     string      `json:"type"`
-	Children []*Text     `json:"children,omitempty"`
+	Children []*Text     `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
 	Level    string      `json:"level,omitempty"`
 }
@@ -1351,6 +1817,8 @@ func (n *ScrollyHeading) GetChildren() []Node {
 	return result
 }
 
+func (n *ScrollyHeading) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
 type ScrollyImage struct {
 	Type    string      `json:"type"`
 	Data    interface{} `json:"data,omitempty"`
@@ -1370,9 +1838,11 @@ func (n *ScrollyImage) GetChildren() []Node {
 	return nil
 }
 
+func (n *ScrollyImage) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
 type ScrollySection struct {
 	Type       string                 `json:"type"`
-	Children   []*ScrollySectionChild `json:"children,omitempty"`
+	Children   []*ScrollySectionChild `json:"children"`
 	Data       interface{}            `json:"data,omitempty"`
 	Display    string                 `json:"display,omitempty"`
 	NoBox      bool                   `json:"noBox,omitempty"`
@@ -1394,6 +1864,15 @@ func (n *ScrollySection) GetChildren() []Node {
 		result[i] = v
 	}
 	return result
+}
+
+func (n *ScrollySection) AppendChild(child Node) error {
+	c, err := makeScrollySectionChild(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, c)
+	return nil
 }
 
 type ScrollySectionChild struct {
@@ -1425,6 +1904,8 @@ func (n *ScrollySectionChild) GetChildren() []Node {
 	return nil
 }
 
+func (n *ScrollySectionChild) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
 func (n *ScrollySectionChild) UnmarshalJSON(data []byte) error {
 	var tn typedNode
 	if err := json.Unmarshal(data, &tn); err != nil {
@@ -1450,9 +1931,32 @@ func (n *ScrollySectionChild) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (n *ScrollySectionChild) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.ScrollyCopy != nil:
+		return json.Marshal(n.ScrollyCopy)
+	case n.ScrollyImage != nil:
+		return json.Marshal(n.ScrollyImage)
+	default:
+		return []byte(`{}`), nil
+	}
+}
+
+// Build ScrollySectionChild wrapper.
+func makeScrollySectionChild(n Node) (*ScrollySectionChild, error) {
+	switch n.GetType() {
+	case ScrollyCopyType:
+		return &ScrollySectionChild{ScrollyCopy: n.(*ScrollyCopy)}, nil
+	case ScrollyImageType:
+		return &ScrollySectionChild{ScrollyImage: n.(*ScrollyImage)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
+}
+
 type Strikethrough struct {
 	Type     string      `json:"type"`
-	Children []*Phrasing `json:"children,omitempty"`
+	Children []*Phrasing `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
 }
 
@@ -1472,9 +1976,18 @@ func (n *Strikethrough) GetChildren() []Node {
 	return result
 }
 
+func (n *Strikethrough) AppendChild(child Node) error {
+	p, err := makePhrasing(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, p)
+	return nil
+}
+
 type Strong struct {
 	Type     string      `json:"type"`
-	Children []*Phrasing `json:"children,omitempty"`
+	Children []*Phrasing `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
 }
 
@@ -1494,9 +2007,18 @@ func (n *Strong) GetChildren() []Node {
 	return result
 }
 
+func (n *Strong) AppendChild(child Node) error {
+	p, err := makePhrasing(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, p)
+	return nil
+}
+
 type Table struct {
 	Type                     string                 `json:"type"`
-	Children                 []*TableChild          `json:"children,omitempty"`
+	Children                 []*TableChild          `json:"children"`
 	CollapseAfterHowManyRows float64                `json:"collapseAfterHowManyRows,omitempty"`
 	ColumnSettings           []*ColumnSettingsItems `json:"columnSettings,omitempty"`
 	Compact                  bool                   `json:"compact,omitempty"`
@@ -1520,6 +2042,15 @@ func (n *Table) GetChildren() []Node {
 		result[i] = v
 	}
 	return result
+}
+
+func (n *Table) AppendChild(child Node) error {
+	c, err := makeTableChild(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, c)
+	return nil
 }
 
 type TableChild struct {
@@ -1558,6 +2089,8 @@ func (n *TableChild) GetChildren() []Node {
 	return nil
 }
 
+func (n *TableChild) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
 func (n *TableChild) UnmarshalJSON(data []byte) error {
 	var tn typedNode
 	if err := json.Unmarshal(data, &tn); err != nil {
@@ -1589,9 +2122,36 @@ func (n *TableChild) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (n *TableChild) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.TableCaption != nil:
+		return json.Marshal(n.TableCaption)
+	case n.TableBody != nil:
+		return json.Marshal(n.TableBody)
+	case n.TableFooter != nil:
+		return json.Marshal(n.TableFooter)
+	default:
+		return []byte(`{}`), nil
+	}
+}
+
+// Build TableChild wrapper.
+func makeTableChild(n Node) (*TableChild, error) {
+	switch n.GetType() {
+	case TableCaptionType:
+		return &TableChild{TableCaption: n.(*TableCaption)}, nil
+	case TableBodyType:
+		return &TableChild{TableBody: n.(*TableBody)}, nil
+	case TableFooterType:
+		return &TableChild{TableFooter: n.(*TableFooter)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
+}
+
 type TableBody struct {
 	Type     string      `json:"type"`
-	Children []*TableRow `json:"children,omitempty"`
+	Children []*TableRow `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
 }
 
@@ -1611,9 +2171,17 @@ func (n *TableBody) GetChildren() []Node {
 	return result
 }
 
+func (n *TableBody) AppendChild(child Node) error {
+	if child.GetType() != TableRowType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*TableRow))
+	return nil
+}
+
 type TableCaption struct {
 	Type     string      `json:"type"`
-	Children []*Table    `json:"children,omitempty"`
+	Children []*Table    `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
 }
 
@@ -1633,9 +2201,17 @@ func (n *TableCaption) GetChildren() []Node {
 	return result
 }
 
+func (n *TableCaption) AppendChild(child Node) error {
+	if child.GetType() != TableType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*Table))
+	return nil
+}
+
 type TableCell struct {
 	Type     string      `json:"type"`
-	Children []*Table    `json:"children,omitempty"`
+	Children []*Table    `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
 	Heading  bool        `json:"heading,omitempty"`
 }
@@ -1656,9 +2232,17 @@ func (n *TableCell) GetChildren() []Node {
 	return result
 }
 
+func (n *TableCell) AppendChild(child Node) error {
+	if child.GetType() != TableType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*Table))
+	return nil
+}
+
 type TableFooter struct {
 	Type     string      `json:"type"`
-	Children []*Table    `json:"children,omitempty"`
+	Children []*Table    `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
 }
 
@@ -1678,9 +2262,17 @@ func (n *TableFooter) GetChildren() []Node {
 	return result
 }
 
+func (n *TableFooter) AppendChild(child Node) error {
+	if child.GetType() != TableType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*Table))
+	return nil
+}
+
 type TableRow struct {
 	Type     string       `json:"type"`
-	Children []*TableCell `json:"children,omitempty"`
+	Children []*TableCell `json:"children"`
 	Data     interface{}  `json:"data,omitempty"`
 }
 
@@ -1698,6 +2290,14 @@ func (n *TableRow) GetChildren() []Node {
 		result[i] = v
 	}
 	return result
+}
+
+func (n *TableRow) AppendChild(child Node) error {
+	if child.GetType() != TableCellType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*TableCell))
+	return nil
 }
 
 type Text struct {
@@ -1718,6 +2318,8 @@ func (n *Text) GetChildren() []Node {
 	return nil
 }
 
+func (n *Text) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
 type ThematicBreak struct {
 	Type string      `json:"type"`
 	Data interface{} `json:"data,omitempty"`
@@ -1734,6 +2336,8 @@ func (n *ThematicBreak) GetEmbedded() Node {
 func (n *ThematicBreak) GetChildren() []Node {
 	return nil
 }
+
+func (n *ThematicBreak) AppendChild(_ Node) error { return ErrCannotHaveChildren }
 
 type Tweet struct {
 	Type string      `json:"type"`
@@ -1754,10 +2358,12 @@ func (n *Tweet) GetChildren() []Node {
 	return nil
 }
 
+func (n *Tweet) AppendChild(child Node) error { return ErrCannotHaveChildren }
+
 type Video struct {
 	Type string      `json:"type"`
 	Data interface{} `json:"data,omitempty"`
-	ID   string      `json:"id,omitempty"`
+	ID   string      `json:"id"`
 }
 
 func (n *Video) GetType() string {
@@ -1771,6 +2377,8 @@ func (n *Video) GetEmbedded() Node {
 func (n *Video) GetChildren() []Node {
 	return nil
 }
+
+func (n *Video) AppendChild(_ Node) error { return ErrCannotHaveChildren }
 
 type YoutubeVideo struct {
 	Type string      `json:"type"`
@@ -1790,11 +2398,13 @@ func (n *YoutubeVideo) GetChildren() []Node {
 	return nil
 }
 
+func (n *YoutubeVideo) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
 type CustomCodeComponent struct {
 	Type                   string                 `json:"type"`
 	Data                   interface{}            `json:"data,omitempty"`
-	ID                     string                 `json:"id,omitempty"`
-	LayoutWidth            string                 `json:"layoutWidth,omitempty"`
+	ID                     string                 `json:"id"`
+	LayoutWidth            string                 `json:"layoutWidth"`
 	Attributes             map[string]interface{} `json:"attributes,omitempty"`
 	AttributesLastModified string                 `json:"attributesLastModified,omitempty"`
 	Path                   string                 `json:"path,omitempty"`
@@ -1812,6 +2422,32 @@ func (n *CustomCodeComponent) GetEmbedded() Node {
 func (n *CustomCodeComponent) GetChildren() []Node {
 	return nil
 }
+
+func (n *CustomCodeComponent) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
+type ClipSet struct {
+	Type        string      `json:"type"`
+	Data        interface{} `json:"data,omitempty"`
+	ID          string      `json:"id,omitempty"`
+	LayoutWidth string      `json:"layoutWidth,omitempty"`
+	Autoplay    bool        `json:"autoplay,omitempty"`
+	Loop        bool        `json:"loop,omitempty"`
+	Muted       bool        `json:"muted,omitempty"`
+}
+
+func (n *ClipSet) GetType() string {
+	return n.Type
+}
+
+func (n *ClipSet) GetEmbedded() Node {
+	return nil
+}
+
+func (n *ClipSet) GetChildren() []Node {
+	return nil
+}
+
+func (n *ClipSet) AppendChild(_ Node) error { return ErrCannotHaveChildren }
 
 type FallbackImage struct {
 	Format    string            `json:"format,omitempty"`
@@ -1923,6 +2559,8 @@ func (n *Root) GetEmbedded() Node {
 func (n *Root) GetChildren() []Node {
 	return nil
 }
+
+func (n *Root) AppendChild(_ Node) error { return ErrCannotHaveChildren }
 
 type SourceSetItems struct {
 	Dpr   float64 `json:"dpr,omitempty"`

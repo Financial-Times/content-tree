@@ -56,7 +56,7 @@ export let defaultTransformers = {
    * @type {Transformer<ContentTree.transit.Heading>}
    */
   h1(h1) {
-    const fragmentId = h1.attributes["data-fragment-id"] || h1.attributes["id"];
+    const fragmentId = h1.attributes["data-fragment-identifier"] || h1.attributes["id"];
     return {
       type: "heading",
       level: "chapter",
@@ -67,7 +67,7 @@ export let defaultTransformers = {
    * @type {Transformer<ContentTree.transit.Heading>}
    */
   h2(h2) {
-    const fragmentId = h2.attributes["data-fragment-id"] || h2.attributes["id"];
+    const fragmentId = h2.attributes["data-fragment-identifier"] || h2.attributes["id"];
     return {
       type: "heading",
       level: "subheading",
@@ -78,7 +78,7 @@ export let defaultTransformers = {
    * @type {Transformer<ContentTree.transit.Heading>}
    */
   h3(h3) {
-    const fragmentId = h3.attributes["data-fragment-id"] || h3.attributes["id"];
+    const fragmentId = h3.attributes["data-fragment-identifier"] || h3.attributes["id"];
     return {
       type: "heading",
       level: "subheading",
@@ -89,7 +89,7 @@ export let defaultTransformers = {
    * @type {Transformer<ContentTree.transit.Heading>}
    */
   h4(h4) {
-    const fragmentId = h4.attributes["data-fragment-id"] || h4.attributes["id"];
+    const fragmentId = h4.attributes["data-fragment-identifier"] || h4.attributes["id"];
     return {
       type: "heading",
       level: "label",
@@ -245,7 +245,7 @@ export let defaultTransformers = {
    * @type {Transformer<ContentTree.transit.ImageSet>}
    */
   [ContentType.imageset](content) {
-    const fragmentId = content.attributes["data-fragment-id"] || content.attributes["id"];
+    const fragmentId = content.attributes["data-fragment-identifier"] || content.attributes["id"];
     return {
       type: "image-set",
       id: content.attributes.url ?? "",
@@ -270,7 +270,7 @@ export let defaultTransformers = {
   [ContentType.content](content) {
     const id = content.attributes.url ?? "";
     const uuid = id.split("/").pop();
-    const fragmentId = content.attributes["data-fragment-id"] || content.attributes["id"];
+    const fragmentId = content.attributes["data-fragment-identifier"] || content.attributes["id"];
 
     if (content.attributes["data-asset-type"] == "flourish") {
       return /** @type {ContentTree.transit.Flourish} */ ({
