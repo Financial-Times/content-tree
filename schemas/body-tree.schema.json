@@ -223,6 +223,13 @@
             ],
             "type": "object"
         },
+        "ContentTree.transit.FlourishLayoutWidth": {
+            "enum": [
+                "full-grid",
+                "in-line"
+            ],
+            "type": "string"
+        },
         "ContentTree.transit.Gallery": {
             "additionalProperties": false,
             "properties": {
@@ -340,13 +347,6 @@
             ],
             "sparkGenerateStoryblock": true,
             "type": "object"
-        },
-        "ContentTree.transit.FlourishLayoutWidth": {
-            "enum": [
-                "full-grid",
-                "in-line"
-            ],
-            "type": "string"
         },
         "ContentTree.transit.Heading": {
             "additionalProperties": false,
