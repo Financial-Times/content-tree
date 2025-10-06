@@ -36,7 +36,7 @@ export declare namespace ContentTree {
         type: "heading";
         children: Text[];
         level: "chapter" | "subheading" | "label";
-        blockIdentifier?: string;
+        fragmentIdentifier?: string;
     }
     interface Strong extends Parent {
         type: "strong";
@@ -78,7 +78,7 @@ export declare namespace ContentTree {
         type: "image-set";
         id: string;
         picture: ImageSetPicture;
-        blockIdentifier?: string;
+        fragmentIdentifier?: string;
     }
     type ImageSetPicture = {
         layoutWidth: string;
@@ -150,15 +150,16 @@ export declare namespace ContentTree {
         type: "tweet";
         html: string;
     }
+    type FlourishLayoutWidth = Extract<LayoutWidth, "full-grid" | "in-line">;
     interface Flourish extends Node {
         type: "flourish";
         id: string;
-        layoutWidth: string;
+        layoutWidth: FlourishLayoutWidth;
         flourishType: string;
         description?: string;
         timestamp?: string;
         fallbackImage?: Image;
-        blockIdentifier?: string;
+        fragmentIdentifier?: string;
     }
     interface BigNumber extends Node {
         type: "big-number";
@@ -224,6 +225,7 @@ export declare namespace ContentTree {
         sortable: boolean;
         sortType: 'text' | 'number' | 'date' | 'currency' | 'percent';
     };
+    type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
     interface TableCaption extends Parent {
         type: 'table-caption';
         children: Phrasing[];
@@ -251,7 +253,7 @@ export declare namespace ContentTree {
         type: 'table';
         stripes: boolean;
         compact: boolean;
-        layoutWidth: 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed';
+        layoutWidth: TableLayoutWidth;
         collapseAfterHowManyRows?: number;
         responsiveStyle: 'overflow' | 'flat' | 'scroll';
         children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
@@ -355,7 +357,7 @@ export declare namespace ContentTree {
             type: "heading";
             children: Text[];
             level: "chapter" | "subheading" | "label";
-            blockIdentifier?: string;
+            fragmentIdentifier?: string;
         }
         interface Strong extends Parent {
             type: "strong";
@@ -397,7 +399,7 @@ export declare namespace ContentTree {
             type: "image-set";
             id: string;
             picture: ImageSetPicture;
-            blockIdentifier?: string;
+            fragmentIdentifier?: string;
         }
         type ImageSetPicture = {
             layoutWidth: string;
@@ -469,15 +471,16 @@ export declare namespace ContentTree {
             type: "tweet";
             html: string;
         }
+        type FlourishLayoutWidth = Extract<LayoutWidth, "full-grid" | "in-line">;
         interface Flourish extends Node {
             type: "flourish";
             id: string;
-            layoutWidth: string;
+            layoutWidth: FlourishLayoutWidth;
             flourishType: string;
             description?: string;
             timestamp?: string;
             fallbackImage?: Image;
-            blockIdentifier?: string;
+            fragmentIdentifier?: string;
         }
         interface BigNumber extends Node {
             type: "big-number";
@@ -543,6 +546,7 @@ export declare namespace ContentTree {
             sortable: boolean;
             sortType: 'text' | 'number' | 'date' | 'currency' | 'percent';
         };
+        type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
         interface TableCaption extends Parent {
             type: 'table-caption';
             children: Phrasing[];
@@ -570,7 +574,7 @@ export declare namespace ContentTree {
             type: 'table';
             stripes: boolean;
             compact: boolean;
-            layoutWidth: 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed';
+            layoutWidth: TableLayoutWidth;
             collapseAfterHowManyRows?: number;
             responsiveStyle: 'overflow' | 'flat' | 'scroll';
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
@@ -675,7 +679,7 @@ export declare namespace ContentTree {
             type: "heading";
             children: Text[];
             level: "chapter" | "subheading" | "label";
-            blockIdentifier?: string;
+            fragmentIdentifier?: string;
         }
         interface Strong extends Parent {
             type: "strong";
@@ -716,7 +720,7 @@ export declare namespace ContentTree {
         interface ImageSet extends Node {
             type: "image-set";
             id: string;
-            blockIdentifier?: string;
+            fragmentIdentifier?: string;
         }
         type ImageSetPicture = {
             layoutWidth: string;
@@ -786,14 +790,15 @@ export declare namespace ContentTree {
             id: string;
             type: "tweet";
         }
+        type FlourishLayoutWidth = Extract<LayoutWidth, "full-grid" | "in-line">;
         interface Flourish extends Node {
             type: "flourish";
             id: string;
-            layoutWidth: string;
+            layoutWidth: FlourishLayoutWidth;
             flourishType: string;
             description?: string;
             timestamp?: string;
-            blockIdentifier?: string;
+            fragmentIdentifier?: string;
         }
         interface BigNumber extends Node {
             type: "big-number";
@@ -856,6 +861,7 @@ export declare namespace ContentTree {
             sortable: boolean;
             sortType: 'text' | 'number' | 'date' | 'currency' | 'percent';
         };
+        type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
         interface TableCaption extends Parent {
             type: 'table-caption';
             children: Phrasing[];
@@ -883,7 +889,7 @@ export declare namespace ContentTree {
             type: 'table';
             stripes: boolean;
             compact: boolean;
-            layoutWidth: 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed';
+            layoutWidth: TableLayoutWidth;
             collapseAfterHowManyRows?: number;
             responsiveStyle: 'overflow' | 'flat' | 'scroll';
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
@@ -980,7 +986,7 @@ export declare namespace ContentTree {
             type: "heading";
             children: Text[];
             level: "chapter" | "subheading" | "label";
-            blockIdentifier?: string;
+            fragmentIdentifier?: string;
         }
         interface Strong extends Parent {
             type: "strong";
@@ -1022,7 +1028,7 @@ export declare namespace ContentTree {
             type: "image-set";
             id: string;
             picture?: ImageSetPicture;
-            blockIdentifier?: string;
+            fragmentIdentifier?: string;
         }
         type ImageSetPicture = {
             layoutWidth: string;
@@ -1094,15 +1100,16 @@ export declare namespace ContentTree {
             type: "tweet";
             html?: string;
         }
+        type FlourishLayoutWidth = Extract<LayoutWidth, "full-grid" | "in-line">;
         interface Flourish extends Node {
             type: "flourish";
             id: string;
-            layoutWidth: string;
+            layoutWidth: FlourishLayoutWidth;
             flourishType: string;
             description?: string;
             timestamp?: string;
             fallbackImage?: Image;
-            blockIdentifier?: string;
+            fragmentIdentifier?: string;
         }
         interface BigNumber extends Node {
             type: "big-number";
@@ -1168,6 +1175,7 @@ export declare namespace ContentTree {
             sortable: boolean;
             sortType: 'text' | 'number' | 'date' | 'currency' | 'percent';
         };
+        type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
         interface TableCaption extends Parent {
             type: 'table-caption';
             children: Phrasing[];
@@ -1195,7 +1203,7 @@ export declare namespace ContentTree {
             type: 'table';
             stripes: boolean;
             compact: boolean;
-            layoutWidth: 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed';
+            layoutWidth: TableLayoutWidth;
             collapseAfterHowManyRows?: number;
             responsiveStyle: 'overflow' | 'flat' | 'scroll';
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];

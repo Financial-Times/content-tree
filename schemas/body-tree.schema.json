@@ -191,9 +191,6 @@
         "ContentTree.transit.Flourish": {
             "additionalProperties": false,
             "properties": {
-                "blockIdentifier": {
-                    "type": "string"
-                },
                 "data": {},
                 "description": {
                     "type": "string"
@@ -201,11 +198,14 @@
                 "flourishType": {
                     "type": "string"
                 },
+                "fragmentIdentifier": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "string"
                 },
                 "layoutWidth": {
-                    "type": "string"
+                    "$ref": "#/definitions/ContentTree.transit.FlourishLayoutWidth"
                 },
                 "timestamp": {
                     "type": "string"
@@ -341,12 +341,16 @@
             "sparkGenerateStoryblock": true,
             "type": "object"
         },
+        "ContentTree.transit.FlourishLayoutWidth": {
+            "enum": [
+                "full-grid",
+                "in-line"
+            ],
+            "type": "string"
+        },
         "ContentTree.transit.Heading": {
             "additionalProperties": false,
             "properties": {
-                "blockIdentifier": {
-                    "type": "string"
-                },
                 "children": {
                     "items": {
                         "$ref": "#/definitions/ContentTree.transit.Text"
@@ -354,6 +358,9 @@
                     "type": "array"
                 },
                 "data": {},
+                "fragmentIdentifier": {
+                    "type": "string"
+                },
                 "level": {
                     "enum": [
                         "chapter",
@@ -377,10 +384,10 @@
         "ContentTree.transit.ImageSet": {
             "additionalProperties": false,
             "properties": {
-                "blockIdentifier": {
+                "data": {},
+                "fragmentIdentifier": {
                     "type": "string"
                 },
-                "data": {},
                 "id": {
                     "type": "string"
                 },
@@ -1018,14 +1025,7 @@
                 },
                 "data": {},
                 "layoutWidth": {
-                    "enum": [
-                        "auto",
-                        "full-bleed",
-                        "full-grid",
-                        "inset-left",
-                        "inset-right"
-                    ],
-                    "type": "string"
+                    "$ref": "#/definitions/ContentTree.transit.TableLayoutWidth"
                 },
                 "responsiveStyle": {
                     "enum": [
@@ -1146,6 +1146,16 @@
                 "type"
             ],
             "type": "object"
+        },
+        "ContentTree.transit.TableLayoutWidth": {
+            "enum": [
+                "auto",
+                "full-bleed",
+                "full-grid",
+                "inset-left",
+                "inset-right"
+            ],
+            "type": "string"
         },
         "ContentTree.transit.TableRow": {
             "additionalProperties": false,
