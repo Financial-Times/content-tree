@@ -50,6 +50,9 @@
                             },
                             {
                                 "$ref": "#/definitions/ContentTree.full.Link"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.OnwardJourneyLink"
                             }
                         ]
                     },
@@ -927,6 +930,9 @@
                             },
                             {
                                 "$ref": "#/definitions/ContentTree.full.Link"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.OnwardJourneyLink"
                             }
                         ]
                     },
@@ -941,6 +947,35 @@
             "required": [
                 "children",
                 "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.OnwardJourneyLink": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.full.Phrasing"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "onward-journey-link",
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "title",
+                "type",
+                "url"
             ],
             "type": "object"
         },
@@ -984,6 +1019,9 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.Link"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.OnwardJourneyLink"
                 }
             ]
         },

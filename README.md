@@ -129,7 +129,7 @@ type LayoutWidth =
 ### `Phrasing`
 
 ```ts
-type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link
+type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | OnwardJourneyLink
 ```
 
 A phrasing node cannot have ancestor of the same type.
@@ -298,6 +298,19 @@ interface Link extends Parent {
 ```
 
 **Link** represents a hyperlink.
+
+### `OnwardJourneyLink`
+
+```ts
+interface OnwardJourneyLink extends Parent {
+	type: "onward-journey-link"
+	url: string
+	title: string
+	children: Phrasing[]
+}
+```
+
+**OnwardJourneyLink** represents a hyperlink in a partner content onward journey.
 
 ### `List`
 

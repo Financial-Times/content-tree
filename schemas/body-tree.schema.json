@@ -50,6 +50,9 @@
                             },
                             {
                                 "$ref": "#/definitions/ContentTree.transit.Link"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.OnwardJourneyLink"
                             }
                         ]
                     },
@@ -500,6 +503,9 @@
                             },
                             {
                                 "$ref": "#/definitions/ContentTree.transit.Link"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.OnwardJourneyLink"
                             }
                         ]
                     },
@@ -514,6 +520,35 @@
             "required": [
                 "children",
                 "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.OnwardJourneyLink": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.transit.Phrasing"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "onward-journey-link",
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "title",
+                "type",
+                "url"
             ],
             "type": "object"
         },
@@ -557,6 +592,9 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.Link"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.OnwardJourneyLink"
                 }
             ]
         },
