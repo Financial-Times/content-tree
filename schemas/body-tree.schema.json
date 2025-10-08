@@ -131,6 +131,12 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.ImagePair"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.InNumbers"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Definition"
                 }
             ]
         },
@@ -169,6 +175,29 @@
             "required": [
                 "id",
                 "layoutWidth",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.Definition": {
+            "additionalProperties": false,
+            "description": "A definition has a term and a related description. It is used to describe a term.",
+            "properties": {
+                "data": {},
+                "description": {
+                    "type": "string"
+                },
+                "term": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "definition",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "description",
+                "term",
                 "type"
             ],
             "type": "object"
@@ -314,6 +343,42 @@
             },
             "required": [
                 "id",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.InNumbers": {
+            "additionalProperties": false,
+            "description": "InNumbers represents a set of numbers with related descriptions.",
+            "properties": {
+                "children": {
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.Definition"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.Definition"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.Definition"
+                        }
+                    ],
+                    "maxItems": 3,
+                    "minItems": 3,
+                    "type": "array"
+                },
+                "data": {},
+                "title": {
+                    "description": "The title for the InNumbers",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "in-numbers",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
                 "type"
             ],
             "type": "object"

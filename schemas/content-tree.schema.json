@@ -156,6 +156,12 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.ImagePair"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.InNumbers"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Definition"
                 }
             ]
         },
@@ -221,6 +227,29 @@
                 "path",
                 "type",
                 "versionRange"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.Definition": {
+            "additionalProperties": false,
+            "description": "A definition has a term and a related description. It is used to describe a term.",
+            "properties": {
+                "data": {},
+                "description": {
+                    "type": "string"
+                },
+                "term": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "definition",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "description",
+                "term",
+                "type"
             ],
             "type": "object"
         },
@@ -583,6 +612,42 @@
             "required": [
                 "id",
                 "picture",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.InNumbers": {
+            "additionalProperties": false,
+            "description": "InNumbers represents a set of numbers with related descriptions.",
+            "properties": {
+                "children": {
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.full.Definition"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.full.Definition"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.full.Definition"
+                        }
+                    ],
+                    "maxItems": 3,
+                    "minItems": 3,
+                    "type": "array"
+                },
+                "data": {},
+                "title": {
+                    "description": "The title for the InNumbers",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "in-numbers",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
                 "type"
             ],
             "type": "object"
