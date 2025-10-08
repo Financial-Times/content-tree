@@ -285,6 +285,15 @@ export declare namespace ContentTree {
         /** Configuration data to be passed to the component. */
         attributes: CustomCodeComponentAttributes;
     }
+    /**
+     * InNumbers represents a set of numbers with related descriptions
+     */
+    interface InNumbers extends Parent {
+        type: "in-numbers";
+        /** The title for the InNumbers */
+        title: string;
+        children: [BigNumber, BigNumber, BigNumber];
+    }
     namespace full {
         type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
@@ -572,6 +581,15 @@ export declare namespace ContentTree {
             /** Configuration data to be passed to the component. */
             attributes: CustomCodeComponentAttributes;
         }
+        /**
+         * InNumbers represents a set of numbers with related descriptions
+         */
+        interface InNumbers extends Parent {
+            type: "in-numbers";
+            /** The title for the InNumbers */
+            title: string;
+            children: [BigNumber, BigNumber, BigNumber];
+        }
     }
     namespace transit {
         type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text;
@@ -844,6 +862,15 @@ export declare namespace ContentTree {
             id: string;
             /** How the component should be presented in the article page according to the column layout system */
             layoutWidth: LayoutWidth;
+        }
+        /**
+         * InNumbers represents a set of numbers with related descriptions
+         */
+        interface InNumbers extends Parent {
+            type: "in-numbers";
+            /** The title for the InNumbers */
+            title: string;
+            children: [BigNumber, BigNumber, BigNumber];
         }
     }
     namespace loose {
@@ -1132,6 +1159,15 @@ export declare namespace ContentTree {
             attributesLastModified?: string;
             /** Configuration data to be passed to the component. */
             attributes?: CustomCodeComponentAttributes;
+        }
+        /**
+         * InNumbers represents a set of numbers with related descriptions
+         */
+        interface InNumbers extends Parent {
+            type: "in-numbers";
+            /** The title for the InNumbers */
+            title: string;
+            children: [BigNumber, BigNumber, BigNumber];
         }
     }
 }
