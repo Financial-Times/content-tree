@@ -278,6 +278,20 @@ export declare namespace ContentTree {
         /** Configuration data to be passed to the component. */
         attributes: CustomCodeComponentAttributes;
     }
+    interface Info extends Parent {
+        type: "info";
+        children: [Heading, ImageSet, Paragraph];
+    }
+    type InfoBoxLayoutWidth = Extract<LayoutWidth, "full-width" | "inset-left">;
+    interface InfoBox extends Parent {
+        type: "info-box";
+        layoutWidth: InfoBoxLayoutWidth;
+        children: Info;
+    }
+    interface Comparison extends Parent {
+        type: "comparison";
+        children: [Heading, Info, Info];
+    }
     namespace full {
         type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
@@ -558,6 +572,20 @@ export declare namespace ContentTree {
             /** Configuration data to be passed to the component. */
             attributes: CustomCodeComponentAttributes;
         }
+        interface Info extends Parent {
+            type: "info";
+            children: [Heading, ImageSet, Paragraph];
+        }
+        type InfoBoxLayoutWidth = Extract<LayoutWidth, "full-width" | "inset-left">;
+        interface InfoBox extends Parent {
+            type: "info-box";
+            layoutWidth: InfoBoxLayoutWidth;
+            children: Info;
+        }
+        interface Comparison extends Parent {
+            type: "comparison";
+            children: [Heading, Info, Info];
+        }
     }
     namespace transit {
         type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text;
@@ -823,6 +851,20 @@ export declare namespace ContentTree {
             id: string;
             /** How the component should be presented in the article page according to the column layout system */
             layoutWidth: LayoutWidth;
+        }
+        interface Info extends Parent {
+            type: "info";
+            children: [Heading, ImageSet, Paragraph];
+        }
+        type InfoBoxLayoutWidth = Extract<LayoutWidth, "full-width" | "inset-left">;
+        interface InfoBox extends Parent {
+            type: "info-box";
+            layoutWidth: InfoBoxLayoutWidth;
+            children: Info;
+        }
+        interface Comparison extends Parent {
+            type: "comparison";
+            children: [Heading, Info, Info];
         }
     }
     namespace loose {
@@ -1104,6 +1146,20 @@ export declare namespace ContentTree {
             attributesLastModified?: string;
             /** Configuration data to be passed to the component. */
             attributes?: CustomCodeComponentAttributes;
+        }
+        interface Info extends Parent {
+            type: "info";
+            children: [Heading, ImageSet, Paragraph];
+        }
+        type InfoBoxLayoutWidth = Extract<LayoutWidth, "full-width" | "inset-left">;
+        interface InfoBox extends Parent {
+            type: "info-box";
+            layoutWidth: InfoBoxLayoutWidth;
+            children: Info;
+        }
+        interface Comparison extends Parent {
+            type: "comparison";
+            children: [Heading, Info, Info];
         }
     }
 }
