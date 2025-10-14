@@ -762,6 +762,38 @@ interface CustomCodeComponent extends Node {
 - The basic interface in Spark to make reference to this system above (eg. the git repo URL or a public S3 bucket), and provide some data for it if necessary. This will be the Custom Component storyblock.
 - The data Spark receives from entering a specific ID will be used to render dynamic fields (the `attributes`).
 
+### Info
+
+```ts
+interface Info extends Parent {
+	type: "info"
+	children: [Heading, ImageSet, Paragraph]
+}
+```
+An **Info** is an atomic information that can be optionally associated with other information
+
+### InfoBox
+
+```ts
+type InfoBoxLayoutWidth =  Extract<LayoutWidth, "full-width" | "inset-left">
+interface InfoBox extends Parent {
+	type: "info-box"
+    layoutWidth: InfoBoxLayoutWidth
+	children: Info
+}
+```
+An **InfoBox** positions a single **Info** inside the content whilst setting an appropriate presentation
+
+### Comparison
+
+```ts
+interface Comparison extends Parent {
+	type: "comparison"
+    children: [Heading, Info, Info]
+}
+```
+
+A **Comparison** compares two information
 
 ## License
 
