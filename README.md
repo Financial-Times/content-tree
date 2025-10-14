@@ -782,8 +782,8 @@ interface Timeline extends Parent {
 ```ts
 interface TimelineEvent extends Parent {
 	type: "timeline-event"
-	dateLabel: string
-	children: Paragraph[]
+	title: string
+	children: (Paragraph | ImageSet)[]
 }
 ```
 
