@@ -766,28 +766,37 @@ interface CustomCodeComponent extends Node {
 ### Timeline
 
 ```ts
+/**
+ * Allowed layout widths for a Timeline.
+ * @typedef {'full-width' | 'inset-left' | 'full-grid'} TimelineLayoutWidth
+ */
 type TimelineLayoutWidth =  Extract<LayoutWidth, "full-width" | "inset-left" | "full-grid">
 
+/**
+ * Timeline nodes display a timeline of events in arbitrary order.
+ *
+ * @typedef Timeline
+ * @property {TimelineLayoutWidth} layoutWidth - How the component should be presented.
+ **/
 interface Timeline extends Parent {
 	type: "timeline"
 	layoutWidth: TimelineLayoutWidth
 	children: [Heading, ...TimelineEvent[]]
 }
-```
 
-**Timeline** nodes display a timeline of events in arbitrary order.
-
-### TimelineEvent
-
-```ts
+/**
+ * TimelineEvent is the representation of a single event
+ * 
+ * @typedef TimelineEvent
+ * @property {string} title - The title of the event
+ * @property {(Paragraph | ImageSet)[]} children - Elements that describe the event
+ **/
 interface TimelineEvent extends Parent {
 	type: "timeline-event"
 	title: string
 	children: (Paragraph | ImageSet)[]
 }
 ```
-
-**TimelineEvent** nodes represents a single event in a timeline.
 
 ## License
 
