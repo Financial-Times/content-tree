@@ -286,8 +286,8 @@ export declare namespace ContentTree {
     }
     interface TimelineEvent extends Parent {
         type: "timeline-event";
-        dateLabel: string;
-        children: Paragraph[];
+        title: string;
+        children: (Paragraph | ImageSet)[];
     }
     namespace full {
         type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text | Timeline;
@@ -577,8 +577,8 @@ export declare namespace ContentTree {
         }
         interface TimelineEvent extends Parent {
             type: "timeline-event";
-            dateLabel: string;
-            children: Paragraph[];
+            title: string;
+            children: (Paragraph | ImageSet)[];
         }
     }
     namespace transit {
@@ -854,8 +854,8 @@ export declare namespace ContentTree {
         }
         interface TimelineEvent extends Parent {
             type: "timeline-event";
-            dateLabel: string;
-            children: Paragraph[];
+            title: string;
+            children: (Paragraph | ImageSet)[];
         }
     }
     namespace loose {
@@ -1146,8 +1146,8 @@ export declare namespace ContentTree {
         }
         interface TimelineEvent extends Parent {
             type: "timeline-event";
-            dateLabel: string;
-            children: Paragraph[];
+            title: string;
+            children: (Paragraph | ImageSet)[];
         }
     }
 }

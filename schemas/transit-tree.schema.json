@@ -1153,12 +1153,19 @@
             "properties": {
                 "children": {
                     "items": {
-                        "$ref": "#/definitions/ContentTree.transit.Paragraph"
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Paragraph"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                            }
+                        ]
                     },
                     "type": "array"
                 },
                 "data": {},
-                "dateLabel": {
+                "title": {
                     "type": "string"
                 },
                 "type": {
@@ -1168,7 +1175,7 @@
             },
             "required": [
                 "children",
-                "dateLabel",
+                "title",
                 "type"
             ],
             "type": "object"

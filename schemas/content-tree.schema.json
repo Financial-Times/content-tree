@@ -1906,12 +1906,19 @@
             "properties": {
                 "children": {
                     "items": {
-                        "$ref": "#/definitions/ContentTree.full.Paragraph"
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Paragraph"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.ImageSet"
+                            }
+                        ]
                     },
                     "type": "array"
                 },
                 "data": {},
-                "dateLabel": {
+                "title": {
                     "type": "string"
                 },
                 "type": {
@@ -1921,7 +1928,7 @@
             },
             "required": [
                 "children",
-                "dateLabel",
+                "title",
                 "type"
             ],
             "type": "object"
