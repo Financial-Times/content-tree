@@ -1,7 +1,7 @@
 # XML to Content Tree Transformer
 
 ## Overview
-The Transformer converts external XHTML-formatted document into content tree. It supports bodyXML format stored in the **internalComponent** collection.
+The Transformer converts external XHTML-formatted document into content tree. It supports the bodyXML format used in the main content store within the Content & Metadata platform — specifically, in the **internalComponent** collection.
 
 
 ## Usage
