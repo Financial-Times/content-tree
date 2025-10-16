@@ -1872,22 +1872,18 @@
         },
         "ContentTree.full.Timeline": {
             "additionalProperties": false,
+            "description": "Timeline nodes display a timeline of events in arbitrary order.",
             "properties": {
                 "children": {
-                    "additionalItems": {
+                    "items": {
                         "$ref": "#/definitions/ContentTree.full.TimelineEvent"
                     },
-                    "items": [
-                        {
-                            "$ref": "#/definitions/ContentTree.full.Heading"
-                        }
-                    ],
-                    "minItems": 1,
                     "type": "array"
                 },
                 "data": {},
                 "layoutWidth": {
-                    "$ref": "#/definitions/ContentTree.full.TimelineLayoutWidth"
+                    "$ref": "#/definitions/ContentTree.full.TimelineLayoutWidth",
+                    "description": "The layout width for the timeline"
                 },
                 "type": {
                     "const": "timeline",
@@ -1903,6 +1899,7 @@
         },
         "ContentTree.full.TimelineEvent": {
             "additionalProperties": false,
+            "description": "TimelineEvent is the representation of a single event in a Timeline.",
             "properties": {
                 "children": {
                     "items": {
@@ -1919,6 +1916,7 @@
                 },
                 "data": {},
                 "title": {
+                    "description": "The title of the event",
                     "type": "string"
                 },
                 "type": {
@@ -1934,10 +1932,10 @@
             "type": "object"
         },
         "ContentTree.full.TimelineLayoutWidth": {
+            "description": "Allowed layout widths for a Timeline.",
             "enum": [
                 "full-grid",
-                "full-width",
-                "inset-left"
+                "full-width"
             ],
             "type": "string"
         },

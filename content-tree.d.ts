@@ -278,14 +278,25 @@ export declare namespace ContentTree {
         /** Configuration data to be passed to the component. */
         attributes: CustomCodeComponentAttributes;
     }
-    type TimelineLayoutWidth = Extract<LayoutWidth, "full-width" | "inset-left" | "full-grid">;
+    /**
+     * Allowed layout widths for a Timeline.
+     */
+    type TimelineLayoutWidth = Extract<LayoutWidth, "full-width" | "full-grid">;
+    /**
+     * Timeline nodes display a timeline of events in arbitrary order.
+     */
     interface Timeline extends Parent {
         type: "timeline";
+        /** The layout width for the timeline */
         layoutWidth: TimelineLayoutWidth;
-        children: [Heading, ...TimelineEvent[]];
+        children: TimelineEvent[];
     }
+    /**
+     * TimelineEvent is the representation of a single event in a Timeline.
+     */
     interface TimelineEvent extends Parent {
         type: "timeline-event";
+        /** The title of the event */
         title: string;
         children: (Paragraph | ImageSet)[];
     }
@@ -569,14 +580,25 @@ export declare namespace ContentTree {
             /** Configuration data to be passed to the component. */
             attributes: CustomCodeComponentAttributes;
         }
-        type TimelineLayoutWidth = Extract<LayoutWidth, "full-width" | "inset-left" | "full-grid">;
+        /**
+         * Allowed layout widths for a Timeline.
+         */
+        type TimelineLayoutWidth = Extract<LayoutWidth, "full-width" | "full-grid">;
+        /**
+         * Timeline nodes display a timeline of events in arbitrary order.
+         */
         interface Timeline extends Parent {
             type: "timeline";
+            /** The layout width for the timeline */
             layoutWidth: TimelineLayoutWidth;
-            children: [Heading, ...TimelineEvent[]];
+            children: TimelineEvent[];
         }
+        /**
+         * TimelineEvent is the representation of a single event in a Timeline.
+         */
         interface TimelineEvent extends Parent {
             type: "timeline-event";
+            /** The title of the event */
             title: string;
             children: (Paragraph | ImageSet)[];
         }
@@ -846,14 +868,25 @@ export declare namespace ContentTree {
             /** How the component should be presented in the article page according to the column layout system */
             layoutWidth: LayoutWidth;
         }
-        type TimelineLayoutWidth = Extract<LayoutWidth, "full-width" | "inset-left" | "full-grid">;
+        /**
+         * Allowed layout widths for a Timeline.
+         */
+        type TimelineLayoutWidth = Extract<LayoutWidth, "full-width" | "full-grid">;
+        /**
+         * Timeline nodes display a timeline of events in arbitrary order.
+         */
         interface Timeline extends Parent {
             type: "timeline";
+            /** The layout width for the timeline */
             layoutWidth: TimelineLayoutWidth;
-            children: [Heading, ...TimelineEvent[]];
+            children: TimelineEvent[];
         }
+        /**
+         * TimelineEvent is the representation of a single event in a Timeline.
+         */
         interface TimelineEvent extends Parent {
             type: "timeline-event";
+            /** The title of the event */
             title: string;
             children: (Paragraph | ImageSet)[];
         }
@@ -1138,14 +1171,25 @@ export declare namespace ContentTree {
             /** Configuration data to be passed to the component. */
             attributes?: CustomCodeComponentAttributes;
         }
-        type TimelineLayoutWidth = Extract<LayoutWidth, "full-width" | "inset-left" | "full-grid">;
+        /**
+         * Allowed layout widths for a Timeline.
+         */
+        type TimelineLayoutWidth = Extract<LayoutWidth, "full-width" | "full-grid">;
+        /**
+         * Timeline nodes display a timeline of events in arbitrary order.
+         */
         interface Timeline extends Parent {
             type: "timeline";
+            /** The layout width for the timeline */
             layoutWidth: TimelineLayoutWidth;
-            children: [Heading, ...TimelineEvent[]];
+            children: TimelineEvent[];
         }
+        /**
+         * TimelineEvent is the representation of a single event in a Timeline.
+         */
         interface TimelineEvent extends Parent {
             type: "timeline-event";
+            /** The title of the event */
             title: string;
             children: (Paragraph | ImageSet)[];
         }
