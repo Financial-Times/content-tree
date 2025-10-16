@@ -776,6 +776,8 @@ type TimelineLayoutWidth =  Extract<LayoutWidth, "full-width" | "full-grid">
  */
 interface Timeline extends Parent {
 	type: "timeline"
+	/** The title for the timeline */
+	title: string
 	/** The layout width for the timeline */
 	layoutWidth: TimelineLayoutWidth
 	children: TimelineEvent[]
