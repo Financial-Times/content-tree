@@ -287,6 +287,8 @@ export declare namespace ContentTree {
      */
     interface Timeline extends Parent {
         type: "timeline";
+        /** The title for the timeline */
+        title: string;
         /** The layout width for the timeline */
         layoutWidth: TimelineLayoutWidth;
         children: TimelineEvent[];
@@ -589,6 +591,8 @@ export declare namespace ContentTree {
          */
         interface Timeline extends Parent {
             type: "timeline";
+            /** The title for the timeline */
+            title: string;
             /** The layout width for the timeline */
             layoutWidth: TimelineLayoutWidth;
             children: TimelineEvent[];
@@ -877,6 +881,8 @@ export declare namespace ContentTree {
          */
         interface Timeline extends Parent {
             type: "timeline";
+            /** The title for the timeline */
+            title: string;
             /** The layout width for the timeline */
             layoutWidth: TimelineLayoutWidth;
             children: TimelineEvent[];
@@ -1180,6 +1186,8 @@ export declare namespace ContentTree {
          */
         interface Timeline extends Parent {
             type: "timeline";
+            /** The title for the timeline */
+            title: string;
             /** The layout width for the timeline */
             layoutWidth: TimelineLayoutWidth;
             children: TimelineEvent[];

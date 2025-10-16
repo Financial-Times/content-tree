@@ -1132,6 +1132,10 @@
                     "$ref": "#/definitions/ContentTree.transit.TimelineLayoutWidth",
                     "description": "The layout width for the timeline"
                 },
+                "title": {
+                    "description": "The title for the timeline",
+                    "type": "string"
+                },
                 "type": {
                     "const": "timeline",
                     "type": "string"
@@ -1140,6 +1144,7 @@
             "required": [
                 "children",
                 "layoutWidth",
+                "title",
                 "type"
             ],
             "type": "object"
