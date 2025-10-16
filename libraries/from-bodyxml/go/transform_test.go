@@ -15,7 +15,6 @@ func TestTransform(t *testing.T) {
 	for _, test := range getTestCases(t) {
 		t.Run(test.name, func(t *testing.T) {
 			bodyTree, err := Transform(test.input)
-
 			if err != nil && !test.wantErr {
 				t.Errorf("Failed with unexpected error: %v", err)
 			}

@@ -1,0 +1,15 @@
+{
+  "type": "root",
+  "body": {
+    "type": "body",
+    "children": [
+      {
+        "type": "recommended",
+        "heading": "Recommended",
+        "id": "70981218-05a4-4685-86e0-a19b7cae7ff9",
+        "teaserTitleOverride": "The fight for the future of Chile "
+      }
+    ],
+    "version": 1
+  }
+}

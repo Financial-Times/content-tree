@@ -1,10 +1,8 @@
 # XML to Content Tree Transformer
 
 ## Overview
-The Transformer converts external XHTML-formatted document into content tree.  
-It supports format stored in the **internalComponent** collection as well as the one returned by the **Internal Content API**.
-The latter is produced by the content-public-read service after applying certain transformations to the bodyXML it retrieves from the internalComponents collection.
-These transformations include renaming the content, related, and concept tags to ft-content, ft-related, and ft-concept, respectively, and replacing the id attribute with url, with a few caveats.
+The Transformer converts external XHTML-formatted document into content tree. It supports bodyXML format stored in the **internalComponent** collection.
+
 
 ## Usage
 
@@ -29,3 +27,8 @@ func main() {
     fmt.Printf("Transformed content tree: %+v\n", out)
 }
 ```
+
+## Known Limitations and Behavior
+The current implementation of the transformer has the following limitations:
+- If the transformer encounters an HTML tag that does not have a corresponding definition in the content tree, that tag is skipped.
+- If an HTML element contains child elements that are not allowed, those disallowed children are ignored.

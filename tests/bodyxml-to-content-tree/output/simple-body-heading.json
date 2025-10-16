@@ -1,0 +1,30 @@
+{
+  "type": "root",
+  "body": {
+    "type": "body",
+    "children": [
+      {
+        "type": "heading",
+        "children": [
+          {
+            "type": "text",
+            "value": "A UK law requires housing developers to deliver a 10% net improvement to biodiversity on their sites, but delivery may be problematic"
+          }
+        ],
+        "level": "subheading",
+        "fragmentIdentifier": "dhgsrrha"
+      },
+      {
+        "type": "heading",
+        "children": [
+          {
+            "type": "text",
+            "value": "Differing levels of readiness"
+          }
+        ],
+        "level": "subheading"
+      }
+    ],
+    "version": 1
+  }
+}
