@@ -55,19 +55,8 @@ func convertToContentTree(elem etree.Token, m contenttree.Node) error {
 			return nil
 		}
 
-		if t.Tag == "content" || t.Tag == "related" || t.Tag == "concept" {
-			id := attr(t, "id")
-			typeAttr := attr(t, "type")
-			if id != "" {
-				t.CreateAttr("url", generateUrl(typeAttr, id))
-				if attr(t, "data-asset-type") != "flourish" {
-					t.RemoveAttr("id")
-				}
-			}
-		}
-
 		tag := t.Tag
-		if t.Tag == "content" || t.Tag == "ft-content" {
+		if t.Tag == "content" {
 			for _, attr := range t.Attr {
 				if attr.Key == "type" {
 					tag = attr.Value
@@ -78,13 +67,14 @@ func convertToContentTree(elem etree.Token, m contenttree.Node) error {
 
 		transformer, ok := defaultTransformers[tag]
 		if !ok {
-			return fmt.Errorf("unknownNode transformer for tag <%s>", t.Tag)
+			//skip unknown tags
+			return nil
 		}
-
 		switch transformed := transformer(t).(type) {
 		case *unknownNode:
 			{
-				return fmt.Errorf("unknownNode div node with class '%s'", transformed.Class)
+				//skip unknown div
+				return nil
 			}
 		case *liftChildrenNode:
 			{
@@ -100,12 +90,8 @@ func convertToContentTree(elem etree.Token, m contenttree.Node) error {
 			{
 				err := m.AppendChild(transformed)
 				if err != nil {
-					return fmt.Errorf(
-						"failed to append transformed child of type <%s> for parent <%s>: %w",
-						transformed.GetType(),
-						m.GetType(),
-						err,
-					)
+					//skip invalid child nodes
+					return nil
 				}
 				if transformed.GetChildren() != nil {
 					for _, child := range t.Child {
@@ -127,7 +113,8 @@ func convertToContentTree(elem etree.Token, m contenttree.Node) error {
 		}
 		err := m.AppendChild(tx)
 		if err != nil {
-			return err
+			//skip invalid nodes
+			return nil
 		}
 	}
 	return nil

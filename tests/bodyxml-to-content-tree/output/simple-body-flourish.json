@@ -1,0 +1,22 @@
+{
+  "type": "root",
+  "body": {
+    "type": "body",
+    "children": [
+      {
+        "type": "image-set",
+        "id": "88a54f8e-3618-4dbd-aa16-85cd046de7c7"
+      },
+      {
+        "type": "flourish",
+        "description": "",
+        "flourishType": "visualisation",
+        "id": "11009297",
+        "layoutWidth": "full-width",
+        "timestamp": "",
+        "fragmentIdentifier": "11009297"
+      }
+    ],
+    "version": 1
+  }
+}

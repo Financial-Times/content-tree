@@ -75,30 +75,3 @@ func valueOr(v, fallback string) string {
 func attr(el *etree.Element, name string) string {
 	return el.SelectAttrValue(name, "")
 }
-
-var contentTypeTemplates = map[string]string{
-	"http://www.ft.com/ontology/content/Article":             "/content/{{id}}",
-	"http://www.ft.com/ontology/content/ImageSet":            "/content/{{id}}",
-	"http://www.ft.com/ontology/content/ClipSet":             "/content/{{id}}",
-	"http://www.ft.com/ontology/content/CustomCodeComponent": "/content/{{id}}",
-	"http://www.ft.com/ontology/content/MediaResource":       "/content/{{id}}",
-	"http://www.ft.com/ontology/content/Video":               "/content/{{id}}",
-	"http://www.ft.com/ontology/company/PublicCompany":       "/organisations/{{id}}",
-	"http://www.ft.com/ontology/content/ContentPackage":      "/content/{{id}}",
-	"http://www.ft.com/ontology/content/Content":             "/content/{{id}}",
-	"http://www.ft.com/ontology/content/Image":               "/content/{{id}}",
-	"http://www.ft.com/ontology/content/DynamicContent":      "/content/{{id}}",
-	"http://www.ft.com/ontology/content/Graphic":             "/content/{{id}}",
-	"http://www.ft.com/ontology/content/Audio":               "/content/{{id}}",
-	"http://www.ft.com/ontology/company/Organisation":        "/organisations/{{id}}",
-}
-
-func generateUrl(t, id string) string {
-	const host = "http://api.ft.com"
-	template, ok := contentTypeTemplates[t]
-	if !ok {
-		return ""
-	}
-	path := strings.Replace(template, "{{id}}", id, 1)
-	return host + path
-}

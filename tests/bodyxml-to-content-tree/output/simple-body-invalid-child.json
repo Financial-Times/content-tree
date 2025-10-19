@@ -1,0 +1,57 @@
+{
+  "type": "root",
+  "body": {
+    "type": "body",
+    "children": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "Test"
+          }
+        ]
+      },
+      {
+        "type": "layout",
+        "children": [
+          {
+            "type": "layout-slot",
+            "children": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Unskipped"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "layoutName": "card",
+        "layoutWidth": "full-width"
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "Test"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "Test"
+          }
+        ]
+      }
+    ],
+    "version": 1
+  }
+}

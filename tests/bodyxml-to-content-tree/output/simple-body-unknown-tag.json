@@ -1,0 +1,31 @@
+{
+  "type": "root",
+  "body": {
+    "type": "body",
+    "children": [
+      {
+        "type": "image-set",
+        "id": "f35cf1ff-3c2c-41d5-8d87-9864c5fe466c"
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "Test"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "Test"
+          }
+        ]
+      }
+    ],
+    "version": 1
+  }
+}

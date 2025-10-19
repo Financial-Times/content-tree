@@ -1,0 +1,13 @@
+{
+  "type": "root",
+  "body": {
+    "type": "body",
+    "children": [
+      {
+        "type": "image-set",
+        "id": "88a54f8e-3618-4dbd-aa16-85cd046de7c7"
+      }
+    ],
+    "version": 1
+  }
+}

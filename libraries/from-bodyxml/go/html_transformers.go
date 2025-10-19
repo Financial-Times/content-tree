@@ -65,7 +65,7 @@ type transformer func(el *etree.Element) contenttree.Node
 
 var defaultTransformers = map[string]transformer{
 	"h1": func(h1 *etree.Element) contenttree.Node {
-		dfrgId := valueOr(attr(h1, "data-fragment-identifier"), attr(h1, "id"))
+		dfrgId := attr(h1, "data-fragment-identifier")
 		heading := &contenttree.Heading{
 			Type:               contenttree.HeadingType,
 			Level:              "chapter",
@@ -75,7 +75,7 @@ var defaultTransformers = map[string]transformer{
 		return heading
 	},
 	"h2": func(h2 *etree.Element) contenttree.Node {
-		dfrgId := valueOr(attr(h2, "data-fragment-identifier"), attr(h2, "id"))
+		dfrgId := attr(h2, "data-fragment-identifier")
 		return &contenttree.Heading{
 			Type:               contenttree.HeadingType,
 			Level:              "subheading",
@@ -84,7 +84,7 @@ var defaultTransformers = map[string]transformer{
 		}
 	},
 	"h3": func(h3 *etree.Element) contenttree.Node {
-		dfrgId := valueOr(attr(h3, "data-fragment-identifier"), attr(h3, "id"))
+		dfrgId := attr(h3, "data-fragment-identifier")
 		return &contenttree.Heading{
 			Type:               contenttree.HeadingType,
 			Level:              "subheading",
@@ -93,7 +93,7 @@ var defaultTransformers = map[string]transformer{
 		}
 	},
 	"h4": func(h4 *etree.Element) contenttree.Node {
-		dfrgId := valueOr(attr(h4, "data-fragment-identifier"), attr(h4, "id"))
+		dfrgId := attr(h4, "data-fragment-identifier")
 		return &contenttree.Heading{
 			Type:               contenttree.HeadingType,
 			Level:              "label",
@@ -232,33 +232,27 @@ var defaultTransformers = map[string]transformer{
 			Caption: attr(img, "longdesc"),
 		}
 	},
-
 	contentType.ImageSet: func(content *etree.Element) contenttree.Node {
-		dfrgId := valueOr(attr(content, "data-fragment-identifier"), attr(content, "id"))
+		dfrgId := attr(content, "data-fragment-identifier")
 		return &contenttree.ImageSet{
 			Type:               contenttree.ImageSetType,
-			ID:                 attr(content, "url"),
+			ID:                 attr(content, "id"),
 			FragmentIdentifier: dfrgId,
 		}
 	},
 	contentType.Video: func(content *etree.Element) contenttree.Node {
 		return &contenttree.Video{
 			Type: contenttree.VideoType,
-			ID:   attr(content, "url"),
+			ID:   attr(content, "id"),
 		}
 	},
 	contentType.Content: func(content *etree.Element) contenttree.Node {
-		id := attr(content, "url")
-		parts := strings.Split(id, "/")
-		uuid := ""
-		if len(parts) > 0 {
-			uuid = parts[len(parts)-1]
-		}
-		dfrgId := valueOr(attr(content, "data-fragment-identifier"), attr(content, "id"))
+		id := attr(content, "id")
 		if attr(content, "data-asset-type") == "flourish" {
+			dfrgId := valueOr(attr(content, "data-fragment-identifier"), id)
 			return &contenttree.Flourish{
 				Type:               contenttree.FlourishType,
-				Id:                 uuid,
+				Id:                 id,
 				FlourishType:       attr(content, "data-flourish-type"),
 				LayoutWidth:        string(toValidLayoutWidth(attr(content, "data-layout-width"))),
 				Description:        attr(content, "alt"),
@@ -268,48 +262,30 @@ var defaultTransformers = map[string]transformer{
 		}
 		return &contenttree.Link{
 			Type:     contenttree.LinkType,
-			URL:      "https://www.ft.com/content/" + uuid,
+			URL:      "https://www.ft.com/content/" + id,
 			Title:    attr(content, "dataTitle"),
 			Children: []*contenttree.Phrasing{},
 		}
 	},
 	contentType.Article: func(content *etree.Element) contenttree.Node {
-		id := attr(content, "url")
-		parts := strings.Split(id, "/")
-		uuid := ""
-		if len(parts) > 0 {
-			uuid = parts[len(parts)-1]
-		}
 		return &contenttree.Link{
 			Type:     contenttree.LinkType,
-			URL:      "https://www.ft.com/content/" + uuid,
+			URL:      "https://www.ft.com/content/" + attr(content, "id"),
 			Title:    attr(content, "dataTitle"),
 			Children: []*contenttree.Phrasing{},
 		}
 	},
 	contentType.CustomCodeComponent: func(content *etree.Element) contenttree.Node {
-		id := attr(content, "url")
-		parts := strings.Split(id, "/")
-		uuid := ""
-		if len(parts) > 0 {
-			uuid = parts[len(parts)-1]
-		}
 		return &contenttree.CustomCodeComponent{
 			Type:        contenttree.CustomCodeComponentType,
-			ID:          uuid,
+			ID:          attr(content, "id"),
 			LayoutWidth: string(toValidLayoutWidth(attr(content, "data-layout-width"))),
 		}
 	},
 	contentType.ClipSet: func(content *etree.Element) contenttree.Node {
-		id := attr(content, "url")
-		parts := strings.Split(id, "/")
-		uuid := ""
-		if len(parts) > 0 {
-			uuid = parts[len(parts)-1]
-		}
 		return &contenttree.ClipSet{
 			Type:        contenttree.ClipSetType,
-			ID:          uuid,
+			ID:          attr(content, "id"),
 			LayoutWidth: string(toValidClipLayoutWidth(attr(content, "data-layout-width"))),
 			Autoplay:    attr(content, "autoplay") == "true",
 			Loop:        attr(content, "loop") == "true",
@@ -320,10 +296,7 @@ var defaultTransformers = map[string]transformer{
 		id := ""
 		teaser := ""
 		if link := findChild(rl, "content"); link != nil {
-			id = generateUrl(attr(link, "type"), attr(link, "id"))
-			teaser = textContent(link)
-		} else if link := findChild(rl, "ft-content"); link != nil {
-			id = attr(link, "url")
+			id = attr(link, "id")
 			teaser = textContent(link)
 		}
 		heading := findChild(rl, "recommended-title")
