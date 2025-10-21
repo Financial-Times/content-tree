@@ -1,5 +1,5 @@
 export declare namespace ContentTree {
-    type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text;
+    type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text | Timeline;
     type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
     type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
     interface Node {
@@ -279,8 +279,32 @@ export declare namespace ContentTree {
         /** Configuration data to be passed to the component. */
         attributes: CustomCodeComponentAttributes;
     }
+    /**
+     * Allowed layout widths for a Timeline.
+     */
+    type TimelineLayoutWidth = Extract<LayoutWidth, "full-width" | "full-grid">;
+    /**
+     * Timeline nodes display a timeline of events in arbitrary order.
+     */
+    interface Timeline extends Parent {
+        type: "timeline";
+        /** The title for the timeline */
+        title: string;
+        /** The layout width for the timeline */
+        layoutWidth: TimelineLayoutWidth;
+        children: TimelineEvent[];
+    }
+    /**
+     * TimelineEvent is the representation of a single event in a Timeline.
+     */
+    interface TimelineEvent extends Parent {
+        type: "timeline-event";
+        /** The title of the event */
+        title: string;
+        children: (Paragraph | ImageSet)[];
+    }
     namespace full {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text | Timeline;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -560,9 +584,33 @@ export declare namespace ContentTree {
             /** Configuration data to be passed to the component. */
             attributes: CustomCodeComponentAttributes;
         }
+        /**
+         * Allowed layout widths for a Timeline.
+         */
+        type TimelineLayoutWidth = Extract<LayoutWidth, "full-width" | "full-grid">;
+        /**
+         * Timeline nodes display a timeline of events in arbitrary order.
+         */
+        interface Timeline extends Parent {
+            type: "timeline";
+            /** The title for the timeline */
+            title: string;
+            /** The layout width for the timeline */
+            layoutWidth: TimelineLayoutWidth;
+            children: TimelineEvent[];
+        }
+        /**
+         * TimelineEvent is the representation of a single event in a Timeline.
+         */
+        interface TimelineEvent extends Parent {
+            type: "timeline-event";
+            /** The title of the event */
+            title: string;
+            children: (Paragraph | ImageSet)[];
+        }
     }
     namespace transit {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text | Timeline;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -827,9 +875,33 @@ export declare namespace ContentTree {
             /** How the component should be presented in the article page according to the column layout system */
             layoutWidth: LayoutWidth;
         }
+        /**
+         * Allowed layout widths for a Timeline.
+         */
+        type TimelineLayoutWidth = Extract<LayoutWidth, "full-width" | "full-grid">;
+        /**
+         * Timeline nodes display a timeline of events in arbitrary order.
+         */
+        interface Timeline extends Parent {
+            type: "timeline";
+            /** The title for the timeline */
+            title: string;
+            /** The layout width for the timeline */
+            layoutWidth: TimelineLayoutWidth;
+            children: TimelineEvent[];
+        }
+        /**
+         * TimelineEvent is the representation of a single event in a Timeline.
+         */
+        interface TimelineEvent extends Parent {
+            type: "timeline-event";
+            /** The title of the event */
+            title: string;
+            children: (Paragraph | ImageSet)[];
+        }
     }
     namespace loose {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text | Timeline;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -1108,6 +1180,30 @@ export declare namespace ContentTree {
             attributesLastModified?: string;
             /** Configuration data to be passed to the component. */
             attributes?: CustomCodeComponentAttributes;
+        }
+        /**
+         * Allowed layout widths for a Timeline.
+         */
+        type TimelineLayoutWidth = Extract<LayoutWidth, "full-width" | "full-grid">;
+        /**
+         * Timeline nodes display a timeline of events in arbitrary order.
+         */
+        interface Timeline extends Parent {
+            type: "timeline";
+            /** The title for the timeline */
+            title: string;
+            /** The layout width for the timeline */
+            layoutWidth: TimelineLayoutWidth;
+            children: TimelineEvent[];
+        }
+        /**
+         * TimelineEvent is the representation of a single event in a Timeline.
+         */
+        interface TimelineEvent extends Parent {
+            type: "timeline-event";
+            /** The title of the event */
+            title: string;
+            children: (Paragraph | ImageSet)[];
         }
     }
 }
