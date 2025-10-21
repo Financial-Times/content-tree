@@ -146,6 +146,9 @@
                     "$ref": "#/definitions/ContentTree.transit.YoutubeVideo"
                 },
                 {
+                    "$ref": "#/definitions/ContentTree.transit.ClipSet"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.transit.Text"
                 }
             ]
@@ -163,6 +166,48 @@
                 "type"
             ],
             "type": "object"
+        },
+        "ContentTree.transit.ClipSet": {
+            "additionalProperties": false,
+            "properties": {
+                "autoplay": {
+                    "type": "boolean"
+                },
+                "data": {},
+                "id": {
+                    "type": "string"
+                },
+                "layoutWidth": {
+                    "$ref": "#/definitions/ContentTree.transit.ClipSetLayoutWidth"
+                },
+                "loop": {
+                    "type": "boolean"
+                },
+                "muted": {
+                    "type": "boolean"
+                },
+                "type": {
+                    "const": "clip-set",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "autoplay",
+                "id",
+                "layoutWidth",
+                "loop",
+                "muted",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.ClipSetLayoutWidth": {
+            "enum": [
+                "full-grid",
+                "in-line",
+                "mid-grid"
+            ],
+            "type": "string"
         },
         "ContentTree.transit.CustomCodeComponent": {
             "additionalProperties": false,
