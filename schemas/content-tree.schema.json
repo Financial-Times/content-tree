@@ -381,6 +381,9 @@
                 "id": {
                     "type": "string"
                 },
+                "isMainImage": {
+                    "type": "boolean"
+                },
                 "picture": {
                     "additionalProperties": false,
                     "properties": {
@@ -630,6 +633,9 @@
                 "data": {},
                 "id": {
                     "type": "string"
+                },
+                "isMainImage": {
+                    "type": "boolean"
                 },
                 "picture": {
                     "additionalProperties": false,

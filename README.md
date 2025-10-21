@@ -356,8 +356,9 @@ doesn't. The text is taken from elsewhere in the article.
 interface ImageSet extends Node {
 	type: "image-set"
 	id: string
-	external picture: ImageSetPicture
 	fragmentIdentifier?: string
+	external picture: ImageSetPicture
+    external isMainImage?: boolean
 }
 ```
 
@@ -666,6 +667,7 @@ interface LayoutImage extends Node {
 	caption: string
 	credit: string
 	external picture: ImageSetPicture
+    external isMainImage?: boolean
 }
 ```
 

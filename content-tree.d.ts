@@ -78,8 +78,9 @@ export declare namespace ContentTree {
     interface ImageSet extends Node {
         type: "image-set";
         id: string;
-        picture: ImageSetPicture;
         fragmentIdentifier?: string;
+        picture: ImageSetPicture;
+        isMainImage?: boolean;
     }
     type ImageSetPicture = {
         layoutWidth: string;
@@ -220,6 +221,7 @@ export declare namespace ContentTree {
         caption: string;
         credit: string;
         picture: ImageSetPicture;
+        isMainImage?: boolean;
     }
     type TableColumnSettings = {
         hideOnMobile: boolean;
@@ -359,8 +361,9 @@ export declare namespace ContentTree {
         interface ImageSet extends Node {
             type: "image-set";
             id: string;
-            picture: ImageSetPicture;
             fragmentIdentifier?: string;
+            picture: ImageSetPicture;
+            isMainImage?: boolean;
         }
         type ImageSetPicture = {
             layoutWidth: string;
@@ -501,6 +504,7 @@ export declare namespace ContentTree {
             caption: string;
             credit: string;
             picture: ImageSetPicture;
+            isMainImage?: boolean;
         }
         type TableColumnSettings = {
             hideOnMobile: boolean;
@@ -908,8 +912,9 @@ export declare namespace ContentTree {
         interface ImageSet extends Node {
             type: "image-set";
             id: string;
-            picture?: ImageSetPicture;
             fragmentIdentifier?: string;
+            picture?: ImageSetPicture;
+            isMainImage?: boolean;
         }
         type ImageSetPicture = {
             layoutWidth: string;
@@ -1050,6 +1055,7 @@ export declare namespace ContentTree {
             caption: string;
             credit: string;
             picture?: ImageSetPicture;
+            isMainImage?: boolean;
         }
         type TableColumnSettings = {
             hideOnMobile: boolean;
