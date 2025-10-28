@@ -255,7 +255,29 @@ func transformNode(n contenttree.Node) (string, error) {
 	// CCC nodes won't be available in the "external" body XML format.
 	case *contenttree.CustomCodeComponent:
 		return "", nil
-
+	/*
+		TODO: Remove comment to integrate timeline.
+		case *contenttree.Timeline:
+			{
+				titleXML := ""
+				if node.Title != "" {
+					titleXML = fmt.Sprintf("<h3>%s</h3>", node.Title)
+				}
+				layoutWidthXML := ""
+				if node.LayoutWidth != "" {
+					layoutWidthXML = fmt.Sprintf("data-layout-width=\"%s\"", node.LayoutWidth)
+				}
+				return fmt.Sprintf("<section data-type=\"timeline\" %s>%s<ol data-type=\"timeline_events\">%s</ol></section>", layoutWidthXML, titleXML, innerXML), nil
+			}
+		case *contenttree.TimelineEvent:
+			{
+				titleXML := ""
+				if node.Title != "" {
+					titleXML = fmt.Sprintf("<h4>%s</h4>", node.Title)
+				}
+				return fmt.Sprintf("<li data-type=\"timeline_event\">%s%s</li>", titleXML, innerXML), nil
+			}
+	*/
 	// content tree nodes which require transformation of their embedded nodes
 	case *contenttree.BodyBlock:
 		return transformNode(n.GetEmbedded())
@@ -275,6 +297,11 @@ func transformNode(n contenttree.Node) (string, error) {
 		return transformNode(n.GetEmbedded())
 	case *contenttree.TableChild:
 		return transformNode(n.GetEmbedded())
+		/*
+			TODO: Remove comment to integrate timeline.
+			case *contenttree.TimelineEventChild:
+				return transformNode(n.GetEmbedded())
+		*/
 	}
 
 	return "", nil
