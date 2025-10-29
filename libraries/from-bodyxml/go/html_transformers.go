@@ -160,6 +160,10 @@ var defaultTransformers = map[string]transformer{
 		}
 	},
 	"ol": func(ol *etree.Element) contenttree.Node {
+		dataType := attr(ol, "data-type")
+		if dataType == "timeline_events" {
+			return newLiftChildrenNode()
+		}
 		return &contenttree.List{
 			Type:     contenttree.ListType,
 			Ordered:  true,
@@ -174,6 +178,20 @@ var defaultTransformers = map[string]transformer{
 		}
 	},
 	"li": func(li *etree.Element) contenttree.Node {
+		dataType := attr(li, "data-type")
+		if dataType == "timeline_event" {
+			timelineEventTitle := ""
+			if h4Element := findChild(li, "h4"); h4Element != nil {
+				timelineEventTitle = textContent(h4Element)
+				//extract title but don't treat like a child element
+				li.RemoveChild(h4Element)
+			}
+			return &contenttree.TimelineEvent{
+				Type:     contenttree.TimelineEventType,
+				Title:    timelineEventTitle,
+				Children: []*contenttree.TimelineEventChild{},
+			}
+		}
 		return &contenttree.ListItem{
 			Type:     contenttree.ListItemType,
 			Children: []*contenttree.ListItemChild{},
@@ -332,6 +350,26 @@ var defaultTransformers = map[string]transformer{
 		default:
 			return newUnknownNode(attr(div, "class"), div)
 		}
+	},
+	"section": func(section *etree.Element) contenttree.Node {
+		switch attr(section, "data-type") {
+		case "timeline":
+			{
+				timelineTitle := ""
+				if h3Element := findChild(section, "h3"); h3Element != nil {
+					timelineTitle = textContent(h3Element)
+					//extract title but don't treat like a child element
+					section.RemoveChild(h3Element)
+				}
+				return &contenttree.Timeline{
+					Type:        contenttree.TimelineType,
+					Title:       timelineTitle,
+					LayoutWidth: attr(section, "data-layout-width"),
+					Children:    []*contenttree.TimelineEvent{},
+				}
+			}
+		}
+		return newUnknownNode("", section)
 	},
 	"experimental": func(_ *etree.Element) contenttree.Node {
 		return newLiftChildrenNode()

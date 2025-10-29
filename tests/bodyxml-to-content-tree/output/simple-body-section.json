@@ -1,0 +1,59 @@
+{
+  "type": "root",
+  "body": {
+    "type": "body",
+    "children": [
+      {
+        "type": "timeline",
+        "title": "lorem",
+        "layoutWidth": "full-width",
+        "children": [
+          {
+            "type": "timeline-event",
+            "title": "ipsum",
+            "children": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "lorem"
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "ipsum"
+                  }
+                ]
+              },
+              {
+                "type": "image-set",
+                "id": "a47cfe4c-1f80-4492-9717-93aa65565e37"
+              }
+            ]
+          },
+          {
+            "type": "timeline-event",
+            "title": "lorem",
+            "children": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "ipsum"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "version": 1
+  }
+}

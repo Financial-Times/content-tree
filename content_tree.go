@@ -76,6 +76,10 @@ const (
 	ScrollyCopyChildType    = "scrolly-copy-child"
 	ScrollySectionChildType = "scrolly-section-child"
 	TableChildType          = "table-child"
+
+	TimelineType           = "timeline"
+	TimelineEventType      = "timeline-event"
+	TimelineEventChildType = "timeline-event-child"
 )
 
 var (
@@ -395,6 +399,7 @@ type BodyBlock struct {
 	*YoutubeVideo
 	*CustomCodeComponent
 	*ClipSet
+	*Timeline
 }
 
 func (n *BodyBlock) GetType() string {
@@ -459,6 +464,9 @@ func (n *BodyBlock) GetEmbedded() Node {
 	if n.ClipSet != nil {
 		return n.ClipSet
 	}
+	if n.Timeline != nil {
+		return n.Timeline
+	}
 	return nil
 }
 
@@ -519,6 +527,9 @@ func (n *BodyBlock) GetChildren() []Node {
 	}
 	if n.ClipSet != nil {
 		return n.ClipSet.GetChildren()
+	}
+	if n.Timeline != nil {
+		return n.Timeline.GetChildren()
 	}
 	return nil
 }
@@ -646,6 +657,12 @@ func (n *BodyBlock) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		n.ClipSet = &v
+	case TimelineType:
+		var v Timeline
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.Timeline = &v
 	default:
 		return fmt.Errorf("failed to unmarshal BodyBlock from %s: %w", data, ErrUnmarshalInvalidNode)
 	}
@@ -692,6 +709,8 @@ func (n *BodyBlock) MarshalJSON() ([]byte, error) {
 		return json.Marshal(n.CustomCodeComponent)
 	case n.ClipSet != nil:
 		return json.Marshal(n.ClipSet)
+	case n.Timeline != nil:
+		return json.Marshal(n.Timeline)
 	default:
 		return []byte(`{}`), nil
 	}
@@ -738,6 +757,8 @@ func makeBodyBlock(n Node) (*BodyBlock, error) {
 		return &BodyBlock{CustomCodeComponent: n.(*CustomCodeComponent)}, nil
 	case ClipSetType:
 		return &BodyBlock{ClipSet: n.(*ClipSet)}, nil
+	case TimelineType:
+		return &BodyBlock{Timeline: n.(*Timeline)}, nil
 	default:
 		return nil, ErrInvalidChildType
 	}
@@ -2593,4 +2614,144 @@ func (n *Teaser) GetEmbedded() Node {
 
 func (n *Teaser) GetChildren() []Node {
 	return nil
+}
+
+type Timeline struct {
+	Type        string           `json:"type"`
+	Title       string           `json:"title,omitempty"`
+	LayoutWidth string           `json:"layoutWidth,omitempty"`
+	Children    []*TimelineEvent `json:"children"`
+}
+
+func (n *Timeline) GetType() string {
+	return n.Type
+}
+
+func (n *Timeline) GetEmbedded() Node {
+	return nil
+}
+
+func (n *Timeline) GetChildren() []Node {
+	result := make([]Node, len(n.Children))
+	for i, v := range n.Children {
+		result[i] = v
+	}
+	return result
+}
+
+func (n *Timeline) AppendChild(child Node) error {
+	if child.GetType() != TimelineEventType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*TimelineEvent))
+	return nil
+}
+
+type TimelineEvent struct {
+	Type     string                `json:"type"`
+	Title    string                `json:"title,omitempty"`
+	Children []*TimelineEventChild `json:"children"`
+}
+
+func (n *TimelineEvent) GetType() string {
+	return n.Type
+}
+
+func (n *TimelineEvent) GetEmbedded() Node {
+	return nil
+}
+
+func (n *TimelineEvent) GetChildren() []Node {
+	result := make([]Node, len(n.Children))
+	for i, v := range n.Children {
+		result[i] = v
+	}
+	return result
+}
+
+func (n *TimelineEvent) AppendChild(child Node) error {
+	c, err := makeTimelineEventChild(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, c)
+	return nil
+}
+
+type TimelineEventChild struct {
+	*Paragraph
+	*ImageSet
+}
+
+func (n *TimelineEventChild) GetType() string {
+	return TimelineEventChildType
+}
+
+func (n *TimelineEventChild) GetEmbedded() Node {
+	if n.Paragraph != nil {
+		return n.Paragraph
+	}
+	if n.ImageSet != nil {
+		return n.ImageSet
+	}
+	return nil
+}
+
+func (n *TimelineEventChild) GetChildren() []Node {
+	if n.Paragraph != nil {
+		return n.Paragraph.GetChildren()
+	}
+	if n.ImageSet != nil {
+		return n.ImageSet.GetChildren()
+	}
+	return nil
+}
+
+func (n *TimelineEventChild) AppendChild(child Node) error { return ErrCannotHaveChildren }
+
+func (n *TimelineEventChild) UnmarshalJSON(data []byte) error {
+	var tn typedNode
+	if err := json.Unmarshal(data, &tn); err != nil {
+		return err
+	}
+	switch tn.Type {
+	case ParagraphType:
+		var v Paragraph
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.Paragraph = &v
+	case ImageSetType:
+		var v ImageSet
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.ImageSet = &v
+	default:
+		return fmt.Errorf("failed to unmarshal TimelineEventChild from %s: %w", data, ErrUnmarshalInvalidNode)
+	}
+	return nil
+}
+
+func (n *TimelineEventChild) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.Paragraph != nil:
+		return json.Marshal(n.Paragraph)
+	case n.ImageSet != nil:
+		return json.Marshal(n.ImageSet)
+	default:
+		return []byte(`{}`), nil
+	}
+}
+
+// Build a TimelineEventChild wrapper.
+func makeTimelineEventChild(n Node) (*TimelineEventChild, error) {
+	switch n.GetType() {
+	case ParagraphType:
+		return &TimelineEventChild{Paragraph: n.(*Paragraph)}, nil
+	case ImageSetType:
+		return &TimelineEventChild{ImageSet: n.(*ImageSet)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
 }
