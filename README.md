@@ -33,7 +33,7 @@ when the `content-tree` is in
 from its [ecosystem of utilities][unist-utilities].
 
 `content-tree` relates to [JavaScript][js] in that it has an [ecosystem of
-utilities][unist-utilities] for working with trees in JavaScript.  However,
+utilities][unist-utilities] for working with trees in JavaScript. However,
 `content-tree` is not limited to JavaScript and can be used in other programming
 languages.
 
@@ -106,6 +106,7 @@ type BodyBlock =
 	| Video
 	| YoutubeVideo
 	| Text
+	| Gallery
 ```
 
 `BodyBlock` nodes are the only things that are valid as the top level of a `Body`.
@@ -349,7 +350,6 @@ _non normative note:_ the reason this is string properties and not children is
 that it is more confusing if a pullquote falls back to text than if it
 doesn't. The text is taken from elsewhere in the article.
 
-
 ### `ImageSet`
 
 ```ts
@@ -413,9 +413,7 @@ type ImageSource = {
 
 **ImageSource** defines a single resource for an [image](#image).
 
-
 ### `Recommended`
-
 
 ```ts
 interface Recommended extends Node {
@@ -491,7 +489,6 @@ type Teaser = {
 	}
 }
 ```
-
 
 ### `Tweet`
 
@@ -642,7 +639,6 @@ The `layoutName` acts as a sort of theme for the component.
 
 ### `LayoutSlot`
 
-
 ```ts
 interface LayoutSlot extends Parent {
 	type: "layout-slot"
@@ -737,7 +733,7 @@ interface Table extends Parent {
 
 ```ts
 type CustomCodeComponentAttributes = {
-    [key: string]: string | boolean | undefined
+	[key: string]: string | boolean | undefined
 }
 
 interface CustomCodeComponent extends Node {
@@ -758,11 +754,67 @@ interface CustomCodeComponent extends Node {
 }
 ```
 
-- The **CustomCodeComponent*** allows for more experimental forms of journalism, allowing editors to provide properties via Spark.
+- The **CustomCodeComponent\*** allows for more experimental forms of journalism, allowing editors to provide properties via Spark.
 - The component itself lives off-platform, and an example might be a git repository with a standard structure. This structure would include the rendering instructions, and the data structure that is expected to be provided to the component for it to render if necessary.
 - The basic interface in Spark to make reference to this system above (eg. the git repo URL or a public S3 bucket), and provide some data for it if necessary. This will be the Custom Component storyblock.
 - The data Spark receives from entering a specific ID will be used to render dynamic fields (the `attributes`).
 
+### Gallery
+
+```ts
+type galleryItem = {
+	/**
+	 * @description link for the image
+	 */
+	imageLink?: "text"
+	/**
+	 * @description this is the first Image
+	 * @default false
+	 */
+	firstImage: boolean
+	/**
+	 * @description image description
+	 */
+
+	imageDescription?: string
+	/**
+	 * @description select or upload image
+	 */
+	picture?: Image
+}
+
+/**
+ * @sparkGenerateStoryblock true
+ */
+interface Gallery extends Node {
+	type: "Gallery"
+
+	/**
+	 * @description gallery description
+	 * @default default text for the source field
+	 */
+	galleryDescription?: string
+	/**
+	 * @description autoplay the gallery
+	 * @default false
+	 */
+	autoPlay?: boolean
+
+	/**
+	 * @description each gallery item
+	 * @maxItems 10
+	 * @minItems 1
+	 */
+	galleryItems: [galleryItem]
+}
+```
+- The **Gallery\*** is the first story block in Spark to be powered entirely by the schema-driven structure of the ContentTree system.Instead of hardcoding its configuration, Spark dynamically inspects the BodyBlock definition in the ContentTree schema and extracts all block types annotated with the @sparkGenerateStoryblock: true flag.These block definitions are automatically converted into ProseMirror node specs and injected into the editor's schema at runtime. The following ContentTree types are currently mapped to Spark components:
+
+- "string" → Rich text
+- "text" → Text input
+- "Image" → Responsive image container
+- "Flourish" → Flourish chart
+- "Video" → Video block
 
 ## License
 
