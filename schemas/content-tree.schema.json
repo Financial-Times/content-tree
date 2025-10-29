@@ -147,6 +147,9 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.Text"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Timeline"
                 }
             ]
         },
@@ -1870,6 +1873,80 @@
                 "type"
             ],
             "type": "object"
+        },
+        "ContentTree.full.Timeline": {
+            "additionalProperties": false,
+            "description": "Timeline nodes display a timeline of events in arbitrary order.",
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.full.TimelineEvent"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "layoutWidth": {
+                    "$ref": "#/definitions/ContentTree.full.TimelineLayoutWidth",
+                    "description": "The layout width for the timeline"
+                },
+                "title": {
+                    "description": "The title for the timeline",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "timeline",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "layoutWidth",
+                "title",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.TimelineEvent": {
+            "additionalProperties": false,
+            "description": "TimelineEvent is the representation of a single event in a Timeline.",
+            "properties": {
+                "children": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Paragraph"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.ImageSet"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "title": {
+                    "description": "The title of the event",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "timeline-event",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "title",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.TimelineLayoutWidth": {
+            "description": "Allowed layout widths for a Timeline.",
+            "enum": [
+                "full-grid",
+                "full-width"
+            ],
+            "type": "string"
         },
         "ContentTree.full.Tweet": {
             "additionalProperties": false,
