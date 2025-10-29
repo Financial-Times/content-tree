@@ -105,6 +105,7 @@ type BodyBlock =
 	| Tweet
 	| Video
 	| YoutubeVideo
+	| ClipSet
 	| Text
 ```
 
@@ -551,8 +552,6 @@ interface Video extends Node {
 
 The `title` can be obtained by fetching the Video from the content API.
 
-TODO: Figure out how Clips work, how they are different?
-
 ### `YoutubeVideo`
 
 ```ts
@@ -562,7 +561,75 @@ interface YoutubeVideo extends Node {
 }
 ```
 
+
 **YoutubeVideo** represents a video referenced by a Youtube URL.
+
+### `ClipSet`
+
+```ts
+interface ClipSet extends Node {
+	type: "clip-set"
+	id: string
+	autoplay: boolean
+	loop: boolean
+	muted: boolean
+	layoutWidth: ClipSetLayoutWidth
+	external noAudio: boolean
+	external caption: string
+	external credits: string
+	external description: string
+	external displayTitle: string
+	external systemTitle: string
+	external source: string
+	external contentWarning: string[]
+	external publishedDate: string
+	external subtitle: string
+	external clips: Clip[]
+	external accessibility: ClipAccessibility
+}
+```
+
+```ts
+type Clip = {
+	id: string
+	format: 'standard-inline' | 'mobile'
+	dataSource: ClipSource[]
+	poster: string
+}
+```
+
+```ts
+type ClipSource = {
+	audioCodec: string
+	binaryUrl: string
+	duration: number
+	mediaType: string
+	pixelHeight: number
+	pixelWidth: number
+	videoCodec: string
+}
+```
+
+```ts
+type ClipCaption = {
+	mediaType?: string
+	url?: string
+}
+```
+```ts
+type ClipAccessibility = {
+	captions?: ClipCaption[]
+	transcript?: Body
+}
+```
+
+```ts
+type ClipSetLayoutWidth = Extract<LayoutWidth, "in-line" | "mid-grid" | "full-grid">
+```
+
+**ClipSet** represents a short piece of possibly-looping video content for an article.
+
+The external fields are derived from the separately published [ClipSet](https://api.ft.com/schemas/clip-set.json) and [Clip](https://api.ft.com/schemas/clip.json) objects in the Content API.
 
 ### `ScrollyBlock`
 
