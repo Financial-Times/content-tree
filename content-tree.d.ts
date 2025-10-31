@@ -279,14 +279,14 @@ export declare namespace ContentTree {
         /** Configuration data to be passed to the component. */
         attributes: CustomCodeComponentAttributes;
     }
-    interface InNumbersNumber extends Node {
-        type: "in-numbers-number";
-        numberLabel: string;
-        description: string;
-    }
+    /**
+     * InNumbers represents a set of numbers with related descriptions
+     */
     interface InNumbers extends Parent {
         type: "in-numbers";
-        children: [Heading, InNumbersNumber, InNumbersNumber?, InNumbersNumber?];
+        /** The title for the InNumbers */
+        title: string;
+        children: [BigNumber, BigNumber, BigNumber];
     }
     namespace full {
         type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text;
@@ -569,14 +569,14 @@ export declare namespace ContentTree {
             /** Configuration data to be passed to the component. */
             attributes: CustomCodeComponentAttributes;
         }
-        interface InNumbersNumber extends Node {
-            type: "in-numbers-number";
-            numberLabel: string;
-            description: string;
-        }
+        /**
+         * InNumbers represents a set of numbers with related descriptions
+         */
         interface InNumbers extends Parent {
             type: "in-numbers";
-            children: [Heading, InNumbersNumber, InNumbersNumber?, InNumbersNumber?];
+            /** The title for the InNumbers */
+            title: string;
+            children: [BigNumber, BigNumber, BigNumber];
         }
     }
     namespace transit {
@@ -845,14 +845,14 @@ export declare namespace ContentTree {
             /** How the component should be presented in the article page according to the column layout system */
             layoutWidth: LayoutWidth;
         }
-        interface InNumbersNumber extends Node {
-            type: "in-numbers-number";
-            numberLabel: string;
-            description: string;
-        }
+        /**
+         * InNumbers represents a set of numbers with related descriptions
+         */
         interface InNumbers extends Parent {
             type: "in-numbers";
-            children: [Heading, InNumbersNumber, InNumbersNumber?, InNumbersNumber?];
+            /** The title for the InNumbers */
+            title: string;
+            children: [BigNumber, BigNumber, BigNumber];
         }
     }
     namespace loose {
@@ -1136,14 +1136,14 @@ export declare namespace ContentTree {
             /** Configuration data to be passed to the component. */
             attributes?: CustomCodeComponentAttributes;
         }
-        interface InNumbersNumber extends Node {
-            type: "in-numbers-number";
-            numberLabel: string;
-            description: string;
-        }
+        /**
+         * InNumbers represents a set of numbers with related descriptions
+         */
         interface InNumbers extends Parent {
             type: "in-numbers";
-            children: [Heading, InNumbersNumber, InNumbersNumber?, InNumbersNumber?];
+            /** The title for the InNumbers */
+            title: string;
+            children: [BigNumber, BigNumber, BigNumber];
         }
     }
 }
