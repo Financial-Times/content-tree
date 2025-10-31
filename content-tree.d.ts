@@ -150,6 +150,7 @@ export declare namespace ContentTree {
             width: number;
             height: number;
         };
+        clientName?: string;
     };
     interface Tweet extends Node {
         id: string;
@@ -436,6 +437,7 @@ export declare namespace ContentTree {
                 width: number;
                 height: number;
             };
+            clientName?: string;
         };
         interface Tweet extends Node {
             id: string;
@@ -721,6 +723,7 @@ export declare namespace ContentTree {
                 width: number;
                 height: number;
             };
+            clientName?: string;
         };
         interface Tweet extends Node {
             id: string;
@@ -995,6 +998,7 @@ export declare namespace ContentTree {
                 width: number;
                 height: number;
             };
+            clientName?: string;
         };
         interface Tweet extends Node {
             id: string;

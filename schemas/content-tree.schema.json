@@ -1028,6 +1028,9 @@
                 "teaser": {
                     "additionalProperties": false,
                     "properties": {
+                        "clientName": {
+                            "type": "string"
+                        },
                         "firstPublishedDate": {
                             "type": "string"
                         },

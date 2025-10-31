@@ -505,6 +505,7 @@ type Teaser = {
 		width: number
 		height: number
 	}
+    clientName?: string
 }
 ```
 
