@@ -137,6 +137,9 @@
                     "$ref": "#/definitions/ContentTree.full.Recommended"
                 },
                 {
+                    "$ref": "#/definitions/ContentTree.full.RecommendedList"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.full.Tweet"
                 },
                 {
@@ -1025,6 +1028,9 @@
                 "teaser": {
                     "additionalProperties": false,
                     "properties": {
+                        "clientName": {
+                            "type": "string"
+                        },
                         "firstPublishedDate": {
                             "type": "string"
                         },
@@ -1225,6 +1231,30 @@
             "required": [
                 "id",
                 "teaser",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.RecommendedList": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.full.Recommended"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "heading": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "recommended-list",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
                 "type"
             ],
             "type": "object"

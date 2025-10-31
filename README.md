@@ -102,6 +102,7 @@ type BodyBlock =
 	| ThematicBreak
 	| Table
 	| Recommended
+	| RecommendedList
 	| Tweet
 	| Video
 	| YoutubeVideo
@@ -436,8 +437,23 @@ interface Recommended extends Node {
 
 _non normative note:_ historically, recommended links used to be a list of up to
 three content items. Testing later showed that having one more prominent link
-was more engaging, and Spark (and therefore content-tree)now only supports that
-use case.
+was more engaging. Only use `RecommendedList` if you explicitly need to display multiple links.
+
+
+### `RecommendedList`
+
+
+```ts
+interface RecommendedList extends Node {
+	type: "recommended-list";
+	heading?: string;
+	children: Recommended[];
+}
+```
+
+- RecommendedList represents a collection of Recommended items selected by editorial.
+- The `heading`, when present, is used where the purpose of the link is more
+  specific than being "Related Content"
 
 #### Teaser types
 
@@ -489,6 +505,7 @@ type Teaser = {
 		width: number
 		height: number
 	}
+    clientName?: string
 }
 ```
 
