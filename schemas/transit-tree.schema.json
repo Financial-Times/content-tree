@@ -137,6 +137,9 @@
                     "$ref": "#/definitions/ContentTree.transit.Recommended"
                 },
                 {
+                    "$ref": "#/definitions/ContentTree.transit.RecommendedList"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.transit.Tweet"
                 },
                 {
@@ -630,6 +633,30 @@
             },
             "required": [
                 "id",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.RecommendedList": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.transit.Recommended"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "heading": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "recommended-list",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
                 "type"
             ],
             "type": "object"
