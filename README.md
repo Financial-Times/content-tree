@@ -798,7 +798,7 @@ interface Definition extends Node {
 interface InNumbers extends Parent {
 	type: "in-numbers"
 	/** The title for the InNumbers */
-	title: string
+	title?: string
 	children: [Definition, Definition, Definition]
 }
 ```
