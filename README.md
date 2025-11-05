@@ -107,6 +107,7 @@ type BodyBlock =
 	| YoutubeVideo
 	| Text
 	| Gallery
+	| AudioPlayer
 ```
 
 `BodyBlock` nodes are the only things that are valid as the top level of a `Body`.
@@ -804,7 +805,7 @@ interface Gallery extends Node {
 	 * @maxItems 10
 	 * @minItems 1
 	 */
-	galleryItems: [galleryItem]
+	galleryItems: galleryItem[]
 }
 ```
 - The **Gallery\*** is the first story block in Spark to be powered entirely by the schema-driven structure of the ContentTree system.Instead of hardcoding its configuration, Spark dynamically inspects the BodyBlock definition in the ContentTree schema and extracts all block types annotated with the @sparkGenerateStoryblock: true flag.These block definitions are automatically converted into ProseMirror node specs and injected into the editor's schema at runtime. The following ContentTree types are currently mapped to Spark components:
@@ -815,6 +816,27 @@ interface Gallery extends Node {
 - "Flourish" → Flourish chart
 - "Video" → Video block
 
+
+```ts
+/**
+ * @sparkGenerateStoryblock true
+ */
+interface AudioPlayer extends Node {
+	type: "AudioPlayer";
+	 /**
+	 * @description Name of the Author
+	 */
+	author: "text";
+	 /**
+	 * @description description of audio file
+	 */
+	description: "text";
+	 /**
+	 * @description Url of the audio file
+	 */
+	audioFile: "text";
+}
+```
 ## License
 
 This software is published by the Financial Times under the [MIT licence](mit).

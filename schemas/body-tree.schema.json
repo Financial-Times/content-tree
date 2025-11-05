@@ -2,6 +2,39 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "additionalProperties": false,
     "definitions": {
+        "ContentTree.transit.AudioPlayer": {
+            "additionalProperties": false,
+            "properties": {
+                "audioFile": {
+                    "const": "text",
+                    "description": "Url of the audio file",
+                    "type": "string"
+                },
+                "author": {
+                    "const": "text",
+                    "description": "Name of the Author",
+                    "type": "string"
+                },
+                "data": {},
+                "description": {
+                    "const": "text",
+                    "description": "description of audio file",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "AudioPlayer",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "audioFile",
+                "author",
+                "description",
+                "type"
+            ],
+            "sparkGenerateStoryblock": true,
+            "type": "object"
+        },
         "ContentTree.transit.BigNumber": {
             "additionalProperties": false,
             "properties": {
@@ -125,6 +158,9 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.Gallery"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.AudioPlayer"
                 }
             ]
         },
@@ -223,6 +259,13 @@
             ],
             "type": "object"
         },
+        "ContentTree.transit.FlourishLayoutWidth": {
+            "enum": [
+                "full-grid",
+                "in-line"
+            ],
+            "type": "string"
+        },
         "ContentTree.transit.Gallery": {
             "additionalProperties": false,
             "properties": {
@@ -239,93 +282,91 @@
                 },
                 "galleryItems": {
                     "description": "each gallery item",
-                    "items": [
-                        {
-                            "additionalProperties": false,
-                            "properties": {
-                                "firstImage": {
-                                    "default": false,
-                                    "description": "this is the first Image",
-                                    "type": "boolean"
-                                },
-                                "imageDescription": {
-                                    "description": "image description",
-                                    "type": "string"
-                                },
-                                "imageLink": {
-                                    "const": "text",
-                                    "description": "link for the image",
-                                    "type": "string"
-                                },
-                                "picture": {
-                                    "additionalProperties": false,
-                                    "description": "select or upload image",
-                                    "properties": {
-                                        "format": {
-                                            "enum": [
-                                                "desktop",
-                                                "mobile",
-                                                "square",
-                                                "square-ftedit",
-                                                "standard",
-                                                "standard-inline",
-                                                "wide"
-                                            ],
-                                            "type": "string"
-                                        },
-                                        "height": {
-                                            "type": "number"
-                                        },
-                                        "id": {
-                                            "type": "string"
-                                        },
-                                        "sourceSet": {
-                                            "items": {
-                                                "additionalProperties": false,
-                                                "properties": {
-                                                    "dpr": {
-                                                        "type": "number"
-                                                    },
-                                                    "url": {
-                                                        "type": "string"
-                                                    },
-                                                    "width": {
-                                                        "type": "number"
-                                                    }
-                                                },
-                                                "required": [
-                                                    "dpr",
-                                                    "url",
-                                                    "width"
-                                                ],
-                                                "type": "object"
-                                            },
-                                            "type": "array"
-                                        },
-                                        "url": {
-                                            "type": "string"
-                                        },
-                                        "width": {
-                                            "type": "number"
-                                        }
-                                    },
-                                    "required": [
-                                        "format",
-                                        "height",
-                                        "id",
-                                        "url",
-                                        "width"
-                                    ],
-                                    "type": "object"
-                                }
+                    "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "firstImage": {
+                                "default": false,
+                                "description": "this is the first Image",
+                                "type": "boolean"
                             },
-                            "required": [
-                                "firstImage"
-                            ],
-                            "type": "object"
-                        }
-                    ],
-                    "maxItems": 1,
+                            "imageDescription": {
+                                "description": "image description",
+                                "type": "string"
+                            },
+                            "imageLink": {
+                                "const": "text",
+                                "description": "link for the image",
+                                "type": "string"
+                            },
+                            "picture": {
+                                "additionalProperties": false,
+                                "description": "select or upload image",
+                                "properties": {
+                                    "format": {
+                                        "enum": [
+                                            "desktop",
+                                            "mobile",
+                                            "square",
+                                            "square-ftedit",
+                                            "standard",
+                                            "standard-inline",
+                                            "wide"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "height": {
+                                        "type": "number"
+                                    },
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "sourceSet": {
+                                        "items": {
+                                            "additionalProperties": false,
+                                            "properties": {
+                                                "dpr": {
+                                                    "type": "number"
+                                                },
+                                                "url": {
+                                                    "type": "string"
+                                                },
+                                                "width": {
+                                                    "type": "number"
+                                                }
+                                            },
+                                            "required": [
+                                                "dpr",
+                                                "url",
+                                                "width"
+                                            ],
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "url": {
+                                        "type": "string"
+                                    },
+                                    "width": {
+                                        "type": "number"
+                                    }
+                                },
+                                "required": [
+                                    "format",
+                                    "height",
+                                    "id",
+                                    "url",
+                                    "width"
+                                ],
+                                "type": "object"
+                            }
+                        },
+                        "required": [
+                            "firstImage"
+                        ],
+                        "type": "object"
+                    },
+                    "maxItems": 10,
                     "minItems": 1,
                     "type": "array"
                 },
@@ -340,13 +381,6 @@
             ],
             "sparkGenerateStoryblock": true,
             "type": "object"
-        },
-        "ContentTree.transit.FlourishLayoutWidth": {
-            "enum": [
-                "full-grid",
-                "in-line"
-            ],
-            "type": "string"
         },
         "ContentTree.transit.Heading": {
             "additionalProperties": false,

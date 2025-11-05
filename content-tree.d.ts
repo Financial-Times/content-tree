@@ -1,5 +1,5 @@
 export declare namespace ContentTree {
-    type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text | Gallery;
+    type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text | Gallery | AudioPlayer;
     type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
     type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
     interface Node {
@@ -317,10 +317,28 @@ export declare namespace ContentTree {
          * @maxItems 10
          * @minItems 1
          */
-        galleryItems: [galleryItem];
+        galleryItems: galleryItem[];
+    }
+    /**
+     * @sparkGenerateStoryblock true
+     */
+    interface AudioPlayer extends Node {
+        type: "AudioPlayer";
+        /**
+        * @description Name of the Author
+        */
+        author: "text";
+        /**
+        * @description description of audio file
+        */
+        description: "text";
+        /**
+        * @description Url of the audio file
+        */
+        audioFile: "text";
     }
     namespace full {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text | Gallery;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text | Gallery | AudioPlayer;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -638,11 +656,29 @@ export declare namespace ContentTree {
              * @maxItems 10
              * @minItems 1
              */
-            galleryItems: [galleryItem];
+            galleryItems: galleryItem[];
+        }
+        /**
+         * @sparkGenerateStoryblock true
+         */
+        interface AudioPlayer extends Node {
+            type: "AudioPlayer";
+            /**
+            * @description Name of the Author
+            */
+            author: "text";
+            /**
+            * @description description of audio file
+            */
+            description: "text";
+            /**
+            * @description Url of the audio file
+            */
+            audioFile: "text";
         }
     }
     namespace transit {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text | Gallery;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text | Gallery | AudioPlayer;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -945,11 +981,29 @@ export declare namespace ContentTree {
              * @maxItems 10
              * @minItems 1
              */
-            galleryItems: [galleryItem];
+            galleryItems: galleryItem[];
+        }
+        /**
+         * @sparkGenerateStoryblock true
+         */
+        interface AudioPlayer extends Node {
+            type: "AudioPlayer";
+            /**
+            * @description Name of the Author
+            */
+            author: "text";
+            /**
+            * @description description of audio file
+            */
+            description: "text";
+            /**
+            * @description Url of the audio file
+            */
+            audioFile: "text";
         }
     }
     namespace loose {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text | Gallery;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text | Gallery | AudioPlayer;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -1267,7 +1321,25 @@ export declare namespace ContentTree {
              * @maxItems 10
              * @minItems 1
              */
-            galleryItems: [galleryItem];
+            galleryItems: galleryItem[];
+        }
+        /**
+         * @sparkGenerateStoryblock true
+         */
+        interface AudioPlayer extends Node {
+            type: "AudioPlayer";
+            /**
+            * @description Name of the Author
+            */
+            author: "text";
+            /**
+            * @description description of audio file
+            */
+            description: "text";
+            /**
+            * @description Url of the audio file
+            */
+            audioFile: "text";
         }
     }
 }
