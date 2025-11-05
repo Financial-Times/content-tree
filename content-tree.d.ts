@@ -286,13 +286,21 @@ export declare namespace ContentTree {
         attributes: CustomCodeComponentAttributes;
     }
     /**
-     * InNumbers represents a set of numbers with related descriptions
+     * A definition has a term and a related description. It is used to describe a term.
+     */
+    interface Definition extends Node {
+        type: "definition";
+        term: string;
+        description: string;
+    }
+    /**
+     * InNumbers represents a set of numbers with related descriptions.
      */
     interface InNumbers extends Parent {
         type: "in-numbers";
         /** The title for the InNumbers */
-        title: string;
-        children: [BigNumber, BigNumber, BigNumber];
+        title?: string;
+        children: [Definition, Definition, Definition];
     }
     namespace full {
         type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text;
@@ -582,13 +590,21 @@ export declare namespace ContentTree {
             attributes: CustomCodeComponentAttributes;
         }
         /**
-         * InNumbers represents a set of numbers with related descriptions
+         * A definition has a term and a related description. It is used to describe a term.
+         */
+        interface Definition extends Node {
+            type: "definition";
+            term: string;
+            description: string;
+        }
+        /**
+         * InNumbers represents a set of numbers with related descriptions.
          */
         interface InNumbers extends Parent {
             type: "in-numbers";
             /** The title for the InNumbers */
-            title: string;
-            children: [BigNumber, BigNumber, BigNumber];
+            title?: string;
+            children: [Definition, Definition, Definition];
         }
     }
     namespace transit {
@@ -864,13 +880,21 @@ export declare namespace ContentTree {
             layoutWidth: LayoutWidth;
         }
         /**
-         * InNumbers represents a set of numbers with related descriptions
+         * A definition has a term and a related description. It is used to describe a term.
+         */
+        interface Definition extends Node {
+            type: "definition";
+            term: string;
+            description: string;
+        }
+        /**
+         * InNumbers represents a set of numbers with related descriptions.
          */
         interface InNumbers extends Parent {
             type: "in-numbers";
             /** The title for the InNumbers */
-            title: string;
-            children: [BigNumber, BigNumber, BigNumber];
+            title?: string;
+            children: [Definition, Definition, Definition];
         }
     }
     namespace loose {
@@ -1161,13 +1185,21 @@ export declare namespace ContentTree {
             attributes?: CustomCodeComponentAttributes;
         }
         /**
-         * InNumbers represents a set of numbers with related descriptions
+         * A definition has a term and a related description. It is used to describe a term.
+         */
+        interface Definition extends Node {
+            type: "definition";
+            term: string;
+            description: string;
+        }
+        /**
+         * InNumbers represents a set of numbers with related descriptions.
          */
         interface InNumbers extends Parent {
             type: "in-numbers";
             /** The title for the InNumbers */
-            title: string;
-            children: [BigNumber, BigNumber, BigNumber];
+            title?: string;
+            children: [Definition, Definition, Definition];
         }
     }
 }
