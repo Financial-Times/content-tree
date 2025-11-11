@@ -310,24 +310,29 @@ var defaultTransformers = map[string]transformer{
 			Muted:       attr(content, "muted") == "true",
 		}
 	},
-	"recommended": func(rl *etree.Element) contenttree.Node {
-		id := ""
-		teaser := ""
-		if link := findChild(rl, "content"); link != nil {
-			id = attr(link, "id")
-			teaser = textContent(link)
-		}
+	"recommended": transformRecommended,
+	"recommended-list": func(rl *etree.Element) contenttree.Node {
 		heading := findChild(rl, "recommended-title")
-		return &contenttree.Recommended{
-			Type: contenttree.RecommendedType,
-			ID:   id,
+		rl.RemoveChild(heading)
+		ul := findChild(rl, "ul")
+		children := []*contenttree.Recommended{}
+		if ul != nil {
+			for _, li := range ul.ChildElements() {
+				if r := transformRecommended(li).(*contenttree.Recommended); r != nil {
+					children = append(children, r)
+				}
+			}
+			rl.RemoveChild(ul)
+		}
+		return &contenttree.RecommendedList{
+			Type: contenttree.RecommendedListType,
 			Heading: func() string {
 				if heading != nil {
 					return textContent(heading)
 				}
 				return ""
 			}(),
-			TeaserTitleOverride: teaser,
+			Children: children,
 		}
 	},
 	"div": func(div *etree.Element) contenttree.Node {
@@ -374,4 +379,25 @@ var defaultTransformers = map[string]transformer{
 	"experimental": func(_ *etree.Element) contenttree.Node {
 		return newLiftChildrenNode()
 	},
+}
+
+func transformRecommended(rl *etree.Element) contenttree.Node {
+	id := ""
+	teaser := ""
+	if link := findChild(rl, "content"); link != nil {
+		id = attr(link, "id")
+		teaser = textContent(link)
+	}
+	heading := findChild(rl, "recommended-title")
+	return &contenttree.Recommended{
+		Type: contenttree.RecommendedType,
+		ID:   id,
+		Heading: func() string {
+			if heading != nil {
+				return textContent(heading)
+			}
+			return ""
+		}(),
+		TeaserTitleOverride: teaser,
+	}
 }
