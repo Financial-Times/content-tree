@@ -780,6 +780,28 @@ interface CustomCodeComponent extends Node {
 - The basic interface in Spark to make reference to this system above (eg. the git repo URL or a public S3 bucket), and provide some data for it if necessary. This will be the Custom Component storyblock.
 - The data Spark receives from entering a specific ID will be used to render dynamic fields (the `attributes`).
 
+### InNumbers
+
+```ts
+/**
+ * A definition has a term and a related description. It is used to describe a term.
+ */
+interface Definition extends Node {
+	type: "definition"
+	term: string
+	description: string
+}
+
+/**
+ * InNumbers represents a set of numbers with related descriptions.
+ */
+interface InNumbers extends Parent {
+	type: "in-numbers"
+	/** The title for the InNumbers */
+	title?: string
+	children: [Definition, Definition, Definition]
+}
+```
 
 ## License
 
