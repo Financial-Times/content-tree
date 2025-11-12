@@ -1,0 +1,45 @@
+{
+  "type": "root",
+  "body": {
+    "type": "body",
+    "children": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "Lorel"
+          },
+          {
+            "type": "link",
+            "children": [
+              {
+                "type": "text",
+                "value": "Link"
+              }
+            ],
+            "title": "t1",
+            "url": "http://ft.com/content/8c4ad03c-75cf-4af7-bfd3-a8ebf620a458"
+          },
+          {
+            "type": "link",
+            "children": [
+              {
+                "type": "text",
+                "value": "Link with anchor style tag"
+              }
+            ],
+            "title": "t2",
+            "url": "http://ft.com/content/8c4ad03c-75cf-4af7-bfd3-a8ebf620a458",
+            "styleType": "onward-journey"
+          },
+          {
+            "type": "text",
+            "value": "ipsum"
+          }
+        ]
+      }
+    ],
+    "version": 1
+  }
+}

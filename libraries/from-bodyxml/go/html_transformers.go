@@ -153,10 +153,11 @@ var defaultTransformers = map[string]transformer{
 			}
 		}
 		return &contenttree.Link{
-			Type:     contenttree.LinkType,
-			Title:    attr(a, "title"),
-			URL:      attr(a, "href"),
-			Children: []*contenttree.Phrasing{},
+			Type:      contenttree.LinkType,
+			Title:     attr(a, "title"),
+			URL:       attr(a, "href"),
+			Children:  []*contenttree.Phrasing{},
+			StyleType: attr(a, "data-anchor-style"),
 		}
 	},
 	"ol": func(ol *etree.Element) contenttree.Node {

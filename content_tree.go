@@ -1208,11 +1208,12 @@ func makeLayoutSlotChild(n Node) (*LayoutSlotChild, error) {
 }
 
 type Link struct {
-	Type     string      `json:"type"`
-	Children []*Phrasing `json:"children"`
-	Data     interface{} `json:"data,omitempty"`
-	Title    string      `json:"title"`
-	URL      string      `json:"url"`
+	Type      string      `json:"type"`
+	Children  []*Phrasing `json:"children"`
+	Data      interface{} `json:"data,omitempty"`
+	Title     string      `json:"title"`
+	URL       string      `json:"url"`
+	StyleType string      `json:"styleType,omitempty"`
 }
 
 func (n *Link) GetType() string {
