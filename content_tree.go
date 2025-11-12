@@ -45,6 +45,7 @@ const (
 	PullquoteType           = "pullquote"
 	ImageSetType            = "image-set"
 	RecommendedType         = "recommended"
+	RecommendedListType     = "recommended-list"
 	TweetType               = "tweet"
 	FlourishType            = "flourish"
 	BigNumberType           = "big-number"
@@ -394,6 +395,7 @@ type BodyBlock struct {
 	*Table
 	*Text
 	*Recommended
+	*RecommendedList
 	*Tweet
 	*Video
 	*YoutubeVideo
@@ -448,6 +450,9 @@ func (n *BodyBlock) GetEmbedded() Node {
 	}
 	if n.Recommended != nil {
 		return n.Recommended
+	}
+	if n.RecommendedList != nil {
+		return n.RecommendedList
 	}
 	if n.Tweet != nil {
 		return n.Tweet
@@ -512,6 +517,9 @@ func (n *BodyBlock) GetChildren() []Node {
 	}
 	if n.Recommended != nil {
 		return n.Recommended.GetChildren()
+	}
+	if n.RecommendedList != nil {
+		return n.RecommendedList.GetChildren()
 	}
 	if n.Tweet != nil {
 		return n.Tweet.GetChildren()
@@ -627,6 +635,12 @@ func (n *BodyBlock) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		n.Recommended = &v
+	case RecommendedListType:
+		var v RecommendedList
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.RecommendedList = &v
 	case TweetType:
 		var v Tweet
 		if err := json.Unmarshal(data, &v); err != nil {
@@ -699,6 +713,8 @@ func (n *BodyBlock) MarshalJSON() ([]byte, error) {
 		return json.Marshal(n.Text)
 	case n.Recommended != nil:
 		return json.Marshal(n.Recommended)
+	case n.RecommendedList != nil:
+		return json.Marshal(n.RecommendedList)
 	case n.Tweet != nil:
 		return json.Marshal(n.Tweet)
 	case n.Video != nil:
@@ -747,6 +763,8 @@ func makeBodyBlock(n Node) (*BodyBlock, error) {
 		return &BodyBlock{Text: n.(*Text)}, nil
 	case RecommendedType:
 		return &BodyBlock{Recommended: n.(*Recommended)}, nil
+	case RecommendedListType:
+		return &BodyBlock{RecommendedList: n.(*RecommendedList)}, nil
 	case TweetType:
 		return &BodyBlock{Tweet: n.(*Tweet)}, nil
 	case VideoType:
@@ -1673,6 +1691,37 @@ func (n *Recommended) GetChildren() []Node {
 }
 
 func (n *Recommended) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
+type RecommendedList struct {
+	Type     string         `json:"type"`
+	Data     interface{}    `json:"data,omitempty"`
+	Heading  string         `json:"heading,omitempty"`
+	Children []*Recommended `json:"children"`
+}
+
+func (n *RecommendedList) GetType() string {
+	return n.Type
+}
+
+func (n *RecommendedList) GetEmbedded() Node {
+	return nil
+}
+
+func (n *RecommendedList) GetChildren() []Node {
+	result := make([]Node, len(n.Children))
+	for i, v := range n.Children {
+		result[i] = v
+	}
+	return result
+}
+
+func (n *RecommendedList) AppendChild(child Node) error {
+	if child.GetType() != RecommendedType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*Recommended))
+	return nil
+}
 
 type ScrollyBlock struct {
 	Type     string            `json:"type"`

@@ -1,0 +1,39 @@
+{
+  "type": "root",
+  "body": {
+    "type": "body",
+    "children": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "Lorell"
+          }
+        ]
+      },
+      {
+        "type": "recommended-list",
+        "heading": "Recommended",
+        "children": [
+          {
+            "type": "recommended",
+            "heading": "",
+            "id": "70981218-05a4-4685-86e0-a19b7cae7ff9",
+            "teaserTitleOverride": "The fight for the future of Chile "
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "Ipsum"
+          }
+        ]
+      }
+    ],
+    "version": 1
+  }
+}
