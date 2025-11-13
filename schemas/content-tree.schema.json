@@ -374,6 +374,31 @@
             ],
             "type": "object"
         },
+        "ContentTree.full.Headline": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.full.Text"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "isLarge": {
+                    "type": "boolean"
+                },
+                "type": {
+                    "const": "headline",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "isLarge",
+                "type"
+            ],
+            "type": "object"
+        },
         "ContentTree.full.ImageSet": {
             "additionalProperties": false,
             "properties": {
@@ -549,6 +574,48 @@
             "required": [
                 "id",
                 "picture",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.Intro": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "anyOf": [
+                        {
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/ContentTree.full.Text"
+                                }
+                            ],
+                            "maxItems": 1,
+                            "minItems": 1,
+                            "type": "array"
+                        },
+                        {
+                            "items": {
+                                "anyOf": [
+                                    {
+                                        "$ref": "#/definitions/ContentTree.full.Paragraph"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/ContentTree.full.List"
+                                    }
+                                ]
+                            },
+                            "type": "array"
+                        }
+                    ]
+                },
+                "data": {},
+                "type": {
+                    "const": "intro",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
                 "type"
             ],
             "type": "object"
@@ -1901,6 +1968,100 @@
             ],
             "type": "object"
         },
+        "ContentTree.full.Topper": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "displayConcept": {
+                    "additionalProperties": false,
+                    "properties": {
+                        "apiUrl": {
+                            "type": "string"
+                        },
+                        "directType": {
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "predicate": {
+                            "type": "string"
+                        },
+                        "prefLabel": {
+                            "type": "string"
+                        },
+                        "type": {
+                            "type": "string"
+                        },
+                        "types": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "url": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "apiUrl",
+                        "directType",
+                        "id",
+                        "predicate",
+                        "prefLabel",
+                        "type",
+                        "types",
+                        "url"
+                    ],
+                    "type": "object"
+                },
+                "headline": {
+                    "$ref": "#/definitions/ContentTree.full.Headline"
+                },
+                "intro": {
+                    "$ref": "#/definitions/ContentTree.full.Intro"
+                },
+                "suggestedBackgroundColor": {
+                    "type": "string"
+                },
+                "suggestedTopperLayout": {
+                    "$ref": "#/definitions/ContentTree.full.TopperLayout"
+                },
+                "type": {
+                    "const": "topper",
+                    "type": "string"
+                },
+                "visual": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ContentTree.full.ImageSet"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.full.CustomCodeComponent"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "displayConcept",
+                "headline",
+                "intro",
+                "suggestedBackgroundColor",
+                "suggestedTopperLayout",
+                "type",
+                "visual"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.TopperLayout": {
+            "enum": [
+                "deep-landscape",
+                "deep-portrait",
+                "full-bleed",
+                "split-text-left"
+            ],
+            "type": "string"
+        },
         "ContentTree.full.Tweet": {
             "additionalProperties": false,
             "properties": {
@@ -1969,6 +2130,9 @@
             "$ref": "#/definitions/ContentTree.full.Body"
         },
         "data": {},
+        "topper": {
+            "$ref": "#/definitions/ContentTree.full.Topper"
+        },
         "type": {
             "const": "root",
             "type": "string"
@@ -1976,6 +2140,7 @@
     },
     "required": [
         "body",
+        "topper",
         "type"
     ],
     "type": "object"
