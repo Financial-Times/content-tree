@@ -83,6 +83,10 @@ func transformNode(n contenttree.Node) (string, error) {
 		return transformNode(n.GetEmbedded())
 	case contenttree.TableChildType:
 		return transformNode(n.GetEmbedded())
+	case contenttree.RecommendedType:
+		return "", nil
+	case contenttree.RecommendedListType:
+		return "", nil
 	case contenttree.TextType:
 		text, ok := n.(*contenttree.Text)
 		if !ok {
