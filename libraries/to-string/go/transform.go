@@ -23,9 +23,7 @@ var (
 	BodyTree    Schema = schema("body-tree")
 )
 
-var (
-	ErrUnknownKind = errors.New("unknown tree kind")
-)
+var ErrUnknownKind = errors.New("unknown tree kind")
 
 var toSeparate = []string{contenttree.HeadingType, contenttree.ParagraphType}
 
@@ -59,21 +57,11 @@ func unmarshalAndTransform(tree json.RawMessage, n contenttree.Node) (string, er
 	text = strings.TrimSpace(text)
 
 	return text, nil
-
 }
 
 func transformNode(n contenttree.Node) (string, error) {
 	if n == nil {
 		return "", errors.New("nil node")
-	}
-
-	if n.GetType() == contenttree.RootType {
-		root, ok := n.(*contenttree.Root)
-		if !ok {
-			return "", errors.New("failed to parse node to root")
-		}
-
-		return transformNode(root.Body)
 	}
 
 	switch n.GetType() {
@@ -95,18 +83,47 @@ func transformNode(n contenttree.Node) (string, error) {
 		return transformNode(n.GetEmbedded())
 	case contenttree.TableChildType:
 		return transformNode(n.GetEmbedded())
-	}
-
-	if n.GetType() == contenttree.TextType {
+	case contenttree.TextType:
 		text, ok := n.(*contenttree.Text)
 		if !ok {
 			return "", errors.New("failed to parse node to text")
 		}
 
 		return text.Value, nil
-	}
+	case contenttree.RootType:
+		root, ok := n.(*contenttree.Root)
+		if !ok {
+			return "", errors.New("failed to parse node to root")
+		}
 
-	childrenNodes := n.GetChildren()
+		return transformNode(root.Body)
+	case contenttree.TimelineEventType:
+		te, ok := n.(*contenttree.TimelineEvent)
+		if !ok {
+			return "", errors.New("failed to parse node to text")
+		}
+
+		resultChildred, err := transformChildren(te.GetChildren())
+		if err != nil {
+			return "", err
+		}
+
+		return fmt.Sprintf("%s %s", te.Title, resultChildred), nil
+	default:
+
+		result, err := transformChildren(n.GetChildren())
+		if err != nil {
+			return "", err
+		}
+		if slices.Contains(toSeparate, n.GetType()) && len(result) > 0 {
+			result += " "
+		}
+
+		return result, nil
+	}
+}
+
+func transformChildren(childrenNodes []contenttree.Node) (string, error) {
 	if len(childrenNodes) == 0 {
 		return "", nil
 	}
@@ -121,11 +138,5 @@ func transformNode(n contenttree.Node) (string, error) {
 		childrenStrs = append(childrenStrs, s)
 	}
 
-	result := strings.Join(childrenStrs, "")
-
-	if slices.Contains(toSeparate, n.GetType()) && len(result) > 0 {
-		result += " "
-	}
-
-	return result, nil
+	return strings.Join(childrenStrs, ""), nil
 }
