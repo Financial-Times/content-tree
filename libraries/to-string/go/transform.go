@@ -101,6 +101,13 @@ func transformNode(n contenttree.Node) (string, error) {
 		}
 
 		return transformNode(root.Body)
+	case contenttree.BigNumberType:
+		bigNumber, ok := n.(*contenttree.BigNumber)
+		if !ok {
+			return "", errors.New("failed to parse node to bigNumber")
+		}
+
+		return fmt.Sprintf("%s %s", bigNumber.Number, bigNumber.Description), nil
 	case contenttree.TimelineEventType:
 		te, ok := n.(*contenttree.TimelineEvent)
 		if !ok {
