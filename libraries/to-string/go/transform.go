@@ -108,6 +108,13 @@ func transformNode(n contenttree.Node) (string, error) {
 		}
 
 		return fmt.Sprintf("%s %s", bigNumber.Number, bigNumber.Description), nil
+	case contenttree.PullquoteType:
+		pq, ok := n.(*contenttree.Pullquote)
+		if !ok {
+			return "", errors.New("failed to parse node to Pullquote")
+		}
+
+		return pq.Text, nil
 	case contenttree.TimelineEventType:
 		te, ok := n.(*contenttree.TimelineEvent)
 		if !ok {
