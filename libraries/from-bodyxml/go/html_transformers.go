@@ -162,7 +162,7 @@ var defaultTransformers = map[string]transformer{
 	},
 	"ol": func(ol *etree.Element) contenttree.Node {
 		dataType := attr(ol, "data-type")
-		if dataType == "timeline_events" {
+		if dataType == "timeline-events" {
 			return newLiftChildrenNode()
 		}
 		return &contenttree.List{
@@ -180,7 +180,7 @@ var defaultTransformers = map[string]transformer{
 	},
 	"li": func(li *etree.Element) contenttree.Node {
 		dataType := attr(li, "data-type")
-		if dataType == "timeline_event" {
+		if dataType == "timeline-event" {
 			timelineEventTitle := ""
 			if h4Element := findChild(li, "h4"); h4Element != nil {
 				timelineEventTitle = textContent(h4Element)
@@ -337,6 +337,10 @@ var defaultTransformers = map[string]transformer{
 		}
 	},
 	"div": func(div *etree.Element) contenttree.Node {
+		dataType := attr(div, "data-type")
+		if dataType == "in-numbers-definition" {
+			return newLiftChildrenNode()
+		}
 		switch attr(div, "class") {
 		case "n-content-layout":
 			return &contenttree.Layout{
@@ -357,6 +361,26 @@ var defaultTransformers = map[string]transformer{
 			return newUnknownNode(attr(div, "class"), div)
 		}
 	},
+	"dl": func(el *etree.Element) contenttree.Node {
+		return newLiftChildrenNode()
+	},
+	"dt": func(dt *etree.Element) contenttree.Node {
+		dataType := attr(dt, "data-type")
+		if dataType == "in-numbers-term" {
+			desc := ""
+			ddElement := dt.NextSibling()
+			if ddElement != nil {
+				desc = textContent(ddElement)
+				dt.Parent().RemoveChild(ddElement)
+			}
+			return &contenttree.Definition{
+				Type:        contenttree.DefinitionType,
+				Description: desc,
+				Term:        textContent(dt),
+			}
+		}
+		return newUnknownNode("", dt)
+	},
 	"section": func(section *etree.Element) contenttree.Node {
 		switch attr(section, "data-type") {
 		case "timeline":
@@ -374,6 +398,20 @@ var defaultTransformers = map[string]transformer{
 					Children:    []*contenttree.TimelineEvent{},
 				}
 			}
+		case "in-numbers":
+			{
+				var title string
+				if h3Element := findChild(section, "h3"); h3Element != nil {
+					title = textContent(h3Element)
+					//extract title but don't treat like a child element
+					section.RemoveChild(h3Element)
+				}
+				return &contenttree.InNumbers{
+					Type:     contenttree.InNumbersType,
+					Title:    title,
+					Children: []*contenttree.Definition{},
+				}
+			}
 		}
 		return newUnknownNode("", section)
 	},
@@ -382,14 +420,14 @@ var defaultTransformers = map[string]transformer{
 	},
 }
 
-func transformRecommended(rl *etree.Element) contenttree.Node {
+func transformRecommended(r *etree.Element) contenttree.Node {
 	id := ""
 	teaser := ""
-	if link := findChild(rl, "content"); link != nil {
-		id = attr(link, "id")
-		teaser = textContent(link)
+	if c := findChild(r, "content"); c != nil {
+		id = attr(c, "id")
+		teaser = textContent(c)
 	}
-	heading := findChild(rl, "recommended-title")
+	heading := findChild(r, "recommended-title")
 	return &contenttree.Recommended{
 		Type: contenttree.RecommendedType,
 		ID:   id,

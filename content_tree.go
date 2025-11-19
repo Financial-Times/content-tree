@@ -81,6 +81,9 @@ const (
 	TimelineType           = "timeline"
 	TimelineEventType      = "timeline-event"
 	TimelineEventChildType = "timeline-event-child"
+
+	DefinitionType = "definition"
+	InNumbersType  = "in-numbers"
 )
 
 var (
@@ -402,6 +405,7 @@ type BodyBlock struct {
 	*CustomCodeComponent
 	*ClipSet
 	*Timeline
+	*InNumbers
 }
 
 func (n *BodyBlock) GetType() string {
@@ -472,6 +476,9 @@ func (n *BodyBlock) GetEmbedded() Node {
 	if n.Timeline != nil {
 		return n.Timeline
 	}
+	if n.InNumbers != nil {
+		return n.InNumbers
+	}
 	return nil
 }
 
@@ -538,6 +545,9 @@ func (n *BodyBlock) GetChildren() []Node {
 	}
 	if n.Timeline != nil {
 		return n.Timeline.GetChildren()
+	}
+	if n.InNumbers != nil {
+		return n.InNumbers.GetChildren()
 	}
 	return nil
 }
@@ -677,6 +687,12 @@ func (n *BodyBlock) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		n.Timeline = &v
+	case InNumbersType:
+		var v InNumbers
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.InNumbers = &v
 	default:
 		return fmt.Errorf("failed to unmarshal BodyBlock from %s: %w", data, ErrUnmarshalInvalidNode)
 	}
@@ -727,6 +743,8 @@ func (n *BodyBlock) MarshalJSON() ([]byte, error) {
 		return json.Marshal(n.ClipSet)
 	case n.Timeline != nil:
 		return json.Marshal(n.Timeline)
+	case n.InNumbers != nil:
+		return json.Marshal(n.InNumbers)
 	default:
 		return []byte(`{}`), nil
 	}
@@ -777,6 +795,8 @@ func makeBodyBlock(n Node) (*BodyBlock, error) {
 		return &BodyBlock{ClipSet: n.(*ClipSet)}, nil
 	case TimelineType:
 		return &BodyBlock{Timeline: n.(*Timeline)}, nil
+	case InNumbersType:
+		return &BodyBlock{InNumbers: n.(*InNumbers)}, nil
 	default:
 		return nil, ErrInvalidChildType
 	}
@@ -2804,4 +2824,54 @@ func makeTimelineEventChild(n Node) (*TimelineEventChild, error) {
 	default:
 		return nil, ErrInvalidChildType
 	}
+}
+
+type Definition struct {
+	Type        string `json:"type"`
+	Term        string `json:"term"`
+	Description string `json:"description"`
+}
+
+func (d *Definition) GetType() string {
+	return d.Type
+}
+
+func (d *Definition) GetEmbedded() Node {
+	return nil
+}
+
+func (d *Definition) GetChildren() []Node {
+	return nil
+}
+
+func (n *Definition) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
+type InNumbers struct {
+	Type     string        `json:"type"`
+	Title    string        `json:"title,omitempty"`
+	Children []*Definition `json:"children"`
+}
+
+func (in *InNumbers) GetType() string {
+	return in.Type
+}
+
+func (in *InNumbers) GetEmbedded() Node {
+	return nil
+}
+
+func (in *InNumbers) GetChildren() []Node {
+	result := make([]Node, len(in.Children))
+	for i, v := range in.Children {
+		result[i] = v
+	}
+	return result
+}
+
+func (in *InNumbers) AppendChild(child Node) error {
+	if child.GetType() != DefinitionType {
+		return ErrInvalidChildType
+	}
+	in.Children = append(in.Children, child.(*Definition))
+	return nil
 }

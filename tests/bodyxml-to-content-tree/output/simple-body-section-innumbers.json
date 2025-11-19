@@ -1,0 +1,48 @@
+{
+  "type": "root",
+  "body": {
+    "type": "body",
+    "children": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "Lorell"
+          }
+        ]
+      },
+      {
+        "type": "in-numbers",
+        "title": "Ipsum",
+        "children": [
+          {
+            "type": "definition",
+            "term": "111",
+            "description": "Stat one"
+          },
+          {
+            "type": "definition",
+            "term": "222",
+            "description": "Stat two"
+          },
+          {
+            "type": "definition",
+            "term": "333",
+            "description": "Stat three"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "Lorell"
+          }
+        ]
+      }
+    ],
+    "version": 1
+  }
+}
