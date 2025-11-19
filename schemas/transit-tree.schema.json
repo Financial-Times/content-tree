@@ -288,6 +288,27 @@
             ],
             "type": "object"
         },
+        "ContentTree.transit.Headline": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.transit.Text"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "headline",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "type"
+            ],
+            "type": "object"
+        },
         "ContentTree.transit.ImageSet": {
             "additionalProperties": false,
             "properties": {
@@ -305,6 +326,48 @@
             },
             "required": [
                 "id",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.Intro": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "anyOf": [
+                        {
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/ContentTree.transit.Text"
+                                }
+                            ],
+                            "maxItems": 1,
+                            "minItems": 1,
+                            "type": "array"
+                        },
+                        {
+                            "items": {
+                                "anyOf": [
+                                    {
+                                        "$ref": "#/definitions/ContentTree.transit.Paragraph"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/ContentTree.transit.List"
+                                    }
+                                ]
+                            },
+                            "type": "array"
+                        }
+                    ]
+                },
+                "data": {},
+                "type": {
+                    "const": "intro",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
                 "type"
             ],
             "type": "object"
@@ -1145,6 +1208,56 @@
             ],
             "type": "object"
         },
+        "ContentTree.transit.Topper": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "headline": {
+                    "$ref": "#/definitions/ContentTree.transit.Headline"
+                },
+                "intro": {
+                    "$ref": "#/definitions/ContentTree.transit.Intro"
+                },
+                "suggestedBackgroundColor": {
+                    "type": "string"
+                },
+                "suggestedTopperLayout": {
+                    "$ref": "#/definitions/ContentTree.transit.TopperLayout"
+                },
+                "type": {
+                    "const": "topper",
+                    "type": "string"
+                },
+                "visual": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.CustomCodeComponent"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "headline",
+                "intro",
+                "suggestedBackgroundColor",
+                "suggestedTopperLayout",
+                "type",
+                "visual"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.TopperLayout": {
+            "enum": [
+                "deep-landscape",
+                "deep-portrait",
+                "full-bleed",
+                "split-text-left"
+            ],
+            "type": "string"
+        },
         "ContentTree.transit.Tweet": {
             "additionalProperties": false,
             "properties": {
@@ -1205,6 +1318,9 @@
             "$ref": "#/definitions/ContentTree.transit.Body"
         },
         "data": {},
+        "topper": {
+            "$ref": "#/definitions/ContentTree.transit.Topper"
+        },
         "type": {
             "const": "root",
             "type": "string"
@@ -1212,6 +1328,7 @@
     },
     "required": [
         "body",
+        "topper",
         "type"
     ],
     "type": "object"
