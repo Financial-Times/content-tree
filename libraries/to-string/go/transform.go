@@ -115,6 +115,13 @@ func transformNode(n contenttree.Node) (string, error) {
 		}
 
 		return pq.Text, nil
+	case contenttree.InNumbersType:
+		def, ok := n.(*contenttree.Definition)
+		if !ok {
+			return "", errors.New("failed to parse node to Definition")
+		}
+
+		return fmt.Sprintf("%s %s", def.Term, def.Description), nil
 	case contenttree.TimelineEventType:
 		te, ok := n.(*contenttree.TimelineEvent)
 		if !ok {
