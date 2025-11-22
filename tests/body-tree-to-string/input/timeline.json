@@ -1,0 +1,26 @@
+{
+  "type": "body",
+  "children": [
+    {
+      "type": "layout",
+      "layoutName": "timeline",
+      "layoutWidth": "full-width",
+      "data": {
+        "layout": "timeline"
+      },
+      "children": [
+        {
+          "type": "heading",
+          "level": "subheading",
+          "children": [
+            {
+              "type": "text",
+              "value": "The evolution of kitchen sink drama films "
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "version": 1
+}
