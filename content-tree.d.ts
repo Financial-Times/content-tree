@@ -1,5 +1,5 @@
 export declare namespace ContentTree {
-    type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text;
+    type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | ImagePair;
     type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
     type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
     interface Node {
@@ -285,8 +285,12 @@ export declare namespace ContentTree {
         /** Configuration data to be passed to the component. */
         attributes: CustomCodeComponentAttributes;
     }
+    interface ImagePair extends Parent {
+        type: 'image-pair';
+        children: [ImageSet, ImageSet];
+    }
     namespace full {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | ImagePair;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -572,9 +576,13 @@ export declare namespace ContentTree {
             /** Configuration data to be passed to the component. */
             attributes: CustomCodeComponentAttributes;
         }
+        interface ImagePair extends Parent {
+            type: 'image-pair';
+            children: [ImageSet, ImageSet];
+        }
     }
     namespace transit {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | ImagePair;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -845,9 +853,13 @@ export declare namespace ContentTree {
             /** How the component should be presented in the article page according to the column layout system */
             layoutWidth: LayoutWidth;
         }
+        interface ImagePair extends Parent {
+            type: 'image-pair';
+            children: [ImageSet, ImageSet];
+        }
     }
     namespace loose {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | ImagePair;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -1132,6 +1144,10 @@ export declare namespace ContentTree {
             attributesLastModified?: string;
             /** Configuration data to be passed to the component. */
             attributes?: CustomCodeComponentAttributes;
+        }
+        interface ImagePair extends Parent {
+            type: 'image-pair';
+            children: [ImageSet, ImageSet];
         }
     }
 }
