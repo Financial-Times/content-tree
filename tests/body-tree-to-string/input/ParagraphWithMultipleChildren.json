@@ -1,0 +1,19 @@
+{
+  "type": "body",
+  "children": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Kitchen sink."
+        },
+        {
+          "type": "text",
+          "value": "Kitchen sink."
+        }
+      ]
+    }
+  ],
+  "version": 1
+}

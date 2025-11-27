@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"slices"
 	"strings"
 
 	contenttree "github.com/Financial-Times/content-tree"
@@ -24,8 +23,6 @@ var (
 )
 
 var ErrUnknownKind = errors.New("unknown tree kind")
-
-var toSeparate = []string{contenttree.HeadingType, contenttree.ParagraphType}
 
 // Transform extracts and returns plain text from a content tree represented as unmarshalled JSON(json.RawMessage).
 func Transform(tree json.RawMessage, s Schema) (string, error) {
@@ -107,21 +104,21 @@ func transformNode(n contenttree.Node) (string, error) {
 			return "", errors.New("failed to parse node to bigNumber")
 		}
 
-		return fmt.Sprintf("%s %s", bigNumber.Number, bigNumber.Description), nil
+		return fmt.Sprintf("%s %s ", bigNumber.Number, bigNumber.Description), nil
 	case contenttree.PullquoteType:
 		pq, ok := n.(*contenttree.Pullquote)
 		if !ok {
 			return "", errors.New("failed to parse node to Pullquote")
 		}
 
-		return pq.Text, nil
+		return fmt.Sprintf("%s ", pq.Text), nil
 	case contenttree.InNumbersType:
 		def, ok := n.(*contenttree.Definition)
 		if !ok {
 			return "", errors.New("failed to parse node to Definition")
 		}
 
-		return fmt.Sprintf("%s %s", def.Term, def.Description), nil
+		return fmt.Sprintf("%s %s ", def.Term, def.Description), nil
 	case contenttree.TimelineEventType:
 		te, ok := n.(*contenttree.TimelineEvent)
 		if !ok {
@@ -133,15 +130,11 @@ func transformNode(n contenttree.Node) (string, error) {
 			return "", err
 		}
 
-		return fmt.Sprintf("%s %s", te.Title, resultChildred), nil
+		return fmt.Sprintf("%s %s ", te.Title, resultChildred), nil
 	default:
-
 		result, err := transformChildren(n.GetChildren())
 		if err != nil {
 			return "", err
-		}
-		if slices.Contains(toSeparate, n.GetType()) && len(result) > 0 {
-			result += " "
 		}
 
 		return result, nil
@@ -163,5 +156,5 @@ func transformChildren(childrenNodes []contenttree.Node) (string, error) {
 		childrenStrs = append(childrenStrs, s)
 	}
 
-	return strings.Join(childrenStrs, ""), nil
+	return strings.Join(childrenStrs, " "), nil
 }
