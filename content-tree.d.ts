@@ -1,5 +1,5 @@
 export declare namespace ContentTree {
-    type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | ImagePair;
+    type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | ImagePair | Comparison;
     type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
     type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
     interface Node {
@@ -227,6 +227,11 @@ export declare namespace ContentTree {
         credit: string;
         picture: ImageSetPicture;
     }
+    interface Card extends Parent {
+        type: "card";
+        title?: string;
+        children: [ImageSet, ...Paragraph[]] | [Paragraph, ...Paragraph[]];
+    }
     type TableColumnSettings = {
         hideOnMobile: boolean;
         sortable: boolean;
@@ -289,8 +294,13 @@ export declare namespace ContentTree {
         type: 'image-pair';
         children: [ImageSet, ImageSet];
     }
+    interface Comparison extends Parent {
+        type: 'comparison';
+        title?: string;
+        children: [Card, Card];
+    }
     namespace full {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | ImagePair;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | ImagePair | Comparison;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -518,6 +528,11 @@ export declare namespace ContentTree {
             credit: string;
             picture: ImageSetPicture;
         }
+        interface Card extends Parent {
+            type: "card";
+            title?: string;
+            children: [ImageSet, ...Paragraph[]] | [Paragraph, ...Paragraph[]];
+        }
         type TableColumnSettings = {
             hideOnMobile: boolean;
             sortable: boolean;
@@ -580,9 +595,14 @@ export declare namespace ContentTree {
             type: 'image-pair';
             children: [ImageSet, ImageSet];
         }
+        interface Comparison extends Parent {
+            type: 'comparison';
+            title?: string;
+            children: [Card, Card];
+        }
     }
     namespace transit {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | ImagePair;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | ImagePair | Comparison;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -803,6 +823,11 @@ export declare namespace ContentTree {
             caption: string;
             credit: string;
         }
+        interface Card extends Parent {
+            type: "card";
+            title?: string;
+            children: [ImageSet, ...Paragraph[]] | [Paragraph, ...Paragraph[]];
+        }
         type TableColumnSettings = {
             hideOnMobile: boolean;
             sortable: boolean;
@@ -857,9 +882,14 @@ export declare namespace ContentTree {
             type: 'image-pair';
             children: [ImageSet, ImageSet];
         }
+        interface Comparison extends Parent {
+            type: 'comparison';
+            title?: string;
+            children: [Card, Card];
+        }
     }
     namespace loose {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | ImagePair;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | ImagePair | Comparison;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -1087,6 +1117,11 @@ export declare namespace ContentTree {
             credit: string;
             picture?: ImageSetPicture;
         }
+        interface Card extends Parent {
+            type: "card";
+            title?: string;
+            children: [ImageSet, ...Paragraph[]] | [Paragraph, ...Paragraph[]];
+        }
         type TableColumnSettings = {
             hideOnMobile: boolean;
             sortable: boolean;
@@ -1148,6 +1183,11 @@ export declare namespace ContentTree {
         interface ImagePair extends Parent {
             type: 'image-pair';
             children: [ImageSet, ImageSet];
+        }
+        interface Comparison extends Parent {
+            type: 'comparison';
+            title?: string;
+            children: [Card, Card];
         }
     }
 }

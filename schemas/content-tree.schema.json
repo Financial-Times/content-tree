@@ -153,6 +153,9 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.ImagePair"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Comparison"
                 }
             ]
         },
@@ -166,6 +169,83 @@
                 }
             },
             "required": [
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.Card": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "anyOf": [
+                        {
+                            "additionalItems": {
+                                "$ref": "#/definitions/ContentTree.full.Paragraph"
+                            },
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/ContentTree.full.ImageSet"
+                                }
+                            ],
+                            "minItems": 1,
+                            "type": "array"
+                        },
+                        {
+                            "additionalItems": {
+                                "$ref": "#/definitions/ContentTree.full.Paragraph"
+                            },
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/ContentTree.full.Paragraph"
+                                }
+                            ],
+                            "minItems": 1,
+                            "type": "array"
+                        }
+                    ]
+                },
+                "data": {},
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "card",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.Comparison": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.full.Card"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.full.Card"
+                        }
+                    ],
+                    "maxItems": 2,
+                    "minItems": 2,
+                    "type": "array"
+                },
+                "data": {},
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "comparison",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
                 "type"
             ],
             "type": "object"
