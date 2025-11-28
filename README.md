@@ -71,6 +71,13 @@ function makeImageSetNoFixins(): ContentTree.transit.ImageSet {
 }
 ```
 
+### Contributing
+
+To add or update an item in the content tree:
+- clone this repo and run `npm install`
+- add your definitions to the content below under the `Nodes` section, using the same pattern as other definitions (subheading, definitions, notes). If they can appear at the top level of the body block, add them to the definition under Abstract Types
+- run `npm run build` to update `content-tree.d.ts` and (if required) the `schemas` files
+
 ### What does it mean to be in transit?
 
 When a `content-tree` is being rendered visually, external resources have been
@@ -107,6 +114,7 @@ type BodyBlock =
 	| Video
 	| YoutubeVideo
 	| Text
+	| ImagePair
 ```
 
 `BodyBlock` nodes are the only things that are valid as the top level of a `Body`.
@@ -780,6 +788,16 @@ interface CustomCodeComponent extends Node {
 - The basic interface in Spark to make reference to this system above (eg. the git repo URL or a public S3 bucket), and provide some data for it if necessary. This will be the Custom Component storyblock.
 - The data Spark receives from entering a specific ID will be used to render dynamic fields (the `attributes`).
 
+### ImagePair
+
+```ts
+interface ImagePair extends Parent {
+	type: 'image-pair'
+	children: [ImageSet, ImageSet]
+}
+```
+
+**ImagePair** is a set of two images
 
 ## License
 

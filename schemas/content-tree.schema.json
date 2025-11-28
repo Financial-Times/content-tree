@@ -150,6 +150,9 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.Text"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.ImagePair"
                 }
             ]
         },
@@ -370,6 +373,34 @@
             "required": [
                 "children",
                 "level",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.ImagePair": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.full.ImageSet"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.full.ImageSet"
+                        }
+                    ],
+                    "maxItems": 2,
+                    "minItems": 2,
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "image-pair",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
                 "type"
             ],
             "type": "object"
