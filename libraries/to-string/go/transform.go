@@ -80,6 +80,8 @@ func transformNode(n contenttree.Node) (string, error) {
 		return transformNode(n.GetEmbedded())
 	case contenttree.TableChildType:
 		return transformNode(n.GetEmbedded())
+	case contenttree.TimelineEventChildType:
+		return transformNode(n.GetEmbedded())
 	case contenttree.RecommendedType:
 		return "", nil
 	case contenttree.RecommendedListType:
