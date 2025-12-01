@@ -107,6 +107,8 @@ type BodyBlock =
 	| Video
 	| YoutubeVideo
 	| Text
+	| InNumbers
+	| Definition
 ```
 
 `BodyBlock` nodes are the only things that are valid as the top level of a `Body`.
