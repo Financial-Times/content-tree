@@ -115,6 +115,7 @@ type BodyBlock =
 	| YoutubeVideo
 	| Text
 	| ImagePair
+	| Comparison
 ```
 
 `BodyBlock` nodes are the only things that are valid as the top level of a `Body`.
@@ -699,6 +700,17 @@ interface LayoutImage extends Node {
   this was that in the bodyXML, layout nodes were inside an `<experimental>`
   tag, and that didn't support publishing `<ft-content>`.
 
+### Card
+```ts
+interface Card extends Parent {
+	type: "card"
+	title?: string
+	children: [ImageSet, ...Paragraph[]] | [Paragraph, ...Paragraph[]]
+}
+```
+
+A card describes a subject typically with an image and a description. It can be an imageset on its own, an image folllowed by one or more paragraphs, or one or more paragraphs on their own.
+
 ### `Table`
 
 ```ts
@@ -798,6 +810,18 @@ interface ImagePair extends Parent {
 ```
 
 **ImagePair** is a set of two images
+
+### Comparison
+
+```ts
+interface Comparison extends Parent {
+	type: 'comparison'
+	title?: string
+	children: [Card, Card]
+}
+```
+
+A comparison has 2 cards adjacent to each other
 
 ## License
 
