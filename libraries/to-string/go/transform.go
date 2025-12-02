@@ -119,12 +119,12 @@ func transformNode(n contenttree.Node) (string, error) {
 		if !ok {
 			return "", errors.New("failed to parse node to InNumbers")
 		}
-		resultChildred, err := transformChildren(in.GetChildren())
+		resultChildren, err := transformChildren(in.GetChildren())
 		if err != nil {
 			return "", err
 		}
 
-		return fmt.Sprintf("%s %s ", in.Title, resultChildred), nil
+		return fmt.Sprintf("%s %s ", in.Title, resultChildren), nil
 	case contenttree.DefinitionType:
 		def, ok := n.(*contenttree.Definition)
 		if !ok {
@@ -138,12 +138,12 @@ func transformNode(n contenttree.Node) (string, error) {
 			return "", errors.New("failed to parse node to text")
 		}
 
-		resultChildred, err := transformChildren(te.GetChildren())
+		resultChildren, err := transformChildren(te.GetChildren())
 		if err != nil {
 			return "", err
 		}
 
-		return fmt.Sprintf("%s %s ", te.Title, resultChildred), nil
+		return fmt.Sprintf("%s %s ", te.Title, resultChildren), nil
 	default:
 		result, err := transformChildren(n.GetChildren())
 		if err != nil {
