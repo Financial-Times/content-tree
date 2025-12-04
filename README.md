@@ -111,6 +111,7 @@ type BodyBlock =
 	| Recommended
 	| RecommendedList
 	| Tweet
+	| Audio
 	| Video
 	| YoutubeVideo
 	| Text
@@ -561,6 +562,17 @@ interface BigNumber extends Node {
 ```
 
 **BigNumber** represents a big number.
+
+### `Audio`
+
+```ts
+interface Audio extends Node {
+	type: "audio"
+	src: string
+	title: string
+}
+```
+**Audio** represents an audio clip.
 
 ### `Video`
 
