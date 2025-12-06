@@ -103,6 +103,9 @@ type Node interface {
 	// GetEmbedded returns the embedded node, if applicable.
 	// It is useful for traversing node structs which embed other node structs.
 	GetEmbedded() Node
+	// GetString returns text contained in the node, but not the associated children.
+	// Returns empty string when no text is contained in node.
+	GetString() string
 	// AppendChild attempts to append a child node, returning an error if not allowed.
 	AppendChild(child Node) error
 }
@@ -139,6 +142,10 @@ type BigNumber struct {
 	Number      string      `json:"number"`
 }
 
+func (n *BigNumber) GetString() string {
+	return fmt.Sprintf("%s %s", n.Number, n.Description)
+}
+
 func (n *BigNumber) GetType() string {
 	return n.Type
 }
@@ -157,6 +164,10 @@ type Blockquote struct {
 	Type     string             `json:"type"`
 	Children []*BlockquoteChild `json:"children"`
 	Data     interface{}        `json:"data,omitempty"`
+}
+
+func (n *Blockquote) GetString() string {
+	return ""
 }
 
 func (n *Blockquote) GetType() string {
@@ -192,6 +203,10 @@ type BlockquoteChild struct {
 	*Emphasis
 	*Strikethrough
 	*Link
+}
+
+func (n *BlockquoteChild) GetString() string {
+	return n.GetEmbedded().GetString()
 }
 
 func (n *BlockquoteChild) GetType() string {
@@ -355,6 +370,10 @@ type Body struct {
 	Version  float64      `json:"version,omitempty"`
 }
 
+func (n *Body) GetString() string {
+	return ""
+}
+
 func (n *Body) GetType() string {
 	return n.Type
 }
@@ -406,6 +425,10 @@ type BodyBlock struct {
 	*ClipSet
 	*Timeline
 	*InNumbers
+}
+
+func (n *BodyBlock) GetString() string {
+	return n.GetEmbedded().GetString()
 }
 
 func (n *BodyBlock) GetType() string {
@@ -807,6 +830,10 @@ type Break struct {
 	Data interface{} `json:"data,omitempty"`
 }
 
+func (n *Break) GetString() string {
+	return ""
+}
+
 func (n *Break) GetType() string {
 	return n.Type
 }
@@ -825,6 +852,10 @@ type Emphasis struct {
 	Type     string      `json:"type"`
 	Children []*Phrasing `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
+}
+
+func (n *Emphasis) GetString() string {
+	return ""
 }
 
 func (n *Emphasis) GetType() string {
@@ -864,6 +895,10 @@ type Flourish struct {
 	FragmentIdentifier string                 `json:"fragmentIdentifier,omitempty"`
 }
 
+func (n *Flourish) GetString() string {
+	return n.Description
+}
+
 func (n *Flourish) GetType() string {
 	return n.Type
 }
@@ -901,6 +936,10 @@ type Heading struct {
 	FragmentIdentifier string      `json:"fragmentIdentifier,omitempty"`
 }
 
+func (n *Heading) GetString() string {
+	return ""
+}
+
 func (n *Heading) GetType() string {
 	return n.Type
 }
@@ -933,6 +972,10 @@ type ImageSet struct {
 	FragmentIdentifier string      `json:"fragmentIdentifier,omitempty"`
 }
 
+func (n *ImageSet) GetString() string {
+	return n.FragmentIdentifier
+}
+
 func (n *ImageSet) GetType() string {
 	return n.Type
 }
@@ -953,6 +996,10 @@ type Layout struct {
 	Data        interface{}    `json:"data,omitempty"`
 	LayoutName  string         `json:"layoutName,omitempty"`
 	LayoutWidth string         `json:"layoutWidth,omitempty"`
+}
+
+func (n *Layout) GetString() string {
+	return ""
 }
 
 func (n *Layout) GetType() string {
@@ -984,6 +1031,10 @@ type LayoutChild struct {
 	*LayoutSlot
 	*Heading
 	*LayoutImage
+}
+
+func (n *LayoutChild) GetString() string {
+	return n.GetEmbedded().GetString()
 }
 
 func (n *LayoutChild) GetType() string {
@@ -1086,6 +1137,10 @@ type LayoutImage struct {
 	Picture *Picture    `json:"picture,omitempty"`
 }
 
+func (n *LayoutImage) GetString() string {
+	return n.Caption
+}
+
 func (n *LayoutImage) GetType() string {
 	return n.Type
 }
@@ -1104,6 +1159,10 @@ type LayoutSlot struct {
 	Type     string             `json:"type"`
 	Children []*LayoutSlotChild `json:"children"`
 	Data     interface{}        `json:"data,omitempty"`
+}
+
+func (n *LayoutSlot) GetString() string {
+	return ""
 }
 
 func (n *LayoutSlot) GetType() string {
@@ -1135,6 +1194,10 @@ type LayoutSlotChild struct {
 	*Paragraph
 	*Heading
 	*LayoutImage
+}
+
+func (n *LayoutSlotChild) GetString() string {
+	return n.GetEmbedded().GetString()
 }
 
 func (n *LayoutSlotChild) GetType() string {
@@ -1236,6 +1299,10 @@ type Link struct {
 	StyleType string      `json:"styleType,omitempty"`
 }
 
+func (n *Link) GetString() string {
+	return fmt.Sprintf("%s %s", n.Title, n.URL)
+}
+
 func (n *Link) GetType() string {
 	return n.Type
 }
@@ -1268,6 +1335,10 @@ type List struct {
 	Ordered  bool        `json:"ordered"`
 }
 
+func (n *List) GetString() string {
+	return ""
+}
+
 func (n *List) GetType() string {
 	return n.Type
 }
@@ -1297,6 +1368,10 @@ type ListItem struct {
 	Type     string           `json:"type"`
 	Children []*ListItemChild `json:"children"`
 	Data     interface{}      `json:"data,omitempty"`
+}
+
+func (n *ListItem) GetString() string {
+	return ""
 }
 
 func (n *ListItem) GetType() string {
@@ -1332,6 +1407,10 @@ type ListItemChild struct {
 	*Emphasis
 	*Strikethrough
 	*Link
+}
+
+func (n *ListItemChild) GetString() string {
+	return n.GetEmbedded().GetString()
 }
 
 func (n *ListItemChild) GetType() string {
@@ -1497,6 +1576,10 @@ type Paragraph struct {
 	Data     interface{} `json:"data,omitempty"`
 }
 
+func (n *Paragraph) GetString() string {
+	return ""
+}
+
 func (n *Paragraph) GetType() string {
 	return n.Type
 }
@@ -1529,6 +1612,10 @@ type Phrasing struct {
 	*Emphasis
 	*Strikethrough
 	*Link
+}
+
+func (n *Phrasing) GetString() string {
+	return n.GetEmbedded().GetString()
 }
 
 func (n *Phrasing) GetType() string {
@@ -1676,6 +1763,10 @@ type Pullquote struct {
 	Text   string      `json:"text"`
 }
 
+func (n *Pullquote) GetString() string {
+	return n.Text
+}
+
 func (n *Pullquote) GetType() string {
 	return n.Type
 }
@@ -1699,6 +1790,10 @@ type Recommended struct {
 	TeaserTitleOverride string      `json:"teaserTitleOverride"`
 }
 
+func (n *Recommended) GetString() string {
+	return n.Heading
+}
+
 func (n *Recommended) GetType() string {
 	return n.Type
 }
@@ -1718,6 +1813,10 @@ type RecommendedList struct {
 	Data     interface{}    `json:"data,omitempty"`
 	Heading  string         `json:"heading,omitempty"`
 	Children []*Recommended `json:"children"`
+}
+
+func (n *RecommendedList) GetString() string {
+	return n.Heading
 }
 
 func (n *RecommendedList) GetType() string {
@@ -1751,6 +1850,10 @@ type ScrollyBlock struct {
 	Theme    string            `json:"theme,omitempty"`
 }
 
+func (n *ScrollyBlock) GetString() string {
+	return ""
+}
+
 func (n *ScrollyBlock) GetType() string {
 	return n.Type
 }
@@ -1781,6 +1884,10 @@ type ScrollyCopy struct {
 	Data     interface{}         `json:"data,omitempty"`
 }
 
+func (n *ScrollyCopy) GetString() string {
+	return ""
+}
+
 func (n *ScrollyCopy) GetType() string {
 	return n.Type
 }
@@ -1809,6 +1916,10 @@ func (n *ScrollyCopy) AppendChild(child Node) error {
 type ScrollyCopyChild struct {
 	*Paragraph
 	*ScrollyHeading
+}
+
+func (n *ScrollyCopyChild) GetString() string {
+	return n.GetEmbedded().GetString()
 }
 
 func (n *ScrollyCopyChild) GetType() string {
@@ -1892,6 +2003,10 @@ type ScrollyHeading struct {
 	Level    string      `json:"level,omitempty"`
 }
 
+func (n *ScrollyHeading) GetString() string {
+	return ""
+}
+
 func (n *ScrollyHeading) GetType() string {
 	return n.Type
 }
@@ -1917,6 +2032,10 @@ type ScrollyImage struct {
 	Picture *Picture    `json:"picture,omitempty"`
 }
 
+func (n *ScrollyImage) GetString() string {
+	return ""
+}
+
 func (n *ScrollyImage) GetType() string {
 	return n.Type
 }
@@ -1939,6 +2058,10 @@ type ScrollySection struct {
 	NoBox      bool                   `json:"noBox,omitempty"`
 	Position   string                 `json:"position,omitempty"`
 	Transition string                 `json:"transition,omitempty"`
+}
+
+func (n *ScrollySection) GetString() string {
+	return ""
 }
 
 func (n *ScrollySection) GetType() string {
@@ -1969,6 +2092,10 @@ func (n *ScrollySection) AppendChild(child Node) error {
 type ScrollySectionChild struct {
 	*ScrollyCopy
 	*ScrollyImage
+}
+
+func (n *ScrollySectionChild) GetString() string {
+	return n.GetEmbedded().GetString()
 }
 
 func (n *ScrollySectionChild) GetType() string {
@@ -2051,6 +2178,10 @@ type Strikethrough struct {
 	Data     interface{} `json:"data,omitempty"`
 }
 
+func (n *Strikethrough) GetString() string {
+	return ""
+}
+
 func (n *Strikethrough) GetType() string {
 	return n.Type
 }
@@ -2080,6 +2211,10 @@ type Strong struct {
 	Type     string      `json:"type"`
 	Children []*Phrasing `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
+}
+
+func (n *Strong) GetString() string {
+	return ""
 }
 
 func (n *Strong) GetType() string {
@@ -2119,6 +2254,10 @@ type Table struct {
 	Stripes                  bool                   `json:"stripes,omitempty"`
 }
 
+func (n *Table) GetString() string {
+	return ""
+}
+
 func (n *Table) GetType() string {
 	return n.Type
 }
@@ -2148,6 +2287,10 @@ type TableChild struct {
 	*TableCaption
 	*TableBody
 	*TableFooter
+}
+
+func (n *TableChild) GetString() string {
+	return n.GetEmbedded().GetString()
 }
 
 func (n *TableChild) GetType() string {
@@ -2246,6 +2389,10 @@ type TableBody struct {
 	Data     interface{} `json:"data,omitempty"`
 }
 
+func (n *TableBody) GetString() string {
+	return ""
+}
+
 func (n *TableBody) GetType() string {
 	return n.Type
 }
@@ -2274,6 +2421,10 @@ type TableCaption struct {
 	Type     string      `json:"type"`
 	Children []*Table    `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
+}
+
+func (n *TableCaption) GetString() string {
+	return ""
 }
 
 func (n *TableCaption) GetType() string {
@@ -2307,6 +2458,10 @@ type TableCell struct {
 	Heading  bool        `json:"heading,omitempty"`
 }
 
+func (n *TableCell) GetString() string {
+	return ""
+}
+
 func (n *TableCell) GetType() string {
 	return n.Type
 }
@@ -2335,6 +2490,10 @@ type TableFooter struct {
 	Type     string      `json:"type"`
 	Children []*Table    `json:"children"`
 	Data     interface{} `json:"data,omitempty"`
+}
+
+func (n *TableFooter) GetString() string {
+	return ""
 }
 
 func (n *TableFooter) GetType() string {
@@ -2367,6 +2526,10 @@ type TableRow struct {
 	Data     interface{}  `json:"data,omitempty"`
 }
 
+func (n *TableRow) GetString() string {
+	return ""
+}
+
 func (n *TableRow) GetType() string {
 	return n.Type
 }
@@ -2397,6 +2560,10 @@ type Text struct {
 	Value string      `json:"value,omitempty"`
 }
 
+func (n *Text) GetString() string {
+	return n.Value
+}
+
 func (n *Text) GetType() string {
 	return n.Type
 }
@@ -2414,6 +2581,10 @@ func (n *Text) AppendChild(_ Node) error { return ErrCannotHaveChildren }
 type ThematicBreak struct {
 	Type string      `json:"type"`
 	Data interface{} `json:"data,omitempty"`
+}
+
+func (n *ThematicBreak) GetString() string {
+	return ""
 }
 
 func (n *ThematicBreak) GetType() string {
@@ -2437,6 +2608,10 @@ type Tweet struct {
 	ID   string      `json:"id,omitempty"`
 }
 
+func (n *Tweet) GetString() string {
+	return n.HTML
+}
+
 func (n *Tweet) GetType() string {
 	return n.Type
 }
@@ -2457,6 +2632,10 @@ type Video struct {
 	ID   string      `json:"id"`
 }
 
+func (n *Video) GetString() string {
+	return ""
+}
+
 func (n *Video) GetType() string {
 	return n.Type
 }
@@ -2475,6 +2654,10 @@ type YoutubeVideo struct {
 	Type string      `json:"type"`
 	Data interface{} `json:"data,omitempty"`
 	URL  string      `json:"url,omitempty"`
+}
+
+func (n *YoutubeVideo) GetString() string {
+	return n.URL
 }
 
 func (n *YoutubeVideo) GetType() string {
@@ -2502,6 +2685,10 @@ type CustomCodeComponent struct {
 	VersionRange           string                 `json:"versionRange,omitempty"`
 }
 
+func (n *CustomCodeComponent) GetString() string {
+	return ""
+}
+
 func (n *CustomCodeComponent) GetType() string {
 	return n.Type
 }
@@ -2524,6 +2711,10 @@ type ClipSet struct {
 	Autoplay    bool        `json:"autoplay,omitempty"`
 	Loop        bool        `json:"loop,omitempty"`
 	Muted       bool        `json:"muted,omitempty"`
+}
+
+func (n *ClipSet) GetString() string {
+	return ""
 }
 
 func (n *ClipSet) GetType() string {
@@ -2639,6 +2830,10 @@ type Root struct {
 	Data interface{} `json:"data,omitempty"`
 }
 
+func (n *Root) GetString() string {
+	return ""
+}
+
 func (n *Root) GetType() string {
 	return n.Type
 }
@@ -2693,6 +2888,10 @@ type Timeline struct {
 	Children    []*TimelineEvent `json:"children"`
 }
 
+func (n *Timeline) GetString() string {
+	return n.Title
+}
+
 func (n *Timeline) GetType() string {
 	return n.Type
 }
@@ -2723,6 +2922,10 @@ type TimelineEvent struct {
 	Children []*TimelineEventChild `json:"children"`
 }
 
+func (n *TimelineEvent) GetString() string {
+	return n.Title
+}
+
 func (n *TimelineEvent) GetType() string {
 	return n.Type
 }
@@ -2751,6 +2954,10 @@ func (n *TimelineEvent) AppendChild(child Node) error {
 type TimelineEventChild struct {
 	*Paragraph
 	*ImageSet
+}
+
+func (n *TimelineEventChild) GetString() string {
+	return n.GetEmbedded().GetString()
 }
 
 func (n *TimelineEventChild) GetType() string {
@@ -2832,6 +3039,10 @@ type Definition struct {
 	Description string `json:"description"`
 }
 
+func (d *Definition) GetString() string {
+	return fmt.Sprintf("%s %s", d.Term, d.Description)
+}
+
 func (d *Definition) GetType() string {
 	return d.Type
 }
@@ -2850,6 +3061,10 @@ type InNumbers struct {
 	Type     string        `json:"type"`
 	Title    string        `json:"title,omitempty"`
 	Children []*Definition `json:"children"`
+}
+
+func (in *InNumbers) GetString() string {
+	return in.Title
 }
 
 func (in *InNumbers) GetType() string {
