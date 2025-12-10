@@ -91,19 +91,29 @@ It is the state of the tree in the network that we call "in transit".
 These abstract helper types define special types a [Parent](#parent) can use as
 [children][term-child].
 
-### `BodyBlock`
+### `FormattingBlock`
 
 ```ts
-type BodyBlock =
+type FormattingBlock =
 	| Paragraph
 	| Heading
+	| List
+	| Blockquote
+	| ThematicBreak
+	| Text
+```
+
+`FormattingBlock` nodes  contains only text-structured blocks used for formatting textual content.
+
+### `StoryBlock`
+
+```ts
+type StoryBlock =
 	| ImageSet
 	| Flourish
 	| BigNumber
 	| CustomCodeComponent
 	| Layout
-	| List
-	| Blockquote
 	| Pullquote
 	| ScrollyBlock
 	| ThematicBreak
@@ -113,8 +123,17 @@ type BodyBlock =
 	| Tweet
 	| Video
 	| YoutubeVideo
-	| Text
 	| ImagePair
+```
+
+`StoryBlock` nodes are things that can be inserted into an article body.
+
+### `BodyBlock`
+
+```ts
+type BodyBlock =
+	| FormattingBlock
+	| StoryBlock
 ```
 
 `BodyBlock` nodes are the only things that are valid as the top level of a `Body`.
