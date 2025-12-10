@@ -895,7 +895,7 @@
                 },
                 "data": {},
                 "styleType": {
-                    "const": "onward-journey",
+                    "const": "partner-content-onward-journey",
                     "type": "string"
                 },
                 "title": {
