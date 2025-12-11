@@ -91,19 +91,29 @@ It is the state of the tree in the network that we call "in transit".
 These abstract helper types define special types a [Parent](#parent) can use as
 [children][term-child].
 
-### `BodyBlock`
+### `FormattingBlock`
 
 ```ts
-type BodyBlock =
+type FormattingBlock =
 	| Paragraph
 	| Heading
+	| List
+	| Blockquote
+	| ThematicBreak
+	| Text
+```
+
+`FormattingBlock` nodes  contains only text-structured blocks used for formatting textual content.
+
+### `StoryBlock`
+
+```ts
+type StoryBlock =
 	| ImageSet
 	| Flourish
 	| BigNumber
 	| CustomCodeComponent
 	| Layout
-	| List
-	| Blockquote
 	| Pullquote
 	| ScrollyBlock
 	| ThematicBreak
@@ -113,8 +123,18 @@ type BodyBlock =
 	| Tweet
 	| Video
 	| YoutubeVideo
-	| Text
+	| Timeline
 	| ImagePair
+```
+
+`StoryBlock` nodes are things that can be inserted into an article body.
+
+### `BodyBlock`
+
+```ts
+type BodyBlock =
+	| FormattingBlock
+	| StoryBlock
 ```
 
 `BodyBlock` nodes are the only things that are valid as the top level of a `Body`.
@@ -762,24 +782,24 @@ interface Table extends Parent {
 
 ```ts
 type CustomCodeComponentAttributes = {
-    [key: string]: string | boolean | undefined
+	[key: string]: string | boolean | undefined
 }
 
 interface CustomCodeComponent extends Node {
-  /** Component type */
-  type: "custom-code-component"
-  /** Id taken from the CAPI url */
-  id: string
-  /** How the component should be presented in the article page according to the column layout system */
-  layoutWidth: LayoutWidth
-  /** Repository for the code of the component in the format "[github org]/[github repo]/[component name]". */
-  external path: string
-  /** Semantic version of the code of the component, e.g. "^0.3.5". */
-  external versionRange: string
-  /** Last date-time when the attributes for this block were modified, in ISO-8601 format. */
-  external attributesLastModified: string
-  /** Configuration data to be passed to the component. */
-  external attributes: CustomCodeComponentAttributes
+	/** Component type */
+	type: "custom-code-component"
+	/** Id taken from the CAPI url */
+	id: string
+	/** How the component should be presented in the article page according to the column layout system */
+	layoutWidth: LayoutWidth
+	/** Repository for the code of the component in the format "[github org]/[github repo]/[component name]". */
+	external path: string
+	/** Semantic version of the code of the component, e.g. "^0.3.5". */
+	external versionRange: string
+	/** Last date-time when the attributes for this block were modified, in ISO-8601 format. */
+	external attributesLastModified: string
+	/** Configuration data to be passed to the component. */
+	external attributes: CustomCodeComponentAttributes
 }
 ```
 
@@ -798,6 +818,31 @@ interface ImagePair extends Parent {
 ```
 
 **ImagePair** is a set of two images
+
+### Timeline
+
+```ts
+/**
+ * Timeline nodes display a timeline of events in arbitrary order.
+ */
+interface Timeline extends Parent {
+	type: "timeline"
+	/** The title for the timeline */
+	title: string
+	children: TimelineEvent[]
+}
+
+/**
+ * TimelineEvent is the representation of a single event in a Timeline.
+ */
+interface TimelineEvent extends Parent {
+	type: "timeline-event"
+	/** The title of the event */
+	title: string
+	/** Any combination of paragraphs and image sets */
+	children: (Paragraph | ImageSet)[];
+}
+```
 
 ## License
 

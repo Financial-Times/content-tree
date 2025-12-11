@@ -101,6 +101,18 @@
                     "$ref": "#/definitions/ContentTree.full.Heading"
                 },
                 {
+                    "$ref": "#/definitions/ContentTree.full.List"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Blockquote"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.ThematicBreak"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Text"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.full.ImageSet"
                 },
                 {
@@ -116,19 +128,10 @@
                     "$ref": "#/definitions/ContentTree.full.Layout"
                 },
                 {
-                    "$ref": "#/definitions/ContentTree.full.List"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.Blockquote"
-                },
-                {
                     "$ref": "#/definitions/ContentTree.full.Pullquote"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.ScrollyBlock"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.ThematicBreak"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.Table"
@@ -149,7 +152,7 @@
                     "$ref": "#/definitions/ContentTree.full.YoutubeVideo"
                 },
                 {
-                    "$ref": "#/definitions/ContentTree.full.Text"
+                    "$ref": "#/definitions/ContentTree.full.Timeline"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.ImagePair"
@@ -1928,6 +1931,68 @@
                 }
             },
             "required": [
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.Timeline": {
+            "additionalProperties": false,
+            "description": "Timeline nodes display a timeline of events in arbitrary order.",
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.full.TimelineEvent"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "title": {
+                    "description": "The title for the timeline",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "timeline",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "title",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.TimelineEvent": {
+            "additionalProperties": false,
+            "description": "TimelineEvent is the representation of a single event in a Timeline.",
+            "properties": {
+                "children": {
+                    "description": "Any combination of paragraphs and image sets",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Paragraph"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.ImageSet"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "title": {
+                    "description": "The title of the event",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "timeline-event",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "title",
                 "type"
             ],
             "type": "object"

@@ -101,6 +101,18 @@
                     "$ref": "#/definitions/ContentTree.transit.Heading"
                 },
                 {
+                    "$ref": "#/definitions/ContentTree.transit.List"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Blockquote"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.ThematicBreak"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Text"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.transit.ImageSet"
                 },
                 {
@@ -116,19 +128,10 @@
                     "$ref": "#/definitions/ContentTree.transit.Layout"
                 },
                 {
-                    "$ref": "#/definitions/ContentTree.transit.List"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.Blockquote"
-                },
-                {
                     "$ref": "#/definitions/ContentTree.transit.Pullquote"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.ScrollyBlock"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.ThematicBreak"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.Table"
@@ -149,7 +152,7 @@
                     "$ref": "#/definitions/ContentTree.transit.YoutubeVideo"
                 },
                 {
-                    "$ref": "#/definitions/ContentTree.transit.Text"
+                    "$ref": "#/definitions/ContentTree.transit.Timeline"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.ImagePair"
@@ -1172,6 +1175,68 @@
                 }
             },
             "required": [
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.Timeline": {
+            "additionalProperties": false,
+            "description": "Timeline nodes display a timeline of events in arbitrary order.",
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.transit.TimelineEvent"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "title": {
+                    "description": "The title for the timeline",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "timeline",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "title",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.TimelineEvent": {
+            "additionalProperties": false,
+            "description": "TimelineEvent is the representation of a single event in a Timeline.",
+            "properties": {
+                "children": {
+                    "description": "Any combination of paragraphs and image sets",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Paragraph"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "title": {
+                    "description": "The title of the event",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "timeline-event",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "title",
                 "type"
             ],
             "type": "object"

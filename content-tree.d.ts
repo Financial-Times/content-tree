@@ -1,5 +1,7 @@
 export declare namespace ContentTree {
-    type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | ImagePair;
+    type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
+    type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair;
+    type BodyBlock = FormattingBlock | StoryBlock;
     type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
     type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
     interface Node {
@@ -289,8 +291,29 @@ export declare namespace ContentTree {
         type: 'image-pair';
         children: [ImageSet, ImageSet];
     }
+    /**
+     * Timeline nodes display a timeline of events in arbitrary order.
+     */
+    interface Timeline extends Parent {
+        type: "timeline";
+        /** The title for the timeline */
+        title: string;
+        children: TimelineEvent[];
+    }
+    /**
+     * TimelineEvent is the representation of a single event in a Timeline.
+     */
+    interface TimelineEvent extends Parent {
+        type: "timeline-event";
+        /** The title of the event */
+        title: string;
+        /** Any combination of paragraphs and image sets */
+        children: (Paragraph | ImageSet)[];
+    }
     namespace full {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | ImagePair;
+        type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
+        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair;
+        type BodyBlock = FormattingBlock | StoryBlock;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -580,9 +603,30 @@ export declare namespace ContentTree {
             type: 'image-pair';
             children: [ImageSet, ImageSet];
         }
+        /**
+         * Timeline nodes display a timeline of events in arbitrary order.
+         */
+        interface Timeline extends Parent {
+            type: "timeline";
+            /** The title for the timeline */
+            title: string;
+            children: TimelineEvent[];
+        }
+        /**
+         * TimelineEvent is the representation of a single event in a Timeline.
+         */
+        interface TimelineEvent extends Parent {
+            type: "timeline-event";
+            /** The title of the event */
+            title: string;
+            /** Any combination of paragraphs and image sets */
+            children: (Paragraph | ImageSet)[];
+        }
     }
     namespace transit {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | ImagePair;
+        type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
+        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair;
+        type BodyBlock = FormattingBlock | StoryBlock;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -857,9 +901,30 @@ export declare namespace ContentTree {
             type: 'image-pair';
             children: [ImageSet, ImageSet];
         }
+        /**
+         * Timeline nodes display a timeline of events in arbitrary order.
+         */
+        interface Timeline extends Parent {
+            type: "timeline";
+            /** The title for the timeline */
+            title: string;
+            children: TimelineEvent[];
+        }
+        /**
+         * TimelineEvent is the representation of a single event in a Timeline.
+         */
+        interface TimelineEvent extends Parent {
+            type: "timeline-event";
+            /** The title of the event */
+            title: string;
+            /** Any combination of paragraphs and image sets */
+            children: (Paragraph | ImageSet)[];
+        }
     }
     namespace loose {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | ImagePair;
+        type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
+        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair;
+        type BodyBlock = FormattingBlock | StoryBlock;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -1148,6 +1213,25 @@ export declare namespace ContentTree {
         interface ImagePair extends Parent {
             type: 'image-pair';
             children: [ImageSet, ImageSet];
+        }
+        /**
+         * Timeline nodes display a timeline of events in arbitrary order.
+         */
+        interface Timeline extends Parent {
+            type: "timeline";
+            /** The title for the timeline */
+            title: string;
+            children: TimelineEvent[];
+        }
+        /**
+         * TimelineEvent is the representation of a single event in a Timeline.
+         */
+        interface TimelineEvent extends Parent {
+            type: "timeline-event";
+            /** The title of the event */
+            title: string;
+            /** Any combination of paragraphs and image sets */
+            children: (Paragraph | ImageSet)[];
         }
     }
 }
