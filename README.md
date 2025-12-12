@@ -304,7 +304,7 @@ interface Link extends Parent {
 	url: string
 	title: string
 	children: Phrasing[]
-	styleType?: 'onward-journey'
+	styleType?: 'partner-content-onward-journey'
 }
 ```
 
