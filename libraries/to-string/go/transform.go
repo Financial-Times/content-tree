@@ -61,97 +61,15 @@ func transformNode(n contenttree.Node) (string, error) {
 		return "", errors.New("nil node")
 	}
 
-	switch n.GetType() {
-	case contenttree.BodyBlockType:
-		return transformNode(n.GetEmbedded())
-	case contenttree.BlockquoteChildType:
-		return transformNode(n.GetEmbedded())
-	case contenttree.LayoutChildType:
-		return transformNode(n.GetEmbedded())
-	case contenttree.LayoutSlotChildType:
-		return transformNode(n.GetEmbedded())
-	case contenttree.ListItemChildType:
-		return transformNode(n.GetEmbedded())
-	case contenttree.PhrasingType:
-		return transformNode(n.GetEmbedded())
-	case contenttree.ScrollyCopyChildType:
-		return transformNode(n.GetEmbedded())
-	case contenttree.ScrollySectionChildType:
-		return transformNode(n.GetEmbedded())
-	case contenttree.TableChildType:
-		return transformNode(n.GetEmbedded())
-	case contenttree.TimelineEventChildType:
-		return transformNode(n.GetEmbedded())
-	case contenttree.RecommendedType:
-		return "", nil
-	case contenttree.RecommendedListType:
-		return "", nil
-	case contenttree.TextType:
-		text, ok := n.(*contenttree.Text)
-		if !ok {
-			return "", errors.New("failed to parse node to text")
-		}
-
-		return text.Value, nil
-	case contenttree.RootType:
-		root, ok := n.(*contenttree.Root)
-		if !ok {
-			return "", errors.New("failed to parse node to root")
-		}
-
-		return transformNode(root.Body)
-	case contenttree.BigNumberType:
-		bigNumber, ok := n.(*contenttree.BigNumber)
-		if !ok {
-			return "", errors.New("failed to parse node to bigNumber")
-		}
-
-		return fmt.Sprintf("%s %s ", bigNumber.Number, bigNumber.Description), nil
-	case contenttree.PullquoteType:
-		pq, ok := n.(*contenttree.Pullquote)
-		if !ok {
-			return "", errors.New("failed to parse node to Pullquote")
-		}
-
-		return fmt.Sprintf("%s ", pq.Text), nil
-	case contenttree.InNumbersType:
-		in, ok := n.(*contenttree.InNumbers)
-		if !ok {
-			return "", errors.New("failed to parse node to InNumbers")
-		}
-		resultChildren, err := transformChildren(in.GetChildren())
+	result := n.GetString()
+	if currentElementChildren := n.GetChildren(); currentElementChildren != nil && len(currentElementChildren) > 0 {
+		childrenString, err := transformChildren(currentElementChildren)
 		if err != nil {
 			return "", err
 		}
-
-		return fmt.Sprintf("%s %s ", in.Title, resultChildren), nil
-	case contenttree.DefinitionType:
-		def, ok := n.(*contenttree.Definition)
-		if !ok {
-			return "", errors.New("failed to parse node to Definition")
-		}
-
-		return fmt.Sprintf("%s %s ", def.Term, def.Description), nil
-	case contenttree.TimelineEventType:
-		te, ok := n.(*contenttree.TimelineEvent)
-		if !ok {
-			return "", errors.New("failed to parse node to text")
-		}
-
-		resultChildren, err := transformChildren(te.GetChildren())
-		if err != nil {
-			return "", err
-		}
-
-		return fmt.Sprintf("%s %s ", te.Title, resultChildren), nil
-	default:
-		result, err := transformChildren(n.GetChildren())
-		if err != nil {
-			return "", err
-		}
-
-		return result, nil
+		result = fmt.Sprintf("%s %s ", result, childrenString)
 	}
+	return result, nil
 }
 
 func transformChildren(childrenNodes []contenttree.Node) (string, error) {
