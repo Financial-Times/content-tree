@@ -6,18 +6,15 @@
             "additionalProperties": false,
             "properties": {
                 "audioFile": {
-                    "const": "text",
                     "description": "Url of the audio file",
                     "type": "string"
                 },
                 "author": {
-                    "const": "text",
                     "description": "Name of the Author",
                     "type": "string"
                 },
                 "data": {},
                 "description": {
-                    "const": "text",
                     "description": "description of audio file",
                     "type": "string"
                 },
@@ -276,9 +273,9 @@
                 },
                 "data": {},
                 "galleryDescription": {
+                    "$ref": "#/definitions/ContentTree.transit.Paragraph",
                     "default": "default text for the source field",
-                    "description": "gallery description",
-                    "type": "string"
+                    "description": "gallery description"
                 },
                 "galleryItems": {
                     "description": "each gallery item",

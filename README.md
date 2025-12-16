@@ -793,7 +793,7 @@ interface Gallery extends Node {
 	 * @description gallery description
 	 * @default default text for the source field
 	 */
-	galleryDescription?: string
+	galleryDescription?: Paragraph
 	/**
 	 * @description autoplay the gallery
 	 * @default false
@@ -826,15 +826,15 @@ interface AudioPlayer extends Node {
 	 /**
 	 * @description Name of the Author
 	 */
-	author: "text";
+	author: string;
 	 /**
 	 * @description description of audio file
 	 */
-	description: "text";
+	description: string;
 	 /**
 	 * @description Url of the audio file
 	 */
-	audioFile: "text";
+	audioFile: string;
 }
 ```
 ## License

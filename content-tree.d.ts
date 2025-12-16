@@ -306,7 +306,7 @@ export declare namespace ContentTree {
          * @description gallery description
          * @default default text for the source field
          */
-        galleryDescription?: string;
+        galleryDescription?: Paragraph;
         /**
          * @description autoplay the gallery
          * @default false
@@ -327,15 +327,15 @@ export declare namespace ContentTree {
         /**
         * @description Name of the Author
         */
-        author: "text";
+        author: string;
         /**
         * @description description of audio file
         */
-        description: "text";
+        description: string;
         /**
         * @description Url of the audio file
         */
-        audioFile: "text";
+        audioFile: string;
     }
     namespace full {
         type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text | Gallery | AudioPlayer;
@@ -645,7 +645,7 @@ export declare namespace ContentTree {
              * @description gallery description
              * @default default text for the source field
              */
-            galleryDescription?: string;
+            galleryDescription?: Paragraph;
             /**
              * @description autoplay the gallery
              * @default false
@@ -666,15 +666,15 @@ export declare namespace ContentTree {
             /**
             * @description Name of the Author
             */
-            author: "text";
+            author: string;
             /**
             * @description description of audio file
             */
-            description: "text";
+            description: string;
             /**
             * @description Url of the audio file
             */
-            audioFile: "text";
+            audioFile: string;
         }
     }
     namespace transit {
@@ -970,7 +970,7 @@ export declare namespace ContentTree {
              * @description gallery description
              * @default default text for the source field
              */
-            galleryDescription?: string;
+            galleryDescription?: Paragraph;
             /**
              * @description autoplay the gallery
              * @default false
@@ -991,15 +991,15 @@ export declare namespace ContentTree {
             /**
             * @description Name of the Author
             */
-            author: "text";
+            author: string;
             /**
             * @description description of audio file
             */
-            description: "text";
+            description: string;
             /**
             * @description Url of the audio file
             */
-            audioFile: "text";
+            audioFile: string;
         }
     }
     namespace loose {
@@ -1310,7 +1310,7 @@ export declare namespace ContentTree {
              * @description gallery description
              * @default default text for the source field
              */
-            galleryDescription?: string;
+            galleryDescription?: Paragraph;
             /**
              * @description autoplay the gallery
              * @default false
@@ -1331,15 +1331,15 @@ export declare namespace ContentTree {
             /**
             * @description Name of the Author
             */
-            author: "text";
+            author: string;
             /**
             * @description description of audio file
             */
-            description: "text";
+            description: string;
             /**
             * @description Url of the audio file
             */
-            audioFile: "text";
+            audioFile: string;
         }
     }
 }
