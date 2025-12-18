@@ -116,6 +116,8 @@ type BodyBlock =
 	| Text
 	| Timeline
 	| ImagePair
+	| InfoBox
+	| InfoPair
 ```
 
 `BodyBlock` nodes are the only things that are valid as the top level of a `Body`.
@@ -822,6 +824,52 @@ interface TimelineEvent extends Parent {
 	title: string
 	/** Any combination of paragraphs and image sets */
 	children: (Paragraph | ImageSet)[];
+}
+```
+
+### Card
+
+```ts
+/**
+* A card describes a subject with images and text
+*/
+interface Card extends Parent {
+	type: "card"
+	/** The title of this card */
+	title?: string
+	children: (ImageSet)[]
+}
+```
+
+### InfoBox
+
+```ts
+/**
+* Allowed layout widths for an InfoBox.
+*/
+type InfoBoxLayoutWidth =  Extract<LayoutWidth, "full-width" | "inset-left">
+/**
+* An info box describes a subject via a single card
+*/
+interface InfoBox extends Parent {
+	type: "info-box"
+	/** The layout width supported by this node */
+	layoutWidth: InfoBoxLayoutWidth
+	children: [Card]
+}
+```
+
+### InfoPair
+
+```ts
+/**
+* InfoPair provides exactly two cards.
+*/
+interface InfoPair extends Parent {
+	type: "info-pair"
+	/** The title of the info pair */
+	title?: string
+	children: [Card, Card]
 }
 ```
 

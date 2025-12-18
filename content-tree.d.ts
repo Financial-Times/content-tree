@@ -1,5 +1,5 @@
 export declare namespace ContentTree {
-    type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | Timeline | ImagePair;
+    type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | Timeline | ImagePair | InfoBox | InfoPair;
     type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
     type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
     interface Node {
@@ -308,8 +308,39 @@ export declare namespace ContentTree {
         /** Any combination of paragraphs and image sets */
         children: (Paragraph | ImageSet)[];
     }
+    /**
+    * A card describes a subject with images and text
+    */
+    interface Card extends Parent {
+        type: "card";
+        /** The title of this card */
+        title?: string;
+        children: (ImageSet)[];
+    }
+    /**
+    * Allowed layout widths for an InfoBox.
+    */
+    type InfoBoxLayoutWidth = Extract<LayoutWidth, "full-width" | "inset-left">;
+    /**
+    * An info box describes a subject via a single card
+    */
+    interface InfoBox extends Parent {
+        type: "info-box";
+        /** The layout width supported by this node */
+        layoutWidth: InfoBoxLayoutWidth;
+        children: [Card];
+    }
+    /**
+    * InfoPair provides exactly two cards.
+    */
+    interface InfoPair extends Parent {
+        type: "info-pair";
+        /** The title of the info pair */
+        title?: string;
+        children: [Card, Card];
+    }
     namespace full {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | Timeline | ImagePair;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | Timeline | ImagePair | InfoBox | InfoPair;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -618,9 +649,40 @@ export declare namespace ContentTree {
             /** Any combination of paragraphs and image sets */
             children: (Paragraph | ImageSet)[];
         }
+        /**
+        * A card describes a subject with images and text
+        */
+        interface Card extends Parent {
+            type: "card";
+            /** The title of this card */
+            title?: string;
+            children: (ImageSet)[];
+        }
+        /**
+        * Allowed layout widths for an InfoBox.
+        */
+        type InfoBoxLayoutWidth = Extract<LayoutWidth, "full-width" | "inset-left">;
+        /**
+        * An info box describes a subject via a single card
+        */
+        interface InfoBox extends Parent {
+            type: "info-box";
+            /** The layout width supported by this node */
+            layoutWidth: InfoBoxLayoutWidth;
+            children: [Card];
+        }
+        /**
+        * InfoPair provides exactly two cards.
+        */
+        interface InfoPair extends Parent {
+            type: "info-pair";
+            /** The title of the info pair */
+            title?: string;
+            children: [Card, Card];
+        }
     }
     namespace transit {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | Timeline | ImagePair;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | Timeline | ImagePair | InfoBox | InfoPair;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -914,9 +976,40 @@ export declare namespace ContentTree {
             /** Any combination of paragraphs and image sets */
             children: (Paragraph | ImageSet)[];
         }
+        /**
+        * A card describes a subject with images and text
+        */
+        interface Card extends Parent {
+            type: "card";
+            /** The title of this card */
+            title?: string;
+            children: (ImageSet)[];
+        }
+        /**
+        * Allowed layout widths for an InfoBox.
+        */
+        type InfoBoxLayoutWidth = Extract<LayoutWidth, "full-width" | "inset-left">;
+        /**
+        * An info box describes a subject via a single card
+        */
+        interface InfoBox extends Parent {
+            type: "info-box";
+            /** The layout width supported by this node */
+            layoutWidth: InfoBoxLayoutWidth;
+            children: [Card];
+        }
+        /**
+        * InfoPair provides exactly two cards.
+        */
+        interface InfoPair extends Parent {
+            type: "info-pair";
+            /** The title of the info pair */
+            title?: string;
+            children: [Card, Card];
+        }
     }
     namespace loose {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | Timeline | ImagePair;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | Timeline | ImagePair | InfoBox | InfoPair;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -1224,6 +1317,37 @@ export declare namespace ContentTree {
             title: string;
             /** Any combination of paragraphs and image sets */
             children: (Paragraph | ImageSet)[];
+        }
+        /**
+        * A card describes a subject with images and text
+        */
+        interface Card extends Parent {
+            type: "card";
+            /** The title of this card */
+            title?: string;
+            children: (ImageSet)[];
+        }
+        /**
+        * Allowed layout widths for an InfoBox.
+        */
+        type InfoBoxLayoutWidth = Extract<LayoutWidth, "full-width" | "inset-left">;
+        /**
+        * An info box describes a subject via a single card
+        */
+        interface InfoBox extends Parent {
+            type: "info-box";
+            /** The layout width supported by this node */
+            layoutWidth: InfoBoxLayoutWidth;
+            children: [Card];
+        }
+        /**
+        * InfoPair provides exactly two cards.
+        */
+        interface InfoPair extends Parent {
+            type: "info-pair";
+            /** The title of the info pair */
+            title?: string;
+            children: [Card, Card];
         }
     }
 }
