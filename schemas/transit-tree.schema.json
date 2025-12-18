@@ -162,6 +162,12 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.Definition"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.InfoBox"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.InfoPair"
                 }
             ]
         },
@@ -175,6 +181,32 @@
                 }
             },
             "required": [
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.Card": {
+            "additionalProperties": false,
+            "description": "A card describes a subject with images and text",
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "title": {
+                    "description": "The title of this card",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "card",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
                 "type"
             ],
             "type": "object"
@@ -399,6 +431,78 @@
                 },
                 "type": {
                     "const": "in-numbers",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.InfoBox": {
+            "additionalProperties": false,
+            "description": "An info box describes a subject via a single card",
+            "properties": {
+                "children": {
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.Card"
+                        }
+                    ],
+                    "maxItems": 1,
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "data": {},
+                "layoutWidth": {
+                    "$ref": "#/definitions/ContentTree.transit.InfoBoxLayoutWidth",
+                    "description": "The layout width supported by this node"
+                },
+                "type": {
+                    "const": "info-box",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "layoutWidth",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.InfoBoxLayoutWidth": {
+            "description": "Allowed layout widths for an InfoBox.",
+            "enum": [
+                "full-width",
+                "inset-left"
+            ],
+            "type": "string"
+        },
+        "ContentTree.transit.InfoPair": {
+            "additionalProperties": false,
+            "description": "InfoPair provides exactly two cards.",
+            "properties": {
+                "children": {
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.Card"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.Card"
+                        }
+                    ],
+                    "maxItems": 2,
+                    "minItems": 2,
+                    "type": "array"
+                },
+                "data": {},
+                "title": {
+                    "description": "The title of the info pair",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "info-pair",
                     "type": "string"
                 }
             },
