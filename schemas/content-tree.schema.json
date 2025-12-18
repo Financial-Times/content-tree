@@ -101,6 +101,18 @@
                     "$ref": "#/definitions/ContentTree.full.Heading"
                 },
                 {
+                    "$ref": "#/definitions/ContentTree.full.List"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Blockquote"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.ThematicBreak"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Text"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.full.ImageSet"
                 },
                 {
@@ -116,19 +128,10 @@
                     "$ref": "#/definitions/ContentTree.full.Layout"
                 },
                 {
-                    "$ref": "#/definitions/ContentTree.full.List"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.Blockquote"
-                },
-                {
                     "$ref": "#/definitions/ContentTree.full.Pullquote"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.ScrollyBlock"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.ThematicBreak"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.Table"
@@ -147,9 +150,6 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.YoutubeVideo"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.Text"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.Timeline"
@@ -185,7 +185,29 @@
             "properties": {
                 "children": {
                     "items": {
-                        "$ref": "#/definitions/ContentTree.full.ImageSet"
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Paragraph"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Heading"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.List"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Blockquote"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.ThematicBreak"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Text"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.ImageSet"
+                            }
+                        ]
                     },
                     "type": "array"
                 },
