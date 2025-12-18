@@ -1,5 +1,7 @@
 export declare namespace ContentTree {
-    type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+    type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
+    type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+    type BodyBlock = FormattingBlock | StoryBlock;
     type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
     type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
     interface Node {
@@ -332,7 +334,7 @@ export declare namespace ContentTree {
         type: "card";
         /** The title of this card */
         title?: string;
-        children: (ImageSet)[];
+        children: (ImageSet | FormattingBlock)[];
     }
     /**
     * Allowed layout widths for an InfoBox.
@@ -357,7 +359,9 @@ export declare namespace ContentTree {
         children: [Card, Card];
     }
     namespace full {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+        type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
+        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+        type BodyBlock = FormattingBlock | StoryBlock;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -690,7 +694,7 @@ export declare namespace ContentTree {
             type: "card";
             /** The title of this card */
             title?: string;
-            children: (ImageSet)[];
+            children: (ImageSet | FormattingBlock)[];
         }
         /**
         * Allowed layout widths for an InfoBox.
@@ -716,7 +720,9 @@ export declare namespace ContentTree {
         }
     }
     namespace transit {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+        type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
+        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+        type BodyBlock = FormattingBlock | StoryBlock;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -1034,7 +1040,7 @@ export declare namespace ContentTree {
             type: "card";
             /** The title of this card */
             title?: string;
-            children: (ImageSet)[];
+            children: (ImageSet | FormattingBlock)[];
         }
         /**
         * Allowed layout widths for an InfoBox.
@@ -1060,7 +1066,9 @@ export declare namespace ContentTree {
         }
     }
     namespace loose {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+        type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
+        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+        type BodyBlock = FormattingBlock | StoryBlock;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -1393,7 +1401,7 @@ export declare namespace ContentTree {
             type: "card";
             /** The title of this card */
             title?: string;
-            children: (ImageSet)[];
+            children: (ImageSet | FormattingBlock)[];
         }
         /**
         * Allowed layout widths for an InfoBox.
