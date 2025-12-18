@@ -116,6 +116,8 @@ type BodyBlock =
 	| Text
 	| Timeline
 	| ImagePair
+	| InNumbers
+	| Definition
 ```
 
 `BodyBlock` nodes are the only things that are valid as the top level of a `Body`.
@@ -822,6 +824,29 @@ interface TimelineEvent extends Parent {
 	title: string
 	/** Any combination of paragraphs and image sets */
 	children: (Paragraph | ImageSet)[];
+}
+```
+
+### InNumbers
+
+```ts
+/**
+ * A definition has a term and a related description. It is used to describe a term.
+ */
+interface Definition extends Node {
+	type: "definition"
+	term: string
+	description: string
+}
+
+/**
+ * InNumbers represents a set of numbers with related descriptions.
+ */
+interface InNumbers extends Parent {
+	type: "in-numbers"
+	/** The title for the InNumbers */
+	title?: string
+	children: [Definition, Definition, Definition]
 }
 ```
 

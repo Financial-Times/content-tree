@@ -1,5 +1,5 @@
 export declare namespace ContentTree {
-    type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | Timeline | ImagePair;
+    type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | Timeline | ImagePair | InNumbers | Definition;
     type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
     type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
     interface Node {
@@ -308,8 +308,25 @@ export declare namespace ContentTree {
         /** Any combination of paragraphs and image sets */
         children: (Paragraph | ImageSet)[];
     }
+    /**
+     * A definition has a term and a related description. It is used to describe a term.
+     */
+    interface Definition extends Node {
+        type: "definition";
+        term: string;
+        description: string;
+    }
+    /**
+     * InNumbers represents a set of numbers with related descriptions.
+     */
+    interface InNumbers extends Parent {
+        type: "in-numbers";
+        /** The title for the InNumbers */
+        title?: string;
+        children: [Definition, Definition, Definition];
+    }
     namespace full {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | Timeline | ImagePair;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | Timeline | ImagePair | InNumbers | Definition;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -618,9 +635,26 @@ export declare namespace ContentTree {
             /** Any combination of paragraphs and image sets */
             children: (Paragraph | ImageSet)[];
         }
+        /**
+         * A definition has a term and a related description. It is used to describe a term.
+         */
+        interface Definition extends Node {
+            type: "definition";
+            term: string;
+            description: string;
+        }
+        /**
+         * InNumbers represents a set of numbers with related descriptions.
+         */
+        interface InNumbers extends Parent {
+            type: "in-numbers";
+            /** The title for the InNumbers */
+            title?: string;
+            children: [Definition, Definition, Definition];
+        }
     }
     namespace transit {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | Timeline | ImagePair;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | Timeline | ImagePair | InNumbers | Definition;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -914,9 +948,26 @@ export declare namespace ContentTree {
             /** Any combination of paragraphs and image sets */
             children: (Paragraph | ImageSet)[];
         }
+        /**
+         * A definition has a term and a related description. It is used to describe a term.
+         */
+        interface Definition extends Node {
+            type: "definition";
+            term: string;
+            description: string;
+        }
+        /**
+         * InNumbers represents a set of numbers with related descriptions.
+         */
+        interface InNumbers extends Parent {
+            type: "in-numbers";
+            /** The title for the InNumbers */
+            title?: string;
+            children: [Definition, Definition, Definition];
+        }
     }
     namespace loose {
-        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | Timeline | ImagePair;
+        type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Text | Timeline | ImagePair | InNumbers | Definition;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
@@ -1224,6 +1275,23 @@ export declare namespace ContentTree {
             title: string;
             /** Any combination of paragraphs and image sets */
             children: (Paragraph | ImageSet)[];
+        }
+        /**
+         * A definition has a term and a related description. It is used to describe a term.
+         */
+        interface Definition extends Node {
+            type: "definition";
+            term: string;
+            description: string;
+        }
+        /**
+         * InNumbers represents a set of numbers with related descriptions.
+         */
+        interface InNumbers extends Parent {
+            type: "in-numbers";
+            /** The title for the InNumbers */
+            title?: string;
+            children: [Definition, Definition, Definition];
         }
     }
 }
