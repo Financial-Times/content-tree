@@ -13,6 +13,7 @@ type unknownNode struct {
 	Class string         `json:"class,omitempty"`
 }
 
+func (n *unknownNode) GetString() string                    { return "" }
 func (n *unknownNode) GetType() string                      { return n.Type }
 func (n *unknownNode) GetEmbedded() contenttree.Node        { return nil }
 func (n *unknownNode) GetChildren() []contenttree.Node      { return nil }
@@ -32,10 +33,11 @@ type liftChildrenNode struct {
 	Class string      `json:"class,omitempty"`
 }
 
+func (n *liftChildrenNode) GetString() string               { return "" }
 func (n *liftChildrenNode) GetType() string                 { return n.Type }
 func (n *liftChildrenNode) GetEmbedded() contenttree.Node   { return nil }
 func (n *liftChildrenNode) GetChildren() []contenttree.Node { return nil }
-func (n *liftChildrenNode) AppendChild(child contenttree.Node) error {
+func (n *liftChildrenNode) AppendChild(_ contenttree.Node) error {
 	return contenttree.ErrCannotHaveChildren
 }
 
