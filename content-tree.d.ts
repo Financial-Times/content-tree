@@ -55,7 +55,7 @@ export declare namespace ContentTree {
         url: string;
         title: string;
         children: Phrasing[];
-        styleType?: 'onward-journey';
+        anchorStyle?: 'onward-journey';
     }
     interface List extends Parent {
         type: "list";
@@ -382,7 +382,7 @@ export declare namespace ContentTree {
             url: string;
             title: string;
             children: Phrasing[];
-            styleType?: 'onward-journey';
+            anchorStyle?: 'onward-journey';
         }
         interface List extends Parent {
             type: "list";
@@ -710,7 +710,7 @@ export declare namespace ContentTree {
             url: string;
             title: string;
             children: Phrasing[];
-            styleType?: 'onward-journey';
+            anchorStyle?: 'onward-journey';
         }
         interface List extends Parent {
             type: "list";
@@ -1023,7 +1023,7 @@ export declare namespace ContentTree {
             url: string;
             title: string;
             children: Phrasing[];
-            styleType?: 'onward-journey';
+            anchorStyle?: 'onward-journey';
         }
         interface List extends Parent {
             type: "list";
