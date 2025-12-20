@@ -230,9 +230,10 @@ export declare namespace ContentTree {
     type TableColumnSettings = {
         hideOnMobile: boolean;
         sortable: boolean;
-        sortType: 'text' | 'number' | 'date' | 'currency' | 'percent';
+        sortType?: 'text' | 'number' | 'date' | 'currency' | 'percent';
     };
     type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
+    type TableChildren = [TableCaption, TableBody, TableFooter?] | [TableBody, TableFooter?] | [TableCaption, TableHeader, TableBody, TableFooter?] | [TableHeader, TableBody, TableFooter?];
     interface TableCaption extends Parent {
         type: 'table-caption';
         children: Phrasing[];
@@ -243,6 +244,10 @@ export declare namespace ContentTree {
         columnSpan?: number;
         rowSpan?: number;
         children: Phrasing[];
+    }
+    interface TableHeader extends Parent {
+        type: 'table-header';
+        children: TableRow[];
     }
     interface TableRow extends Parent {
         type: 'table-row';
@@ -263,8 +268,8 @@ export declare namespace ContentTree {
         layoutWidth: TableLayoutWidth;
         collapseAfterHowManyRows?: number;
         responsiveStyle: 'overflow' | 'flat' | 'scroll';
-        children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
         columnSettings: TableColumnSettings[];
+        children: TableChildren;
     }
     type CustomCodeComponentAttributes = {
         [key: string]: string | boolean | undefined;
@@ -557,9 +562,10 @@ export declare namespace ContentTree {
         type TableColumnSettings = {
             hideOnMobile: boolean;
             sortable: boolean;
-            sortType: 'text' | 'number' | 'date' | 'currency' | 'percent';
+            sortType?: 'text' | 'number' | 'date' | 'currency' | 'percent';
         };
         type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
+        type TableChildren = [TableCaption, TableBody, TableFooter?] | [TableBody, TableFooter?] | [TableCaption, TableHeader, TableBody, TableFooter?] | [TableHeader, TableBody, TableFooter?];
         interface TableCaption extends Parent {
             type: 'table-caption';
             children: Phrasing[];
@@ -570,6 +576,10 @@ export declare namespace ContentTree {
             columnSpan?: number;
             rowSpan?: number;
             children: Phrasing[];
+        }
+        interface TableHeader extends Parent {
+            type: 'table-header';
+            children: TableRow[];
         }
         interface TableRow extends Parent {
             type: 'table-row';
@@ -590,8 +600,8 @@ export declare namespace ContentTree {
             layoutWidth: TableLayoutWidth;
             collapseAfterHowManyRows?: number;
             responsiveStyle: 'overflow' | 'flat' | 'scroll';
-            children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
+            children: TableChildren;
         }
         type CustomCodeComponentAttributes = {
             [key: string]: string | boolean | undefined;
@@ -878,9 +888,10 @@ export declare namespace ContentTree {
         type TableColumnSettings = {
             hideOnMobile: boolean;
             sortable: boolean;
-            sortType: 'text' | 'number' | 'date' | 'currency' | 'percent';
+            sortType?: 'text' | 'number' | 'date' | 'currency' | 'percent';
         };
         type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
+        type TableChildren = [TableCaption, TableBody, TableFooter?] | [TableBody, TableFooter?] | [TableCaption, TableHeader, TableBody, TableFooter?] | [TableHeader, TableBody, TableFooter?];
         interface TableCaption extends Parent {
             type: 'table-caption';
             children: Phrasing[];
@@ -891,6 +902,10 @@ export declare namespace ContentTree {
             columnSpan?: number;
             rowSpan?: number;
             children: Phrasing[];
+        }
+        interface TableHeader extends Parent {
+            type: 'table-header';
+            children: TableRow[];
         }
         interface TableRow extends Parent {
             type: 'table-row';
@@ -911,8 +926,8 @@ export declare namespace ContentTree {
             layoutWidth: TableLayoutWidth;
             collapseAfterHowManyRows?: number;
             responsiveStyle: 'overflow' | 'flat' | 'scroll';
-            children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
+            children: TableChildren;
         }
         type CustomCodeComponentAttributes = {
             [key: string]: string | boolean | undefined;
@@ -1198,9 +1213,10 @@ export declare namespace ContentTree {
         type TableColumnSettings = {
             hideOnMobile: boolean;
             sortable: boolean;
-            sortType: 'text' | 'number' | 'date' | 'currency' | 'percent';
+            sortType?: 'text' | 'number' | 'date' | 'currency' | 'percent';
         };
         type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
+        type TableChildren = [TableCaption, TableBody, TableFooter?] | [TableBody, TableFooter?] | [TableCaption, TableHeader, TableBody, TableFooter?] | [TableHeader, TableBody, TableFooter?];
         interface TableCaption extends Parent {
             type: 'table-caption';
             children: Phrasing[];
@@ -1211,6 +1227,10 @@ export declare namespace ContentTree {
             columnSpan?: number;
             rowSpan?: number;
             children: Phrasing[];
+        }
+        interface TableHeader extends Parent {
+            type: 'table-header';
+            children: TableRow[];
         }
         interface TableRow extends Parent {
             type: 'table-row';
@@ -1231,8 +1251,8 @@ export declare namespace ContentTree {
             layoutWidth: TableLayoutWidth;
             collapseAfterHowManyRows?: number;
             responsiveStyle: 'overflow' | 'flat' | 'scroll';
-            children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
+            children: TableChildren;
         }
         type CustomCodeComponentAttributes = {
             [key: string]: string | boolean | undefined;

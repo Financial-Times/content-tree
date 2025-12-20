@@ -708,7 +708,7 @@ interface LayoutImage extends Node {
 type TableColumnSettings = {
 	hideOnMobile: boolean
 	sortable: boolean
-	sortType: 'text' | 'number' | 'date' | 'currency' | 'percent'
+	sortType?: 'text' | 'number' | 'date' | 'currency' | 'percent'
 }
 
 type TableLayoutWidth = Extract<LayoutWidth,
@@ -718,6 +718,11 @@ type TableLayoutWidth = Extract<LayoutWidth,
 		| 'inset-right'
 		| 'full-bleed'>
 
+type TableChildren =
+  | [TableCaption, TableBody, TableFooter?]
+  | [TableBody, TableFooter?]
+  | [TableCaption, TableHeader, TableBody, TableFooter?]
+  | [TableHeader, TableBody, TableFooter?]
 
 interface TableCaption extends Parent {
 	type: 'table-caption'
@@ -730,6 +735,11 @@ interface TableCell extends Parent {
 	columnSpan?: number 
 	rowSpan?: number 
 	children: Phrasing[]
+}
+
+interface TableHeader extends Parent {
+	type: 'table-header'
+	children: TableRow[]
 }
 
 interface TableRow extends Parent {
@@ -754,8 +764,8 @@ interface Table extends Parent {
 	layoutWidth: TableLayoutWidth
 	collapseAfterHowManyRows?: number
 	responsiveStyle: 'overflow' | 'flat' | 'scroll'
-	children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody]
 	columnSettings: TableColumnSettings[]
+	children: TableChildren
 }
 ```
 
