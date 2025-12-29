@@ -76,6 +76,18 @@
                     "$ref": "#/definitions/ContentTree.transit.Heading"
                 },
                 {
+                    "$ref": "#/definitions/ContentTree.transit.List"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Blockquote"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.ThematicBreak"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Text"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.transit.ImageSet"
                 },
                 {
@@ -91,19 +103,10 @@
                     "$ref": "#/definitions/ContentTree.transit.Layout"
                 },
                 {
-                    "$ref": "#/definitions/ContentTree.transit.List"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.Blockquote"
-                },
-                {
                     "$ref": "#/definitions/ContentTree.transit.Pullquote"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.ScrollyBlock"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.ThematicBreak"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.Table"
@@ -122,9 +125,6 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.YoutubeVideo"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.Text"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.Timeline"
@@ -166,7 +166,7 @@
             "properties": {
                 "children": {
                     "items": {
-                        "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                        "$ref": "#/definitions/ContentTree.transit.CardChildren"
                     },
                     "type": "array"
                 },
@@ -185,6 +185,29 @@
                 "type"
             ],
             "type": "object"
+        },
+        "ContentTree.transit.CardChildren": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Paragraph"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.List"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Blockquote"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.ThematicBreak"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Text"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                }
+            ],
+            "description": "Allowed children for a card"
         },
         "ContentTree.transit.CustomCodeComponent": {
             "additionalProperties": false,

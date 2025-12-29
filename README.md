@@ -91,35 +91,53 @@ It is the state of the tree in the network that we call "in transit".
 These abstract helper types define special types a [Parent](#parent) can use as
 [children][term-child].
 
-### `BodyBlock`
+### FormattingBlock
 
 ```ts
-type BodyBlock =
+type FormattingBlock =
 	| Paragraph
 	| Heading
+	| List
+	| Blockquote
+	| ThematicBreak
+	| Text
+```
+
+`FormattingBlock` nodes  contains only text-structured blocks used for formatting textual content.
+
+### `StoryBlock`
+
+```ts
+type StoryBlock =
 	| ImageSet
 	| Flourish
 	| BigNumber
 	| CustomCodeComponent
 	| Layout
-	| List
-	| Blockquote
 	| Pullquote
 	| ScrollyBlock
-	| ThematicBreak
 	| Table
 	| Recommended
 	| RecommendedList
 	| Tweet
 	| Video
 	| YoutubeVideo
-	| Text
 	| Timeline
 	| ImagePair
 	| InNumbers
 	| Definition
 	| InfoBox
 	| InfoPair
+```
+
+`StoryBlock` nodes are things that can be inserted into an article body.
+
+### BodyBlock
+
+```ts
+type BodyBlock =
+	| FormattingBlock
+	| StoryBlock
 ```
 
 `BodyBlock` nodes are the only things that are valid as the top level of a `Body`.
@@ -855,6 +873,9 @@ interface InNumbers extends Parent {
 ### Card
 
 ```ts
+/** Allowed children for a card
+*/
+type CardChildren = ImageSet | Exclude<FormattingBlock, Heading>
 /**
 * A card describes a subject with images and text
 */
@@ -862,7 +883,7 @@ interface Card extends Parent {
 	type: "card"
 	/** The title of this card */
 	title?: string
-	children: (ImageSet)[]
+	children: CardChildren[]
 }
 ```
 
