@@ -497,7 +497,7 @@
         "ContentTree.transit.InfoBoxLayoutWidth": {
             "description": "Allowed layout widths for an InfoBox.",
             "enum": [
-                "full-width",
+                "in-line",
                 "inset-left"
             ],
             "type": "string"

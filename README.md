@@ -893,7 +893,7 @@ interface Card extends Parent {
 /**
 * Allowed layout widths for an InfoBox.
 */
-type InfoBoxLayoutWidth =  Extract<LayoutWidth, "full-width" | "inset-left">
+type InfoBoxLayoutWidth =  Extract<LayoutWidth, "in-line" | "inset-left">
 /**
 * An info box describes a subject via a single card
 */
