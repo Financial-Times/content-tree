@@ -1,9 +1,5 @@
 export declare namespace ContentTree {
-    type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
-    type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
-    type BodyBlock = FormattingBlock | StoryBlock;
     type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
-    type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
     interface Node {
         type: string;
         data?: any;
@@ -20,10 +16,13 @@ export declare namespace ContentTree {
         version: number;
         children: BodyBlock[];
     }
+    type BodyBlock = FormattingBlock | StoryBlock;
+    type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
     interface Text extends Node {
         type: "text";
         value: string;
     }
+    type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
     interface Break extends Node {
         type: "break";
     }
@@ -72,6 +71,7 @@ export declare namespace ContentTree {
         type: "blockquote";
         children: (Paragraph | Phrasing)[];
     }
+    type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
     interface Pullquote extends Node {
         type: "pullquote";
         text: string;
@@ -362,11 +362,7 @@ export declare namespace ContentTree {
         children: [Card, Card];
     }
     namespace full {
-        type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
-        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
-        type BodyBlock = FormattingBlock | StoryBlock;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
-        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
             type: string;
             data?: any;
@@ -383,10 +379,13 @@ export declare namespace ContentTree {
             version: number;
             children: BodyBlock[];
         }
+        type BodyBlock = FormattingBlock | StoryBlock;
+        type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
         interface Text extends Node {
             type: "text";
             value: string;
         }
+        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Break extends Node {
             type: "break";
         }
@@ -435,6 +434,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
+        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -726,11 +726,7 @@ export declare namespace ContentTree {
         }
     }
     namespace transit {
-        type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
-        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
-        type BodyBlock = FormattingBlock | StoryBlock;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
-        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
             type: string;
             data?: any;
@@ -747,10 +743,13 @@ export declare namespace ContentTree {
             version: number;
             children: BodyBlock[];
         }
+        type BodyBlock = FormattingBlock | StoryBlock;
+        type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
         interface Text extends Node {
             type: "text";
             value: string;
         }
+        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Break extends Node {
             type: "break";
         }
@@ -799,6 +798,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
+        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -1075,11 +1075,7 @@ export declare namespace ContentTree {
         }
     }
     namespace loose {
-        type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
-        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
-        type BodyBlock = FormattingBlock | StoryBlock;
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
-        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Node {
             type: string;
             data?: any;
@@ -1096,10 +1092,13 @@ export declare namespace ContentTree {
             version: number;
             children: BodyBlock[];
         }
+        type BodyBlock = FormattingBlock | StoryBlock;
+        type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
         interface Text extends Node {
             type: "text";
             value: string;
         }
+        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
         interface Break extends Node {
             type: "break";
         }
@@ -1148,6 +1147,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
+        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
