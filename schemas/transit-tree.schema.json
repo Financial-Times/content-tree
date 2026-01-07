@@ -5,8 +5,9 @@
         "ContentTree.transit.AudioPlayer": {
             "additionalProperties": false,
             "properties": {
-                "audioFile": {
-                    "description": "Url of the audio file",
+                "audioUrl": {
+                    "description": "url of audio file",
+                    "sparkUploadField": true,
                     "type": "string"
                 },
                 "author": {
@@ -14,19 +15,14 @@
                     "type": "string"
                 },
                 "data": {},
-                "description": {
-                    "description": "description of audio file",
-                    "type": "string"
-                },
                 "type": {
                     "const": "AudioPlayer",
                     "type": "string"
                 }
             },
             "required": [
-                "audioFile",
+                "audioUrl",
                 "author",
-                "description",
                 "type"
             ],
             "sparkGenerateStoryblock": true,

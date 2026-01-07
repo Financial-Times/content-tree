@@ -329,13 +329,10 @@ export declare namespace ContentTree {
         */
         author: string;
         /**
-        * @description description of audio file
+        * @sparkUploadField true
+        * @description url of audio file
         */
-        description: string;
-        /**
-        * @description Url of the audio file
-        */
-        audioFile: string;
+        audioUrl: string;
     }
     namespace full {
         type BodyBlock = Paragraph | Heading | ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | List | Blockquote | Pullquote | ScrollyBlock | ThematicBreak | Table | Recommended | Tweet | Video | YoutubeVideo | Text | Gallery | AudioPlayer;
@@ -668,13 +665,10 @@ export declare namespace ContentTree {
             */
             author: string;
             /**
-            * @description description of audio file
+            * @sparkUploadField true
+            * @description url of audio file
             */
-            description: string;
-            /**
-            * @description Url of the audio file
-            */
-            audioFile: string;
+            audioUrl: string;
         }
     }
     namespace transit {
@@ -993,13 +987,10 @@ export declare namespace ContentTree {
             */
             author: string;
             /**
-            * @description description of audio file
+            * @sparkUploadField true
+            * @description url of audio file
             */
-            description: string;
-            /**
-            * @description Url of the audio file
-            */
-            audioFile: string;
+            audioUrl: string;
         }
     }
     namespace loose {
@@ -1333,13 +1324,10 @@ export declare namespace ContentTree {
             */
             author: string;
             /**
-            * @description description of audio file
+            * @sparkUploadField true
+            * @description url of audio file
             */
-            description: string;
-            /**
-            * @description Url of the audio file
-            */
-            audioFile: string;
+            audioUrl: string;
         }
     }
 }

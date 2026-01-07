@@ -828,13 +828,10 @@ interface AudioPlayer extends Node {
 	 */
 	author: string;
 	 /**
-	 * @description description of audio file
+	 * @sparkUploadField true
+	 * @description url of audio file
 	 */
-	description: string;
-	 /**
-	 * @description Url of the audio file
-	 */
-	audioFile: string;
+	audioUrl: string;
 }
 ```
 ## License
