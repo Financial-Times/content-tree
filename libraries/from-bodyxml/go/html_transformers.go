@@ -412,6 +412,21 @@ var defaultTransformers = map[string]transformer{
 					Children: []*contenttree.Definition{},
 				}
 			}
+		case "image-pair":
+			{
+				images := section.FindElements("./ul/li/content")
+				_ = section.RemoveChildAt(0) //remove ul element if exists
+
+				//lift images to become direct children of section
+				for _, img := range images {
+					section.AddChild(img)
+				}
+				return &contenttree.ImagePair{
+					Type:     contenttree.ImagePairType,
+					Children: []*contenttree.ImageSet{},
+				}
+			}
+
 		}
 		return newUnknownNode("", section)
 	},

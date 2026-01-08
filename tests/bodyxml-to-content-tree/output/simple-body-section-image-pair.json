@@ -1,0 +1,22 @@
+{
+  "type": "root",
+  "body": {
+    "type": "body",
+    "children": [
+      {
+        "type": "image-pair",
+        "children": [
+          {
+            "type": "image-set",
+            "id": "23925844-4d8d-11ea-0bc6-d44b54b3bebc"
+          },
+          {
+            "type": "image-set",
+            "id": "23925844-4d8d-11ea-0bc6-d44b54b3bebc"
+          }
+        ]
+      }
+    ],
+    "version": 1
+  }
+}

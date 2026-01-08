@@ -84,6 +84,8 @@ const (
 
 	DefinitionType = "definition"
 	InNumbersType  = "in-numbers"
+
+	ImagePairType = "image-pair"
 )
 
 var (
@@ -406,6 +408,7 @@ type BodyBlock struct {
 	*ClipSet
 	*Timeline
 	*InNumbers
+	*ImagePair
 }
 
 func (n *BodyBlock) GetType() string {
@@ -479,6 +482,9 @@ func (n *BodyBlock) GetEmbedded() Node {
 	if n.InNumbers != nil {
 		return n.InNumbers
 	}
+	if n.ImagePair != nil {
+		return n.ImagePair
+	}
 	return nil
 }
 
@@ -548,6 +554,9 @@ func (n *BodyBlock) GetChildren() []Node {
 	}
 	if n.InNumbers != nil {
 		return n.InNumbers.GetChildren()
+	}
+	if n.ImagePair != nil {
+		return n.ImagePair.GetChildren()
 	}
 	return nil
 }
@@ -693,6 +702,12 @@ func (n *BodyBlock) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		n.InNumbers = &v
+	case ImagePairType:
+		var v ImagePair
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.ImagePair = &v
 	default:
 		return fmt.Errorf("failed to unmarshal BodyBlock from %s: %w", data, ErrUnmarshalInvalidNode)
 	}
@@ -745,6 +760,8 @@ func (n *BodyBlock) MarshalJSON() ([]byte, error) {
 		return json.Marshal(n.Timeline)
 	case n.InNumbers != nil:
 		return json.Marshal(n.InNumbers)
+	case n.ImagePair != nil:
+		return json.Marshal(n.ImagePair)
 	default:
 		return []byte(`{}`), nil
 	}
@@ -797,6 +814,8 @@ func makeBodyBlock(n Node) (*BodyBlock, error) {
 		return &BodyBlock{Timeline: n.(*Timeline)}, nil
 	case InNumbersType:
 		return &BodyBlock{InNumbers: n.(*InNumbers)}, nil
+	case ImagePairType:
+		return &BodyBlock{ImagePair: n.(*ImagePair)}, nil
 	default:
 		return nil, ErrInvalidChildType
 	}
@@ -2873,5 +2892,33 @@ func (in *InNumbers) AppendChild(child Node) error {
 		return ErrInvalidChildType
 	}
 	in.Children = append(in.Children, child.(*Definition))
+	return nil
+}
+
+type ImagePair struct {
+	Type     string      `json:"type"`
+	Children []*ImageSet `json:"children"`
+}
+
+func (ip *ImagePair) GetType() string {
+	return ip.Type
+}
+
+func (ip *ImagePair) GetEmbedded() Node {
+	return nil
+}
+
+func (ip *ImagePair) GetChildren() []Node {
+	result := make([]Node, len(ip.Children))
+	for i, v := range ip.Children {
+		result[i] = v
+	}
+	return result
+}
+func (ip *ImagePair) AppendChild(child Node) error {
+	if child.GetType() != ImageSetType {
+		return ErrInvalidChildType
+	}
+	ip.Children = append(ip.Children, child.(*ImageSet))
 	return nil
 }
