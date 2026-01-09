@@ -91,33 +91,53 @@ It is the state of the tree in the network that we call "in transit".
 These abstract helper types define special types a [Parent](#parent) can use as
 [children][term-child].
 
-### `BodyBlock`
+### FormattingBlock
 
 ```ts
-type BodyBlock =
+type FormattingBlock =
 	| Paragraph
 	| Heading
+	| List
+	| Blockquote
+	| ThematicBreak
+	| Text
+```
+
+`FormattingBlock` nodes  contains only text-structured blocks used for formatting textual content.
+
+### `StoryBlock`
+
+```ts
+type StoryBlock =
 	| ImageSet
 	| Flourish
 	| BigNumber
 	| CustomCodeComponent
 	| Layout
-	| List
-	| Blockquote
 	| Pullquote
 	| ScrollyBlock
-	| ThematicBreak
 	| Table
 	| Recommended
 	| RecommendedList
 	| Tweet
 	| Video
 	| YoutubeVideo
-	| Text
 	| Timeline
 	| ImagePair
 	| InNumbers
 	| Definition
+	| InfoBox
+	| InfoPair
+```
+
+`StoryBlock` nodes are things that can be inserted into an article body.
+
+### BodyBlock
+
+```ts
+type BodyBlock =
+	| FormattingBlock
+	| StoryBlock
 ```
 
 `BodyBlock` nodes are the only things that are valid as the top level of a `Body`.
@@ -847,6 +867,55 @@ interface InNumbers extends Parent {
 	/** The title for the InNumbers */
 	title?: string
 	children: [Definition, Definition, Definition]
+}
+```
+
+### Card
+
+```ts
+/** Allowed children for a card
+*/
+type CardChildren = ImageSet | Exclude<FormattingBlock, Heading>
+/**
+* A card describes a subject with images and text
+*/
+interface Card extends Parent {
+	type: "card"
+	/** The title of this card */
+	title?: string
+	children: CardChildren[]
+}
+```
+
+### InfoBox
+
+```ts
+/**
+* Allowed layout widths for an InfoBox.
+*/
+type InfoBoxLayoutWidth =  Extract<LayoutWidth, "in-line" | "inset-left">
+/**
+* An info box describes a subject via a single card
+*/
+interface InfoBox extends Parent {
+	type: "info-box"
+	/** The layout width supported by this node */
+	layoutWidth: InfoBoxLayoutWidth
+	children: [Card]
+}
+```
+
+### InfoPair
+
+```ts
+/**
+* InfoPair provides exactly two cards.
+*/
+interface InfoPair extends Parent {
+	type: "info-pair"
+	/** The title of the info pair */
+	title?: string
+	children: [Card, Card]
 }
 ```
 
