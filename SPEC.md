@@ -65,7 +65,7 @@ interface Root extends Node {
 
 ## Containers
 
-A Container is a node which houses a distinct block of editorial content. These will typically have children containing any number of component nodes. They are can be published and validated as independent fields in the Content API.
+A Container is a node which houses a distinct block of editorial content. These will typically have children containing any number of component nodes. They can be published and validated as independent fields in the Content API.
 
 Examples: `body`, `topper`
 
@@ -522,7 +522,7 @@ interface Video extends Node {
 }
 ```
 
-**Video** represents for an FT video referenced by a URL.
+**Video** represents an FT video referenced by a URL.
 
 The `title` can be obtained by fetching the Video from the content API.
 
