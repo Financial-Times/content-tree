@@ -27,9 +27,8 @@ func newUnknownNode(class string, data *etree.Element) *unknownNode {
 }
 
 type liftChildrenNode struct {
-	Type  string      `json:"type"`
-	Data  interface{} `json:"data,omitempty"`
-	Class string      `json:"class,omitempty"`
+	Type  string `json:"type"`
+	Class string `json:"class,omitempty"`
 }
 
 func (n *liftChildrenNode) GetType() string                 { return n.Type }
