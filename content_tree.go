@@ -82,6 +82,10 @@ const (
 	TimelineEventType      = "timeline-event"
 	TimelineEventChildType = "timeline-event-child"
 
+	CardType      = "card"
+	CardChildType = "card-child"
+	InfoBoxType   = "info-box"
+
 	DefinitionType = "definition"
 	InNumbersType  = "in-numbers"
 
@@ -409,6 +413,7 @@ type BodyBlock struct {
 	*Timeline
 	*InNumbers
 	*ImagePair
+	*InfoBox
 }
 
 func (n *BodyBlock) GetType() string {
@@ -485,6 +490,9 @@ func (n *BodyBlock) GetEmbedded() Node {
 	if n.ImagePair != nil {
 		return n.ImagePair
 	}
+	if n.InfoBox != nil {
+		return n.InfoBox
+	}
 	return nil
 }
 
@@ -557,6 +565,9 @@ func (n *BodyBlock) GetChildren() []Node {
 	}
 	if n.ImagePair != nil {
 		return n.ImagePair.GetChildren()
+	}
+	if n.InfoBox != nil {
+		return n.InfoBox.GetChildren()
 	}
 	return nil
 }
@@ -708,6 +719,12 @@ func (n *BodyBlock) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		n.ImagePair = &v
+	case InfoBoxType:
+		var v InfoBox
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.InfoBox = &v
 	default:
 		return fmt.Errorf("failed to unmarshal BodyBlock from %s: %w", data, ErrUnmarshalInvalidNode)
 	}
@@ -762,6 +779,8 @@ func (n *BodyBlock) MarshalJSON() ([]byte, error) {
 		return json.Marshal(n.InNumbers)
 	case n.ImagePair != nil:
 		return json.Marshal(n.ImagePair)
+	case n.InfoBox != nil:
+		return json.Marshal(n.InfoBox)
 	default:
 		return []byte(`{}`), nil
 	}
@@ -816,6 +835,8 @@ func makeBodyBlock(n Node) (*BodyBlock, error) {
 		return &BodyBlock{InNumbers: n.(*InNumbers)}, nil
 	case ImagePairType:
 		return &BodyBlock{ImagePair: n.(*ImagePair)}, nil
+	case InfoBoxType:
+		return &BodyBlock{InfoBox: n.(*InfoBox)}, nil
 	default:
 		return nil, ErrInvalidChildType
 	}
@@ -2920,5 +2941,205 @@ func (ip *ImagePair) AppendChild(child Node) error {
 		return ErrInvalidChildType
 	}
 	ip.Children = append(ip.Children, child.(*ImageSet))
+	return nil
+}
+
+type Card struct {
+	Type     string       `json:"type"`
+	Title    string       `json:"title,omitempty"`
+	Children []*CardChild `json:"children"`
+}
+
+func (n *Card) GetType() string {
+	return n.Type
+}
+
+func (n *Card) GetEmbedded() Node {
+	return nil
+}
+
+func (n *Card) GetChildren() []Node {
+	result := make([]Node, len(n.Children))
+	for i, v := range n.Children {
+		result[i] = v
+	}
+	return result
+}
+
+func (n *Card) AppendChild(child Node) error {
+	c, err := makeCardChild(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, c)
+	return nil
+}
+
+type CardChild struct {
+	*Paragraph
+	*List
+	*Blockquote
+	*ThematicBreak
+	*Text
+	*ImageSet
+}
+
+func (n *CardChild) GetType() string {
+	return CardChildType
+}
+
+func (n *CardChild) GetEmbedded() Node {
+	switch {
+	case n.Paragraph != nil:
+		return n.Paragraph
+	case n.List != nil:
+		return n.List
+	case n.Blockquote != nil:
+		return n.Blockquote
+	case n.ThematicBreak != nil:
+		return n.ThematicBreak
+	case n.Text != nil:
+		return n.Text
+	case n.ImageSet != nil:
+		return n.ImageSet
+	default:
+		return nil
+	}
+}
+
+func (n *CardChild) GetChildren() []Node {
+	switch {
+	case n.Paragraph != nil:
+		return n.Paragraph.GetChildren()
+	case n.List != nil:
+		return n.List.GetChildren()
+	case n.Blockquote != nil:
+		return n.Blockquote.GetChildren()
+	case n.ThematicBreak != nil:
+		return n.ThematicBreak.GetChildren()
+	case n.Text != nil:
+		return n.Text.GetChildren()
+	case n.ImageSet != nil:
+		return n.ImageSet.GetChildren()
+	default:
+		return nil
+	}
+}
+
+func (n *CardChild) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
+func (n *CardChild) UnmarshalJSON(data []byte) error {
+	var tn typedNode
+	if err := json.Unmarshal(data, &tn); err != nil {
+		return err
+	}
+	switch tn.Type {
+	case ParagraphType:
+		var v Paragraph
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.Paragraph = &v
+	case ListType:
+		var v List
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.List = &v
+	case BlockquoteType:
+		var v Blockquote
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.Blockquote = &v
+	case ThematicBreakType:
+		var v ThematicBreak
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.ThematicBreak = &v
+	case TextType:
+		var v Text
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.Text = &v
+	case ImageSetType:
+		var v ImageSet
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.ImageSet = &v
+	default:
+		return fmt.Errorf("failed to unmarshal CardChild from %s: %w", data, ErrUnmarshalInvalidNode)
+	}
+	return nil
+}
+
+func (n *CardChild) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.Paragraph != nil:
+		return json.Marshal(n.Paragraph)
+	case n.List != nil:
+		return json.Marshal(n.List)
+	case n.Blockquote != nil:
+		return json.Marshal(n.Blockquote)
+	case n.ThematicBreak != nil:
+		return json.Marshal(n.ThematicBreak)
+	case n.Text != nil:
+		return json.Marshal(n.Text)
+	case n.ImageSet != nil:
+		return json.Marshal(n.ImageSet)
+	default:
+		return []byte(`{}`), nil
+	}
+}
+
+func makeCardChild(n Node) (*CardChild, error) {
+	switch n.GetType() {
+	case ParagraphType:
+		return &CardChild{Paragraph: n.(*Paragraph)}, nil
+	case ListType:
+		return &CardChild{List: n.(*List)}, nil
+	case BlockquoteType:
+		return &CardChild{Blockquote: n.(*Blockquote)}, nil
+	case ThematicBreakType:
+		return &CardChild{ThematicBreak: n.(*ThematicBreak)}, nil
+	case TextType:
+		return &CardChild{Text: n.(*Text)}, nil
+	case ImageSetType:
+		return &CardChild{ImageSet: n.(*ImageSet)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
+}
+
+type InfoBox struct {
+	Type        string  `json:"type"`
+	LayoutWidth string  `json:"layoutWidth"`
+	Children    []*Card `json:"children"`
+}
+
+func (n *InfoBox) GetType() string {
+	return n.Type
+}
+
+func (n *InfoBox) GetEmbedded() Node {
+	return nil
+}
+
+func (n *InfoBox) GetChildren() []Node {
+	result := make([]Node, len(n.Children))
+	for i, v := range n.Children {
+		result[i] = v
+	}
+	return result
+}
+
+func (n *InfoBox) AppendChild(child Node) error {
+	if child.GetType() != CardType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*Card))
 	return nil
 }

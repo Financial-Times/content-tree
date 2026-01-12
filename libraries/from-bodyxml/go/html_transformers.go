@@ -337,10 +337,24 @@ var defaultTransformers = map[string]transformer{
 		}
 	},
 	"div": func(div *etree.Element) contenttree.Node {
-		dataType := attr(div, "data-type")
-		if dataType == "in-numbers-definition" {
+		switch attr(div, "data-type") {
+		case "in-numbers-definition":
 			return newLiftChildrenNode()
+		case "card":
+			{
+				title := ""
+				if h4Element := findChild(div, "h4"); h4Element != nil {
+					title = textContent(h4Element)
+					div.RemoveChild(h4Element)
+				}
+				return &contenttree.Card{
+					Type:     contenttree.CardType,
+					Title:    title,
+					Children: []*contenttree.CardChild{},
+				}
+			}
 		}
+
 		switch attr(div, "class") {
 		case "n-content-layout":
 			return &contenttree.Layout{
@@ -426,7 +440,15 @@ var defaultTransformers = map[string]transformer{
 					Children: []*contenttree.ImageSet{},
 				}
 			}
-
+		case "info-box":
+			{
+				lw := attr(section, "data-layout-width")
+				return &contenttree.InfoBox{
+					Type:        contenttree.InfoBoxType,
+					LayoutWidth: lw,
+					Children:    []*contenttree.Card{},
+				}
+			}
 		}
 		return newUnknownNode("", section)
 	},
