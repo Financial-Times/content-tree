@@ -6,7 +6,6 @@
       {
         "type": "timeline",
         "title": "lorem",
-        "layoutWidth": "full-width",
         "children": [
           {
             "type": "timeline-event",

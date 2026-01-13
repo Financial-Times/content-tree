@@ -405,10 +405,9 @@ var defaultTransformers = map[string]transformer{
 					section.RemoveChild(h3Element)
 				}
 				return &contenttree.Timeline{
-					Type:        contenttree.TimelineType,
-					Title:       timelineTitle,
-					LayoutWidth: attr(section, "data-layout-width"),
-					Children:    []*contenttree.TimelineEvent{},
+					Type:     contenttree.TimelineType,
+					Title:    timelineTitle,
+					Children: []*contenttree.TimelineEvent{},
 				}
 			}
 		case "in-numbers":

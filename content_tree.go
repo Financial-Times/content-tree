@@ -2688,10 +2688,9 @@ func (n *Teaser) GetChildren() []Node {
 }
 
 type Timeline struct {
-	Type        string           `json:"type"`
-	Title       string           `json:"title,omitempty"`
-	LayoutWidth string           `json:"layoutWidth,omitempty"`
-	Children    []*TimelineEvent `json:"children"`
+	Type     string           `json:"type"`
+	Title    string           `json:"title,omitempty"`
+	Children []*TimelineEvent `json:"children"`
 }
 
 func (n *Timeline) GetType() string {
