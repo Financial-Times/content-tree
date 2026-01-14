@@ -1079,6 +1079,10 @@
         "ContentTree.full.Link": {
             "additionalProperties": false,
             "properties": {
+                "anchorStyle": {
+                    "const": "onward-journey",
+                    "type": "string"
+                },
                 "children": {
                     "items": {
                         "$ref": "#/definitions/ContentTree.full.Phrasing"
@@ -1086,10 +1090,6 @@
                     "type": "array"
                 },
                 "data": {},
-                "styleType": {
-                    "const": "onward-journey",
-                    "type": "string"
-                },
                 "title": {
                     "type": "string"
                 },
