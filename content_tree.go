@@ -82,6 +82,10 @@ const (
 	TimelineEventType      = "timeline-event"
 	TimelineEventChildType = "timeline-event-child"
 
+	CardType      = "card"
+	CardChildType = "card-child"
+	InfoBoxType   = "info-box"
+
 	DefinitionType = "definition"
 	InNumbersType  = "in-numbers"
 
@@ -135,10 +139,9 @@ type ColumnSettingsItems struct {
 }
 
 type BigNumber struct {
-	Type        string      `json:"type"`
-	Data        interface{} `json:"data,omitempty"`
-	Description string      `json:"description"`
-	Number      string      `json:"number"`
+	Type        string `json:"type"`
+	Description string `json:"description"`
+	Number      string `json:"number"`
 }
 
 func (n *BigNumber) GetType() string {
@@ -158,7 +161,6 @@ func (n *BigNumber) AppendChild(_ Node) error { return ErrCannotHaveChildren }
 type Blockquote struct {
 	Type     string             `json:"type"`
 	Children []*BlockquoteChild `json:"children"`
-	Data     interface{}        `json:"data,omitempty"`
 }
 
 func (n *Blockquote) GetType() string {
@@ -353,7 +355,6 @@ func makeBlockquoteChild(n Node) (*BlockquoteChild, error) {
 type Body struct {
 	Type     string       `json:"type"`
 	Children []*BodyBlock `json:"children"`
-	Data     interface{}  `json:"data,omitempty"`
 	Version  float64      `json:"version,omitempty"`
 }
 
@@ -409,6 +410,7 @@ type BodyBlock struct {
 	*Timeline
 	*InNumbers
 	*ImagePair
+	*InfoBox
 }
 
 func (n *BodyBlock) GetType() string {
@@ -485,6 +487,9 @@ func (n *BodyBlock) GetEmbedded() Node {
 	if n.ImagePair != nil {
 		return n.ImagePair
 	}
+	if n.InfoBox != nil {
+		return n.InfoBox
+	}
 	return nil
 }
 
@@ -557,6 +562,9 @@ func (n *BodyBlock) GetChildren() []Node {
 	}
 	if n.ImagePair != nil {
 		return n.ImagePair.GetChildren()
+	}
+	if n.InfoBox != nil {
+		return n.InfoBox.GetChildren()
 	}
 	return nil
 }
@@ -708,6 +716,12 @@ func (n *BodyBlock) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		n.ImagePair = &v
+	case InfoBoxType:
+		var v InfoBox
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.InfoBox = &v
 	default:
 		return fmt.Errorf("failed to unmarshal BodyBlock from %s: %w", data, ErrUnmarshalInvalidNode)
 	}
@@ -762,6 +776,8 @@ func (n *BodyBlock) MarshalJSON() ([]byte, error) {
 		return json.Marshal(n.InNumbers)
 	case n.ImagePair != nil:
 		return json.Marshal(n.ImagePair)
+	case n.InfoBox != nil:
+		return json.Marshal(n.InfoBox)
 	default:
 		return []byte(`{}`), nil
 	}
@@ -816,14 +832,15 @@ func makeBodyBlock(n Node) (*BodyBlock, error) {
 		return &BodyBlock{InNumbers: n.(*InNumbers)}, nil
 	case ImagePairType:
 		return &BodyBlock{ImagePair: n.(*ImagePair)}, nil
+	case InfoBoxType:
+		return &BodyBlock{InfoBox: n.(*InfoBox)}, nil
 	default:
 		return nil, ErrInvalidChildType
 	}
 }
 
 type Break struct {
-	Type string      `json:"type"`
-	Data interface{} `json:"data,omitempty"`
+	Type string `json:"type"`
 }
 
 func (n *Break) GetType() string {
@@ -843,7 +860,6 @@ func (n *Break) AppendChild(_ Node) error { return ErrCannotHaveChildren }
 type Emphasis struct {
 	Type     string      `json:"type"`
 	Children []*Phrasing `json:"children"`
-	Data     interface{} `json:"data,omitempty"`
 }
 
 func (n *Emphasis) GetType() string {
@@ -873,7 +889,6 @@ func (n *Emphasis) AppendChild(child Node) error {
 
 type Flourish struct {
 	Type               string                 `json:"type"`
-	Data               interface{}            `json:"data,omitempty"`
 	Description        string                 `json:"description"`
 	FallbackImage      *FlourishFallbackImage `json:"fallbackImage,omitempty"`
 	FlourishType       string                 `json:"flourishType,omitempty"`
@@ -913,11 +928,10 @@ type FlourishFallbackImageSourceSetElem struct {
 }
 
 type Heading struct {
-	Type               string      `json:"type"`
-	Children           []*Text     `json:"children"`
-	Data               interface{} `json:"data,omitempty"`
-	Level              string      `json:"level,omitempty"`
-	FragmentIdentifier string      `json:"fragmentIdentifier,omitempty"`
+	Type               string  `json:"type"`
+	Children           []*Text `json:"children"`
+	Level              string  `json:"level,omitempty"`
+	FragmentIdentifier string  `json:"fragmentIdentifier,omitempty"`
 }
 
 func (n *Heading) GetType() string {
@@ -945,11 +959,10 @@ func (n *Heading) AppendChild(child Node) error {
 }
 
 type ImageSet struct {
-	Type               string      `json:"type"`
-	Data               interface{} `json:"data,omitempty"`
-	ID                 string      `json:"id"`
-	Picture            *Picture    `json:"picture,omitempty"`
-	FragmentIdentifier string      `json:"fragmentIdentifier,omitempty"`
+	Type               string   `json:"type"`
+	ID                 string   `json:"id"`
+	Picture            *Picture `json:"picture,omitempty"`
+	FragmentIdentifier string   `json:"fragmentIdentifier,omitempty"`
 }
 
 func (n *ImageSet) GetType() string {
@@ -969,7 +982,6 @@ func (n *ImageSet) AppendChild(_ Node) error { return ErrCannotHaveChildren }
 type Layout struct {
 	Type        string         `json:"type"`
 	Children    []*LayoutChild `json:"children"`
-	Data        interface{}    `json:"data,omitempty"`
 	LayoutName  string         `json:"layoutName,omitempty"`
 	LayoutWidth string         `json:"layoutWidth,omitempty"`
 }
@@ -1096,13 +1108,12 @@ func makeLayoutChild(n Node) (*LayoutChild, error) {
 }
 
 type LayoutImage struct {
-	Type    string      `json:"type"`
-	Alt     string      `json:"alt"`
-	Caption string      `json:"caption"`
-	Credit  string      `json:"credit"`
-	Data    interface{} `json:"data,omitempty"`
-	ID      string      `json:"id"`
-	Picture *Picture    `json:"picture,omitempty"`
+	Type    string   `json:"type"`
+	Alt     string   `json:"alt"`
+	Caption string   `json:"caption"`
+	Credit  string   `json:"credit"`
+	ID      string   `json:"id"`
+	Picture *Picture `json:"picture,omitempty"`
 }
 
 func (n *LayoutImage) GetType() string {
@@ -1122,7 +1133,6 @@ func (n *LayoutImage) AppendChild(_ Node) error { return ErrCannotHaveChildren }
 type LayoutSlot struct {
 	Type     string             `json:"type"`
 	Children []*LayoutSlotChild `json:"children"`
-	Data     interface{}        `json:"data,omitempty"`
 }
 
 func (n *LayoutSlot) GetType() string {
@@ -1249,7 +1259,6 @@ func makeLayoutSlotChild(n Node) (*LayoutSlotChild, error) {
 type Link struct {
 	Type      string      `json:"type"`
 	Children  []*Phrasing `json:"children"`
-	Data      interface{} `json:"data,omitempty"`
 	Title     string      `json:"title"`
 	URL       string      `json:"url"`
 	StyleType string      `json:"styleType,omitempty"`
@@ -1283,7 +1292,6 @@ func (n *Link) AppendChild(child Node) error {
 type List struct {
 	Type     string      `json:"type"`
 	Children []*ListItem `json:"children"`
-	Data     interface{} `json:"data,omitempty"`
 	Ordered  bool        `json:"ordered"`
 }
 
@@ -1315,7 +1323,6 @@ func (n *List) AppendChild(child Node) error {
 type ListItem struct {
 	Type     string           `json:"type"`
 	Children []*ListItemChild `json:"children"`
-	Data     interface{}      `json:"data,omitempty"`
 }
 
 func (n *ListItem) GetType() string {
@@ -1513,7 +1520,6 @@ func makeListItemChild(n Node) (*ListItemChild, error) {
 type Paragraph struct {
 	Type     string      `json:"type"`
 	Children []*Phrasing `json:"children"`
-	Data     interface{} `json:"data,omitempty"`
 }
 
 func (n *Paragraph) GetType() string {
@@ -1689,10 +1695,9 @@ func makePhrasing(n Node) (*Phrasing, error) {
 }
 
 type Pullquote struct {
-	Type   string      `json:"type"`
-	Data   interface{} `json:"data,omitempty"`
-	Source string      `json:"source"`
-	Text   string      `json:"text"`
+	Type   string `json:"type"`
+	Source string `json:"source"`
+	Text   string `json:"text"`
 }
 
 func (n *Pullquote) GetType() string {
@@ -1710,12 +1715,11 @@ func (n *Pullquote) GetChildren() []Node {
 func (n *Pullquote) AppendChild(_ Node) error { return ErrCannotHaveChildren }
 
 type Recommended struct {
-	Type                string      `json:"type"`
-	Data                interface{} `json:"data,omitempty"`
-	Heading             string      `json:"heading"`
-	ID                  string      `json:"id"`
-	Teaser              *Teaser     `json:"teaser,omitempty"`
-	TeaserTitleOverride string      `json:"teaserTitleOverride"`
+	Type                string  `json:"type"`
+	Heading             string  `json:"heading"`
+	ID                  string  `json:"id"`
+	Teaser              *Teaser `json:"teaser,omitempty"`
+	TeaserTitleOverride string  `json:"teaserTitleOverride"`
 }
 
 func (n *Recommended) GetType() string {
@@ -1734,7 +1738,6 @@ func (n *Recommended) AppendChild(_ Node) error { return ErrCannotHaveChildren }
 
 type RecommendedList struct {
 	Type     string         `json:"type"`
-	Data     interface{}    `json:"data,omitempty"`
 	Heading  string         `json:"heading,omitempty"`
 	Children []*Recommended `json:"children"`
 }
@@ -1766,7 +1769,6 @@ func (n *RecommendedList) AppendChild(child Node) error {
 type ScrollyBlock struct {
 	Type     string            `json:"type"`
 	Children []*ScrollySection `json:"children"`
-	Data     interface{}       `json:"data,omitempty"`
 	Theme    string            `json:"theme,omitempty"`
 }
 
@@ -1797,7 +1799,6 @@ func (n *ScrollyBlock) AppendChild(child Node) error {
 type ScrollyCopy struct {
 	Type     string              `json:"type"`
 	Children []*ScrollyCopyChild `json:"children"`
-	Data     interface{}         `json:"data,omitempty"`
 }
 
 func (n *ScrollyCopy) GetType() string {
@@ -1905,10 +1906,9 @@ func makeScrollyCopyChild(n Node) (*ScrollyCopyChild, error) {
 }
 
 type ScrollyHeading struct {
-	Type     string      `json:"type"`
-	Children []*Text     `json:"children"`
-	Data     interface{} `json:"data,omitempty"`
-	Level    string      `json:"level,omitempty"`
+	Type     string  `json:"type"`
+	Children []*Text `json:"children"`
+	Level    string  `json:"level,omitempty"`
 }
 
 func (n *ScrollyHeading) GetType() string {
@@ -1930,10 +1930,9 @@ func (n *ScrollyHeading) GetChildren() []Node {
 func (n *ScrollyHeading) AppendChild(_ Node) error { return ErrCannotHaveChildren }
 
 type ScrollyImage struct {
-	Type    string      `json:"type"`
-	Data    interface{} `json:"data,omitempty"`
-	ID      string      `json:"id,omitempty"`
-	Picture *Picture    `json:"picture,omitempty"`
+	Type    string   `json:"type"`
+	ID      string   `json:"id,omitempty"`
+	Picture *Picture `json:"picture,omitempty"`
 }
 
 func (n *ScrollyImage) GetType() string {
@@ -1953,7 +1952,6 @@ func (n *ScrollyImage) AppendChild(_ Node) error { return ErrCannotHaveChildren 
 type ScrollySection struct {
 	Type       string                 `json:"type"`
 	Children   []*ScrollySectionChild `json:"children"`
-	Data       interface{}            `json:"data,omitempty"`
 	Display    string                 `json:"display,omitempty"`
 	NoBox      bool                   `json:"noBox,omitempty"`
 	Position   string                 `json:"position,omitempty"`
@@ -2067,7 +2065,6 @@ func makeScrollySectionChild(n Node) (*ScrollySectionChild, error) {
 type Strikethrough struct {
 	Type     string      `json:"type"`
 	Children []*Phrasing `json:"children"`
-	Data     interface{} `json:"data,omitempty"`
 }
 
 func (n *Strikethrough) GetType() string {
@@ -2098,7 +2095,6 @@ func (n *Strikethrough) AppendChild(child Node) error {
 type Strong struct {
 	Type     string      `json:"type"`
 	Children []*Phrasing `json:"children"`
-	Data     interface{} `json:"data,omitempty"`
 }
 
 func (n *Strong) GetType() string {
@@ -2132,7 +2128,6 @@ type Table struct {
 	CollapseAfterHowManyRows float64                `json:"collapseAfterHowManyRows,omitempty"`
 	ColumnSettings           []*ColumnSettingsItems `json:"columnSettings,omitempty"`
 	Compact                  bool                   `json:"compact,omitempty"`
-	Data                     interface{}            `json:"data,omitempty"`
 	LayoutWidth              string                 `json:"layoutWidth,omitempty"`
 	ResponsiveStyle          string                 `json:"responsiveStyle,omitempty"`
 	Stripes                  bool                   `json:"stripes,omitempty"`
@@ -2262,7 +2257,6 @@ func makeTableChild(n Node) (*TableChild, error) {
 type TableBody struct {
 	Type     string      `json:"type"`
 	Children []*TableRow `json:"children"`
-	Data     interface{} `json:"data,omitempty"`
 }
 
 func (n *TableBody) GetType() string {
@@ -2290,9 +2284,8 @@ func (n *TableBody) AppendChild(child Node) error {
 }
 
 type TableCaption struct {
-	Type     string      `json:"type"`
-	Children []*Table    `json:"children"`
-	Data     interface{} `json:"data,omitempty"`
+	Type     string   `json:"type"`
+	Children []*Table `json:"children"`
 }
 
 func (n *TableCaption) GetType() string {
@@ -2320,10 +2313,9 @@ func (n *TableCaption) AppendChild(child Node) error {
 }
 
 type TableCell struct {
-	Type     string      `json:"type"`
-	Children []*Table    `json:"children"`
-	Data     interface{} `json:"data,omitempty"`
-	Heading  bool        `json:"heading,omitempty"`
+	Type     string   `json:"type"`
+	Children []*Table `json:"children"`
+	Heading  bool     `json:"heading,omitempty"`
 }
 
 func (n *TableCell) GetType() string {
@@ -2351,9 +2343,8 @@ func (n *TableCell) AppendChild(child Node) error {
 }
 
 type TableFooter struct {
-	Type     string      `json:"type"`
-	Children []*Table    `json:"children"`
-	Data     interface{} `json:"data,omitempty"`
+	Type     string   `json:"type"`
+	Children []*Table `json:"children"`
 }
 
 func (n *TableFooter) GetType() string {
@@ -2383,7 +2374,6 @@ func (n *TableFooter) AppendChild(child Node) error {
 type TableRow struct {
 	Type     string       `json:"type"`
 	Children []*TableCell `json:"children"`
-	Data     interface{}  `json:"data,omitempty"`
 }
 
 func (n *TableRow) GetType() string {
@@ -2411,9 +2401,8 @@ func (n *TableRow) AppendChild(child Node) error {
 }
 
 type Text struct {
-	Type  string      `json:"type"`
-	Data  interface{} `json:"data,omitempty"`
-	Value string      `json:"value,omitempty"`
+	Type  string `json:"type"`
+	Value string `json:"value,omitempty"`
 }
 
 func (n *Text) GetType() string {
@@ -2431,8 +2420,7 @@ func (n *Text) GetChildren() []Node {
 func (n *Text) AppendChild(_ Node) error { return ErrCannotHaveChildren }
 
 type ThematicBreak struct {
-	Type string      `json:"type"`
-	Data interface{} `json:"data,omitempty"`
+	Type string `json:"type"`
 }
 
 func (n *ThematicBreak) GetType() string {
@@ -2450,10 +2438,9 @@ func (n *ThematicBreak) GetChildren() []Node {
 func (n *ThematicBreak) AppendChild(_ Node) error { return ErrCannotHaveChildren }
 
 type Tweet struct {
-	Type string      `json:"type"`
-	Data interface{} `json:"data,omitempty"`
-	HTML string      `json:"html,omitempty"`
-	ID   string      `json:"id,omitempty"`
+	Type string `json:"type"`
+	HTML string `json:"html,omitempty"`
+	ID   string `json:"id,omitempty"`
 }
 
 func (n *Tweet) GetType() string {
@@ -2471,9 +2458,8 @@ func (n *Tweet) GetChildren() []Node {
 func (n *Tweet) AppendChild(child Node) error { return ErrCannotHaveChildren }
 
 type Video struct {
-	Type string      `json:"type"`
-	Data interface{} `json:"data,omitempty"`
-	ID   string      `json:"id"`
+	Type string `json:"type"`
+	ID   string `json:"id"`
 }
 
 func (n *Video) GetType() string {
@@ -2491,9 +2477,8 @@ func (n *Video) GetChildren() []Node {
 func (n *Video) AppendChild(_ Node) error { return ErrCannotHaveChildren }
 
 type YoutubeVideo struct {
-	Type string      `json:"type"`
-	Data interface{} `json:"data,omitempty"`
-	URL  string      `json:"url,omitempty"`
+	Type string `json:"type"`
+	URL  string `json:"url,omitempty"`
 }
 
 func (n *YoutubeVideo) GetType() string {
@@ -2512,7 +2497,6 @@ func (n *YoutubeVideo) AppendChild(_ Node) error { return ErrCannotHaveChildren 
 
 type CustomCodeComponent struct {
 	Type                   string                 `json:"type"`
-	Data                   interface{}            `json:"data,omitempty"`
 	ID                     string                 `json:"id"`
 	LayoutWidth            string                 `json:"layoutWidth"`
 	Attributes             map[string]interface{} `json:"attributes,omitempty"`
@@ -2536,13 +2520,12 @@ func (n *CustomCodeComponent) GetChildren() []Node {
 func (n *CustomCodeComponent) AppendChild(_ Node) error { return ErrCannotHaveChildren }
 
 type ClipSet struct {
-	Type        string      `json:"type"`
-	Data        interface{} `json:"data,omitempty"`
-	ID          string      `json:"id,omitempty"`
-	LayoutWidth string      `json:"layoutWidth,omitempty"`
-	Autoplay    bool        `json:"autoplay,omitempty"`
-	Loop        bool        `json:"loop,omitempty"`
-	Muted       bool        `json:"muted,omitempty"`
+	Type        string `json:"type"`
+	ID          string `json:"id,omitempty"`
+	LayoutWidth string `json:"layoutWidth,omitempty"`
+	Autoplay    bool   `json:"autoplay,omitempty"`
+	Loop        bool   `json:"loop,omitempty"`
+	Muted       bool   `json:"muted,omitempty"`
 }
 
 func (n *ClipSet) GetType() string {
@@ -2653,9 +2636,8 @@ type Picture struct {
 }
 
 type Root struct {
-	Type string      `json:"type"`
-	Body *Body       `json:"body,omitempty"`
-	Data interface{} `json:"data,omitempty"`
+	Type string `json:"type"`
+	Body *Body  `json:"body,omitempty"`
 }
 
 func (n *Root) GetType() string {
@@ -2706,10 +2688,9 @@ func (n *Teaser) GetChildren() []Node {
 }
 
 type Timeline struct {
-	Type        string           `json:"type"`
-	Title       string           `json:"title,omitempty"`
-	LayoutWidth string           `json:"layoutWidth,omitempty"`
-	Children    []*TimelineEvent `json:"children"`
+	Type     string           `json:"type"`
+	Title    string           `json:"title,omitempty"`
+	Children []*TimelineEvent `json:"children"`
 }
 
 func (n *Timeline) GetType() string {
@@ -2920,5 +2901,205 @@ func (ip *ImagePair) AppendChild(child Node) error {
 		return ErrInvalidChildType
 	}
 	ip.Children = append(ip.Children, child.(*ImageSet))
+	return nil
+}
+
+type Card struct {
+	Type     string       `json:"type"`
+	Title    string       `json:"title,omitempty"`
+	Children []*CardChild `json:"children"`
+}
+
+func (n *Card) GetType() string {
+	return n.Type
+}
+
+func (n *Card) GetEmbedded() Node {
+	return nil
+}
+
+func (n *Card) GetChildren() []Node {
+	result := make([]Node, len(n.Children))
+	for i, v := range n.Children {
+		result[i] = v
+	}
+	return result
+}
+
+func (n *Card) AppendChild(child Node) error {
+	c, err := makeCardChild(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, c)
+	return nil
+}
+
+type CardChild struct {
+	*Paragraph
+	*List
+	*Blockquote
+	*ThematicBreak
+	*Text
+	*ImageSet
+}
+
+func (n *CardChild) GetType() string {
+	return CardChildType
+}
+
+func (n *CardChild) GetEmbedded() Node {
+	switch {
+	case n.Paragraph != nil:
+		return n.Paragraph
+	case n.List != nil:
+		return n.List
+	case n.Blockquote != nil:
+		return n.Blockquote
+	case n.ThematicBreak != nil:
+		return n.ThematicBreak
+	case n.Text != nil:
+		return n.Text
+	case n.ImageSet != nil:
+		return n.ImageSet
+	default:
+		return nil
+	}
+}
+
+func (n *CardChild) GetChildren() []Node {
+	switch {
+	case n.Paragraph != nil:
+		return n.Paragraph.GetChildren()
+	case n.List != nil:
+		return n.List.GetChildren()
+	case n.Blockquote != nil:
+		return n.Blockquote.GetChildren()
+	case n.ThematicBreak != nil:
+		return n.ThematicBreak.GetChildren()
+	case n.Text != nil:
+		return n.Text.GetChildren()
+	case n.ImageSet != nil:
+		return n.ImageSet.GetChildren()
+	default:
+		return nil
+	}
+}
+
+func (n *CardChild) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
+func (n *CardChild) UnmarshalJSON(data []byte) error {
+	var tn typedNode
+	if err := json.Unmarshal(data, &tn); err != nil {
+		return err
+	}
+	switch tn.Type {
+	case ParagraphType:
+		var v Paragraph
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.Paragraph = &v
+	case ListType:
+		var v List
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.List = &v
+	case BlockquoteType:
+		var v Blockquote
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.Blockquote = &v
+	case ThematicBreakType:
+		var v ThematicBreak
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.ThematicBreak = &v
+	case TextType:
+		var v Text
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.Text = &v
+	case ImageSetType:
+		var v ImageSet
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.ImageSet = &v
+	default:
+		return fmt.Errorf("failed to unmarshal CardChild from %s: %w", data, ErrUnmarshalInvalidNode)
+	}
+	return nil
+}
+
+func (n *CardChild) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.Paragraph != nil:
+		return json.Marshal(n.Paragraph)
+	case n.List != nil:
+		return json.Marshal(n.List)
+	case n.Blockquote != nil:
+		return json.Marshal(n.Blockquote)
+	case n.ThematicBreak != nil:
+		return json.Marshal(n.ThematicBreak)
+	case n.Text != nil:
+		return json.Marshal(n.Text)
+	case n.ImageSet != nil:
+		return json.Marshal(n.ImageSet)
+	default:
+		return []byte(`{}`), nil
+	}
+}
+
+func makeCardChild(n Node) (*CardChild, error) {
+	switch n.GetType() {
+	case ParagraphType:
+		return &CardChild{Paragraph: n.(*Paragraph)}, nil
+	case ListType:
+		return &CardChild{List: n.(*List)}, nil
+	case BlockquoteType:
+		return &CardChild{Blockquote: n.(*Blockquote)}, nil
+	case ThematicBreakType:
+		return &CardChild{ThematicBreak: n.(*ThematicBreak)}, nil
+	case TextType:
+		return &CardChild{Text: n.(*Text)}, nil
+	case ImageSetType:
+		return &CardChild{ImageSet: n.(*ImageSet)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
+}
+
+type InfoBox struct {
+	Type        string  `json:"type"`
+	LayoutWidth string  `json:"layoutWidth"`
+	Children    []*Card `json:"children"`
+}
+
+func (n *InfoBox) GetType() string {
+	return n.Type
+}
+
+func (n *InfoBox) GetEmbedded() Node {
+	return nil
+}
+
+func (n *InfoBox) GetChildren() []Node {
+	result := make([]Node, len(n.Children))
+	for i, v := range n.Children {
+		result[i] = v
+	}
+	return result
+}
+
+func (n *InfoBox) AppendChild(child Node) error {
+	if child.GetType() != CardType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*Card))
 	return nil
 }

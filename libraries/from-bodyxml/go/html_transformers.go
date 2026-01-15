@@ -27,9 +27,8 @@ func newUnknownNode(class string, data *etree.Element) *unknownNode {
 }
 
 type liftChildrenNode struct {
-	Type  string      `json:"type"`
-	Data  interface{} `json:"data,omitempty"`
-	Class string      `json:"class,omitempty"`
+	Type  string `json:"type"`
+	Class string `json:"class,omitempty"`
 }
 
 func (n *liftChildrenNode) GetType() string                 { return n.Type }
@@ -337,10 +336,24 @@ var defaultTransformers = map[string]transformer{
 		}
 	},
 	"div": func(div *etree.Element) contenttree.Node {
-		dataType := attr(div, "data-type")
-		if dataType == "in-numbers-definition" {
+		switch attr(div, "data-type") {
+		case "in-numbers-definition":
 			return newLiftChildrenNode()
+		case "card":
+			{
+				title := ""
+				if h4Element := findChild(div, "h4"); h4Element != nil {
+					title = textContent(h4Element)
+					div.RemoveChild(h4Element)
+				}
+				return &contenttree.Card{
+					Type:     contenttree.CardType,
+					Title:    title,
+					Children: []*contenttree.CardChild{},
+				}
+			}
 		}
+
 		switch attr(div, "class") {
 		case "n-content-layout":
 			return &contenttree.Layout{
@@ -392,10 +405,9 @@ var defaultTransformers = map[string]transformer{
 					section.RemoveChild(h3Element)
 				}
 				return &contenttree.Timeline{
-					Type:        contenttree.TimelineType,
-					Title:       timelineTitle,
-					LayoutWidth: attr(section, "data-layout-width"),
-					Children:    []*contenttree.TimelineEvent{},
+					Type:     contenttree.TimelineType,
+					Title:    timelineTitle,
+					Children: []*contenttree.TimelineEvent{},
 				}
 			}
 		case "in-numbers":
@@ -426,7 +438,15 @@ var defaultTransformers = map[string]transformer{
 					Children: []*contenttree.ImageSet{},
 				}
 			}
-
+		case "info-box":
+			{
+				lw := attr(section, "data-layout-width")
+				return &contenttree.InfoBox{
+					Type:        contenttree.InfoBoxType,
+					LayoutWidth: lw,
+					Children:    []*contenttree.Card{},
+				}
+			}
 		}
 		return newUnknownNode("", section)
 	},
