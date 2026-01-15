@@ -1849,60 +1849,7 @@
             "additionalProperties": false,
             "properties": {
                 "children": {
-                    "anyOf": [
-                        {
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/ContentTree.full.TableCaption"
-                                },
-                                {
-                                    "$ref": "#/definitions/ContentTree.full.TableBody"
-                                },
-                                {
-                                    "$ref": "#/definitions/ContentTree.full.TableFooter"
-                                }
-                            ],
-                            "maxItems": 3,
-                            "minItems": 3,
-                            "type": "array"
-                        },
-                        {
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/ContentTree.full.TableCaption"
-                                },
-                                {
-                                    "$ref": "#/definitions/ContentTree.full.TableBody"
-                                }
-                            ],
-                            "maxItems": 2,
-                            "minItems": 2,
-                            "type": "array"
-                        },
-                        {
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/ContentTree.full.TableBody"
-                                },
-                                {
-                                    "$ref": "#/definitions/ContentTree.full.TableFooter"
-                                }
-                            ],
-                            "maxItems": 2,
-                            "minItems": 2,
-                            "type": "array"
-                        },
-                        {
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/ContentTree.full.TableBody"
-                                }
-                            ],
-                            "maxItems": 1,
-                            "minItems": 1,
-                            "type": "array"
-                        }
-                    ]
+                    "$ref": "#/definitions/ContentTree.full.TableChildren"
                 },
                 "collapseAfterHowManyRows": {
                     "type": "number"
@@ -1930,7 +1877,6 @@
                         },
                         "required": [
                             "hideOnMobile",
-                            "sortType",
                             "sortable"
                         ],
                         "type": "object"
@@ -2043,6 +1989,74 @@
             ],
             "type": "object"
         },
+        "ContentTree.full.TableChildren": {
+            "anyOf": [
+                {
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.full.TableCaption"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.full.TableBody"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.full.TableFooter"
+                        }
+                    ],
+                    "maxItems": 3,
+                    "minItems": 2,
+                    "type": "array"
+                },
+                {
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.full.TableBody"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.full.TableFooter"
+                        }
+                    ],
+                    "maxItems": 2,
+                    "minItems": 1,
+                    "type": "array"
+                },
+                {
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.full.TableCaption"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.full.TableHeader"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.full.TableBody"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.full.TableFooter"
+                        }
+                    ],
+                    "maxItems": 4,
+                    "minItems": 3,
+                    "type": "array"
+                },
+                {
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.full.TableHeader"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.full.TableBody"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.full.TableFooter"
+                        }
+                    ],
+                    "maxItems": 3,
+                    "minItems": 2,
+                    "type": "array"
+                }
+            ]
+        },
         "ContentTree.full.TableFooter": {
             "additionalProperties": false,
             "properties": {
@@ -2055,6 +2069,27 @@
                 "data": {},
                 "type": {
                     "const": "table-footer",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.TableHeader": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.full.TableRow"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "table-header",
                     "type": "string"
                 }
             },
