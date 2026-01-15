@@ -447,6 +447,20 @@ var defaultTransformers = map[string]transformer{
 					Children:    []*contenttree.Card{},
 				}
 			}
+		case "info-pair":
+			{
+				var title string
+				if h3Element := findChild(section, "h3"); h3Element != nil {
+					title = textContent(h3Element)
+					//extract title but don't treat like a child element
+					section.RemoveChild(h3Element)
+				}
+				return &contenttree.InfoPair{
+					Type:     contenttree.InfoPairType,
+					Title:    title,
+					Children: []*contenttree.Card{},
+				}
+			}
 		}
 		return newUnknownNode("", section)
 	},
