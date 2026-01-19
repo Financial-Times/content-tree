@@ -1,0 +1,119 @@
+{
+  "type": "root",
+  "body": {
+    "type": "body",
+    "children": [
+      {
+        "type": "info-pair",
+        "title": "Title",
+        "children": [
+          {
+            "type": "card",
+            "title": "Title",
+            "children": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "paragraph"
+                  }
+                ]
+              },
+              {
+                "type": "list",
+                "children": [
+                  {
+                    "type": "list-item",
+                    "children": [
+                      {
+                        "type": "paragraph",
+                        "children": [
+                          {
+                            "type": "text",
+                            "value": "para inside list"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "ordered": false
+              },
+              {
+                "type": "blockquote",
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "para inside blockquote"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "value": "text"
+              },
+              {
+                "type": "thematic-break"
+              },
+              {
+                "type": "image-set",
+                "id": "23925844-4d8d-11ea-0bc6-d44b54b3bebc"
+              }
+            ]
+          },
+          {
+            "type": "card",
+            "title": "Title",
+            "children": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "paragraph"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "info-pair",
+        "children": [
+          {
+            "type": "card",
+            "children": [
+              {
+                "type": "image-set",
+                "id": "23925844-4d8d-11ea-0bc6-d44b54b3bebc"
+              }
+            ]
+          },
+          {
+            "type": "card",
+            "title": "Title",
+            "children": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "paragraph"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "version": 1
+  }
+}

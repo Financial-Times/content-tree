@@ -85,6 +85,7 @@ const (
 	CardType      = "card"
 	CardChildType = "card-child"
 	InfoBoxType   = "info-box"
+	InfoPairType  = "info-pair"
 
 	DefinitionType = "definition"
 	InNumbersType  = "in-numbers"
@@ -411,6 +412,7 @@ type BodyBlock struct {
 	*InNumbers
 	*ImagePair
 	*InfoBox
+	*InfoPair
 }
 
 func (n *BodyBlock) GetType() string {
@@ -490,6 +492,9 @@ func (n *BodyBlock) GetEmbedded() Node {
 	if n.InfoBox != nil {
 		return n.InfoBox
 	}
+	if n.InfoPair != nil {
+		return n.InfoPair
+	}
 	return nil
 }
 
@@ -565,6 +570,9 @@ func (n *BodyBlock) GetChildren() []Node {
 	}
 	if n.InfoBox != nil {
 		return n.InfoBox.GetChildren()
+	}
+	if n.InfoPair != nil {
+		return n.InfoPair.GetChildren()
 	}
 	return nil
 }
@@ -722,6 +730,12 @@ func (n *BodyBlock) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		n.InfoBox = &v
+	case InfoPairType:
+		var v InfoPair
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.InfoPair = &v
 	default:
 		return fmt.Errorf("failed to unmarshal BodyBlock from %s: %w", data, ErrUnmarshalInvalidNode)
 	}
@@ -778,6 +792,8 @@ func (n *BodyBlock) MarshalJSON() ([]byte, error) {
 		return json.Marshal(n.ImagePair)
 	case n.InfoBox != nil:
 		return json.Marshal(n.InfoBox)
+	case n.InfoPair != nil:
+		return json.Marshal(n.InfoPair)
 	default:
 		return []byte(`{}`), nil
 	}
@@ -834,6 +850,8 @@ func makeBodyBlock(n Node) (*BodyBlock, error) {
 		return &BodyBlock{ImagePair: n.(*ImagePair)}, nil
 	case InfoBoxType:
 		return &BodyBlock{InfoBox: n.(*InfoBox)}, nil
+	case InfoPairType:
+		return &BodyBlock{InfoPair: n.(*InfoPair)}, nil
 	default:
 		return nil, ErrInvalidChildType
 	}
@@ -3097,6 +3115,36 @@ func (n *InfoBox) GetChildren() []Node {
 }
 
 func (n *InfoBox) AppendChild(child Node) error {
+	if child.GetType() != CardType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*Card))
+	return nil
+}
+
+type InfoPair struct {
+	Type     string  `json:"type"`
+	Title    string  `json:"title,omitempty"`
+	Children []*Card `json:"children"`
+}
+
+func (n *InfoPair) GetType() string {
+	return n.Type
+}
+
+func (n *InfoPair) GetEmbedded() Node {
+	return nil
+}
+
+func (n *InfoPair) GetChildren() []Node {
+	result := make([]Node, len(n.Children))
+	for i, v := range n.Children {
+		result[i] = v
+	}
+	return result
+}
+
+func (n *InfoPair) AppendChild(child Node) error {
 	if child.GetType() != CardType {
 		return ErrInvalidChildType
 	}
