@@ -1,0 +1,854 @@
+# Content Tree Spec
+
+## Abstract Types
+
+These abstract helper types define special types a [Parent](#parent) can use as
+[children][term-child].
+
+### `LayoutWidth`
+
+```ts
+type LayoutWidth =
+	| "auto"
+	| "in-line"
+	| "inset-left"
+	| "inset-right"
+	| "full-bleed"
+	| "full-grid"
+	| "mid-grid"
+	| "full-width"
+```
+
+`LayoutWidth` defines how the component should be presented in the article page according to the column layout system.
+
+
+## Core Nodes
+
+### `Node`
+
+```ts
+interface Node {
+	type: string
+	data?: any
+}
+```
+
+The abstract node. The data field is for internal implementation information and
+will never be defined in the content-tree spec.
+
+### `Parent`
+
+```ts
+interface Parent extends Node {
+	children: Node[]
+}
+```
+
+**Parent** (**[UnistParent][term-parent]**) represents a node in content-tree
+containing other nodes (said to be _[children][term-child]_).
+
+Its content is limited to only other content-tree content.
+
+### `Root`
+
+```ts
+interface Root extends Node {
+	type: "root"
+	body: Body
+}
+```
+
+**Root** (**[Parent][term-parent]**) represents the root of a content-tree.
+
+**Root** can be used as the _[root][term-root]_ of a _[tree][term-tree]_.
+
+
+## Containers
+
+A Container is a node which houses a distinct block of editorial content. These will typically have children containing any number of component nodes. They can be published and validated as independent fields in the Content API.
+
+Examples: `body`, `topper`
+
+### `Body`
+
+```ts
+interface Body extends Parent {
+	type: "body"
+	version: number
+	children: BodyBlock[]
+}
+```
+#### BodyBlock
+
+```ts
+type BodyBlock =
+	| FormattingBlock
+	| StoryBlock
+```
+
+`BodyBlock` nodes are the only things that are valid as the top level of a `Body`.
+
+**Body** (**[Parent][term-parent]**) represents the body of an article.
+
+(note: `bodyTree` is just this part)
+
+## Formatting Blocks
+
+### FormattingBlock
+
+```ts
+type FormattingBlock =
+	| Paragraph
+	| Heading
+	| List
+	| Blockquote
+	| ThematicBreak
+	| Text
+```
+
+`FormattingBlock` nodes  contains only text-structured blocks used for formatting textual content.
+
+
+### `Text`
+
+```ts
+interface Text extends Node {
+	type: "text"
+	value: string
+}
+```
+
+
+### `Phrasing`
+
+```ts
+type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link
+```
+
+A phrasing node cannot have ancestor of the same type.
+
+i.e. a Strong will never be inside another Strong, or inside any other node that
+is inside a Strong.
+
+**Text** (**[Literal][term-literal]**) represents text.
+
+### `Break`
+
+```ts
+interface Break extends Node {
+	type: "break"
+}
+```
+
+**Break** Node represents a break in the text, such as in a poem.
+
+_Non-normative note: this would normally be represented by a `<br>` in the
+html._
+
+### `ThematicBreak`
+
+```ts
+interface ThematicBreak extends Node {
+	type: "thematic-break"
+}
+```
+
+**ThematicBreak** Node represents a break in the text, such as in a shift of
+topic within a section.
+
+_Non-normative note: this would be represented by an `<hr>` in the html._
+
+### `Paragraph`
+
+```ts
+interface Paragraph extends Parent {
+	type: "paragraph"
+	children: Phrasing[]
+}
+```
+
+Paragraph represents a unit of text.
+
+### `Heading`
+
+```ts
+interface Heading extends Parent {
+	type: "heading"
+	children: Text[]
+	level: "chapter" | "subheading" | "label"
+	fragmentIdentifier?: string
+}
+```
+
+**Heading** represents a unit of text that marks the beginning of an article
+section.
+
+### `Strong`
+
+```ts
+interface Strong extends Parent {
+	type: "strong"
+	children: Phrasing[]
+}
+```
+
+**Strong** represents contents with strong importance, seriousness or urgency.
+ 
+### `Emphasis`
+
+```ts
+interface Emphasis extends Parent {
+	type: "emphasis"
+	children: Phrasing[]
+}
+```
+
+**Emphasis** represents stressed emphasis of its contents.
+
+### `Strikethrough`
+
+```ts
+interface Strikethrough extends Parent {
+	type: "strikethrough"
+	children: Phrasing[]
+}
+```
+
+**Strikethrough** represents a piece of text that has been stricken.
+
+### `Link`
+
+```ts
+interface Link extends Parent {
+	type: "link"
+	url: string
+	title: string
+	children: Phrasing[]
+	styleType?: 'onward-journey'
+}
+```
+
+**Link** represents a hyperlink.
+
+### `List`
+
+```ts
+interface List extends Parent {
+	type: "list"
+	ordered: boolean
+	children: ListItem[]
+}
+```
+
+**List** represents a list of items.
+
+### `ListItem`
+
+```ts
+interface ListItem extends Parent {
+	type: "list-item"
+	children: (Paragraph | Phrasing)[]
+}
+```
+
+### `Blockquote`
+
+```ts
+interface Blockquote extends Parent {
+	type: "blockquote"
+	children: (Paragraph | Phrasing)[]
+}
+```
+
+**Blockquote** represents a quotation.
+
+## StoryBlocks
+
+### `StoryBlock`
+
+```ts
+type StoryBlock =
+	| ImageSet
+	| Flourish
+	| BigNumber
+	| CustomCodeComponent
+	| Layout
+	| Pullquote
+	| ScrollyBlock
+	| Table
+	| Recommended
+	| RecommendedList
+	| Tweet
+	| Video
+	| YoutubeVideo
+	| Timeline
+	| ImagePair
+	| InNumbers
+	| Definition
+	| InfoBox
+	| InfoPair
+```
+
+`StoryBlock` nodes are things that can be inserted into an article body.
+
+### `Pullquote`
+
+```ts
+interface Pullquote extends Node {
+	type: "pullquote"
+	text: string
+	source?: string
+}
+```
+
+**Pullquote** represents a brief quotation taken from the main text of an
+article.
+
+_non normative note:_ the reason this is string properties and not children is
+that it is more confusing if a pullquote falls back to text than if it
+doesn't. The text is taken from elsewhere in the article.
+
+
+### `ImageSet`
+
+```ts
+interface ImageSet extends Node {
+	type: "image-set"
+	id: string
+	external picture: ImageSetPicture
+	fragmentIdentifier?: string
+}
+```
+
+#### Image types
+
+##### `ImageSetPicture`
+
+```ts
+type ImageSetPicture = {
+	layoutWidth: string
+	imageType: "image" | "graphic"
+	alt: string
+	caption: string
+	credit: string
+	images: Image[]
+	fallbackImage: Image
+}
+```
+
+`ImageSetPicture` defines the data associated with an [ImageSet](#ImageSet)
+
+##### `Image`
+
+```ts
+type Image = {
+	id: string
+	width: number
+	height: number
+	format:
+		| "desktop"
+		| "mobile"
+		| "square"
+		| "square-ftedit"
+		| "standard"
+		| "wide"
+		| "standard-inline"
+	url: string
+	sourceSet?: ImageSource[]
+}
+```
+
+`Image` defines a single use-case of a Picture[#ImageSetPicture].
+
+### `ImageSource`
+
+```ts
+type ImageSource = {
+	url: string
+	width: number
+	dpr: number
+}
+```
+
+**ImageSource** defines a single resource for an [image](#image).
+
+
+### `Recommended`
+
+
+```ts
+interface Recommended extends Node {
+	type: "recommended"
+	id: string
+	heading?: string
+	teaserTitleOverride?: string
+	external teaser: Teaser
+}
+```
+
+- Recommended represents a reference to an FT content that has been recommended
+  by editorial.
+- The `heading`, when present, is used where the purpose of the link is more
+  specific than being "Recommended" (an example might be "In depth")
+- The `teaserTitleOverride`, when present, is used in place of the content title
+  of the link.
+
+_non normative note:_ historically, recommended links used to be a list of up to
+three content items. Testing later showed that having one more prominent link
+was more engaging. Only use `RecommendedList` if you explicitly need to display multiple links.
+
+
+### `RecommendedList`
+
+
+```ts
+interface RecommendedList extends Node {
+	type: "recommended-list";
+	heading?: string;
+	children: Recommended[];
+}
+```
+
+- RecommendedList represents a collection of Recommended items selected by editorial.
+- The `heading`, when present, is used where the purpose of the link is more
+  specific than being "Related Content"
+
+#### Teaser types
+
+These types were extracted from x-dash's
+[x-teaser](https://github.com/Financial-Times/x-dash/blob/3408c268/components/x-teaser/Props.d.ts).
+
+```ts
+type TeaserConcept = {
+	apiUrl: string
+	directType: string
+	id: string
+	predicate: string
+	prefLabel: string
+	type: string
+	types: string[]
+	url: string
+}
+
+type Teaser = {
+	id: string
+	url: string
+	type:
+		| "article"
+		| "video"
+		| "podcast"
+		| "audio"
+		| "package"
+		| "liveblog"
+		| "promoted-content"
+		| "paid-post"
+	title: string
+	publishedDate: string
+	firstPublishedDate: string
+	metaLink?: TeaserConcept
+	metaAltLink?: TeaserConcept
+	metaPrefixText?: string
+	metaSuffixText?: string
+	indicators: {
+		accessLevel: "premium" | "subscribed" | "registered" | "free"
+		isOpinion?: boolean
+		isColumn?: boolean
+		isPodcast?: boolean
+		isEditorsChoice?: boolean
+		isExclusive?: boolean
+		isScoop?: boolean
+	}
+	image: {
+		url: string
+		width: number
+		height: number
+	}
+    clientName?: string
+}
+```
+
+
+### `Tweet`
+
+```ts
+interface Tweet extends Node {
+	id: string
+	type: "tweet"
+	external html: string
+}
+```
+
+**Tweet** represents a tweet.
+
+### `Flourish`
+
+```ts
+
+type FlourishLayoutWidth =  Extract<LayoutWidth, "full-grid" | "in-line">
+
+interface Flourish extends Node {
+	type: "flourish"
+	id: string
+	layoutWidth: FlourishLayoutWidth
+	flourishType: string
+	description?: string
+	timestamp?: string
+	external fallbackImage?: Image
+	fragmentIdentifier?: string
+}
+```
+
+**Flourish** represents a flourish chart.
+
+### `BigNumber`
+
+```ts
+interface BigNumber extends Node {
+	type: "big-number"
+	number: string
+	description: string
+}
+```
+
+**BigNumber** represents a big number.
+
+### `Video`
+
+```ts
+interface Video extends Node {
+	type: "video"
+	id: string
+    external title: string
+}
+```
+
+**Video** represents an FT video referenced by a URL.
+
+The `title` can be obtained by fetching the Video from the content API.
+
+TODO: Figure out how Clips work, how they are different?
+
+### `YoutubeVideo`
+
+```ts
+interface YoutubeVideo extends Node {
+	type: "youtube-video"
+	url: string
+}
+```
+
+**YoutubeVideo** represents a video referenced by a Youtube URL.
+
+### `ScrollyBlock`
+
+```ts
+interface ScrollyBlock extends Parent {
+	type: "scrolly-block"
+	theme: "sans" | "serif"
+	children: ScrollySection[]
+}
+```
+
+**ScrollyBlock** represents a block for telling stories through scroll position.
+
+### `ScrollySection`
+
+```ts
+interface ScrollySection extends Parent {
+	type: "scrolly-section"
+	display: "dark-background" | "light-background"
+	noBox?: true,
+	position: "left" | "center" | "right"
+	transition?: "delay-before" | "delay-after"
+	children: [ScrollyImage, ...ScrollyCopy[]]
+}
+```
+
+**ScrollySection** represents a section of a [ScrollyBlock](#scrollyblock)
+
+### `ScrollyImage`
+
+```ts
+interface ScrollyImage extends Node {
+	type: "scrolly-image"
+	id: string
+	external picture: ImageSetPicture
+}
+```
+
+**ScrollyImage** represents an image contained in a [ScrollySection](#scrollysection)
+
+### `ScrollyCopy`
+
+```ts
+interface ScrollyCopy extends Parent {
+	type: "scrolly-copy"
+	children: (ScrollyHeading | Paragraph)[]
+}
+```
+
+**ScrollyCopy** represents a collection of **ScrollyHeading** or **Paragraph** nodes.
+
+```ts
+interface ScrollyHeading extends Parent {
+	type: "scrolly-heading"
+	level: "chapter" | "heading" | "subheading"
+	children: Text[]
+}
+```
+
+**ScrollyHeading** represents a heading within a **ScrollyCopy** block.
+
+### `Layout`
+
+```ts
+interface Layout extends Parent {
+	   type: "layout"
+	   layoutName: "auto" | "card" | "timeline"
+	   layoutWidth: string
+	   children: [Heading, LayoutImage, ...LayoutSlot[]] | [Heading, ...LayoutSlot[]] | LayoutSlot[]
+}
+```
+
+**Layout** nodes are a generic component used to display a combination of other
+nodes (headings, images and paragraphs) in a visually distinctive way.
+
+The `layoutName` acts as a sort of theme for the component.
+
+### `LayoutSlot`
+
+
+```ts
+interface LayoutSlot extends Parent {
+	type: "layout-slot"
+	children: (Heading | Paragraph | LayoutImage)[]
+}
+```
+
+A **Layout** can contain a number of **LayoutSlots**, which can be arranged
+visually
+
+_Non-normative note_: typically these would be displayed as flex items, so they
+would appear next to each other taking up equal width.
+
+### `LayoutImage`
+
+```ts
+interface LayoutImage extends Node {
+	type: "layout-image"
+	id: string
+	alt: string
+	caption: string
+	credit: string
+	external picture: ImageSetPicture
+}
+```
+
+- **LayoutImage** is a workaround to handle pre-existing articles that were
+  published using `<img>` tags rather than `<ft-content>` images. The reason for
+  this was that in the bodyXML, layout nodes were inside an `<experimental>`
+  tag, and that didn't support publishing `<ft-content>`.
+
+### `Table`
+
+```ts
+type TableColumnSettings = {
+	hideOnMobile: boolean
+	sortable: boolean
+	sortType: 'text' | 'number' | 'date' | 'currency' | 'percent'
+}
+
+type TableLayoutWidth = Extract<LayoutWidth,
+		| 'auto'
+		| 'full-grid'
+		| 'inset-left'
+		| 'inset-right'
+		| 'full-bleed'>
+
+
+interface TableCaption extends Parent {
+	type: 'table-caption'
+	children: Phrasing[]
+}
+
+interface TableCell extends Parent {
+	type: 'table-cell'
+	heading?: boolean
+	columnSpan?: number 
+	rowSpan?: number 
+	children: Phrasing[]
+}
+
+interface TableRow extends Parent {
+	type: 'table-row'
+	children: TableCell[]
+}
+
+interface TableBody extends Parent {
+	type: 'table-body'
+	children: TableRow[]
+}
+
+interface TableFooter extends Parent {
+	type: 'table-footer'
+	children: Phrasing[]
+}
+
+interface Table extends Parent {
+	type: 'table'
+	stripes: boolean
+	compact: boolean
+	layoutWidth: TableLayoutWidth
+	collapseAfterHowManyRows?: number
+	responsiveStyle: 'overflow' | 'flat' | 'scroll'
+	children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody]
+	columnSettings: TableColumnSettings[]
+}
+```
+
+**Table** represents 2d data.
+
+### CustomCodeComponent
+
+```ts
+type CustomCodeComponentAttributes = {
+	[key: string]: string | boolean | undefined
+}
+
+interface CustomCodeComponent extends Node {
+	/** Component type */
+	type: "custom-code-component"
+	/** Id taken from the CAPI url */
+	id: string
+	/** How the component should be presented in the article page according to the column layout system */
+	layoutWidth: LayoutWidth
+	/** Repository for the code of the component in the format "[github org]/[github repo]/[component name]". */
+	external path: string
+	/** Semantic version of the code of the component, e.g. "^0.3.5". */
+	external versionRange: string
+	/** Last date-time when the attributes for this block were modified, in ISO-8601 format. */
+	external attributesLastModified: string
+	/** Configuration data to be passed to the component. */
+	external attributes: CustomCodeComponentAttributes
+}
+```
+
+- The **CustomCodeComponent*** allows for more experimental forms of journalism, allowing editors to provide properties via Spark.
+- The component itself lives off-platform, and an example might be a git repository with a standard structure. This structure would include the rendering instructions, and the data structure that is expected to be provided to the component for it to render if necessary.
+- The basic interface in Spark to make reference to this system above (eg. the git repo URL or a public S3 bucket), and provide some data for it if necessary. This will be the Custom Component storyblock.
+- The data Spark receives from entering a specific ID will be used to render dynamic fields (the `attributes`).
+
+### ImagePair
+
+```ts
+interface ImagePair extends Parent {
+	type: 'image-pair'
+	children: [ImageSet, ImageSet]
+}
+```
+
+**ImagePair** is a set of two images
+
+### Timeline
+
+```ts
+/**
+ * Timeline nodes display a timeline of events in arbitrary order.
+ */
+interface Timeline extends Parent {
+	type: "timeline"
+	/** The title for the timeline */
+	title: string
+	children: TimelineEvent[]
+}
+
+/**
+ * TimelineEvent is the representation of a single event in a Timeline.
+ */
+interface TimelineEvent extends Parent {
+	type: "timeline-event"
+	/** The title of the event */
+	title: string
+	/** Any combination of paragraphs and image sets */
+	children: (Paragraph | ImageSet)[];
+}
+```
+
+### InNumbers
+
+```ts
+/**
+ * A definition has a term and a related description. It is used to describe a term.
+ */
+interface Definition extends Node {
+	type: "definition"
+	term: string
+	description: string
+}
+
+/**
+ * InNumbers represents a set of numbers with related descriptions.
+ */
+interface InNumbers extends Parent {
+	type: "in-numbers"
+	/** The title for the InNumbers */
+	title?: string
+	children: [Definition, Definition, Definition]
+}
+```
+
+### Card
+
+```ts
+/** Allowed children for a card
+*/
+type CardChildren = ImageSet | Exclude<FormattingBlock, Heading>
+/**
+* A card describes a subject with images and text
+*/
+interface Card extends Parent {
+	type: "card"
+	/** The title of this card */
+	title?: string
+	children: CardChildren[]
+}
+```
+
+### InfoBox
+
+```ts
+/**
+* Allowed layout widths for an InfoBox.
+*/
+type InfoBoxLayoutWidth =  Extract<LayoutWidth, "in-line" | "inset-left">
+/**
+* An info box describes a subject via a single card
+*/
+interface InfoBox extends Parent {
+	type: "info-box"
+	/** The layout width supported by this node */
+	layoutWidth: InfoBoxLayoutWidth
+	children: [Card]
+}
+```
+
+### InfoPair
+
+```ts
+/**
+* InfoPair provides exactly two cards.
+*/
+interface InfoPair extends Parent {
+	type: "info-pair"
+	/** The title of the info pair */
+	title?: string
+	children: [Card, Card]
+}
+```
+
+
+
+
+
+
+
