@@ -82,6 +82,8 @@ func transformNode(n contenttree.Node) (string, error) {
 		return transformNode(n.GetEmbedded())
 	case contenttree.TimelineEventChildType:
 		return transformNode(n.GetEmbedded())
+	case contenttree.CardChildType:
+		return transformNode(n.GetEmbedded())
 	case contenttree.RecommendedType:
 		return "", nil
 	case contenttree.RecommendedListType:
@@ -91,14 +93,12 @@ func transformNode(n contenttree.Node) (string, error) {
 		if !ok {
 			return "", errors.New("failed to parse node to text")
 		}
-
 		return text.Value, nil
 	case contenttree.RootType:
 		root, ok := n.(*contenttree.Root)
 		if !ok {
 			return "", errors.New("failed to parse node to root")
 		}
-
 		return transformNode(root.Body)
 	case contenttree.BigNumberType:
 		bigNumber, ok := n.(*contenttree.BigNumber)
@@ -142,8 +142,33 @@ func transformNode(n contenttree.Node) (string, error) {
 		if err != nil {
 			return "", err
 		}
-
 		return fmt.Sprintf("%s %s ", te.Title, resultChildren), nil
+	case contenttree.CardType:
+		card, ok := n.(*contenttree.Card)
+		if !ok {
+			return "", errors.New("failed to parse node to Card")
+		}
+		resultChildren, err := transformChildren(card.GetChildren())
+		if err != nil {
+			return "", err
+		}
+		if card.Title == "" {
+			return resultChildren, nil
+		}
+		return fmt.Sprintf("%s %s", card.Title, resultChildren), nil
+	case contenttree.InfoPairType:
+		ip, ok := n.(*contenttree.InfoPair)
+		if !ok {
+			return "", errors.New("failed to parse node to InfoPair")
+		}
+		resultChildren, err := transformChildren(ip.GetChildren())
+		if err != nil {
+			return "", err
+		}
+		if ip.Title == "" {
+			return resultChildren, nil
+		}
+		return fmt.Sprintf("%s %s", ip.Title, resultChildren), nil
 	default:
 		result, err := transformChildren(n.GetChildren())
 		if err != nil {
