@@ -1,0 +1,190 @@
+{
+  "type": "root",
+  "body": {
+    "type": "body",
+    "children": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "Lorel"
+          },
+          {
+            "type": "link",
+            "children": [
+              {
+                "type": "text",
+                "value": "Link"
+              }
+            ],
+            "title": "t1",
+            "url": "http://ft.com/content/8c4ad03c-75cf-4af7-bfd3-a8ebf620a458"
+          },
+          {
+            "type": "find-out-more-link",
+            "children": [
+              {
+                "type": "text",
+                "value": "Link with anchor style tag"
+              }
+            ],
+            "title": "t2",
+            "url": "http://ft.com/content/8c4ad03c-75cf-4af7-bfd3-a8ebf620a458"
+          },
+          {
+            "type": "text",
+            "value": "ipsum"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "emphasis",
+            "children": [
+              {
+                "type": "find-out-more-link",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Emphasis link"
+                  }
+                ],
+                "title": "t3",
+                "url": "http://ft.com/content/8c4ad03c-75cf-4af7-bfd3-a8ebf620a458"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "strong",
+            "children": [
+              {
+                "type": "find-out-more-link",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Strong link"
+                  }
+                ],
+                "title": "t4",
+                "url": "http://ft.com/content/8c4ad03c-75cf-4af7-bfd3-a8ebf620a458"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "strikethrough",
+            "children": [
+              {
+                "type": "find-out-more-link",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Strike link"
+                  }
+                ],
+                "title": "t5",
+                "url": "http://ft.com/content/8c4ad03c-75cf-4af7-bfd3-a8ebf620a458"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "children": [
+          {
+            "type": "list-item",
+            "children": [
+              {
+                "type": "find-out-more-link",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "List direct link"
+                  }
+                ],
+                "title": "t6",
+                "url": "http://ft.com/content/8c4ad03c-75cf-4af7-bfd3-a8ebf620a458"
+              }
+            ]
+          },
+          {
+            "type": "list-item",
+            "children": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "List para "
+                  },
+                  {
+                    "type": "find-out-more-link",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "List para link"
+                      }
+                    ],
+                    "title": "t7",
+                    "url": "http://ft.com/content/8c4ad03c-75cf-4af7-bfd3-a8ebf620a458"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "blockquote",
+        "children": [
+          {
+            "type": "find-out-more-link",
+            "children": [
+              {
+                "type": "text",
+                "value": "Quote direct link"
+              }
+            ],
+            "title": "t8",
+            "url": "http://ft.com/content/8c4ad03c-75cf-4af7-bfd3-a8ebf620a458"
+          },
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Quote para "
+              },
+              {
+                "type": "find-out-more-link",
+                "children": [
+                  {
+                    "type": "text",
+                    "value": "Quote para link"
+                  }
+                ],
+                "title": "t9",
+                "url": "http://ft.com/content/8c4ad03c-75cf-4af7-bfd3-a8ebf620a458"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "version": 1
+  }
+}
