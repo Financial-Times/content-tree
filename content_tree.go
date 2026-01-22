@@ -39,6 +39,7 @@ const (
 	EmphasisType            = "emphasis"
 	StrikethroughType       = "strikethrough"
 	LinkType                = "link"
+	FindOutMoreLinkType     = "find-out-more-link"
 	ListType                = "list"
 	ListItemType            = "list-item"
 	BlockquoteType          = "blockquote"
@@ -197,6 +198,7 @@ type BlockquoteChild struct {
 	*Emphasis
 	*Strikethrough
 	*Link
+	*FindOutMoreLink
 }
 
 func (n *BlockquoteChild) GetType() string {
@@ -225,6 +227,9 @@ func (n *BlockquoteChild) GetEmbedded() Node {
 	if n.Link != nil {
 		return n.Link
 	}
+	if n.FindOutMoreLink != nil {
+		return n.FindOutMoreLink
+	}
 	return nil
 }
 
@@ -249,6 +254,9 @@ func (n *BlockquoteChild) GetChildren() []Node {
 	}
 	if n.Link != nil {
 		return n.Link.GetChildren()
+	}
+	if n.FindOutMoreLink != nil {
+		return n.FindOutMoreLink.GetChildren()
 	}
 	return nil
 }
@@ -304,6 +312,12 @@ func (n *BlockquoteChild) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		n.Link = &v
+	case FindOutMoreLinkType:
+		var v FindOutMoreLink
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.FindOutMoreLink = &v
 	default:
 		return fmt.Errorf("failed to unmarshal BlockquoteChild from %s: %w", data, ErrUnmarshalInvalidNode)
 	}
@@ -326,6 +340,8 @@ func (n *BlockquoteChild) MarshalJSON() ([]byte, error) {
 		return json.Marshal(n.Strikethrough)
 	case n.Link != nil:
 		return json.Marshal(n.Link)
+	case n.FindOutMoreLink != nil:
+		return json.Marshal(n.FindOutMoreLink)
 	default:
 		return []byte(`{}`), nil
 	}
@@ -348,6 +364,8 @@ func makeBlockquoteChild(n Node) (*BlockquoteChild, error) {
 		return &BlockquoteChild{Strikethrough: n.(*Strikethrough)}, nil
 	case LinkType:
 		return &BlockquoteChild{Link: n.(*Link)}, nil
+	case FindOutMoreLinkType:
+		return &BlockquoteChild{FindOutMoreLink: n.(*FindOutMoreLink)}, nil
 	default:
 		return nil, ErrInvalidChildType
 	}
@@ -1275,11 +1293,10 @@ func makeLayoutSlotChild(n Node) (*LayoutSlotChild, error) {
 }
 
 type Link struct {
-	Type      string      `json:"type"`
-	Children  []*Phrasing `json:"children"`
-	Title     string      `json:"title"`
-	URL       string      `json:"url"`
-	StyleType string      `json:"styleType,omitempty"`
+	Type     string      `json:"type"`
+	Children []*Phrasing `json:"children"`
+	Title    string      `json:"title"`
+	URL      string      `json:"url"`
 }
 
 func (n *Link) GetType() string {
@@ -1299,6 +1316,38 @@ func (n *Link) GetChildren() []Node {
 }
 
 func (n *Link) AppendChild(child Node) error {
+	p, err := makePhrasing(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, p)
+	return nil
+}
+
+type FindOutMoreLink struct {
+	Type     string      `json:"type"`
+	Children []*Phrasing `json:"children"`
+	Title    string      `json:"title"`
+	URL      string      `json:"url"`
+}
+
+func (n *FindOutMoreLink) GetType() string {
+	return n.Type
+}
+
+func (n *FindOutMoreLink) GetEmbedded() Node {
+	return nil
+}
+
+func (n *FindOutMoreLink) GetChildren() []Node {
+	result := make([]Node, len(n.Children))
+	for i, v := range n.Children {
+		result[i] = v
+	}
+	return result
+}
+
+func (n *FindOutMoreLink) AppendChild(child Node) error {
 	p, err := makePhrasing(child)
 	if err != nil {
 		return err
@@ -1376,6 +1425,7 @@ type ListItemChild struct {
 	*Emphasis
 	*Strikethrough
 	*Link
+	*FindOutMoreLink
 }
 
 func (n *ListItemChild) GetType() string {
@@ -1404,6 +1454,9 @@ func (n *ListItemChild) GetEmbedded() Node {
 	if n.Link != nil {
 		return n.Link
 	}
+	if n.FindOutMoreLink != nil {
+		return n.FindOutMoreLink
+	}
 	return nil
 }
 
@@ -1428,6 +1481,9 @@ func (n *ListItemChild) GetChildren() []Node {
 	}
 	if n.Link != nil {
 		return n.Link.GetChildren()
+	}
+	if n.FindOutMoreLink != nil {
+		return n.FindOutMoreLink.GetChildren()
 	}
 	return nil
 }
@@ -1486,6 +1542,12 @@ func (n *ListItemChild) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		n.Link = &v
+	case FindOutMoreLinkType:
+		var v FindOutMoreLink
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.FindOutMoreLink = &v
 	default:
 		return fmt.Errorf("failed to unmarshal ListItemChild from %s: %w", data, ErrUnmarshalInvalidNode)
 	}
@@ -1508,6 +1570,8 @@ func (n *ListItemChild) MarshalJSON() ([]byte, error) {
 		return json.Marshal(n.Strikethrough)
 	case n.Link != nil:
 		return json.Marshal(n.Link)
+	case n.FindOutMoreLink != nil:
+		return json.Marshal(n.FindOutMoreLink)
 	default:
 		return []byte(`{}`), nil
 	}
@@ -1530,6 +1594,8 @@ func makeListItemChild(n Node) (*ListItemChild, error) {
 		return &ListItemChild{Strikethrough: n.(*Strikethrough)}, nil
 	case LinkType:
 		return &ListItemChild{Link: n.(*Link)}, nil
+	case FindOutMoreLinkType:
+		return &ListItemChild{FindOutMoreLink: n.(*FindOutMoreLink)}, nil
 	default:
 		return nil, ErrInvalidChildType
 	}
@@ -1572,6 +1638,7 @@ type Phrasing struct {
 	*Emphasis
 	*Strikethrough
 	*Link
+	*FindOutMoreLink
 }
 
 func (n *Phrasing) GetType() string {
@@ -1597,6 +1664,9 @@ func (n *Phrasing) GetEmbedded() Node {
 	if n.Link != nil {
 		return n.Link
 	}
+	if n.FindOutMoreLink != nil {
+		return n.FindOutMoreLink
+	}
 	return nil
 }
 
@@ -1618,6 +1688,9 @@ func (n *Phrasing) GetChildren() []Node {
 	}
 	if n.Link != nil {
 		return n.Link.GetChildren()
+	}
+	if n.FindOutMoreLink != nil {
+		return n.FindOutMoreLink.GetChildren()
 	}
 	return nil
 }
@@ -1667,6 +1740,12 @@ func (n *Phrasing) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		n.Link = &v
+	case FindOutMoreLinkType:
+		var v FindOutMoreLink
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.FindOutMoreLink = &v
 	default:
 		return fmt.Errorf("failed to unmarshal Phrasing from %s: %w", data, ErrUnmarshalInvalidNode)
 	}
@@ -1687,6 +1766,8 @@ func (n *Phrasing) MarshalJSON() ([]byte, error) {
 		return json.Marshal(n.Strikethrough)
 	case n.Link != nil:
 		return json.Marshal(n.Link)
+	case n.FindOutMoreLink != nil:
+		return json.Marshal(n.FindOutMoreLink)
 	default:
 		return []byte(`{}`), nil
 	}
@@ -1707,6 +1788,8 @@ func makePhrasing(n Node) (*Phrasing, error) {
 		return &Phrasing{Strikethrough: n.(*Strikethrough)}, nil
 	case LinkType:
 		return &Phrasing{Link: n.(*Link)}, nil
+	case FindOutMoreLinkType:
+		return &Phrasing{FindOutMoreLink: n.(*FindOutMoreLink)}, nil
 	default:
 		return nil, ErrInvalidChildType
 	}

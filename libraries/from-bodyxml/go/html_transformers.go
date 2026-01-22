@@ -151,12 +151,20 @@ var defaultTransformers = map[string]transformer{
 				ID:   url,
 			}
 		}
+		if attr(a, "data-anchor-style") == "onward-journey" {
+			return &contenttree.FindOutMoreLink{
+				Type:     contenttree.FindOutMoreLinkType,
+				Title:    attr(a, "title"),
+				URL:      attr(a, "href"),
+				Children: []*contenttree.Phrasing{},
+			}
+		}
+
 		return &contenttree.Link{
-			Type:      contenttree.LinkType,
-			Title:     attr(a, "title"),
-			URL:       attr(a, "href"),
-			Children:  []*contenttree.Phrasing{},
-			StyleType: attr(a, "data-anchor-style"),
+			Type:     contenttree.LinkType,
+			Title:    attr(a, "title"),
+			URL:      attr(a, "href"),
+			Children: []*contenttree.Phrasing{},
 		}
 	},
 	"ol": func(ol *etree.Element) contenttree.Node {
