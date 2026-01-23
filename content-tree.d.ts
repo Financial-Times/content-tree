@@ -22,7 +22,7 @@ export declare namespace ContentTree {
         type: "text";
         value: string;
     }
-    type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
+    type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | FindOutMoreLink;
     interface Break extends Node {
         type: "break";
     }
@@ -56,7 +56,12 @@ export declare namespace ContentTree {
         url: string;
         title: string;
         children: Phrasing[];
-        styleType?: 'onward-journey';
+    }
+    interface FindOutMoreLink extends Parent {
+        type: "find-out-more-link";
+        url: string;
+        title: string;
+        children: Phrasing[];
     }
     interface List extends Parent {
         type: "list";
@@ -385,7 +390,7 @@ export declare namespace ContentTree {
             type: "text";
             value: string;
         }
-        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
+        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | FindOutMoreLink;
         interface Break extends Node {
             type: "break";
         }
@@ -419,7 +424,12 @@ export declare namespace ContentTree {
             url: string;
             title: string;
             children: Phrasing[];
-            styleType?: 'onward-journey';
+        }
+        interface FindOutMoreLink extends Parent {
+            type: "find-out-more-link";
+            url: string;
+            title: string;
+            children: Phrasing[];
         }
         interface List extends Parent {
             type: "list";
@@ -749,7 +759,7 @@ export declare namespace ContentTree {
             type: "text";
             value: string;
         }
-        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
+        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | FindOutMoreLink;
         interface Break extends Node {
             type: "break";
         }
@@ -783,7 +793,12 @@ export declare namespace ContentTree {
             url: string;
             title: string;
             children: Phrasing[];
-            styleType?: 'onward-journey';
+        }
+        interface FindOutMoreLink extends Parent {
+            type: "find-out-more-link";
+            url: string;
+            title: string;
+            children: Phrasing[];
         }
         interface List extends Parent {
             type: "list";
@@ -1098,7 +1113,7 @@ export declare namespace ContentTree {
             type: "text";
             value: string;
         }
-        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link;
+        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | FindOutMoreLink;
         interface Break extends Node {
             type: "break";
         }
@@ -1132,7 +1147,12 @@ export declare namespace ContentTree {
             url: string;
             title: string;
             children: Phrasing[];
-            styleType?: 'onward-journey';
+        }
+        interface FindOutMoreLink extends Parent {
+            type: "find-out-more-link";
+            url: string;
+            title: string;
+            children: Phrasing[];
         }
         interface List extends Parent {
             type: "list";

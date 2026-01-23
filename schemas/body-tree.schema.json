@@ -50,6 +50,9 @@
                             },
                             {
                                 "$ref": "#/definitions/ContentTree.transit.Link"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.FindOutMoreLink"
                             }
                         ]
                     },
@@ -275,6 +278,35 @@
             "required": [
                 "children",
                 "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.FindOutMoreLink": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.transit.Phrasing"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "find-out-more-link",
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "title",
+                "type",
+                "url"
             ],
             "type": "object"
         },
@@ -659,10 +691,6 @@
                     "type": "array"
                 },
                 "data": {},
-                "styleType": {
-                    "const": "onward-journey",
-                    "type": "string"
-                },
                 "title": {
                     "type": "string"
                 },
@@ -733,6 +761,9 @@
                             },
                             {
                                 "$ref": "#/definitions/ContentTree.transit.Link"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.FindOutMoreLink"
                             }
                         ]
                     },
@@ -790,6 +821,9 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.Link"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.FindOutMoreLink"
                 }
             ]
         },

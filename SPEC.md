@@ -122,7 +122,7 @@ interface Text extends Node {
 ### `Phrasing`
 
 ```ts
-type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link
+type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | FindOutMoreLink
 ```
 
 A phrasing node cannot have ancestor of the same type.
@@ -224,11 +224,24 @@ interface Link extends Parent {
 	url: string
 	title: string
 	children: Phrasing[]
-	styleType?: 'onward-journey'
 }
 ```
 
 **Link** represents a hyperlink.
+
+
+### `FindOutMoreLink`
+
+```ts
+interface FindOutMoreLink extends Parent {
+	type: "find-out-more-link"
+	url: string
+	title: string
+	children: Phrasing[]
+}
+```
+
+**FindOutMoreLink** represents a type of link for onward journey.
 
 ### `List`
 
