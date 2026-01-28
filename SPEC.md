@@ -558,23 +558,23 @@ interface YoutubeVideo extends Node {
 interface ClipSet extends Node {
 	type: "clip-set"
 	id: string
-	autoplay: boolean
-	loop: boolean
-	muted: boolean
 	layoutWidth: ClipSetLayoutWidth
+	autoplay?: boolean
 	fragmentIdentifier?: string
-	external noAudio: boolean
-	external caption: string
-	external credits: string
-	external description: string
-	external displayTitle: string
-	external systemTitle: string
-	external source: string
-	external contentWarning: string[]
-	external publishedDate: string
-	external subtitle: string
+	loop?: boolean
+	muted?: boolean
 	external clips: Clip[]
-	external accessibility: ClipAccessibility
+	external publishedDate: string
+	external accessibility?: ClipAccessibility
+	external caption?: string
+	external contentWarning?: string[]
+	external credits?: string
+	external description?: string
+	external displayTitle?: string
+	external noAudio?: boolean
+	external systemTitle?: string
+	external source?: string
+	external subtitle?: string
 }
 ```
 
