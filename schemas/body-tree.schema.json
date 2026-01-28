@@ -243,11 +243,8 @@
                 }
             },
             "required": [
-                "autoplay",
                 "id",
                 "layoutWidth",
-                "loop",
-                "muted",
                 "type"
             ],
             "type": "object"

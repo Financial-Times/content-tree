@@ -390,23 +390,10 @@
                 }
             },
             "required": [
-                "accessibility",
-                "autoplay",
-                "caption",
                 "clips",
-                "contentWarning",
-                "credits",
-                "description",
-                "displayTitle",
                 "id",
                 "layoutWidth",
-                "loop",
-                "muted",
-                "noAudio",
                 "publishedDate",
-                "source",
-                "subtitle",
-                "systemTitle",
                 "type"
             ],
             "type": "object"
