@@ -185,7 +185,7 @@ To make a change to the content tree spec:
 - Clone this repo and run `npm install`
 - Update [SPEC.md](./SPEC.md) with your changes:
 	- To add a new formatting node, add the definition under the [`Formatting Blocks`](./SPEC.md#formatting-blocks). If it is formatting that can be applied to text in a paragraph, ensure it is added to the [`Phrasing`](./SPEC.md#phrasing) type
-	- To add a new storyblock, add the definition under the [`Storyblocks`](./SPEC.md#storyblocks). If the block can appear at the top level of the article body, ensure it is also added to the [`BodyBlock`](./SPEC.md#bodyblock) type definition
+	- To add a new storyblock, add the definition under the [`Storyblocks`](./SPEC.md#storyblocks).
 - Run `npm run build` to update `content-tree.d.ts` and (if required) the `schemas` files
 
 Once the PR is created, liaise with the [Content & Metadata](https://biz-ops.in.ft.com/Team/content) team to ensure the relevant changes are made in the Go libraries and transformers.
