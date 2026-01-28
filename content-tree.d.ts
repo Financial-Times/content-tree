@@ -192,23 +192,23 @@ export declare namespace ContentTree {
     interface ClipSet extends Node {
         type: "clip-set";
         id: string;
-        autoplay: boolean;
-        loop: boolean;
-        muted: boolean;
         layoutWidth: ClipSetLayoutWidth;
+        autoplay?: boolean;
         fragmentIdentifier?: string;
-        noAudio: boolean;
-        caption: string;
-        credits: string;
-        description: string;
-        displayTitle: string;
-        systemTitle: string;
-        source: string;
-        contentWarning: string[];
-        publishedDate: string;
-        subtitle: string;
+        loop?: boolean;
+        muted?: boolean;
         clips: Clip[];
-        accessibility: ClipAccessibility;
+        publishedDate: string;
+        accessibility?: ClipAccessibility;
+        caption?: string;
+        contentWarning?: string[];
+        credits?: string;
+        description?: string;
+        displayTitle?: string;
+        noAudio?: boolean;
+        systemTitle?: string;
+        source?: string;
+        subtitle?: string;
     }
     type Clip = {
         type: "clip";
@@ -606,23 +606,23 @@ export declare namespace ContentTree {
         interface ClipSet extends Node {
             type: "clip-set";
             id: string;
-            autoplay: boolean;
-            loop: boolean;
-            muted: boolean;
             layoutWidth: ClipSetLayoutWidth;
+            autoplay?: boolean;
             fragmentIdentifier?: string;
-            noAudio: boolean;
-            caption: string;
-            credits: string;
-            description: string;
-            displayTitle: string;
-            systemTitle: string;
-            source: string;
-            contentWarning: string[];
-            publishedDate: string;
-            subtitle: string;
+            loop?: boolean;
+            muted?: boolean;
             clips: Clip[];
-            accessibility: ClipAccessibility;
+            publishedDate: string;
+            accessibility?: ClipAccessibility;
+            caption?: string;
+            contentWarning?: string[];
+            credits?: string;
+            description?: string;
+            displayTitle?: string;
+            noAudio?: boolean;
+            systemTitle?: string;
+            source?: string;
+            subtitle?: string;
         }
         type Clip = {
             type: "clip";
@@ -1016,11 +1016,11 @@ export declare namespace ContentTree {
         interface ClipSet extends Node {
             type: "clip-set";
             id: string;
-            autoplay: boolean;
-            loop: boolean;
-            muted: boolean;
             layoutWidth: ClipSetLayoutWidth;
+            autoplay?: boolean;
             fragmentIdentifier?: string;
+            loop?: boolean;
+            muted?: boolean;
         }
         type Clip = {
             type: "clip";
@@ -1409,23 +1409,23 @@ export declare namespace ContentTree {
         interface ClipSet extends Node {
             type: "clip-set";
             id: string;
-            autoplay: boolean;
-            loop: boolean;
-            muted: boolean;
             layoutWidth: ClipSetLayoutWidth;
+            autoplay?: boolean;
             fragmentIdentifier?: string;
-            noAudio?: boolean;
+            loop?: boolean;
+            muted?: boolean;
+            clips?: Clip[];
+            publishedDate?: string;
+            accessibility?: ClipAccessibility;
             caption?: string;
+            contentWarning?: string[];
             credits?: string;
             description?: string;
             displayTitle?: string;
+            noAudio?: boolean;
             systemTitle?: string;
             source?: string;
-            contentWarning?: string[];
-            publishedDate?: string;
             subtitle?: string;
-            clips?: Clip[];
-            accessibility?: ClipAccessibility;
         }
         type Clip = {
             type: "clip";
