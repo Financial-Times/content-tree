@@ -1,0 +1,18 @@
+{
+  "type": "root",
+  "body": {
+    "type": "body",
+    "children": [
+      {
+        "type": "clip-set",
+        "id": "daecfa57-a12a-468b-8045-ad32cfa79b3b",
+        "loop": false,
+        "muted": false,
+        "autoplay": false,
+        "layoutWidth": "in-line",
+        "clips": []
+      }
+    ],
+    "version": 1
+  }
+}

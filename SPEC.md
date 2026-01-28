@@ -5,6 +5,23 @@
 These abstract helper types define special types a [Parent](#parent) can use as
 [children][term-child].
 
+
+### `AssetFormat`
+
+```ts
+type AssetFormat =
+	| "desktop"
+	| "mobile"
+	| "square"
+	| "square-ftedit"
+	| "standard"
+	| "wide"
+	| "standard-inline"
+
+```
+
+`AssetFormat` defines the chosen responsive setting for an asset like an image or clip
+
 ### `LayoutWidth`
 
 ```ts
@@ -21,6 +38,30 @@ type LayoutWidth =
 
 `LayoutWidth` defines how the component should be presented in the article page according to the column layout system.
 
+### `AVSource`
+
+```ts
+type AVSource = {
+	binaryUrl: string
+	mediaType: string
+	audioCodec?: string
+	duration?: number
+}
+```
+
+`AVSource` defines the properties for the source of an audio or video asset
+
+### `VideoSource`
+
+```ts
+type VideoSource = AVSource & {
+	pixelHeight?: number
+	pixelWidth?: number
+	videoCodec?: string
+}
+```
+
+`VideoSource` extends AVSource to add in the properties relevant just to videos
 
 ## Core Nodes
 
@@ -288,6 +329,7 @@ type StoryBlock =
 	| Layout
 	| Pullquote
 	| ScrollyBlock
+	| ClipSet
 	| Table
 	| Recommended
 	| RecommendedList
@@ -358,14 +400,7 @@ type Image = {
 	id: string
 	width: number
 	height: number
-	format:
-		| "desktop"
-		| "mobile"
-		| "square"
-		| "square-ftedit"
-		| "standard"
-		| "wide"
-		| "standard-inline"
+	format: AssetFormat
 	url: string
 	sourceSet?: ImageSource[]
 }
@@ -539,8 +574,6 @@ interface Video extends Node {
 
 The `title` can be obtained by fetching the Video from the content API.
 
-TODO: Figure out how Clips work, how they are different?
-
 ### `YoutubeVideo`
 
 ```ts
@@ -551,6 +584,58 @@ interface YoutubeVideo extends Node {
 ```
 
 **YoutubeVideo** represents a video referenced by a Youtube URL.
+
+### `ClipSet`
+```ts
+interface ClipSet extends Node {
+	type: "clip-set"
+	id: string
+	layoutWidth: ClipSetLayoutWidth
+	autoplay?: boolean
+	fragmentIdentifier?: string
+	loop?: boolean
+	muted?: boolean
+	external clips: Clip[]
+	external publishedDate: string
+	external accessibility?: ClipAccessibility
+	external caption?: string
+	external contentWarning?: string[]
+	external credits?: string
+	external description?: string
+	external displayTitle?: string
+	external noAudio?: boolean
+	external systemTitle?: string
+	external source?: string
+	external subtitle?: string
+}
+
+type Clip = {
+	id: string
+	dataSource: VideoSource[]
+	format?: Extract<AssetFormat, "standard-inline" | "mobile">
+	poster?: string
+}
+
+/** Clip captions are files that provide the text captions on the video and their synchronisation timings  */
+type ClipCaption = {
+	/** Caption file content type */
+	mediaType?: string
+	/** Caption file location */
+	url?: string
+}
+
+type ClipAccessibility = {
+	captions?: ClipCaption[]
+	transcript?: Body
+}
+
+type ClipSetLayoutWidth = Extract<LayoutWidth, "in-line" | "mid-grid" | "full-grid">
+```
+
+**ClipSet** represents a short piece of possibly-looping video content for an article.
+
+The external fields are derived from the separately published [ClipSet](https://api.ft.com/schemas/clip-set.json) and [Clip](https://api.ft.com/schemas/clip.json) objects in the Content API.
+
 
 ### `ScrollyBlock`
 
