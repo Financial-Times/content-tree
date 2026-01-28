@@ -6,7 +6,7 @@ orbs:
 references:
   default_container_config: &default_container_config
     docker:
-      - image: cimg/node:lts
+      - image: cimg/node:22.17.0
 
 jobs:
   smoke-test:
