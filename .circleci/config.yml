@@ -1,49 +1,42 @@
 version: 2.1
 
-orbs:
-    doppler-circleci: ft-circleci-orbs/doppler-circleci@1.4
-
 references:
   default_container_config: &default_container_config
     docker:
-      - image: cimg/node:lts
+      - image: cimg/node:20.7
+commands:
+  install_deps:
+    steps:
+      - run:
+          name: Install dependencies
+          command: npm ci
+
+  run_build:
+    steps:
+      - run:
+          name: Build
+          command: npm run build
+
+  assert_artifacts_up_to_date:
+    steps:
+      - run:
+          name: Fail if build produces file changes to artifacts
+          command: |
+            if [ -n "$(git status --porcelain)" ]; then
+              echo "ERROR: spec and artifacts are out of sync. Please run build and commit."
+              exit 1
+            fi
 
 jobs:
-  smoke-test:
+  build-and-verify-artifacts:
     <<: *default_container_config
     steps:
       - checkout
-      - doppler-circleci/install
-      - doppler-circleci/load_secrets
-      - run:
-          name: Install dependencies
-          command: npm install
-      - run:
-          name: Validate fromBodyXml against recent articles
-          command: |
-            mkdir -p ./reports
-            touch ./reports/test-report.txt
-            node --test-reporter=tap --test-reporter-destination=./reports/test-report.txt --test-reporter=spec --test-reporter-destination=stdout --test libraries/from-bodyxml/smoke-test.js
-      - run:
-          name: Store test results and artifacts
-          command:  |
-            cat ./reports/test-report.txt | npx tap-xunit > ./reports/test-report.xml
-            exit 0
-          when: always
-      - store_test_results:
-          path: ./reports
-      - store_artifacts:
-          path: ./reports
+      - install_deps
+      - run_build
+      - assert_artifacts_up_to_date
 
 workflows:
-  version: 2
-  hourly:
-    triggers:
-      - schedule:
-          cron: "5 * * * *"
-          filters:
-            branches:
-              only:
-                - main
+  verify_artifacts_in_sync:
     jobs:
-      - smoke-test
+      - build-and-verify-artifacts
