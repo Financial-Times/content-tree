@@ -76,7 +76,7 @@ export declare namespace ContentTree {
         type: "blockquote";
         children: (Paragraph | Phrasing)[];
     }
-    type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+    type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
     interface Pullquote extends Node {
         type: "pullquote";
         text: string;
@@ -189,6 +189,52 @@ export declare namespace ContentTree {
         type: "youtube-video";
         url: string;
     }
+    interface ClipSet extends Node {
+        type: "clip-set";
+        id: string;
+        layoutWidth: ClipSetLayoutWidth;
+        autoplay?: boolean;
+        fragmentIdentifier?: string;
+        loop?: boolean;
+        muted?: boolean;
+        clips: Clip[];
+        publishedDate: string;
+        accessibility?: ClipAccessibility;
+        caption?: string;
+        contentWarning?: string[];
+        credits?: string;
+        description?: string;
+        displayTitle?: string;
+        noAudio?: boolean;
+        systemTitle?: string;
+        source?: string;
+        subtitle?: string;
+    }
+    type Clip = {
+        type: "clip";
+        id: string;
+        dataSource: ClipSource[];
+        format?: "standard-inline" | "mobile";
+        poster?: string;
+    };
+    type ClipSource = {
+        binaryUrl: string;
+        mediaType: string;
+        audioCodec?: string;
+        duration?: number;
+        pixelHeight?: number;
+        pixelWidth?: number;
+        videoCodec?: string;
+    };
+    type ClipCaption = {
+        mediaType?: string;
+        url?: string;
+    };
+    type ClipAccessibility = {
+        captions?: ClipCaption[];
+        transcript?: Body;
+    };
+    type ClipSetLayoutWidth = Extract<LayoutWidth, "in-line" | "mid-grid" | "full-grid">;
     interface ScrollyBlock extends Parent {
         type: "scrolly-block";
         theme: "sans" | "serif";
@@ -444,7 +490,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -557,6 +603,52 @@ export declare namespace ContentTree {
             type: "youtube-video";
             url: string;
         }
+        interface ClipSet extends Node {
+            type: "clip-set";
+            id: string;
+            layoutWidth: ClipSetLayoutWidth;
+            autoplay?: boolean;
+            fragmentIdentifier?: string;
+            loop?: boolean;
+            muted?: boolean;
+            clips: Clip[];
+            publishedDate: string;
+            accessibility?: ClipAccessibility;
+            caption?: string;
+            contentWarning?: string[];
+            credits?: string;
+            description?: string;
+            displayTitle?: string;
+            noAudio?: boolean;
+            systemTitle?: string;
+            source?: string;
+            subtitle?: string;
+        }
+        type Clip = {
+            type: "clip";
+            id: string;
+            dataSource: ClipSource[];
+            format?: "standard-inline" | "mobile";
+            poster?: string;
+        };
+        type ClipSource = {
+            binaryUrl: string;
+            mediaType: string;
+            audioCodec?: string;
+            duration?: number;
+            pixelHeight?: number;
+            pixelWidth?: number;
+            videoCodec?: string;
+        };
+        type ClipCaption = {
+            mediaType?: string;
+            url?: string;
+        };
+        type ClipAccessibility = {
+            captions?: ClipCaption[];
+            transcript?: Body;
+        };
+        type ClipSetLayoutWidth = Extract<LayoutWidth, "in-line" | "mid-grid" | "full-grid">;
         interface ScrollyBlock extends Parent {
             type: "scrolly-block";
             theme: "sans" | "serif";
@@ -813,7 +905,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -921,6 +1013,40 @@ export declare namespace ContentTree {
             type: "youtube-video";
             url: string;
         }
+        interface ClipSet extends Node {
+            type: "clip-set";
+            id: string;
+            layoutWidth: ClipSetLayoutWidth;
+            autoplay?: boolean;
+            fragmentIdentifier?: string;
+            loop?: boolean;
+            muted?: boolean;
+        }
+        type Clip = {
+            type: "clip";
+            id: string;
+            dataSource: ClipSource[];
+            format?: "standard-inline" | "mobile";
+            poster?: string;
+        };
+        type ClipSource = {
+            binaryUrl: string;
+            mediaType: string;
+            audioCodec?: string;
+            duration?: number;
+            pixelHeight?: number;
+            pixelWidth?: number;
+            videoCodec?: string;
+        };
+        type ClipCaption = {
+            mediaType?: string;
+            url?: string;
+        };
+        type ClipAccessibility = {
+            captions?: ClipCaption[];
+            transcript?: Body;
+        };
+        type ClipSetLayoutWidth = Extract<LayoutWidth, "in-line" | "mid-grid" | "full-grid">;
         interface ScrollyBlock extends Parent {
             type: "scrolly-block";
             theme: "sans" | "serif";
@@ -1167,7 +1293,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -1280,6 +1406,52 @@ export declare namespace ContentTree {
             type: "youtube-video";
             url: string;
         }
+        interface ClipSet extends Node {
+            type: "clip-set";
+            id: string;
+            layoutWidth: ClipSetLayoutWidth;
+            autoplay?: boolean;
+            fragmentIdentifier?: string;
+            loop?: boolean;
+            muted?: boolean;
+            clips?: Clip[];
+            publishedDate?: string;
+            accessibility?: ClipAccessibility;
+            caption?: string;
+            contentWarning?: string[];
+            credits?: string;
+            description?: string;
+            displayTitle?: string;
+            noAudio?: boolean;
+            systemTitle?: string;
+            source?: string;
+            subtitle?: string;
+        }
+        type Clip = {
+            type: "clip";
+            id: string;
+            dataSource: ClipSource[];
+            format?: "standard-inline" | "mobile";
+            poster?: string;
+        };
+        type ClipSource = {
+            binaryUrl: string;
+            mediaType: string;
+            audioCodec?: string;
+            duration?: number;
+            pixelHeight?: number;
+            pixelWidth?: number;
+            videoCodec?: string;
+        };
+        type ClipCaption = {
+            mediaType?: string;
+            url?: string;
+        };
+        type ClipAccessibility = {
+            captions?: ClipCaption[];
+            transcript?: Body;
+        };
+        type ClipSetLayoutWidth = Extract<LayoutWidth, "in-line" | "mid-grid" | "full-grid">;
         interface ScrollyBlock extends Parent {
             type: "scrolly-block";
             theme: "sans" | "serif";

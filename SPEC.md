@@ -288,6 +288,7 @@ type StoryBlock =
 	| Layout
 	| Pullquote
 	| ScrollyBlock
+	| ClipSet
 	| Table
 	| Recommended
 	| RecommendedList
@@ -551,6 +552,76 @@ interface YoutubeVideo extends Node {
 ```
 
 **YoutubeVideo** represents a video referenced by a Youtube URL.
+
+### `ClipSet`
+```ts
+interface ClipSet extends Node {
+	type: "clip-set"
+	id: string
+	layoutWidth: ClipSetLayoutWidth
+	autoplay?: boolean
+	fragmentIdentifier?: string
+	loop?: boolean
+	muted?: boolean
+	external clips: Clip[]
+	external publishedDate: string
+	external accessibility?: ClipAccessibility
+	external caption?: string
+	external contentWarning?: string[]
+	external credits?: string
+	external description?: string
+	external displayTitle?: string
+	external noAudio?: boolean
+	external systemTitle?: string
+	external source?: string
+	external subtitle?: string
+}
+```
+
+```ts
+type Clip = {
+	type: "clip"
+	id: string
+	dataSource: ClipSource[]
+	format?: "standard-inline" | "mobile"
+	poster?: string
+}
+```
+
+```ts
+type ClipSource = {
+	binaryUrl: string
+	mediaType: string
+	audioCodec?: string
+	duration?: number
+	pixelHeight?: number
+	pixelWidth?: number
+	videoCodec?: string
+}
+```
+
+```ts
+type ClipCaption = {
+	mediaType?: string
+	url?: string
+}
+```
+
+```ts
+type ClipAccessibility = {
+	captions?: ClipCaption[]
+	transcript?: Body
+}
+```
+
+```ts
+type ClipSetLayoutWidth = Extract<LayoutWidth, "in-line" | "mid-grid" | "full-grid">
+```
+
+**ClipSet** represents a short piece of possibly-looping video content for an article.
+
+The external fields are derived from the separately published [ClipSet](https://api.ft.com/schemas/clip-set.json) and [Clip](https://api.ft.com/schemas/clip.json) objects in the Content API.
+
 
 ### `ScrollyBlock`
 

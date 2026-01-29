@@ -53,13 +53,13 @@ async function fetchArticleFromCAPI(uuid) {
     });
 
     if (!response.ok) {
-      throw new Error(`Error fetching ${apiUrl}: ${response.status}`);
+      throw new Error(`Error fetching ${apiHost}/internalcontent/${uuid}: ${response.status}`);
     }
 
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching ${apiUrl}:", error);
+    console.error(`Error fetching ${apiHost}/internalcontent/${uuid}:`, error);
   }
 }
 
