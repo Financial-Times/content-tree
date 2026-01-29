@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
-  doppler-circleci: ft-circleci-orbs/doppler-circleci@1.4
-
 references:
   default_container_config: &default_container_config
     docker:
