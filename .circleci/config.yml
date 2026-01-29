@@ -20,7 +20,7 @@ commands:
           name: Build
           command: npm run build
 
-  assert_build:
+  assert_artifacts_up_to_date:
     steps:
       - run:
           name: Fail if build produces file changes to artifacts
@@ -31,15 +31,15 @@ commands:
             fi
 
 jobs:
-  build-and-diff:
+  build-and-verify-artifacts:
     <<: *default_container_config
     steps:
       - checkout
       - install_deps
       - run_build
-      - assert_build
+      - assert_artifacts_up_to_date
 
 workflows:
-  verify-spec-and-artifacts:
+  verify_artifacts_in_sync:
     jobs:
-      - build-and-diff
+      - build-and-verify-artifacts
