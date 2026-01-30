@@ -60,8 +60,8 @@ jobs:
       - checkout
       - set_npm_auth_token
       - run:
-          name: NPM publish (temporarily dry run)
-          command: ./scripts/circleci-publish.sh --dry-run
+          name: NPM publish
+          command: ./scripts/circleci-publish.sh
 
 workflows:
   verify_artifacts_in_sync:
