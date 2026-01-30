@@ -1,9 +1,10 @@
 {
-	"name": "@content-tree/root",
-	"version": "0.0.0",
-	"private": true,
+	"name": "@financial-times/content-tree",
 	"description": "content tree format",
-	"main": "README.md",
+	"version": "0.1.0",
+	"publishConfig": {
+    "access": "public"
+  },
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/Financial-Times/content-tree.git"
@@ -21,6 +22,12 @@
 		"content",
 		"body"
 	],
+  "files": [
+    "content-tree.d.ts",
+    "schemas/**/*.json",
+    "README.md",
+    "SPEC.md"
+  ],
 	"types": "content-tree.d.ts",
 	"author": "chee",
 	"license": "MIT",
