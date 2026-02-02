@@ -26,7 +26,8 @@
     "content-tree.d.ts",
     "schemas/**/*.json",
     "README.md",
-    "SPEC.md"
+    "SPEC.md",
+		"LICENSE"
   ],
 	"types": "content-tree.d.ts",
 	"author": "chee",
