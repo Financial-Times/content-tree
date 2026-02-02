@@ -323,16 +323,11 @@
                             },
                             "poster": {
                                 "type": "string"
-                            },
-                            "type": {
-                                "const": "clip",
-                                "type": "string"
                             }
                         },
                         "required": [
                             "dataSource",
-                            "id",
-                            "type"
+                            "id"
                         ],
                         "type": "object"
                     },
