@@ -580,7 +580,6 @@ interface ClipSet extends Node {
 
 ```ts
 type Clip = {
-	type: "clip"
 	id: string
 	dataSource: ClipSource[]
 	format?: "standard-inline" | "mobile"

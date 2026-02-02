@@ -211,7 +211,6 @@ export declare namespace ContentTree {
         subtitle?: string;
     }
     type Clip = {
-        type: "clip";
         id: string;
         dataSource: ClipSource[];
         format?: "standard-inline" | "mobile";
@@ -625,7 +624,6 @@ export declare namespace ContentTree {
             subtitle?: string;
         }
         type Clip = {
-            type: "clip";
             id: string;
             dataSource: ClipSource[];
             format?: "standard-inline" | "mobile";
@@ -1023,7 +1021,6 @@ export declare namespace ContentTree {
             muted?: boolean;
         }
         type Clip = {
-            type: "clip";
             id: string;
             dataSource: ClipSource[];
             format?: "standard-inline" | "mobile";
@@ -1428,7 +1425,6 @@ export declare namespace ContentTree {
             subtitle?: string;
         }
         type Clip = {
-            type: "clip";
             id: string;
             dataSource: ClipSource[];
             format?: "standard-inline" | "mobile";
