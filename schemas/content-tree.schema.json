@@ -336,9 +336,23 @@
             "additionalProperties": false,
             "properties": {
                 "children": {
-                    "items": {
-                        "$ref": "#/definitions/ContentTree.full.Phrasing"
-                    },
+                    "items": [
+                        {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/ContentTree.full.Text"
+                                },
+                                {
+                                    "$ref": "#/definitions/ContentTree.full.Strong"
+                                },
+                                {
+                                    "$ref": "#/definitions/ContentTree.full.Emphasis"
+                                }
+                            ]
+                        }
+                    ],
+                    "maxItems": 1,
+                    "minItems": 1,
                     "type": "array"
                 },
                 "data": {},
