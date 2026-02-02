@@ -61,7 +61,7 @@ export declare namespace ContentTree {
         type: "find-out-more-link";
         url: string;
         title: string;
-        children: Phrasing[];
+        children: [Text | Strong | Emphasis];
     }
     interface List extends Parent {
         type: "list";
@@ -429,7 +429,7 @@ export declare namespace ContentTree {
             type: "find-out-more-link";
             url: string;
             title: string;
-            children: Phrasing[];
+            children: [Text | Strong | Emphasis];
         }
         interface List extends Parent {
             type: "list";
@@ -798,7 +798,7 @@ export declare namespace ContentTree {
             type: "find-out-more-link";
             url: string;
             title: string;
-            children: Phrasing[];
+            children: [Text | Strong | Emphasis];
         }
         interface List extends Parent {
             type: "list";
@@ -1152,7 +1152,7 @@ export declare namespace ContentTree {
             type: "find-out-more-link";
             url: string;
             title: string;
-            children: Phrasing[];
+            children: [Text | Strong | Emphasis];
         }
         interface List extends Parent {
             type: "list";
