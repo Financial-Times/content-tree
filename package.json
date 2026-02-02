@@ -30,7 +30,7 @@
 		"LICENSE"
   ],
 	"types": "content-tree.d.ts",
-	"author": "chee",
+	"author": "The Financial Times Ltd",
 	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/Financial-Times/content-tree/issues"

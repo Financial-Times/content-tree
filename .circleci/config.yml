@@ -20,7 +20,7 @@ commands:
     steps:
       - run:
           name: Install dependencies
-          command: npm ci
+          command: npm ci --ignore-scripts
 
   run_build:
     steps:
@@ -60,7 +60,7 @@ jobs:
       - checkout
       - set_npm_auth_token
       - run:
-          name: NPM publish
+          name: npm publish
           command: ./scripts/circleci-publish.sh
 
 workflows:
