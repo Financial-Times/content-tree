@@ -3,7 +3,7 @@
 	"description": "content tree format",
 	"version": "0.1.0",
 	"publishConfig": {
-    "access": "public"
+		"access": "public"
   },
 	"repository": {
 		"type": "git",
@@ -22,11 +22,11 @@
 		"content",
 		"body"
 	],
-  "files": [
-    "content-tree.d.ts",
-    "schemas/**/*.json",
-    "README.md",
-    "SPEC.md",
+	"files": [
+		"content-tree.d.ts",
+		"schemas/**/*.json",
+		"README.md",
+		"SPEC.md",
 		"LICENSE"
   ],
 	"types": "content-tree.d.ts",
