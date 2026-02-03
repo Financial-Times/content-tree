@@ -859,9 +859,36 @@ interface InfoPair extends Parent {
 }
 ```
 
+### AudioPlayer
 
+```ts
+ /**
+	* @sparkGenerateStoryblock true 
+	**/
+ type AudioPlayer = AudioPlayerV1 | AudioPlayerV2 | AudioPlayerV3;
 
+interface AudioPlayerV1 extends Node {
+	type: "audio-player"
+	version: 1
+	title: string
+	audioUrl: string
+}
 
+interface AudioPlayerV2 extends Node {
+	type: "audio-player"
+	version: 2
+	title: string
+	audioId: string
+	external audio: AudioSet
+}
 
-
-
+interface AudioPlayerV3 extends Node {
+	type: "audio-player"
+	version: 3
+	title: string
+	audioId: string
+	transcriptionId?: string
+	external audio: AudioSet
+	external transcription: TranscriptionSet
+}
+```
