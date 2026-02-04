@@ -5,6 +5,23 @@
 These abstract helper types define special types a [Parent](#parent) can use as
 [children][term-child].
 
+
+### `AssetFormat`
+
+```ts
+type AssetFormat =
+	| "desktop"
+	| "mobile"
+	| "square"
+	| "square-ftedit"
+	| "standard"
+	| "wide"
+	| "standard-inline"
+
+```
+
+`AssetFormat` defines the chosen responsive setting for an asset like an image or clip
+
 ### `LayoutWidth`
 
 ```ts
@@ -21,6 +38,30 @@ type LayoutWidth =
 
 `LayoutWidth` defines how the component should be presented in the article page according to the column layout system.
 
+### `AVSource`
+
+```ts
+type AVSource = {
+	binaryUrl: string
+	mediaType: string
+	audioCodec?: string
+	duration?: number
+}
+```
+
+`AVSource` defines the properties for the source of an audio or video asset
+
+### `VideoSource`
+
+```ts
+type VideoSource = AVSource & {
+	pixelHeight?: number
+	pixelWidth?: number
+	videoCodec?: string
+}
+```
+
+`VideoSource` extends AVSource to add in the properties relevant just to videos
 
 ## Core Nodes
 
@@ -359,14 +400,7 @@ type Image = {
 	id: string
 	width: number
 	height: number
-	format:
-		| "desktop"
-		| "mobile"
-		| "square"
-		| "square-ftedit"
-		| "standard"
-		| "wide"
-		| "standard-inline"
+	format: AssetFormat
 	url: string
 	sourceSet?: ImageSource[]
 }
@@ -540,8 +574,6 @@ interface Video extends Node {
 
 The `title` can be obtained by fetching the Video from the content API.
 
-TODO: Figure out how Clips work, how they are different?
-
 ### `YoutubeVideo`
 
 ```ts
@@ -576,44 +608,27 @@ interface ClipSet extends Node {
 	external source?: string
 	external subtitle?: string
 }
-```
 
-```ts
 type Clip = {
 	id: string
-	dataSource: ClipSource[]
-	format?: "standard-inline" | "mobile"
+	dataSource: VideoSource[]
+	format?: Extract<AssetFormat, "standard-inline" | "mobile">
 	poster?: string
 }
-```
 
-```ts
-type ClipSource = {
-	binaryUrl: string
-	mediaType: string
-	audioCodec?: string
-	duration?: number
-	pixelHeight?: number
-	pixelWidth?: number
-	videoCodec?: string
-}
-```
-
-```ts
+/** Clip captions are files that provide the text captions on the video and their synchronisation timings  */
 type ClipCaption = {
+	/** Caption file content type */
 	mediaType?: string
+	/** Caption file location */
 	url?: string
 }
-```
 
-```ts
 type ClipAccessibility = {
 	captions?: ClipCaption[]
 	transcript?: Body
 }
-```
 
-```ts
 type ClipSetLayoutWidth = Extract<LayoutWidth, "in-line" | "mid-grid" | "full-grid">
 ```
 

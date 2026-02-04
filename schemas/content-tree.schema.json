@@ -2,6 +2,18 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "additionalProperties": false,
     "definitions": {
+        "ContentTree.full.AssetFormat": {
+            "enum": [
+                "desktop",
+                "mobile",
+                "square",
+                "square-ftedit",
+                "standard",
+                "standard-inline",
+                "wide"
+            ],
+            "type": "string"
+        },
         "ContentTree.full.BigNumber": {
             "additionalProperties": false,
             "properties": {
@@ -249,11 +261,14 @@
                         "captions": {
                             "items": {
                                 "additionalProperties": false,
+                                "description": "Clip captions are files that provide the text captions on the video and their synchronisation timings",
                                 "properties": {
                                     "mediaType": {
+                                        "description": "Caption file content type",
                                         "type": "string"
                                     },
                                     "url": {
+                                        "description": "Caption file location",
                                         "type": "string"
                                     }
                                 },
@@ -279,44 +294,12 @@
                         "properties": {
                             "dataSource": {
                                 "items": {
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "audioCodec": {
-                                            "type": "string"
-                                        },
-                                        "binaryUrl": {
-                                            "type": "string"
-                                        },
-                                        "duration": {
-                                            "type": "number"
-                                        },
-                                        "mediaType": {
-                                            "type": "string"
-                                        },
-                                        "pixelHeight": {
-                                            "type": "number"
-                                        },
-                                        "pixelWidth": {
-                                            "type": "number"
-                                        },
-                                        "videoCodec": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "required": [
-                                        "binaryUrl",
-                                        "mediaType"
-                                    ],
-                                    "type": "object"
+                                    "$ref": "#/definitions/ContentTree.full.VideoSource"
                                 },
                                 "type": "array"
                             },
                             "format": {
-                                "enum": [
-                                    "mobile",
-                                    "standard-inline"
-                                ],
-                                "type": "string"
+                                "$ref": "#/definitions/Extract"
                             },
                             "id": {
                                 "type": "string"
@@ -536,16 +519,7 @@
                     "additionalProperties": false,
                     "properties": {
                         "format": {
-                            "enum": [
-                                "desktop",
-                                "mobile",
-                                "square",
-                                "square-ftedit",
-                                "standard",
-                                "standard-inline",
-                                "wide"
-                            ],
-                            "type": "string"
+                            "$ref": "#/definitions/ContentTree.full.AssetFormat"
                         },
                         "height": {
                             "type": "number"
@@ -714,16 +688,7 @@
                             "additionalProperties": false,
                             "properties": {
                                 "format": {
-                                    "enum": [
-                                        "desktop",
-                                        "mobile",
-                                        "square",
-                                        "square-ftedit",
-                                        "standard",
-                                        "standard-inline",
-                                        "wide"
-                                    ],
-                                    "type": "string"
+                                    "$ref": "#/definitions/ContentTree.full.AssetFormat"
                                 },
                                 "height": {
                                     "type": "number"
@@ -782,16 +747,7 @@
                                 "additionalProperties": false,
                                 "properties": {
                                     "format": {
-                                        "enum": [
-                                            "desktop",
-                                            "mobile",
-                                            "square",
-                                            "square-ftedit",
-                                            "standard",
-                                            "standard-inline",
-                                            "wide"
-                                        ],
-                                        "type": "string"
+                                        "$ref": "#/definitions/ContentTree.full.AssetFormat"
                                     },
                                     "height": {
                                         "type": "number"
@@ -1072,16 +1028,7 @@
                             "additionalProperties": false,
                             "properties": {
                                 "format": {
-                                    "enum": [
-                                        "desktop",
-                                        "mobile",
-                                        "square",
-                                        "square-ftedit",
-                                        "standard",
-                                        "standard-inline",
-                                        "wide"
-                                    ],
-                                    "type": "string"
+                                    "$ref": "#/definitions/ContentTree.full.AssetFormat"
                                 },
                                 "height": {
                                     "type": "number"
@@ -1140,16 +1087,7 @@
                                 "additionalProperties": false,
                                 "properties": {
                                     "format": {
-                                        "enum": [
-                                            "desktop",
-                                            "mobile",
-                                            "square",
-                                            "square-ftedit",
-                                            "standard",
-                                            "standard-inline",
-                                            "wide"
-                                        ],
-                                        "type": "string"
+                                        "$ref": "#/definitions/ContentTree.full.AssetFormat"
                                     },
                                     "height": {
                                         "type": "number"
@@ -1793,16 +1731,7 @@
                             "additionalProperties": false,
                             "properties": {
                                 "format": {
-                                    "enum": [
-                                        "desktop",
-                                        "mobile",
-                                        "square",
-                                        "square-ftedit",
-                                        "standard",
-                                        "standard-inline",
-                                        "wide"
-                                    ],
-                                    "type": "string"
+                                    "$ref": "#/definitions/ContentTree.full.AssetFormat"
                                 },
                                 "height": {
                                     "type": "number"
@@ -1861,16 +1790,7 @@
                                 "additionalProperties": false,
                                 "properties": {
                                     "format": {
-                                        "enum": [
-                                            "desktop",
-                                            "mobile",
-                                            "square",
-                                            "square-ftedit",
-                                            "standard",
-                                            "standard-inline",
-                                            "wide"
-                                        ],
-                                        "type": "string"
+                                        "$ref": "#/definitions/ContentTree.full.AssetFormat"
                                     },
                                     "height": {
                                         "type": "number"
@@ -2431,6 +2351,37 @@
             ],
             "type": "object"
         },
+        "ContentTree.full.VideoSource": {
+            "additionalProperties": false,
+            "properties": {
+                "audioCodec": {
+                    "type": "string"
+                },
+                "binaryUrl": {
+                    "type": "string"
+                },
+                "duration": {
+                    "type": "number"
+                },
+                "mediaType": {
+                    "type": "string"
+                },
+                "pixelHeight": {
+                    "type": "number"
+                },
+                "pixelWidth": {
+                    "type": "number"
+                },
+                "videoCodec": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "binaryUrl",
+                "mediaType"
+            ],
+            "type": "object"
+        },
         "ContentTree.full.YoutubeVideo": {
             "additionalProperties": false,
             "properties": {
@@ -2448,6 +2399,13 @@
                 "url"
             ],
             "type": "object"
+        },
+        "Extract": {
+            "enum": [
+                "mobile",
+                "standard-inline"
+            ],
+            "type": "string"
         }
     },
     "properties": {
