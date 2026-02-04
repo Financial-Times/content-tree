@@ -863,12 +863,12 @@ interface InfoPair extends Parent {
 ### AudioPlayer
 
 ```ts
- /**
-	* @sparkGenerateStoryblock true 
-	**/
- type AudioPlayer = AudioPlayerV1 | AudioPlayerV2 | AudioPlayerV3;
+type AudioPlayer = AudioPlayerV1 | AudioPlayerV2 | AudioPlayerV3
 
-/** @support deprecated */
+/** 
+ * @sparkGenerateStoryblock true
+ * @support deprecated 
+ */
 interface AudioPlayerV1 extends Node {
 	type: "audio-player"
 	version: 1
@@ -876,6 +876,11 @@ interface AudioPlayerV1 extends Node {
 	audioUrl: string
 }
 
+/** 
+ * @sparkGenerateStoryblock true
+ * @sparkInsert true
+ * @support supported 
+ */
 interface AudioPlayerV2 extends Node {
 	type: "audio-player"
 	version: 2
@@ -884,7 +889,10 @@ interface AudioPlayerV2 extends Node {
 	external audio: AudioSet
 }
 
-/** @support prerelease */
+/** 
+ * @sparkGenerateStoryblock true
+ * @support prerelease 
+ */
 interface AudioPlayerV3 extends Node {
 	type: "audio-player"
 	version: 3
