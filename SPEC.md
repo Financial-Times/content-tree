@@ -867,6 +867,7 @@ interface InfoPair extends Parent {
 	**/
  type AudioPlayer = AudioPlayerV1 | AudioPlayerV2 | AudioPlayerV3;
 
+/** @support deprecated */
 interface AudioPlayerV1 extends Node {
 	type: "audio-player"
 	version: 1
@@ -882,13 +883,14 @@ interface AudioPlayerV2 extends Node {
 	external audio: AudioSet
 }
 
+/** @support prerelease */
 interface AudioPlayerV3 extends Node {
 	type: "audio-player"
 	version: 3
 	title: string
 	audioId: string
-	transcriptionId?: string
+	transcriptionId: string
 	external audio: AudioSet
-	external transcription: TranscriptionSet
+	external transcription: Transcription
 }
 ```
