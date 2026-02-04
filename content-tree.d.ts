@@ -1,94 +1,94 @@
 export declare namespace ContentTree {
-    type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
-    interface Node {
+    export type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
+    export interface Node {
         type: string;
         data?: any;
     }
-    interface Parent extends Node {
+    export interface Parent extends Node {
         children: Node[];
     }
-    interface Root extends Node {
+    export interface Root extends Node {
         type: "root";
         body: Body;
     }
-    interface Body extends Parent {
+    export interface Body extends Parent {
         type: "body";
         version: number;
         children: BodyBlock[];
     }
-    type BodyBlock = FormattingBlock | StoryBlock;
-    type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
-    interface Text extends Node {
+    export type BodyBlock = FormattingBlock | StoryBlock;
+    export type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
+    export interface Text extends Node {
         type: "text";
         value: string;
     }
-    type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | FindOutMoreLink;
-    interface Break extends Node {
+    export type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | FindOutMoreLink;
+    export interface Break extends Node {
         type: "break";
     }
-    interface ThematicBreak extends Node {
+    export interface ThematicBreak extends Node {
         type: "thematic-break";
     }
-    interface Paragraph extends Parent {
+    export interface Paragraph extends Parent {
         type: "paragraph";
         children: Phrasing[];
     }
-    interface Heading extends Parent {
+    export interface Heading extends Parent {
         type: "heading";
         children: Text[];
         level: "chapter" | "subheading" | "label";
         fragmentIdentifier?: string;
     }
-    interface Strong extends Parent {
+    export interface Strong extends Parent {
         type: "strong";
         children: Phrasing[];
     }
-    interface Emphasis extends Parent {
+    export interface Emphasis extends Parent {
         type: "emphasis";
         children: Phrasing[];
     }
-    interface Strikethrough extends Parent {
+    export interface Strikethrough extends Parent {
         type: "strikethrough";
         children: Phrasing[];
     }
-    interface Link extends Parent {
+    export interface Link extends Parent {
         type: "link";
         url: string;
         title: string;
         children: Phrasing[];
     }
-    interface FindOutMoreLink extends Parent {
+    export interface FindOutMoreLink extends Parent {
         type: "find-out-more-link";
         url: string;
         title: string;
         children: Phrasing[];
     }
-    interface List extends Parent {
+    export interface List extends Parent {
         type: "list";
         ordered: boolean;
         children: ListItem[];
     }
-    interface ListItem extends Parent {
+    export interface ListItem extends Parent {
         type: "list-item";
         children: (Paragraph | Phrasing)[];
     }
-    interface Blockquote extends Parent {
+    export interface Blockquote extends Parent {
         type: "blockquote";
         children: (Paragraph | Phrasing)[];
     }
-    type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
-    interface Pullquote extends Node {
+    export type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair | AudioPlayer;
+    export interface Pullquote extends Node {
         type: "pullquote";
         text: string;
         source?: string;
     }
-    interface ImageSet extends Node {
+    export interface ImageSet extends Node {
         type: "image-set";
         id: string;
         picture: ImageSetPicture;
         fragmentIdentifier?: string;
     }
-    type ImageSetPicture = {
+    export type ImageSetPicture = {
         layoutWidth: string;
         imageType: "image" | "graphic";
         alt: string;
@@ -97,7 +97,7 @@ export declare namespace ContentTree {
         images: Image[];
         fallbackImage: Image;
     };
-    type Image = {
+    export type Image = {
         id: string;
         width: number;
         height: number;
@@ -105,24 +105,24 @@ export declare namespace ContentTree {
         url: string;
         sourceSet?: ImageSource[];
     };
-    type ImageSource = {
+    export type ImageSource = {
         url: string;
         width: number;
         dpr: number;
     };
-    interface Recommended extends Node {
+    export interface Recommended extends Node {
         type: "recommended";
         id: string;
         heading?: string;
         teaserTitleOverride?: string;
         teaser: Teaser;
     }
-    interface RecommendedList extends Node {
+    export interface RecommendedList extends Node {
         type: "recommended-list";
         heading?: string;
         children: Recommended[];
     }
-    type TeaserConcept = {
+    export type TeaserConcept = {
         apiUrl: string;
         directType: string;
         id: string;
@@ -132,7 +132,7 @@ export declare namespace ContentTree {
         types: string[];
         url: string;
     };
-    type Teaser = {
+    export type Teaser = {
         id: string;
         url: string;
         type: "article" | "video" | "podcast" | "audio" | "package" | "liveblog" | "promoted-content" | "paid-post";
@@ -159,13 +159,13 @@ export declare namespace ContentTree {
         };
         clientName?: string;
     };
-    interface Tweet extends Node {
+    export interface Tweet extends Node {
         id: string;
         type: "tweet";
         html: string;
     }
-    type FlourishLayoutWidth = Extract<LayoutWidth, "full-grid" | "in-line">;
-    interface Flourish extends Node {
+    export type FlourishLayoutWidth = Extract<LayoutWidth, "full-grid" | "in-line">;
+    export interface Flourish extends Node {
         type: "flourish";
         id: string;
         layoutWidth: FlourishLayoutWidth;
@@ -175,26 +175,26 @@ export declare namespace ContentTree {
         fallbackImage?: Image;
         fragmentIdentifier?: string;
     }
-    interface BigNumber extends Node {
+    export interface BigNumber extends Node {
         type: "big-number";
         number: string;
         description: string;
     }
-    interface Video extends Node {
+    export interface Video extends Node {
         type: "video";
         id: string;
         title: string;
     }
-    interface YoutubeVideo extends Node {
+    export interface YoutubeVideo extends Node {
         type: "youtube-video";
         url: string;
     }
-    interface ScrollyBlock extends Parent {
+    export interface ScrollyBlock extends Parent {
         type: "scrolly-block";
         theme: "sans" | "serif";
         children: ScrollySection[];
     }
-    interface ScrollySection extends Parent {
+    export interface ScrollySection extends Parent {
         type: "scrolly-section";
         display: "dark-background" | "light-background";
         noBox?: true;
@@ -202,31 +202,31 @@ export declare namespace ContentTree {
         transition?: "delay-before" | "delay-after";
         children: [ScrollyImage, ...ScrollyCopy[]];
     }
-    interface ScrollyImage extends Node {
+    export interface ScrollyImage extends Node {
         type: "scrolly-image";
         id: string;
         picture: ImageSetPicture;
     }
-    interface ScrollyCopy extends Parent {
+    export interface ScrollyCopy extends Parent {
         type: "scrolly-copy";
         children: (ScrollyHeading | Paragraph)[];
     }
-    interface ScrollyHeading extends Parent {
+    export interface ScrollyHeading extends Parent {
         type: "scrolly-heading";
         level: "chapter" | "heading" | "subheading";
         children: Text[];
     }
-    interface Layout extends Parent {
+    export interface Layout extends Parent {
         type: "layout";
         layoutName: "auto" | "card" | "timeline";
         layoutWidth: string;
         children: [Heading, LayoutImage, ...LayoutSlot[]] | [Heading, ...LayoutSlot[]] | LayoutSlot[];
     }
-    interface LayoutSlot extends Parent {
+    export interface LayoutSlot extends Parent {
         type: "layout-slot";
         children: (Heading | Paragraph | LayoutImage)[];
     }
-    interface LayoutImage extends Node {
+    export interface LayoutImage extends Node {
         type: "layout-image";
         id: string;
         alt: string;
@@ -234,36 +234,36 @@ export declare namespace ContentTree {
         credit: string;
         picture: ImageSetPicture;
     }
-    type TableColumnSettings = {
+    export type TableColumnSettings = {
         hideOnMobile: boolean;
         sortable: boolean;
         sortType: 'text' | 'number' | 'date' | 'currency' | 'percent';
     };
-    type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
-    interface TableCaption extends Parent {
+    export type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
+    export interface TableCaption extends Parent {
         type: 'table-caption';
         children: Phrasing[];
     }
-    interface TableCell extends Parent {
+    export interface TableCell extends Parent {
         type: 'table-cell';
         heading?: boolean;
         columnSpan?: number;
         rowSpan?: number;
         children: Phrasing[];
     }
-    interface TableRow extends Parent {
+    export interface TableRow extends Parent {
         type: 'table-row';
         children: TableCell[];
     }
-    interface TableBody extends Parent {
+    export interface TableBody extends Parent {
         type: 'table-body';
         children: TableRow[];
     }
-    interface TableFooter extends Parent {
+    export interface TableFooter extends Parent {
         type: 'table-footer';
         children: Phrasing[];
     }
-    interface Table extends Parent {
+    export interface Table extends Parent {
         type: 'table';
         stripes: boolean;
         compact: boolean;
@@ -273,10 +273,10 @@ export declare namespace ContentTree {
         children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
         columnSettings: TableColumnSettings[];
     }
-    type CustomCodeComponentAttributes = {
+    export type CustomCodeComponentAttributes = {
         [key: string]: string | boolean | undefined;
     };
-    interface CustomCodeComponent extends Node {
+    export interface CustomCodeComponent extends Node {
         /** Component type */
         type: "custom-code-component";
         /** Id taken from the CAPI url */
@@ -292,14 +292,14 @@ export declare namespace ContentTree {
         /** Configuration data to be passed to the component. */
         attributes: CustomCodeComponentAttributes;
     }
-    interface ImagePair extends Parent {
+    export interface ImagePair extends Parent {
         type: 'image-pair';
         children: [ImageSet, ImageSet];
     }
     /**
      * Timeline nodes display a timeline of events in arbitrary order.
      */
-    interface Timeline extends Parent {
+    export interface Timeline extends Parent {
         type: "timeline";
         /** The title for the timeline */
         title: string;
@@ -308,7 +308,7 @@ export declare namespace ContentTree {
     /**
      * TimelineEvent is the representation of a single event in a Timeline.
      */
-    interface TimelineEvent extends Parent {
+    export interface TimelineEvent extends Parent {
         type: "timeline-event";
         /** The title of the event */
         title: string;
@@ -318,7 +318,7 @@ export declare namespace ContentTree {
     /**
      * A definition has a term and a related description. It is used to describe a term.
      */
-    interface Definition extends Node {
+    export interface Definition extends Node {
         type: "definition";
         term: string;
         description: string;
@@ -326,7 +326,7 @@ export declare namespace ContentTree {
     /**
      * InNumbers represents a set of numbers with related descriptions.
      */
-    interface InNumbers extends Parent {
+    export interface InNumbers extends Parent {
         type: "in-numbers";
         /** The title for the InNumbers */
         title?: string;
@@ -334,11 +334,11 @@ export declare namespace ContentTree {
     }
     /** Allowed children for a card
     */
-    type CardChildren = ImageSet | Exclude<FormattingBlock, Heading>;
+    export type CardChildren = ImageSet | Exclude<FormattingBlock, Heading>;
     /**
     * A card describes a subject with images and text
     */
-    interface Card extends Parent {
+    export interface Card extends Parent {
         type: "card";
         /** The title of this card */
         title?: string;
@@ -347,11 +347,11 @@ export declare namespace ContentTree {
     /**
     * Allowed layout widths for an InfoBox.
     */
-    type InfoBoxLayoutWidth = Extract<LayoutWidth, "in-line" | "inset-left">;
+    export type InfoBoxLayoutWidth = Extract<LayoutWidth, "in-line" | "inset-left">;
     /**
     * An info box describes a subject via a single card
     */
-    interface InfoBox extends Parent {
+    export interface InfoBox extends Parent {
         type: "info-box";
         /** The layout width supported by this node */
         layoutWidth: InfoBoxLayoutWidth;
@@ -360,103 +360,140 @@ export declare namespace ContentTree {
     /**
     * InfoPair provides exactly two cards.
     */
-    interface InfoPair extends Parent {
+    export interface InfoPair extends Parent {
         type: "info-pair";
         /** The title of the info pair */
         title?: string;
         children: [Card, Card];
     }
-    namespace full {
-        type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
-        interface Node {
+    /**
+       * @sparkGenerateStoryblock true
+       **/
+    type AudioPlayer = AudioPlayerV1 | AudioPlayerV2 | AudioPlayerV3;
+    /** @support deprecated */
+    export interface AudioPlayerV1 extends Node {
+        type: "audio-player";
+        version: 1;
+        title: string;
+        audioUrl: string;
+    }
+    export interface AudioPlayerV2 extends Node {
+        type: "audio-player";
+        version: 2;
+        title: string;
+        audioId: string;
+        audio: AudioSet;
+    }
+    /** @support prerelease */
+    export interface AudioPlayerV3 extends Node {
+        type: "audio-player";
+        version: 3;
+        title: string;
+        audioId: string;
+        transcriptionId: string;
+        audio: AudioSet;
+        transcription: Transcription;
+    }
+    /**
+     * Demo placeholders so the AudioPlayer versioning example compiles.
+     */
+    export interface AudioSet extends Node {
+        url: string;
+    }
+    export interface Transcription extends Node {
+        text: string;
+    }
+    export namespace full {
+        export type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
+        export interface Node {
             type: string;
             data?: any;
         }
-        interface Parent extends Node {
+        export interface Parent extends Node {
             children: Node[];
         }
-        interface Root extends Node {
+        export interface Root extends Node {
             type: "root";
             body: Body;
         }
-        interface Body extends Parent {
+        export interface Body extends Parent {
             type: "body";
             version: number;
             children: BodyBlock[];
         }
-        type BodyBlock = FormattingBlock | StoryBlock;
-        type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
-        interface Text extends Node {
+        export type BodyBlock = FormattingBlock | StoryBlock;
+        export type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
+        export interface Text extends Node {
             type: "text";
             value: string;
         }
-        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | FindOutMoreLink;
-        interface Break extends Node {
+        export type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | FindOutMoreLink;
+        export interface Break extends Node {
             type: "break";
         }
-        interface ThematicBreak extends Node {
+        export interface ThematicBreak extends Node {
             type: "thematic-break";
         }
-        interface Paragraph extends Parent {
+        export interface Paragraph extends Parent {
             type: "paragraph";
             children: Phrasing[];
         }
-        interface Heading extends Parent {
+        export interface Heading extends Parent {
             type: "heading";
             children: Text[];
             level: "chapter" | "subheading" | "label";
             fragmentIdentifier?: string;
         }
-        interface Strong extends Parent {
+        export interface Strong extends Parent {
             type: "strong";
             children: Phrasing[];
         }
-        interface Emphasis extends Parent {
+        export interface Emphasis extends Parent {
             type: "emphasis";
             children: Phrasing[];
         }
-        interface Strikethrough extends Parent {
+        export interface Strikethrough extends Parent {
             type: "strikethrough";
             children: Phrasing[];
         }
-        interface Link extends Parent {
+        export interface Link extends Parent {
             type: "link";
             url: string;
             title: string;
             children: Phrasing[];
         }
-        interface FindOutMoreLink extends Parent {
+        export interface FindOutMoreLink extends Parent {
             type: "find-out-more-link";
             url: string;
             title: string;
             children: Phrasing[];
         }
-        interface List extends Parent {
+        export interface List extends Parent {
             type: "list";
             ordered: boolean;
             children: ListItem[];
         }
-        interface ListItem extends Parent {
+        export interface ListItem extends Parent {
             type: "list-item";
             children: (Paragraph | Phrasing)[];
         }
-        interface Blockquote extends Parent {
+        export interface Blockquote extends Parent {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
-        interface Pullquote extends Node {
+        export type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair | AudioPlayer;
+        export interface Pullquote extends Node {
             type: "pullquote";
             text: string;
             source?: string;
         }
-        interface ImageSet extends Node {
+        export interface ImageSet extends Node {
             type: "image-set";
             id: string;
             picture: ImageSetPicture;
             fragmentIdentifier?: string;
         }
-        type ImageSetPicture = {
+        export type ImageSetPicture = {
             layoutWidth: string;
             imageType: "image" | "graphic";
             alt: string;
@@ -465,7 +502,7 @@ export declare namespace ContentTree {
             images: Image[];
             fallbackImage: Image;
         };
-        type Image = {
+        export type Image = {
             id: string;
             width: number;
             height: number;
@@ -473,24 +510,24 @@ export declare namespace ContentTree {
             url: string;
             sourceSet?: ImageSource[];
         };
-        type ImageSource = {
+        export type ImageSource = {
             url: string;
             width: number;
             dpr: number;
         };
-        interface Recommended extends Node {
+        export interface Recommended extends Node {
             type: "recommended";
             id: string;
             heading?: string;
             teaserTitleOverride?: string;
             teaser: Teaser;
         }
-        interface RecommendedList extends Node {
+        export interface RecommendedList extends Node {
             type: "recommended-list";
             heading?: string;
             children: Recommended[];
         }
-        type TeaserConcept = {
+        export type TeaserConcept = {
             apiUrl: string;
             directType: string;
             id: string;
@@ -500,7 +537,7 @@ export declare namespace ContentTree {
             types: string[];
             url: string;
         };
-        type Teaser = {
+        export type Teaser = {
             id: string;
             url: string;
             type: "article" | "video" | "podcast" | "audio" | "package" | "liveblog" | "promoted-content" | "paid-post";
@@ -527,13 +564,13 @@ export declare namespace ContentTree {
             };
             clientName?: string;
         };
-        interface Tweet extends Node {
+        export interface Tweet extends Node {
             id: string;
             type: "tweet";
             html: string;
         }
-        type FlourishLayoutWidth = Extract<LayoutWidth, "full-grid" | "in-line">;
-        interface Flourish extends Node {
+        export type FlourishLayoutWidth = Extract<LayoutWidth, "full-grid" | "in-line">;
+        export interface Flourish extends Node {
             type: "flourish";
             id: string;
             layoutWidth: FlourishLayoutWidth;
@@ -543,26 +580,26 @@ export declare namespace ContentTree {
             fallbackImage?: Image;
             fragmentIdentifier?: string;
         }
-        interface BigNumber extends Node {
+        export interface BigNumber extends Node {
             type: "big-number";
             number: string;
             description: string;
         }
-        interface Video extends Node {
+        export interface Video extends Node {
             type: "video";
             id: string;
             title: string;
         }
-        interface YoutubeVideo extends Node {
+        export interface YoutubeVideo extends Node {
             type: "youtube-video";
             url: string;
         }
-        interface ScrollyBlock extends Parent {
+        export interface ScrollyBlock extends Parent {
             type: "scrolly-block";
             theme: "sans" | "serif";
             children: ScrollySection[];
         }
-        interface ScrollySection extends Parent {
+        export interface ScrollySection extends Parent {
             type: "scrolly-section";
             display: "dark-background" | "light-background";
             noBox?: true;
@@ -570,31 +607,31 @@ export declare namespace ContentTree {
             transition?: "delay-before" | "delay-after";
             children: [ScrollyImage, ...ScrollyCopy[]];
         }
-        interface ScrollyImage extends Node {
+        export interface ScrollyImage extends Node {
             type: "scrolly-image";
             id: string;
             picture: ImageSetPicture;
         }
-        interface ScrollyCopy extends Parent {
+        export interface ScrollyCopy extends Parent {
             type: "scrolly-copy";
             children: (ScrollyHeading | Paragraph)[];
         }
-        interface ScrollyHeading extends Parent {
+        export interface ScrollyHeading extends Parent {
             type: "scrolly-heading";
             level: "chapter" | "heading" | "subheading";
             children: Text[];
         }
-        interface Layout extends Parent {
+        export interface Layout extends Parent {
             type: "layout";
             layoutName: "auto" | "card" | "timeline";
             layoutWidth: string;
             children: [Heading, LayoutImage, ...LayoutSlot[]] | [Heading, ...LayoutSlot[]] | LayoutSlot[];
         }
-        interface LayoutSlot extends Parent {
+        export interface LayoutSlot extends Parent {
             type: "layout-slot";
             children: (Heading | Paragraph | LayoutImage)[];
         }
-        interface LayoutImage extends Node {
+        export interface LayoutImage extends Node {
             type: "layout-image";
             id: string;
             alt: string;
@@ -602,36 +639,36 @@ export declare namespace ContentTree {
             credit: string;
             picture: ImageSetPicture;
         }
-        type TableColumnSettings = {
+        export type TableColumnSettings = {
             hideOnMobile: boolean;
             sortable: boolean;
             sortType: 'text' | 'number' | 'date' | 'currency' | 'percent';
         };
-        type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
-        interface TableCaption extends Parent {
+        export type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
+        export interface TableCaption extends Parent {
             type: 'table-caption';
             children: Phrasing[];
         }
-        interface TableCell extends Parent {
+        export interface TableCell extends Parent {
             type: 'table-cell';
             heading?: boolean;
             columnSpan?: number;
             rowSpan?: number;
             children: Phrasing[];
         }
-        interface TableRow extends Parent {
+        export interface TableRow extends Parent {
             type: 'table-row';
             children: TableCell[];
         }
-        interface TableBody extends Parent {
+        export interface TableBody extends Parent {
             type: 'table-body';
             children: TableRow[];
         }
-        interface TableFooter extends Parent {
+        export interface TableFooter extends Parent {
             type: 'table-footer';
             children: Phrasing[];
         }
-        interface Table extends Parent {
+        export interface Table extends Parent {
             type: 'table';
             stripes: boolean;
             compact: boolean;
@@ -641,10 +678,10 @@ export declare namespace ContentTree {
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
         }
-        type CustomCodeComponentAttributes = {
+        export type CustomCodeComponentAttributes = {
             [key: string]: string | boolean | undefined;
         };
-        interface CustomCodeComponent extends Node {
+        export interface CustomCodeComponent extends Node {
             /** Component type */
             type: "custom-code-component";
             /** Id taken from the CAPI url */
@@ -660,14 +697,14 @@ export declare namespace ContentTree {
             /** Configuration data to be passed to the component. */
             attributes: CustomCodeComponentAttributes;
         }
-        interface ImagePair extends Parent {
+        export interface ImagePair extends Parent {
             type: 'image-pair';
             children: [ImageSet, ImageSet];
         }
         /**
          * Timeline nodes display a timeline of events in arbitrary order.
          */
-        interface Timeline extends Parent {
+        export interface Timeline extends Parent {
             type: "timeline";
             /** The title for the timeline */
             title: string;
@@ -676,7 +713,7 @@ export declare namespace ContentTree {
         /**
          * TimelineEvent is the representation of a single event in a Timeline.
          */
-        interface TimelineEvent extends Parent {
+        export interface TimelineEvent extends Parent {
             type: "timeline-event";
             /** The title of the event */
             title: string;
@@ -686,7 +723,7 @@ export declare namespace ContentTree {
         /**
          * A definition has a term and a related description. It is used to describe a term.
          */
-        interface Definition extends Node {
+        export interface Definition extends Node {
             type: "definition";
             term: string;
             description: string;
@@ -694,7 +731,7 @@ export declare namespace ContentTree {
         /**
          * InNumbers represents a set of numbers with related descriptions.
          */
-        interface InNumbers extends Parent {
+        export interface InNumbers extends Parent {
             type: "in-numbers";
             /** The title for the InNumbers */
             title?: string;
@@ -702,11 +739,11 @@ export declare namespace ContentTree {
         }
         /** Allowed children for a card
         */
-        type CardChildren = ImageSet | Exclude<FormattingBlock, Heading>;
+        export type CardChildren = ImageSet | Exclude<FormattingBlock, Heading>;
         /**
         * A card describes a subject with images and text
         */
-        interface Card extends Parent {
+        export interface Card extends Parent {
             type: "card";
             /** The title of this card */
             title?: string;
@@ -715,11 +752,11 @@ export declare namespace ContentTree {
         /**
         * Allowed layout widths for an InfoBox.
         */
-        type InfoBoxLayoutWidth = Extract<LayoutWidth, "in-line" | "inset-left">;
+        export type InfoBoxLayoutWidth = Extract<LayoutWidth, "in-line" | "inset-left">;
         /**
         * An info box describes a subject via a single card
         */
-        interface InfoBox extends Parent {
+        export interface InfoBox extends Parent {
             type: "info-box";
             /** The layout width supported by this node */
             layoutWidth: InfoBoxLayoutWidth;
@@ -728,103 +765,141 @@ export declare namespace ContentTree {
         /**
         * InfoPair provides exactly two cards.
         */
-        interface InfoPair extends Parent {
+        export interface InfoPair extends Parent {
             type: "info-pair";
             /** The title of the info pair */
             title?: string;
             children: [Card, Card];
         }
+        /**
+           * @sparkGenerateStoryblock true
+           **/
+        type AudioPlayer = AudioPlayerV1 | AudioPlayerV2 | AudioPlayerV3;
+        /** @support deprecated */
+        export interface AudioPlayerV1 extends Node {
+            type: "audio-player";
+            version: 1;
+            title: string;
+            audioUrl: string;
+        }
+        export interface AudioPlayerV2 extends Node {
+            type: "audio-player";
+            version: 2;
+            title: string;
+            audioId: string;
+            audio: AudioSet;
+        }
+        /** @support prerelease */
+        export interface AudioPlayerV3 extends Node {
+            type: "audio-player";
+            version: 3;
+            title: string;
+            audioId: string;
+            transcriptionId: string;
+            audio: AudioSet;
+            transcription: Transcription;
+        }
+        /**
+         * Demo placeholders so the AudioPlayer versioning example compiles.
+         */
+        export interface AudioSet extends Node {
+            url: string;
+        }
+        export interface Transcription extends Node {
+            text: string;
+        }
+        export {};
     }
-    namespace transit {
-        type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
-        interface Node {
+    export namespace transit {
+        export type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
+        export interface Node {
             type: string;
             data?: any;
         }
-        interface Parent extends Node {
+        export interface Parent extends Node {
             children: Node[];
         }
-        interface Root extends Node {
+        export interface Root extends Node {
             type: "root";
             body: Body;
         }
-        interface Body extends Parent {
+        export interface Body extends Parent {
             type: "body";
             version: number;
             children: BodyBlock[];
         }
-        type BodyBlock = FormattingBlock | StoryBlock;
-        type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
-        interface Text extends Node {
+        export type BodyBlock = FormattingBlock | StoryBlock;
+        export type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
+        export interface Text extends Node {
             type: "text";
             value: string;
         }
-        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | FindOutMoreLink;
-        interface Break extends Node {
+        export type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | FindOutMoreLink;
+        export interface Break extends Node {
             type: "break";
         }
-        interface ThematicBreak extends Node {
+        export interface ThematicBreak extends Node {
             type: "thematic-break";
         }
-        interface Paragraph extends Parent {
+        export interface Paragraph extends Parent {
             type: "paragraph";
             children: Phrasing[];
         }
-        interface Heading extends Parent {
+        export interface Heading extends Parent {
             type: "heading";
             children: Text[];
             level: "chapter" | "subheading" | "label";
             fragmentIdentifier?: string;
         }
-        interface Strong extends Parent {
+        export interface Strong extends Parent {
             type: "strong";
             children: Phrasing[];
         }
-        interface Emphasis extends Parent {
+        export interface Emphasis extends Parent {
             type: "emphasis";
             children: Phrasing[];
         }
-        interface Strikethrough extends Parent {
+        export interface Strikethrough extends Parent {
             type: "strikethrough";
             children: Phrasing[];
         }
-        interface Link extends Parent {
+        export interface Link extends Parent {
             type: "link";
             url: string;
             title: string;
             children: Phrasing[];
         }
-        interface FindOutMoreLink extends Parent {
+        export interface FindOutMoreLink extends Parent {
             type: "find-out-more-link";
             url: string;
             title: string;
             children: Phrasing[];
         }
-        interface List extends Parent {
+        export interface List extends Parent {
             type: "list";
             ordered: boolean;
             children: ListItem[];
         }
-        interface ListItem extends Parent {
+        export interface ListItem extends Parent {
             type: "list-item";
             children: (Paragraph | Phrasing)[];
         }
-        interface Blockquote extends Parent {
+        export interface Blockquote extends Parent {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
-        interface Pullquote extends Node {
+        export type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair | AudioPlayer;
+        export interface Pullquote extends Node {
             type: "pullquote";
             text: string;
             source?: string;
         }
-        interface ImageSet extends Node {
+        export interface ImageSet extends Node {
             type: "image-set";
             id: string;
             fragmentIdentifier?: string;
         }
-        type ImageSetPicture = {
+        export type ImageSetPicture = {
             layoutWidth: string;
             imageType: "image" | "graphic";
             alt: string;
@@ -833,7 +908,7 @@ export declare namespace ContentTree {
             images: Image[];
             fallbackImage: Image;
         };
-        type Image = {
+        export type Image = {
             id: string;
             width: number;
             height: number;
@@ -841,23 +916,23 @@ export declare namespace ContentTree {
             url: string;
             sourceSet?: ImageSource[];
         };
-        type ImageSource = {
+        export type ImageSource = {
             url: string;
             width: number;
             dpr: number;
         };
-        interface Recommended extends Node {
+        export interface Recommended extends Node {
             type: "recommended";
             id: string;
             heading?: string;
             teaserTitleOverride?: string;
         }
-        interface RecommendedList extends Node {
+        export interface RecommendedList extends Node {
             type: "recommended-list";
             heading?: string;
             children: Recommended[];
         }
-        type TeaserConcept = {
+        export type TeaserConcept = {
             apiUrl: string;
             directType: string;
             id: string;
@@ -867,7 +942,7 @@ export declare namespace ContentTree {
             types: string[];
             url: string;
         };
-        type Teaser = {
+        export type Teaser = {
             id: string;
             url: string;
             type: "article" | "video" | "podcast" | "audio" | "package" | "liveblog" | "promoted-content" | "paid-post";
@@ -894,12 +969,12 @@ export declare namespace ContentTree {
             };
             clientName?: string;
         };
-        interface Tweet extends Node {
+        export interface Tweet extends Node {
             id: string;
             type: "tweet";
         }
-        type FlourishLayoutWidth = Extract<LayoutWidth, "full-grid" | "in-line">;
-        interface Flourish extends Node {
+        export type FlourishLayoutWidth = Extract<LayoutWidth, "full-grid" | "in-line">;
+        export interface Flourish extends Node {
             type: "flourish";
             id: string;
             layoutWidth: FlourishLayoutWidth;
@@ -908,25 +983,25 @@ export declare namespace ContentTree {
             timestamp?: string;
             fragmentIdentifier?: string;
         }
-        interface BigNumber extends Node {
+        export interface BigNumber extends Node {
             type: "big-number";
             number: string;
             description: string;
         }
-        interface Video extends Node {
+        export interface Video extends Node {
             type: "video";
             id: string;
         }
-        interface YoutubeVideo extends Node {
+        export interface YoutubeVideo extends Node {
             type: "youtube-video";
             url: string;
         }
-        interface ScrollyBlock extends Parent {
+        export interface ScrollyBlock extends Parent {
             type: "scrolly-block";
             theme: "sans" | "serif";
             children: ScrollySection[];
         }
-        interface ScrollySection extends Parent {
+        export interface ScrollySection extends Parent {
             type: "scrolly-section";
             display: "dark-background" | "light-background";
             noBox?: true;
@@ -934,66 +1009,66 @@ export declare namespace ContentTree {
             transition?: "delay-before" | "delay-after";
             children: [ScrollyImage, ...ScrollyCopy[]];
         }
-        interface ScrollyImage extends Node {
+        export interface ScrollyImage extends Node {
             type: "scrolly-image";
             id: string;
         }
-        interface ScrollyCopy extends Parent {
+        export interface ScrollyCopy extends Parent {
             type: "scrolly-copy";
             children: (ScrollyHeading | Paragraph)[];
         }
-        interface ScrollyHeading extends Parent {
+        export interface ScrollyHeading extends Parent {
             type: "scrolly-heading";
             level: "chapter" | "heading" | "subheading";
             children: Text[];
         }
-        interface Layout extends Parent {
+        export interface Layout extends Parent {
             type: "layout";
             layoutName: "auto" | "card" | "timeline";
             layoutWidth: string;
             children: [Heading, LayoutImage, ...LayoutSlot[]] | [Heading, ...LayoutSlot[]] | LayoutSlot[];
         }
-        interface LayoutSlot extends Parent {
+        export interface LayoutSlot extends Parent {
             type: "layout-slot";
             children: (Heading | Paragraph | LayoutImage)[];
         }
-        interface LayoutImage extends Node {
+        export interface LayoutImage extends Node {
             type: "layout-image";
             id: string;
             alt: string;
             caption: string;
             credit: string;
         }
-        type TableColumnSettings = {
+        export type TableColumnSettings = {
             hideOnMobile: boolean;
             sortable: boolean;
             sortType: 'text' | 'number' | 'date' | 'currency' | 'percent';
         };
-        type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
-        interface TableCaption extends Parent {
+        export type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
+        export interface TableCaption extends Parent {
             type: 'table-caption';
             children: Phrasing[];
         }
-        interface TableCell extends Parent {
+        export interface TableCell extends Parent {
             type: 'table-cell';
             heading?: boolean;
             columnSpan?: number;
             rowSpan?: number;
             children: Phrasing[];
         }
-        interface TableRow extends Parent {
+        export interface TableRow extends Parent {
             type: 'table-row';
             children: TableCell[];
         }
-        interface TableBody extends Parent {
+        export interface TableBody extends Parent {
             type: 'table-body';
             children: TableRow[];
         }
-        interface TableFooter extends Parent {
+        export interface TableFooter extends Parent {
             type: 'table-footer';
             children: Phrasing[];
         }
-        interface Table extends Parent {
+        export interface Table extends Parent {
             type: 'table';
             stripes: boolean;
             compact: boolean;
@@ -1003,10 +1078,10 @@ export declare namespace ContentTree {
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
         }
-        type CustomCodeComponentAttributes = {
+        export type CustomCodeComponentAttributes = {
             [key: string]: string | boolean | undefined;
         };
-        interface CustomCodeComponent extends Node {
+        export interface CustomCodeComponent extends Node {
             /** Component type */
             type: "custom-code-component";
             /** Id taken from the CAPI url */
@@ -1014,14 +1089,14 @@ export declare namespace ContentTree {
             /** How the component should be presented in the article page according to the column layout system */
             layoutWidth: LayoutWidth;
         }
-        interface ImagePair extends Parent {
+        export interface ImagePair extends Parent {
             type: 'image-pair';
             children: [ImageSet, ImageSet];
         }
         /**
          * Timeline nodes display a timeline of events in arbitrary order.
          */
-        interface Timeline extends Parent {
+        export interface Timeline extends Parent {
             type: "timeline";
             /** The title for the timeline */
             title: string;
@@ -1030,7 +1105,7 @@ export declare namespace ContentTree {
         /**
          * TimelineEvent is the representation of a single event in a Timeline.
          */
-        interface TimelineEvent extends Parent {
+        export interface TimelineEvent extends Parent {
             type: "timeline-event";
             /** The title of the event */
             title: string;
@@ -1040,7 +1115,7 @@ export declare namespace ContentTree {
         /**
          * A definition has a term and a related description. It is used to describe a term.
          */
-        interface Definition extends Node {
+        export interface Definition extends Node {
             type: "definition";
             term: string;
             description: string;
@@ -1048,7 +1123,7 @@ export declare namespace ContentTree {
         /**
          * InNumbers represents a set of numbers with related descriptions.
          */
-        interface InNumbers extends Parent {
+        export interface InNumbers extends Parent {
             type: "in-numbers";
             /** The title for the InNumbers */
             title?: string;
@@ -1056,11 +1131,11 @@ export declare namespace ContentTree {
         }
         /** Allowed children for a card
         */
-        type CardChildren = ImageSet | Exclude<FormattingBlock, Heading>;
+        export type CardChildren = ImageSet | Exclude<FormattingBlock, Heading>;
         /**
         * A card describes a subject with images and text
         */
-        interface Card extends Parent {
+        export interface Card extends Parent {
             type: "card";
             /** The title of this card */
             title?: string;
@@ -1069,11 +1144,11 @@ export declare namespace ContentTree {
         /**
         * Allowed layout widths for an InfoBox.
         */
-        type InfoBoxLayoutWidth = Extract<LayoutWidth, "in-line" | "inset-left">;
+        export type InfoBoxLayoutWidth = Extract<LayoutWidth, "in-line" | "inset-left">;
         /**
         * An info box describes a subject via a single card
         */
-        interface InfoBox extends Parent {
+        export interface InfoBox extends Parent {
             type: "info-box";
             /** The layout width supported by this node */
             layoutWidth: InfoBoxLayoutWidth;
@@ -1082,104 +1157,139 @@ export declare namespace ContentTree {
         /**
         * InfoPair provides exactly two cards.
         */
-        interface InfoPair extends Parent {
+        export interface InfoPair extends Parent {
             type: "info-pair";
             /** The title of the info pair */
             title?: string;
             children: [Card, Card];
         }
+        /**
+           * @sparkGenerateStoryblock true
+           **/
+        type AudioPlayer = AudioPlayerV1 | AudioPlayerV2 | AudioPlayerV3;
+        /** @support deprecated */
+        export interface AudioPlayerV1 extends Node {
+            type: "audio-player";
+            version: 1;
+            title: string;
+            audioUrl: string;
+        }
+        export interface AudioPlayerV2 extends Node {
+            type: "audio-player";
+            version: 2;
+            title: string;
+            audioId: string;
+        }
+        /** @support prerelease */
+        export interface AudioPlayerV3 extends Node {
+            type: "audio-player";
+            version: 3;
+            title: string;
+            audioId: string;
+            transcriptionId: string;
+        }
+        /**
+         * Demo placeholders so the AudioPlayer versioning example compiles.
+         */
+        export interface AudioSet extends Node {
+            url: string;
+        }
+        export interface Transcription extends Node {
+            text: string;
+        }
+        export {};
     }
-    namespace loose {
-        type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
-        interface Node {
+    export namespace loose {
+        export type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
+        export interface Node {
             type: string;
             data?: any;
         }
-        interface Parent extends Node {
+        export interface Parent extends Node {
             children: Node[];
         }
-        interface Root extends Node {
+        export interface Root extends Node {
             type: "root";
             body: Body;
         }
-        interface Body extends Parent {
+        export interface Body extends Parent {
             type: "body";
             version: number;
             children: BodyBlock[];
         }
-        type BodyBlock = FormattingBlock | StoryBlock;
-        type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
-        interface Text extends Node {
+        export type BodyBlock = FormattingBlock | StoryBlock;
+        export type FormattingBlock = Paragraph | Heading | List | Blockquote | ThematicBreak | Text;
+        export interface Text extends Node {
             type: "text";
             value: string;
         }
-        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | FindOutMoreLink;
-        interface Break extends Node {
+        export type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | FindOutMoreLink;
+        export interface Break extends Node {
             type: "break";
         }
-        interface ThematicBreak extends Node {
+        export interface ThematicBreak extends Node {
             type: "thematic-break";
         }
-        interface Paragraph extends Parent {
+        export interface Paragraph extends Parent {
             type: "paragraph";
             children: Phrasing[];
         }
-        interface Heading extends Parent {
+        export interface Heading extends Parent {
             type: "heading";
             children: Text[];
             level: "chapter" | "subheading" | "label";
             fragmentIdentifier?: string;
         }
-        interface Strong extends Parent {
+        export interface Strong extends Parent {
             type: "strong";
             children: Phrasing[];
         }
-        interface Emphasis extends Parent {
+        export interface Emphasis extends Parent {
             type: "emphasis";
             children: Phrasing[];
         }
-        interface Strikethrough extends Parent {
+        export interface Strikethrough extends Parent {
             type: "strikethrough";
             children: Phrasing[];
         }
-        interface Link extends Parent {
+        export interface Link extends Parent {
             type: "link";
             url: string;
             title: string;
             children: Phrasing[];
         }
-        interface FindOutMoreLink extends Parent {
+        export interface FindOutMoreLink extends Parent {
             type: "find-out-more-link";
             url: string;
             title: string;
             children: Phrasing[];
         }
-        interface List extends Parent {
+        export interface List extends Parent {
             type: "list";
             ordered: boolean;
             children: ListItem[];
         }
-        interface ListItem extends Parent {
+        export interface ListItem extends Parent {
             type: "list-item";
             children: (Paragraph | Phrasing)[];
         }
-        interface Blockquote extends Parent {
+        export interface Blockquote extends Parent {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
-        interface Pullquote extends Node {
+        export type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair | AudioPlayer;
+        export interface Pullquote extends Node {
             type: "pullquote";
             text: string;
             source?: string;
         }
-        interface ImageSet extends Node {
+        export interface ImageSet extends Node {
             type: "image-set";
             id: string;
             picture?: ImageSetPicture;
             fragmentIdentifier?: string;
         }
-        type ImageSetPicture = {
+        export type ImageSetPicture = {
             layoutWidth: string;
             imageType: "image" | "graphic";
             alt: string;
@@ -1188,7 +1298,7 @@ export declare namespace ContentTree {
             images: Image[];
             fallbackImage: Image;
         };
-        type Image = {
+        export type Image = {
             id: string;
             width: number;
             height: number;
@@ -1196,24 +1306,24 @@ export declare namespace ContentTree {
             url: string;
             sourceSet?: ImageSource[];
         };
-        type ImageSource = {
+        export type ImageSource = {
             url: string;
             width: number;
             dpr: number;
         };
-        interface Recommended extends Node {
+        export interface Recommended extends Node {
             type: "recommended";
             id: string;
             heading?: string;
             teaserTitleOverride?: string;
             teaser?: Teaser;
         }
-        interface RecommendedList extends Node {
+        export interface RecommendedList extends Node {
             type: "recommended-list";
             heading?: string;
             children: Recommended[];
         }
-        type TeaserConcept = {
+        export type TeaserConcept = {
             apiUrl: string;
             directType: string;
             id: string;
@@ -1223,7 +1333,7 @@ export declare namespace ContentTree {
             types: string[];
             url: string;
         };
-        type Teaser = {
+        export type Teaser = {
             id: string;
             url: string;
             type: "article" | "video" | "podcast" | "audio" | "package" | "liveblog" | "promoted-content" | "paid-post";
@@ -1250,13 +1360,13 @@ export declare namespace ContentTree {
             };
             clientName?: string;
         };
-        interface Tweet extends Node {
+        export interface Tweet extends Node {
             id: string;
             type: "tweet";
             html?: string;
         }
-        type FlourishLayoutWidth = Extract<LayoutWidth, "full-grid" | "in-line">;
-        interface Flourish extends Node {
+        export type FlourishLayoutWidth = Extract<LayoutWidth, "full-grid" | "in-line">;
+        export interface Flourish extends Node {
             type: "flourish";
             id: string;
             layoutWidth: FlourishLayoutWidth;
@@ -1266,26 +1376,26 @@ export declare namespace ContentTree {
             fallbackImage?: Image;
             fragmentIdentifier?: string;
         }
-        interface BigNumber extends Node {
+        export interface BigNumber extends Node {
             type: "big-number";
             number: string;
             description: string;
         }
-        interface Video extends Node {
+        export interface Video extends Node {
             type: "video";
             id: string;
             title?: string;
         }
-        interface YoutubeVideo extends Node {
+        export interface YoutubeVideo extends Node {
             type: "youtube-video";
             url: string;
         }
-        interface ScrollyBlock extends Parent {
+        export interface ScrollyBlock extends Parent {
             type: "scrolly-block";
             theme: "sans" | "serif";
             children: ScrollySection[];
         }
-        interface ScrollySection extends Parent {
+        export interface ScrollySection extends Parent {
             type: "scrolly-section";
             display: "dark-background" | "light-background";
             noBox?: true;
@@ -1293,31 +1403,31 @@ export declare namespace ContentTree {
             transition?: "delay-before" | "delay-after";
             children: [ScrollyImage, ...ScrollyCopy[]];
         }
-        interface ScrollyImage extends Node {
+        export interface ScrollyImage extends Node {
             type: "scrolly-image";
             id: string;
             picture?: ImageSetPicture;
         }
-        interface ScrollyCopy extends Parent {
+        export interface ScrollyCopy extends Parent {
             type: "scrolly-copy";
             children: (ScrollyHeading | Paragraph)[];
         }
-        interface ScrollyHeading extends Parent {
+        export interface ScrollyHeading extends Parent {
             type: "scrolly-heading";
             level: "chapter" | "heading" | "subheading";
             children: Text[];
         }
-        interface Layout extends Parent {
+        export interface Layout extends Parent {
             type: "layout";
             layoutName: "auto" | "card" | "timeline";
             layoutWidth: string;
             children: [Heading, LayoutImage, ...LayoutSlot[]] | [Heading, ...LayoutSlot[]] | LayoutSlot[];
         }
-        interface LayoutSlot extends Parent {
+        export interface LayoutSlot extends Parent {
             type: "layout-slot";
             children: (Heading | Paragraph | LayoutImage)[];
         }
-        interface LayoutImage extends Node {
+        export interface LayoutImage extends Node {
             type: "layout-image";
             id: string;
             alt: string;
@@ -1325,36 +1435,36 @@ export declare namespace ContentTree {
             credit: string;
             picture?: ImageSetPicture;
         }
-        type TableColumnSettings = {
+        export type TableColumnSettings = {
             hideOnMobile: boolean;
             sortable: boolean;
             sortType: 'text' | 'number' | 'date' | 'currency' | 'percent';
         };
-        type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
-        interface TableCaption extends Parent {
+        export type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
+        export interface TableCaption extends Parent {
             type: 'table-caption';
             children: Phrasing[];
         }
-        interface TableCell extends Parent {
+        export interface TableCell extends Parent {
             type: 'table-cell';
             heading?: boolean;
             columnSpan?: number;
             rowSpan?: number;
             children: Phrasing[];
         }
-        interface TableRow extends Parent {
+        export interface TableRow extends Parent {
             type: 'table-row';
             children: TableCell[];
         }
-        interface TableBody extends Parent {
+        export interface TableBody extends Parent {
             type: 'table-body';
             children: TableRow[];
         }
-        interface TableFooter extends Parent {
+        export interface TableFooter extends Parent {
             type: 'table-footer';
             children: Phrasing[];
         }
-        interface Table extends Parent {
+        export interface Table extends Parent {
             type: 'table';
             stripes: boolean;
             compact: boolean;
@@ -1364,10 +1474,10 @@ export declare namespace ContentTree {
             children: [TableCaption, TableBody, TableFooter] | [TableCaption, TableBody] | [TableBody, TableFooter] | [TableBody];
             columnSettings: TableColumnSettings[];
         }
-        type CustomCodeComponentAttributes = {
+        export type CustomCodeComponentAttributes = {
             [key: string]: string | boolean | undefined;
         };
-        interface CustomCodeComponent extends Node {
+        export interface CustomCodeComponent extends Node {
             /** Component type */
             type: "custom-code-component";
             /** Id taken from the CAPI url */
@@ -1383,14 +1493,14 @@ export declare namespace ContentTree {
             /** Configuration data to be passed to the component. */
             attributes?: CustomCodeComponentAttributes;
         }
-        interface ImagePair extends Parent {
+        export interface ImagePair extends Parent {
             type: 'image-pair';
             children: [ImageSet, ImageSet];
         }
         /**
          * Timeline nodes display a timeline of events in arbitrary order.
          */
-        interface Timeline extends Parent {
+        export interface Timeline extends Parent {
             type: "timeline";
             /** The title for the timeline */
             title: string;
@@ -1399,7 +1509,7 @@ export declare namespace ContentTree {
         /**
          * TimelineEvent is the representation of a single event in a Timeline.
          */
-        interface TimelineEvent extends Parent {
+        export interface TimelineEvent extends Parent {
             type: "timeline-event";
             /** The title of the event */
             title: string;
@@ -1409,7 +1519,7 @@ export declare namespace ContentTree {
         /**
          * A definition has a term and a related description. It is used to describe a term.
          */
-        interface Definition extends Node {
+        export interface Definition extends Node {
             type: "definition";
             term: string;
             description: string;
@@ -1417,7 +1527,7 @@ export declare namespace ContentTree {
         /**
          * InNumbers represents a set of numbers with related descriptions.
          */
-        interface InNumbers extends Parent {
+        export interface InNumbers extends Parent {
             type: "in-numbers";
             /** The title for the InNumbers */
             title?: string;
@@ -1425,11 +1535,11 @@ export declare namespace ContentTree {
         }
         /** Allowed children for a card
         */
-        type CardChildren = ImageSet | Exclude<FormattingBlock, Heading>;
+        export type CardChildren = ImageSet | Exclude<FormattingBlock, Heading>;
         /**
         * A card describes a subject with images and text
         */
-        interface Card extends Parent {
+        export interface Card extends Parent {
             type: "card";
             /** The title of this card */
             title?: string;
@@ -1438,11 +1548,11 @@ export declare namespace ContentTree {
         /**
         * Allowed layout widths for an InfoBox.
         */
-        type InfoBoxLayoutWidth = Extract<LayoutWidth, "in-line" | "inset-left">;
+        export type InfoBoxLayoutWidth = Extract<LayoutWidth, "in-line" | "inset-left">;
         /**
         * An info box describes a subject via a single card
         */
-        interface InfoBox extends Parent {
+        export interface InfoBox extends Parent {
             type: "info-box";
             /** The layout width supported by this node */
             layoutWidth: InfoBoxLayoutWidth;
@@ -1451,11 +1561,50 @@ export declare namespace ContentTree {
         /**
         * InfoPair provides exactly two cards.
         */
-        interface InfoPair extends Parent {
+        export interface InfoPair extends Parent {
             type: "info-pair";
             /** The title of the info pair */
             title?: string;
             children: [Card, Card];
         }
+        /**
+           * @sparkGenerateStoryblock true
+           **/
+        type AudioPlayer = AudioPlayerV1 | AudioPlayerV2 | AudioPlayerV3;
+        /** @support deprecated */
+        export interface AudioPlayerV1 extends Node {
+            type: "audio-player";
+            version: 1;
+            title: string;
+            audioUrl: string;
+        }
+        export interface AudioPlayerV2 extends Node {
+            type: "audio-player";
+            version: 2;
+            title: string;
+            audioId: string;
+            audio?: AudioSet;
+        }
+        /** @support prerelease */
+        export interface AudioPlayerV3 extends Node {
+            type: "audio-player";
+            version: 3;
+            title: string;
+            audioId: string;
+            transcriptionId: string;
+            audio?: AudioSet;
+            transcription?: Transcription;
+        }
+        /**
+         * Demo placeholders so the AudioPlayer versioning example compiles.
+         */
+        export interface AudioSet extends Node {
+            url: string;
+        }
+        export interface Transcription extends Node {
+            text: string;
+        }
+        export {};
     }
+    export {};
 }
