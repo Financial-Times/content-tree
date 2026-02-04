@@ -1,5 +1,17 @@
 export declare namespace ContentTree {
+    type AssetFormat = "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline";
     type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
+    type AVSource = {
+        binaryUrl: string;
+        mediaType: string;
+        audioCodec?: string;
+        duration?: number;
+    };
+    type VideoSource = AVSource & {
+        pixelHeight?: number;
+        pixelWidth?: number;
+        videoCodec?: string;
+    };
     interface Node {
         type: string;
         data?: any;
@@ -101,7 +113,7 @@ export declare namespace ContentTree {
         id: string;
         width: number;
         height: number;
-        format: "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline";
+        format: AssetFormat;
         url: string;
         sourceSet?: ImageSource[];
     };
@@ -212,21 +224,15 @@ export declare namespace ContentTree {
     }
     type Clip = {
         id: string;
-        dataSource: ClipSource[];
-        format?: "standard-inline" | "mobile";
+        dataSource: VideoSource[];
+        format?: Extract<AssetFormat, "standard-inline" | "mobile">;
         poster?: string;
     };
-    type ClipSource = {
-        binaryUrl: string;
-        mediaType: string;
-        audioCodec?: string;
-        duration?: number;
-        pixelHeight?: number;
-        pixelWidth?: number;
-        videoCodec?: string;
-    };
+    /** Clip captions are files that provide the text captions on the video and their synchronisation timings  */
     type ClipCaption = {
+        /** Caption file content type */
         mediaType?: string;
+        /** Caption file location */
         url?: string;
     };
     type ClipAccessibility = {
@@ -412,7 +418,19 @@ export declare namespace ContentTree {
         children: [Card, Card];
     }
     namespace full {
+        type AssetFormat = "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline";
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
+        type AVSource = {
+            binaryUrl: string;
+            mediaType: string;
+            audioCodec?: string;
+            duration?: number;
+        };
+        type VideoSource = AVSource & {
+            pixelHeight?: number;
+            pixelWidth?: number;
+            videoCodec?: string;
+        };
         interface Node {
             type: string;
             data?: any;
@@ -514,7 +532,7 @@ export declare namespace ContentTree {
             id: string;
             width: number;
             height: number;
-            format: "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline";
+            format: AssetFormat;
             url: string;
             sourceSet?: ImageSource[];
         };
@@ -625,21 +643,15 @@ export declare namespace ContentTree {
         }
         type Clip = {
             id: string;
-            dataSource: ClipSource[];
-            format?: "standard-inline" | "mobile";
+            dataSource: VideoSource[];
+            format?: Extract<AssetFormat, "standard-inline" | "mobile">;
             poster?: string;
         };
-        type ClipSource = {
-            binaryUrl: string;
-            mediaType: string;
-            audioCodec?: string;
-            duration?: number;
-            pixelHeight?: number;
-            pixelWidth?: number;
-            videoCodec?: string;
-        };
+        /** Clip captions are files that provide the text captions on the video and their synchronisation timings  */
         type ClipCaption = {
+            /** Caption file content type */
             mediaType?: string;
+            /** Caption file location */
             url?: string;
         };
         type ClipAccessibility = {
@@ -826,7 +838,19 @@ export declare namespace ContentTree {
         }
     }
     namespace transit {
+        type AssetFormat = "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline";
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
+        type AVSource = {
+            binaryUrl: string;
+            mediaType: string;
+            audioCodec?: string;
+            duration?: number;
+        };
+        type VideoSource = AVSource & {
+            pixelHeight?: number;
+            pixelWidth?: number;
+            videoCodec?: string;
+        };
         interface Node {
             type: string;
             data?: any;
@@ -927,7 +951,7 @@ export declare namespace ContentTree {
             id: string;
             width: number;
             height: number;
-            format: "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline";
+            format: AssetFormat;
             url: string;
             sourceSet?: ImageSource[];
         };
@@ -1022,21 +1046,15 @@ export declare namespace ContentTree {
         }
         type Clip = {
             id: string;
-            dataSource: ClipSource[];
-            format?: "standard-inline" | "mobile";
+            dataSource: VideoSource[];
+            format?: Extract<AssetFormat, "standard-inline" | "mobile">;
             poster?: string;
         };
-        type ClipSource = {
-            binaryUrl: string;
-            mediaType: string;
-            audioCodec?: string;
-            duration?: number;
-            pixelHeight?: number;
-            pixelWidth?: number;
-            videoCodec?: string;
-        };
+        /** Clip captions are files that provide the text captions on the video and their synchronisation timings  */
         type ClipCaption = {
+            /** Caption file content type */
             mediaType?: string;
+            /** Caption file location */
             url?: string;
         };
         type ClipAccessibility = {
@@ -1213,7 +1231,19 @@ export declare namespace ContentTree {
         }
     }
     namespace loose {
+        type AssetFormat = "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline";
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
+        type AVSource = {
+            binaryUrl: string;
+            mediaType: string;
+            audioCodec?: string;
+            duration?: number;
+        };
+        type VideoSource = AVSource & {
+            pixelHeight?: number;
+            pixelWidth?: number;
+            videoCodec?: string;
+        };
         interface Node {
             type: string;
             data?: any;
@@ -1315,7 +1345,7 @@ export declare namespace ContentTree {
             id: string;
             width: number;
             height: number;
-            format: "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline";
+            format: AssetFormat;
             url: string;
             sourceSet?: ImageSource[];
         };
@@ -1426,21 +1456,15 @@ export declare namespace ContentTree {
         }
         type Clip = {
             id: string;
-            dataSource: ClipSource[];
-            format?: "standard-inline" | "mobile";
+            dataSource: VideoSource[];
+            format?: Extract<AssetFormat, "standard-inline" | "mobile">;
             poster?: string;
         };
-        type ClipSource = {
-            binaryUrl: string;
-            mediaType: string;
-            audioCodec?: string;
-            duration?: number;
-            pixelHeight?: number;
-            pixelWidth?: number;
-            videoCodec?: string;
-        };
+        /** Clip captions are files that provide the text captions on the video and their synchronisation timings  */
         type ClipCaption = {
+            /** Caption file content type */
             mediaType?: string;
+            /** Caption file location */
             url?: string;
         };
         type ClipAccessibility = {
