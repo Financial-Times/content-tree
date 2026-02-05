@@ -1,1 +1,9 @@
-* @Financial-Times/content-team @Financial-Times/spark-team @Financial-Times/r13n @chee
+# Default ownership for everything
+* @Financial-Times/spark-team
+
+# Go libraries
+*.go @Financial-Times/content-team
+
+# Shared ownership for SPEC and package.json (for version bumps)
+SPEC.md @Financial-Times/content-team @Financial-Times/spark-team @Financial-Times/storytelling
+package.json @Financial-Times/content-team @Financial-Times/spark-team @Financial-Times/storytelling
