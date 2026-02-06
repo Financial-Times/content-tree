@@ -285,9 +285,23 @@
             "additionalProperties": false,
             "properties": {
                 "children": {
-                    "items": {
-                        "$ref": "#/definitions/ContentTree.transit.Phrasing"
-                    },
+                    "items": [
+                        {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/ContentTree.transit.Text"
+                                },
+                                {
+                                    "$ref": "#/definitions/ContentTree.transit.Strong"
+                                },
+                                {
+                                    "$ref": "#/definitions/ContentTree.transit.Emphasis"
+                                }
+                            ]
+                        }
+                    ],
+                    "maxItems": 1,
+                    "minItems": 1,
                     "type": "array"
                 },
                 "data": {},
