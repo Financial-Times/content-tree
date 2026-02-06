@@ -3,7 +3,16 @@
 
 # Go libraries
 *.go @Financial-Times/content-team
+go/ @Financial-Times/content-team 
+go.mod @Financial-Times/content-team 
+go.sum @Financial-Times/content-team 
+libraries/from-bodyxml/ @Financial-Times/content-team
+libraries/to-external-bodyxml/ @Financial-Times/content-team
 
-# Shared ownership for SPEC and package.json (for version bumps)
-SPEC.md @Financial-Times/content-team @Financial-Times/spark-team @Financial-Times/storytelling
-package.json @Financial-Times/content-team @Financial-Times/spark-team @Financial-Times/storytelling
+# Test fixtures
+/test/ @Financial-Times/content-team @Financial-Times/spark-team
+
+# Shared ownership for README, SPEC and package.json (for version bumps)
+README.md @Financial-Times/content-team @Financial-Times/spark-team @Financial-Times/storytelling @Financial-Times/platforms
+SPEC.md @Financial-Times/content-team @Financial-Times/spark-team @Financial-Times/storytelling @Financial-Times/platforms
+package.json @Financial-Times/content-team @Financial-Times/spark-team @Financial-Times/storytelling @Financial-Times/platforms
