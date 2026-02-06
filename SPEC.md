@@ -300,6 +300,7 @@ type StoryBlock =
 	| Definition
 	| InfoBox
 	| InfoPair
+	| AudioPlayer
 ```
 
 `StoryBlock` nodes are things that can be inserted into an article body.
@@ -859,9 +860,59 @@ interface InfoPair extends Parent {
 }
 ```
 
+### AudioPlayer
 
+```ts
+type AudioPlayer = AudioPlayerV1 | AudioPlayerV2 | AudioPlayerV3
 
+/** 
+ * @sparkGenerateStoryblock true
+ * @support deprecated 
+ */
+interface AudioPlayerV1 extends Node {
+	type: "audio-player"
+	version: 1
+	title: string
+	audioUrl: string
+}
 
+/** 
+ * @sparkGenerateStoryblock true
+ * @sparkInsert true
+ * @support supported 
+ */
+interface AudioPlayerV2 extends Node {
+	type: "audio-player"
+	version: 2
+	title: string
+	audioId: string
+	external audio: AudioSet
+}
 
+/** 
+ * @sparkGenerateStoryblock true
+ * @support prerelease 
+ */
+interface AudioPlayerV3 extends Node {
+	type: "audio-player"
+	version: 3
+	title: string
+	audioId: string
+	transcriptionId: string
+	external audio: AudioSet
+	external transcription: Transcription
+}
+```
 
+```ts
+/**
+ * Demo placeholders so the AudioPlayer versioning example compiles.
+ */
+interface AudioSet extends Node {
+	url: string
+}
 
+interface Transcription extends Node {
+	text: string
+}
+```

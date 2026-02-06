@@ -76,7 +76,7 @@ export declare namespace ContentTree {
         type: "blockquote";
         children: (Paragraph | Phrasing)[];
     }
-    type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+    type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair | AudioPlayer;
     interface Pullquote extends Node {
         type: "pullquote";
         text: string;
@@ -366,6 +366,51 @@ export declare namespace ContentTree {
         title?: string;
         children: [Card, Card];
     }
+    type AudioPlayer = AudioPlayerV1 | AudioPlayerV2 | AudioPlayerV3;
+    /**
+     * @sparkGenerateStoryblock true
+     * @support deprecated
+     */
+    interface AudioPlayerV1 extends Node {
+        type: "audio-player";
+        version: 1;
+        title: string;
+        audioUrl: string;
+    }
+    /**
+     * @sparkGenerateStoryblock true
+     * @sparkInsert true
+     * @support supported
+     */
+    interface AudioPlayerV2 extends Node {
+        type: "audio-player";
+        version: 2;
+        title: string;
+        audioId: string;
+        audio: AudioSet;
+    }
+    /**
+     * @sparkGenerateStoryblock true
+     * @support prerelease
+     */
+    interface AudioPlayerV3 extends Node {
+        type: "audio-player";
+        version: 3;
+        title: string;
+        audioId: string;
+        transcriptionId: string;
+        audio: AudioSet;
+        transcription: Transcription;
+    }
+    /**
+     * Demo placeholders so the AudioPlayer versioning example compiles.
+     */
+    interface AudioSet extends Node {
+        url: string;
+    }
+    interface Transcription extends Node {
+        text: string;
+    }
     namespace full {
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         interface Node {
@@ -444,7 +489,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair | AudioPlayer;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -734,6 +779,51 @@ export declare namespace ContentTree {
             title?: string;
             children: [Card, Card];
         }
+        type AudioPlayer = AudioPlayerV1 | AudioPlayerV2 | AudioPlayerV3;
+        /**
+         * @sparkGenerateStoryblock true
+         * @support deprecated
+         */
+        interface AudioPlayerV1 extends Node {
+            type: "audio-player";
+            version: 1;
+            title: string;
+            audioUrl: string;
+        }
+        /**
+         * @sparkGenerateStoryblock true
+         * @sparkInsert true
+         * @support supported
+         */
+        interface AudioPlayerV2 extends Node {
+            type: "audio-player";
+            version: 2;
+            title: string;
+            audioId: string;
+            audio: AudioSet;
+        }
+        /**
+         * @sparkGenerateStoryblock true
+         * @support prerelease
+         */
+        interface AudioPlayerV3 extends Node {
+            type: "audio-player";
+            version: 3;
+            title: string;
+            audioId: string;
+            transcriptionId: string;
+            audio: AudioSet;
+            transcription: Transcription;
+        }
+        /**
+         * Demo placeholders so the AudioPlayer versioning example compiles.
+         */
+        interface AudioSet extends Node {
+            url: string;
+        }
+        interface Transcription extends Node {
+            text: string;
+        }
     }
     namespace transit {
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
@@ -813,7 +903,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair | AudioPlayer;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -1088,6 +1178,48 @@ export declare namespace ContentTree {
             title?: string;
             children: [Card, Card];
         }
+        type AudioPlayer = AudioPlayerV1 | AudioPlayerV2 | AudioPlayerV3;
+        /**
+         * @sparkGenerateStoryblock true
+         * @support deprecated
+         */
+        interface AudioPlayerV1 extends Node {
+            type: "audio-player";
+            version: 1;
+            title: string;
+            audioUrl: string;
+        }
+        /**
+         * @sparkGenerateStoryblock true
+         * @sparkInsert true
+         * @support supported
+         */
+        interface AudioPlayerV2 extends Node {
+            type: "audio-player";
+            version: 2;
+            title: string;
+            audioId: string;
+        }
+        /**
+         * @sparkGenerateStoryblock true
+         * @support prerelease
+         */
+        interface AudioPlayerV3 extends Node {
+            type: "audio-player";
+            version: 3;
+            title: string;
+            audioId: string;
+            transcriptionId: string;
+        }
+        /**
+         * Demo placeholders so the AudioPlayer versioning example compiles.
+         */
+        interface AudioSet extends Node {
+            url: string;
+        }
+        interface Transcription extends Node {
+            text: string;
+        }
     }
     namespace loose {
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
@@ -1167,7 +1299,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair | AudioPlayer;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -1456,6 +1588,51 @@ export declare namespace ContentTree {
             /** The title of the info pair */
             title?: string;
             children: [Card, Card];
+        }
+        type AudioPlayer = AudioPlayerV1 | AudioPlayerV2 | AudioPlayerV3;
+        /**
+         * @sparkGenerateStoryblock true
+         * @support deprecated
+         */
+        interface AudioPlayerV1 extends Node {
+            type: "audio-player";
+            version: 1;
+            title: string;
+            audioUrl: string;
+        }
+        /**
+         * @sparkGenerateStoryblock true
+         * @sparkInsert true
+         * @support supported
+         */
+        interface AudioPlayerV2 extends Node {
+            type: "audio-player";
+            version: 2;
+            title: string;
+            audioId: string;
+            audio?: AudioSet;
+        }
+        /**
+         * @sparkGenerateStoryblock true
+         * @support prerelease
+         */
+        interface AudioPlayerV3 extends Node {
+            type: "audio-player";
+            version: 3;
+            title: string;
+            audioId: string;
+            transcriptionId: string;
+            audio?: AudioSet;
+            transcription?: Transcription;
+        }
+        /**
+         * Demo placeholders so the AudioPlayer versioning example compiles.
+         */
+        interface AudioSet extends Node {
+            url: string;
+        }
+        interface Transcription extends Node {
+            text: string;
         }
     }
 }

@@ -2,6 +2,97 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "additionalProperties": false,
     "definitions": {
+        "ContentTree.transit.AudioPlayerV1": {
+            "additionalProperties": false,
+            "properties": {
+                "audioUrl": {
+                    "type": "string"
+                },
+                "data": {},
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "audio-player",
+                    "type": "string"
+                },
+                "version": {
+                    "const": 1,
+                    "type": "number"
+                }
+            },
+            "required": [
+                "audioUrl",
+                "title",
+                "type",
+                "version"
+            ],
+            "sparkGenerateStoryblock": true,
+            "support": "deprecated",
+            "type": "object"
+        },
+        "ContentTree.transit.AudioPlayerV2": {
+            "additionalProperties": false,
+            "properties": {
+                "audioId": {
+                    "type": "string"
+                },
+                "data": {},
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "audio-player",
+                    "type": "string"
+                },
+                "version": {
+                    "const": 2,
+                    "type": "number"
+                }
+            },
+            "required": [
+                "audioId",
+                "title",
+                "type",
+                "version"
+            ],
+            "sparkGenerateStoryblock": true,
+            "support": "supported",
+            "type": "object"
+        },
+        "ContentTree.transit.AudioPlayerV3": {
+            "additionalProperties": false,
+            "properties": {
+                "audioId": {
+                    "type": "string"
+                },
+                "data": {},
+                "title": {
+                    "type": "string"
+                },
+                "transcriptionId": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "audio-player",
+                    "type": "string"
+                },
+                "version": {
+                    "const": 3,
+                    "type": "number"
+                }
+            },
+            "required": [
+                "audioId",
+                "title",
+                "transcriptionId",
+                "type",
+                "version"
+            ],
+            "sparkGenerateStoryblock": true,
+            "support": "prerelease",
+            "type": "object"
+        },
         "ContentTree.transit.BigNumber": {
             "additionalProperties": false,
             "properties": {
@@ -171,6 +262,15 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.InfoPair"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.AudioPlayerV1"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.AudioPlayerV2"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.AudioPlayerV3"
                 }
             ]
         },

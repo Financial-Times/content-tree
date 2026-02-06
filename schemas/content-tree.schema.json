@@ -2,6 +2,127 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "additionalProperties": false,
     "definitions": {
+        "ContentTree.full.AudioPlayerV1": {
+            "additionalProperties": false,
+            "properties": {
+                "audioUrl": {
+                    "type": "string"
+                },
+                "data": {},
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "audio-player",
+                    "type": "string"
+                },
+                "version": {
+                    "const": 1,
+                    "type": "number"
+                }
+            },
+            "required": [
+                "audioUrl",
+                "title",
+                "type",
+                "version"
+            ],
+            "sparkGenerateStoryblock": true,
+            "support": "deprecated",
+            "type": "object"
+        },
+        "ContentTree.full.AudioPlayerV2": {
+            "additionalProperties": false,
+            "properties": {
+                "audio": {
+                    "$ref": "#/definitions/ContentTree.full.AudioSet"
+                },
+                "audioId": {
+                    "type": "string"
+                },
+                "data": {},
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "audio-player",
+                    "type": "string"
+                },
+                "version": {
+                    "const": 2,
+                    "type": "number"
+                }
+            },
+            "required": [
+                "audio",
+                "audioId",
+                "title",
+                "type",
+                "version"
+            ],
+            "sparkGenerateStoryblock": true,
+            "support": "supported",
+            "type": "object"
+        },
+        "ContentTree.full.AudioPlayerV3": {
+            "additionalProperties": false,
+            "properties": {
+                "audio": {
+                    "$ref": "#/definitions/ContentTree.full.AudioSet"
+                },
+                "audioId": {
+                    "type": "string"
+                },
+                "data": {},
+                "title": {
+                    "type": "string"
+                },
+                "transcription": {
+                    "$ref": "#/definitions/ContentTree.full.Transcription"
+                },
+                "transcriptionId": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "audio-player",
+                    "type": "string"
+                },
+                "version": {
+                    "const": 3,
+                    "type": "number"
+                }
+            },
+            "required": [
+                "audio",
+                "audioId",
+                "title",
+                "transcription",
+                "transcriptionId",
+                "type",
+                "version"
+            ],
+            "sparkGenerateStoryblock": true,
+            "support": "prerelease",
+            "type": "object"
+        },
+        "ContentTree.full.AudioSet": {
+            "additionalProperties": false,
+            "description": "Demo placeholders so the AudioPlayer versioning example compiles.",
+            "properties": {
+                "data": {},
+                "type": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "type",
+                "url"
+            ],
+            "type": "object"
+        },
         "ContentTree.full.BigNumber": {
             "additionalProperties": false,
             "properties": {
@@ -171,6 +292,15 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.InfoPair"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.AudioPlayerV1"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.AudioPlayerV2"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.AudioPlayerV3"
                 }
             ]
         },
@@ -2219,6 +2349,23 @@
             "required": [
                 "children",
                 "title",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.Transcription": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "text": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "text",
                 "type"
             ],
             "type": "object"
