@@ -4,12 +4,23 @@ references:
   default_container_config: &default_container_config
     docker:
       - image: cimg/node:20.7
+
+  run_on_branches: &run_on_branches
+    tags:
+      ignore: /.*/
+
+  run_on_semver_tags: &run_on_semver_tags
+    tags:
+      only: /^v\d+\.\d+\.\d+$/
+    branches:
+      ignore: /.*/
+
 commands:
   install_deps:
     steps:
       - run:
           name: Install dependencies
-          command: npm ci
+          command: npm ci --ignore-scripts
 
   run_build:
     steps:
@@ -27,6 +38,13 @@ commands:
               exit 1
             fi
 
+  set_npm_auth_token:
+    steps:
+      - run:
+          name: write auth token to .npmrc
+          command: |
+            echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > "${HOME}/.npmrc"
+
 jobs:
   build-and-verify-artifacts:
     <<: *default_container_config
@@ -36,7 +54,27 @@ jobs:
       - run_build
       - assert_artifacts_up_to_date
 
+  publish-npm:
+    <<: *default_container_config
+    steps:
+      - checkout
+      - set_npm_auth_token
+      - run:
+          name: npm publish
+          command: ./scripts/circleci-publish.sh
+
 workflows:
   verify_artifacts_in_sync:
     jobs:
-      - build-and-verify-artifacts
+      - build-and-verify-artifacts:
+          filters: *run_on_branches
+
+  publish_on_semver_tag:
+    jobs:
+      - build-and-verify-artifacts:
+          filters: *run_on_semver_tags
+      - publish-npm:
+          context: npm-publish-token
+          requires:
+            - build-and-verify-artifacts
+          filters: *run_on_semver_tags

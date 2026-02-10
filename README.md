@@ -194,8 +194,9 @@ For major or non-standard changes, consider creating an issue first, or discussi
 
 ## Releasing
 
-(TODO: no good release process yet)
+A single semantic change to the content tree is usually split across multiple pull requests, with Go and JS changes implemented by separate teams. It is important therefore that releases are coordinated across C&M, Spark and CP to ensure that each release contains all the changes required to support the new version of the content tree.
 
+Before making a release you will also need to raise a pull request to increment the package.json version number, this should be made in its own PR so that at least one member of each team can approve it. Please get sign-off in the [#dynamic-storytelling-team](https://financialtimes.enterprise.slack.com/archives/C035P5DCHMH) slack channel and share this PR there.  Releases are then made via GitHub Releases: they must include a SemVer tag `vX.Y.Z` which matches the one within the package json. The release notes should be completed to communicate what changed in the release. Cutting a release will trigger CI to publish to npm for JS consumers. Go consumers can depend on the new git tag as the module version.
 
 ## License
 
