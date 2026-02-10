@@ -28,18 +28,20 @@ import (
 )
 
 const (
-	RootType                = "root"
-	BodyType                = "body"
-	TextType                = "text"
-	BreakType               = "break"
-	ThematicBreakType       = "thematic-break"
-	ParagraphType           = "paragraph"
-	HeadingType             = "heading"
-	StrongType              = "strong"
-	EmphasisType            = "emphasis"
-	StrikethroughType       = "strikethrough"
-	LinkType                = "link"
-	FindOutMoreLinkType     = "find-out-more-link"
+	RootType                 = "root"
+	BodyType                 = "body"
+	TextType                 = "text"
+	BreakType                = "break"
+	ThematicBreakType        = "thematic-break"
+	ParagraphType            = "paragraph"
+	HeadingType              = "heading"
+	StrongType               = "strong"
+	EmphasisType             = "emphasis"
+	StrikethroughType        = "strikethrough"
+	LinkType                 = "link"
+	FindOutMoreLinkType      = "find-out-more-link"
+	FindOutMoreLinkChildType = "find-out-more-link-child"
+
 	ListType                = "list"
 	ListItemType            = "list-item"
 	BlockquoteType          = "blockquote"
@@ -1325,10 +1327,10 @@ func (n *Link) AppendChild(child Node) error {
 }
 
 type FindOutMoreLink struct {
-	Type     string      `json:"type"`
-	Children []*Phrasing `json:"children"`
-	Title    string      `json:"title"`
-	URL      string      `json:"url"`
+	Type     string                  `json:"type"`
+	Children []*FindOutMoreLinkChild `json:"children"`
+	Title    string                  `json:"title"`
+	URL      string                  `json:"url"`
 }
 
 func (n *FindOutMoreLink) GetType() string {
@@ -1348,12 +1350,108 @@ func (n *FindOutMoreLink) GetChildren() []Node {
 }
 
 func (n *FindOutMoreLink) AppendChild(child Node) error {
-	p, err := makePhrasing(child)
+	p, err := makeFindOutMoreLinkChild(child)
 	if err != nil {
 		return err
 	}
 	n.Children = append(n.Children, p)
 	return nil
+}
+
+type FindOutMoreLinkChild struct {
+	*Text
+	*Strong
+	*Emphasis
+}
+
+func (n *FindOutMoreLinkChild) GetType() string {
+	return FindOutMoreLinkChildType
+}
+
+func (n *FindOutMoreLinkChild) GetEmbedded() Node {
+	if n.Text != nil {
+		return n.Text
+	}
+	if n.Strong != nil {
+		return n.Strong
+	}
+	if n.Emphasis != nil {
+		return n.Emphasis
+	}
+	return nil
+}
+
+func (n *FindOutMoreLinkChild) GetChildren() []Node {
+	if n.Text != nil {
+		return n.Text.GetChildren()
+	}
+	if n.Strong != nil {
+		return n.Strong.GetChildren()
+	}
+	if n.Emphasis != nil {
+		return n.Emphasis.GetChildren()
+	}
+	return nil
+}
+
+func (n *FindOutMoreLinkChild) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
+func (n *FindOutMoreLinkChild) UnmarshalJSON(data []byte) error {
+	var tn typedNode
+	if err := json.Unmarshal(data, &tn); err != nil {
+		return err
+	}
+
+	switch tn.Type {
+	case TextType:
+		var v Text
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.Text = &v
+	case StrongType:
+		var v Strong
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.Strong = &v
+	case EmphasisType:
+		var v Emphasis
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.Emphasis = &v
+	default:
+		return fmt.Errorf("failed to unmarshal FindOutMoreLinkChild from %s: %w", data, ErrUnmarshalInvalidNode)
+	}
+	return nil
+}
+
+func (n *FindOutMoreLinkChild) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.Text != nil:
+		return json.Marshal(n.Text)
+	case n.Strong != nil:
+		return json.Marshal(n.Strong)
+	case n.Emphasis != nil:
+		return json.Marshal(n.Emphasis)
+	default:
+		return []byte(`{}`), nil
+	}
+}
+
+// Build a FindOutMoreLinkChild wrapper for paragraph/FindOutMoreLinkChild-bearing parents.
+func makeFindOutMoreLinkChild(n Node) (*FindOutMoreLinkChild, error) {
+	switch n.GetType() {
+	case TextType:
+		return &FindOutMoreLinkChild{Text: n.(*Text)}, nil
+	case StrongType:
+		return &FindOutMoreLinkChild{Strong: n.(*Strong)}, nil
+	case EmphasisType:
+		return &FindOutMoreLinkChild{Emphasis: n.(*Emphasis)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
 }
 
 type List struct {

@@ -156,7 +156,7 @@ var defaultTransformers = map[string]transformer{
 				Type:     contenttree.FindOutMoreLinkType,
 				Title:    attr(a, "title"),
 				URL:      attr(a, "href"),
-				Children: []*contenttree.Phrasing{},
+				Children: []*contenttree.FindOutMoreLinkChild{},
 			}
 		}
 
