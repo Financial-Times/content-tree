@@ -1,10 +1,10 @@
 {
 	"name": "@financial-times/content-tree",
 	"description": "content tree format",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"publishConfig": {
 		"access": "public"
-  },
+	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/Financial-Times/content-tree.git"
@@ -12,7 +12,7 @@
 	"scripts": {
 		"build": "bash build.bash",
 		"test": "npm --workspaces test --if-present; bash test.bash",
-    "test:schemas": "bash test.bash"
+		"test:schemas": "bash test.bash"
 	},
 	"keywords": [
 		"unified",
@@ -28,7 +28,7 @@
 		"README.md",
 		"SPEC.md",
 		"LICENSE"
-  ],
+	],
 	"types": "content-tree.d.ts",
 	"author": "The Financial Times Ltd",
 	"license": "MIT",
