@@ -54,6 +54,7 @@ const (
 	BigNumberType           = "big-number"
 	VideoType               = "video"
 	YoutubeVideoType        = "youtube-video"
+	VimeoVideoType          = "vimeo-video"
 	ScrollyBlockType        = "scrolly-block"
 	ScrollySectionType      = "scrolly-section"
 	ScrollyImageType        = "scrolly-image"
@@ -426,6 +427,7 @@ type BodyBlock struct {
 	*Tweet
 	*Video
 	*YoutubeVideo
+	*VimeoVideo
 	*CustomCodeComponent
 	*ClipSet
 	*Timeline
@@ -493,6 +495,9 @@ func (n *BodyBlock) GetEmbedded() Node {
 	}
 	if n.YoutubeVideo != nil {
 		return n.YoutubeVideo
+	}
+	if n.VimeoVideo != nil {
+		return n.VimeoVideo
 	}
 	if n.CustomCodeComponent != nil {
 		return n.CustomCodeComponent
@@ -572,6 +577,9 @@ func (n *BodyBlock) GetChildren() []Node {
 	}
 	if n.YoutubeVideo != nil {
 		return n.YoutubeVideo.GetChildren()
+	}
+	if n.VimeoVideo != nil {
+		return n.VimeoVideo.GetChildren()
 	}
 	if n.CustomCodeComponent != nil {
 		return n.CustomCodeComponent.GetChildren()
@@ -714,6 +722,12 @@ func (n *BodyBlock) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		n.YoutubeVideo = &v
+	case VimeoVideoType:
+		var v VimeoVideo
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.VimeoVideo = &v
 	case CustomCodeComponentType:
 		var v CustomCodeComponent
 		if err := json.Unmarshal(data, &v); err != nil {
@@ -800,6 +814,8 @@ func (n *BodyBlock) MarshalJSON() ([]byte, error) {
 		return json.Marshal(n.Video)
 	case n.YoutubeVideo != nil:
 		return json.Marshal(n.YoutubeVideo)
+	case n.VimeoVideo != nil:
+		return json.Marshal(n.VimeoVideo)
 	case n.CustomCodeComponent != nil:
 		return json.Marshal(n.CustomCodeComponent)
 	case n.ClipSet != nil:
@@ -858,6 +874,8 @@ func makeBodyBlock(n Node) (*BodyBlock, error) {
 		return &BodyBlock{Video: n.(*Video)}, nil
 	case YoutubeVideoType:
 		return &BodyBlock{YoutubeVideo: n.(*YoutubeVideo)}, nil
+	case VimeoVideoType:
+		return &BodyBlock{VimeoVideo: n.(*VimeoVideo)}, nil
 	case CustomCodeComponentType:
 		return &BodyBlock{CustomCodeComponent: n.(*CustomCodeComponent)}, nil
 	case ClipSetType:
@@ -2693,6 +2711,25 @@ func (n *YoutubeVideo) GetChildren() []Node {
 }
 
 func (n *YoutubeVideo) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
+type VimeoVideo struct {
+	Type string `json:"type"`
+	URL  string `json:"url,omitempty"`
+}
+
+func (n *VimeoVideo) GetType() string {
+	return n.Type
+}
+
+func (n *VimeoVideo) GetEmbedded() Node {
+	return nil
+}
+
+func (n *VimeoVideo) GetChildren() []Node {
+	return nil
+}
+
+func (n *VimeoVideo) AppendChild(_ Node) error { return ErrCannotHaveChildren }
 
 type CustomCodeComponent struct {
 	Type                   string                 `json:"type"`
