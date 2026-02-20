@@ -336,6 +336,7 @@ type StoryBlock =
 	| Tweet
 	| Video
 	| YoutubeVideo
+	| VimeoVideo
 	| Timeline
 	| ImagePair
 	| InNumbers
@@ -584,6 +585,20 @@ interface YoutubeVideo extends Node {
 ```
 
 **YoutubeVideo** represents a video referenced by a Youtube URL.
+
+### `VimeoVideo`
+
+```ts
+interface VimeoVideo extends Node {
+	type: "vimeo-video"
+	/** Vimeo embed URL e.g. https://player.vimeo.com/player/<id> or https://vimeo.com/<id>*/
+	url: string
+}
+```
+
+**VimeoVideo** represents a video referenced by a Vimeo URL.
+
+_Note: this is currently only used by Specialist Titles_
 
 ### `ClipSet`
 ```ts
