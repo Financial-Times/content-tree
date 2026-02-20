@@ -142,8 +142,12 @@ var defaultTransformers = map[string]transformer{
 					Type: contenttree.YoutubeVideoType,
 					URL:  url,
 				}
+			} else if strings.Contains(url, "vimeo.com") {
+				return &contenttree.VimeoVideo{
+					Type: contenttree.VimeoVideoType,
+					URL:  url,
+				}
 			}
-			// NOTE: Vimeo not yet in spec
 		} else if attr(a, "data-asset-type") == "tweet" {
 			url := attr(a, "href")
 			return &contenttree.Tweet{
