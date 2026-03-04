@@ -199,6 +199,9 @@ func transformNode(n contenttree.Node) (string, error) {
 	case *contenttree.YoutubeVideo:
 		return fmt.Sprintf("<a data-asset-type=\"video\" data-embedded=\"true\" href=\"%s\"></a>", node.URL), nil
 
+	case *contenttree.VimeoVideo:
+		return fmt.Sprintf("<a data-asset-type=\"video\" data-embedded=\"true\" href=\"%s\"></a>", node.URL), nil
+
 	case *contenttree.Tweet:
 		return fmt.Sprintf("<a data-asset-type=\"tweet\" data-embedded=\"true\" href=\"%[1]s\">%[1]s</a>", node.ID), nil
 
