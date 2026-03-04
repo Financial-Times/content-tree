@@ -309,13 +309,15 @@ var defaultTransformers = map[string]transformer{
 		}
 	},
 	contentType.ClipSet: func(content *etree.Element) contenttree.Node {
+		dfrgId := attr(content, "data-fragment-identifier")
 		return &contenttree.ClipSet{
-			Type:        contenttree.ClipSetType,
-			ID:          attr(content, "id"),
-			LayoutWidth: string(toValidClipLayoutWidth(attr(content, "data-layout-width"))),
-			Autoplay:    attr(content, "autoplay") == "true",
-			Loop:        attr(content, "loop") == "true",
-			Muted:       attr(content, "muted") == "true",
+			Type:               contenttree.ClipSetType,
+			ID:                 attr(content, "id"),
+			LayoutWidth:        string(toValidClipLayoutWidth(attr(content, "data-layout-width"))),
+			Autoplay:           optionalBoolAttr(content, "autoplay"),
+			FragmentIdentifier: dfrgId,
+			Loop:               optionalBoolAttr(content, "loop"),
+			Muted:              optionalBoolAttr(content, "muted"),
 		}
 	},
 	"recommended": transformRecommended,
@@ -496,4 +498,12 @@ func transformRecommended(r *etree.Element) contenttree.Node {
 		}(),
 		TeaserTitleOverride: teaser,
 	}
+}
+
+func optionalBoolAttr(el *etree.Element, name string) *bool {
+	if attr := el.SelectAttr(name); attr != nil {
+		v := attr.Value == "true"
+		return &v
+	}
+	return nil
 }

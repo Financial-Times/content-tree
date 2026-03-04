@@ -9,8 +9,7 @@
         "loop": false,
         "muted": false,
         "autoplay": false,
-        "layoutWidth": "in-line",
-        "clips": []
+        "layoutWidth": "in-line"
       }
     ],
     "version": 1

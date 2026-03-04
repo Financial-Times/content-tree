@@ -2719,12 +2719,13 @@ func (n *CustomCodeComponent) GetChildren() []Node {
 func (n *CustomCodeComponent) AppendChild(_ Node) error { return ErrCannotHaveChildren }
 
 type ClipSet struct {
-	Type        string `json:"type"`
-	ID          string `json:"id,omitempty"`
-	LayoutWidth string `json:"layoutWidth,omitempty"`
-	Autoplay    bool   `json:"autoplay,omitempty"`
-	Loop        bool   `json:"loop,omitempty"`
-	Muted       bool   `json:"muted,omitempty"`
+	Type               string `json:"type"`
+	ID                 string `json:"id"`
+	LayoutWidth        string `json:"layoutWidth"`
+	Autoplay           *bool  `json:"autoplay,omitempty"`
+	FragmentIdentifier string `json:"fragmentIdentifier,omitempty"`
+	Loop               *bool  `json:"loop,omitempty"`
+	Muted              *bool  `json:"muted,omitempty"`
 }
 
 func (n *ClipSet) GetType() string {
