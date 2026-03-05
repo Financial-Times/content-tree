@@ -277,7 +277,6 @@ interface Link extends Parent {
 interface FindOutMoreLink extends Parent {
 	type: "find-out-more-link"
 	url: string
-	title: string
 	children: [Text | Strong | Emphasis]
 }
 ```

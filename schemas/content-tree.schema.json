@@ -506,9 +506,6 @@
                     "type": "array"
                 },
                 "data": {},
-                "title": {
-                    "type": "string"
-                },
                 "type": {
                     "const": "find-out-more-link",
                     "type": "string"
@@ -519,7 +516,6 @@
             },
             "required": [
                 "children",
-                "title",
                 "type",
                 "url"
             ],
