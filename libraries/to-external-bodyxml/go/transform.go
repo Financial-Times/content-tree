@@ -164,6 +164,26 @@ func transformNode(n contenttree.Node) (string, error) {
 	case *contenttree.ImageSet:
 		return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/ImageSet\" url=\"http://api.ft.com/content/%s\" data-embedded=\"true\"></ft-content>", node.ID), nil
 
+	case *contenttree.ClipSet:
+		attrs := []string{
+			"type=\"http://www.ft.com/ontology/content/ClipSet\"",
+			fmt.Sprintf("url=\"http://api.ft.com/content/%s\"", node.ID),
+			"data-embedded=\"true\"",
+		}
+		if node.LayoutWidth != "" {
+			attrs = append(attrs, fmt.Sprintf("data-layout-width=\"%s\"", node.LayoutWidth))
+		}
+		if attr := optionalBoolAttrXML("autoplay", node.Autoplay); attr != "" {
+			attrs = append(attrs, attr)
+		}
+		if attr := optionalBoolAttrXML("loop", node.Loop); attr != "" {
+			attrs = append(attrs, attr)
+		}
+		if attr := optionalBoolAttrXML("muted", node.Muted); attr != "" {
+			attrs = append(attrs, attr)
+		}
+		return fmt.Sprintf("<ft-content %s></ft-content>", strings.Join(attrs, " ")), nil
+
 	case *contenttree.Flourish:
 		return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/Content\" url=\"http://api.ft.com/content/%[1]s\" alt=\"%s\" data-asset-type=\"flourish\" data-embedded=\"true\" data-flourish-type=\"%s\" data-layout-width=\"%s\" data-time-stamp=\"%s\" id=\"%[1]s\"></ft-content>", node.Id, node.Description, node.FlourishType, node.LayoutWidth, node.Timestamp), nil
 
@@ -305,4 +325,14 @@ func transformNode(n contenttree.Node) (string, error) {
 	}
 
 	return "", nil
+}
+
+func optionalBoolAttrXML(name string, value *bool) string {
+	if value == nil {
+		return ""
+	}
+	if *value {
+		return fmt.Sprintf("%s=\"true\"", name)
+	}
+	return fmt.Sprintf("%s=\"false\"", name)
 }
