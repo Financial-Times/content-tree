@@ -133,6 +133,9 @@
                     "$ref": "#/definitions/ContentTree.transit.YoutubeVideo"
                 },
                 {
+                    "$ref": "#/definitions/ContentTree.transit.VimeoVideo"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.transit.Timeline"
                 },
                 {
@@ -1534,6 +1537,25 @@
             "required": [
                 "id",
                 "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.VimeoVideo": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "type": {
+                    "const": "vimeo-video",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "Vimeo embed URL e.g. https://player.vimeo.com/player/<id> or https://vimeo.com/<id>",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "type",
+                "url"
             ],
             "type": "object"
         },
