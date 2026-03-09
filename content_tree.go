@@ -80,6 +80,7 @@ const (
 	ScrollyCopyChildType    = "scrolly-copy-child"
 	ScrollySectionChildType = "scrolly-section-child"
 	TableChildType          = "table-child"
+	QuestionChildType       = "question-child"
 
 	TimelineType           = "timeline"
 	TimelineEventType      = "timeline-event"
@@ -94,6 +95,9 @@ const (
 	InNumbersType  = "in-numbers"
 
 	ImagePairType = "image-pair"
+	QuestionAndAnswerType = "question-and-answer"
+	QuestionType = "question"
+	AnswerType = "answer"
 )
 
 var (
@@ -140,6 +144,11 @@ type ColumnSettingsItems struct {
 	HideOnMobile bool   `json:"hideOnMobile,omitempty"`
 	SortType     string `json:"sortType,omitempty"`
 	Sortable     bool   `json:"sortable,omitempty"`
+}
+
+type Byline struct {
+	Title     string `json:"title,omitempty"`
+}
 }
 
 type BigNumber struct {
@@ -433,6 +442,9 @@ type BodyBlock struct {
 	*ImagePair
 	*InfoBox
 	*InfoPair
+	*QuestionAndAnswer
+	*Question
+	*Answer
 }
 
 func (n *BodyBlock) GetType() string {
@@ -514,6 +526,15 @@ func (n *BodyBlock) GetEmbedded() Node {
 	}
 	if n.InfoPair != nil {
 		return n.InfoPair
+	}
+	if n.QuestionAndAnswer != nil {
+		return n.QuestionAndAnswer
+	}
+	if n.Question != nil {
+		return n.Question
+	}
+	if n.Answer != nil {
+		return n.Answer
 	}
 	return nil
 }
@@ -756,6 +777,24 @@ func (n *BodyBlock) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		n.InfoPair = &v
+	case QuestionAndAnswerType:
+		var v QuestionAndAnswer
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.QuestionAndAnswer = &v
+	case QuestionType:
+		var v Question
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.Question = &v
+	case AnswerType:
+		var v Answer
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.Answer = &v
 	default:
 		return fmt.Errorf("failed to unmarshal BodyBlock from %s: %w", data, ErrUnmarshalInvalidNode)
 	}
@@ -814,6 +853,12 @@ func (n *BodyBlock) MarshalJSON() ([]byte, error) {
 		return json.Marshal(n.InfoBox)
 	case n.InfoPair != nil:
 		return json.Marshal(n.InfoPair)
+	case n.QuestionAndAnswer != nil:
+		return json.Marshal(n.QuestionAndAnswer)
+	case n.Question != nil:
+		return json.Marshal(n.Question)
+	case n.Answer != nil:
+		return json.Marshal(n.Answer)
 	default:
 		return []byte(`{}`), nil
 	}
@@ -872,6 +917,12 @@ func makeBodyBlock(n Node) (*BodyBlock, error) {
 		return &BodyBlock{InfoBox: n.(*InfoBox)}, nil
 	case InfoPairType:
 		return &BodyBlock{InfoPair: n.(*InfoPair)}, nil
+	case QuestionAndAnswerType:
+		return &BodyBlock{QuestionAndAnswer: n.(*QuestionAndAnswer)}, nil
+	case QuestionType:
+		return &BodyBlock{Question: n.(*Question)}, nil
+	case AnswerType:
+		return &BodyBlock{Answer: n.(*Answer)}, nil
 	default:
 		return nil, ErrInvalidChildType
 	}
@@ -3332,4 +3383,232 @@ func (n *InfoPair) AppendChild(child Node) error {
 	}
 	n.Children = append(n.Children, child.(*Card))
 	return nil
+}
+
+type QuestionAndAnswer struct {
+	Type     string       `json:"type"`
+	Children []*BodyBlock `json:"children"`
+}
+
+func (n *QuestionAndAnswer) GetType() string { return n.Type }
+func (n *QuestionAndAnswer) GetEmbedded() Node { return nil }
+func (n *QuestionAndAnswer) GetChildren() []Node {
+	result := make([]Node, len(n.Children))
+	for i, v := range n.Children { result[i] = v }
+	return result
+}
+func (n *QuestionAndAnswer) AppendChild(child Node) error {
+	switch child.GetType() {
+	case QuestionType:
+		if len(n.Children) != 0 { return ErrInvalidChildType }
+		bb, err := makeBodyBlock(child)
+		if err != nil { return err }
+		n.Children = append(n.Children, bb)
+		return nil
+	case AnswerType:
+		if len(n.Children) == 0 { return ErrInvalidChildType }
+		bb, err := makeBodyBlock(child)
+		if err != nil { return err }
+		n.Children = append(n.Children, bb)
+		return nil
+	default:
+		return ErrInvalidChildType
+	}
+}
+
+func (n *QuestionAndAnswer) UnmarshalJSON(data []byte) error {
+	// Temporary struct to parse children as raw messages first
+	var raw struct {
+		Type     string            `json:"type"`
+		Children []json.RawMessage `json:"children"`
+	}
+	if err := json.Unmarshal(data, &raw); err != nil {
+		return err
+	}
+	if raw.Type != QuestionAndAnswerType {
+		return fmt.Errorf("failed to unmarshal QuestionAndAnswer from %s: %w", data, ErrUnmarshalInvalidNode)
+	}
+
+	// Must have at least two children: one Question and one Answer
+	if len(raw.Children) < 2 {
+		return fmt.Errorf("invalid QuestionAndAnswer, expected at least 2 children, got %d", len(raw.Children))
+	}
+
+	children := make([]*BodyBlock, 0, len(raw.Children))
+	for i, rc := range raw.Children {
+		// Determine the type of the child
+		var tn typedNode
+		if err := json.Unmarshal(rc, &tn); err != nil { return err }
+		var bb BodyBlock
+		switch tn.Type {
+		case QuestionType:
+			// first child must be Question
+			if i != 0 {
+				return fmt.Errorf("invalid QuestionAndAnswer: Question found at position %d", i)
+			}
+			var v Question
+			if err := json.Unmarshal(rc, &v); err != nil { return err }
+			bb = BodyBlock{Question: &v}
+		case AnswerType:
+			// Answers allowed only after first child
+			if i == 0 {
+				return fmt.Errorf("invalid QuestionAndAnswer: Answer found at position 0")
+			}
+			var v Answer
+			if err := json.Unmarshal(rc, &v); err != nil { return err }
+			bb = BodyBlock{Answer: &v}
+		default:
+			return fmt.Errorf("invalid child type %s in QuestionAndAnswer", tn.Type)
+		}
+		children = append(children, &bb)
+	}
+
+	n.Type = raw.Type
+	n.Children = children
+	return nil
+}
+
+type Question struct {
+	Type     string          `json:"type"`
+	DisplayName string       `json:"displayName,omitempty"`
+	Children []*QuestionChild `json:"children"`
+}
+
+func (n *Question) GetType() string { return n.Type }
+func (n *Question) GetEmbedded() Node { return nil }
+func (n *Question) GetChildren() []Node {
+	result := make([]Node, len(n.Children))
+	for i, v := range n.Children { result[i] = v }
+	return result
+}
+func (n *Question) AppendChild(child Node) error {
+	c, err := makeQuestionChild(child)
+	if err != nil { return err }
+	n.Children = append(n.Children, c)
+	return nil
+}
+
+type Answer struct {
+	Type     string           `json:"type"`
+	Author   Byline           `json:"author"`
+	Children []*ListItemChild `json:"children"`
+}
+
+func (n *Answer) GetType() string { return n.Type }
+func (n *Answer) GetEmbedded() Node { return nil }
+func (n *Answer) GetChildren() []Node {
+	result := make([]Node, len(n.Children))
+	for i, v := range n.Children { result[i] = v }
+	return result
+}
+func (n *Answer) AppendChild(child Node) error {
+	c, err := makeListItemChild(child)
+	if err != nil { return err }
+	n.Children = append(n.Children, c)
+	return nil
+}
+
+type QuestionChild struct {
+	*Paragraph
+	*Text
+	*Break
+	*Strong
+	*Emphasis
+	*Strikethrough
+}
+
+func (n *QuestionChild) GetType() string { return QuestionChildType }
+
+func (n *QuestionChild) GetEmbedded() Node {
+	if n.Paragraph != nil { return n.Paragraph }
+	if n.Text != nil { return n.Text }
+	if n.Break != nil { return n.Break }
+	if n.Strong != nil { return n.Strong }
+	if n.Emphasis != nil { return n.Emphasis }
+	if n.Strikethrough != nil { return n.Strikethrough }
+	return nil
+}
+
+func (n *QuestionChild) GetChildren() []Node {
+	if n.Paragraph != nil { return n.Paragraph.GetChildren() }
+	if n.Text != nil { return n.Text.GetChildren() }
+	if n.Break != nil { return n.Break.GetChildren() }
+	if n.Strong != nil { return n.Strong.GetChildren() }
+	if n.Emphasis != nil { return n.Emphasis.GetChildren() }
+	if n.Strikethrough != nil { return n.Strikethrough.GetChildren() }
+	return nil
+}
+
+func (n *QuestionChild) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
+func (n *QuestionChild) UnmarshalJSON(data []byte) error {
+	var tn typedNode
+	if err := json.Unmarshal(data, &tn); err != nil { return err }
+	switch tn.Type {
+	case ParagraphType:
+		var v Paragraph
+		if err := json.Unmarshal(data, &v); err != nil { return err }
+		n.Paragraph = &v
+	case TextType:
+		var v Text
+		if err := json.Unmarshal(data, &v); err != nil { return err }
+		n.Text = &v
+	case BreakType:
+		var v Break
+		if err := json.Unmarshal(data, &v); err != nil { return err }
+		n.Break = &v
+	case StrongType:
+		var v Strong
+		if err := json.Unmarshal(data, &v); err != nil { return err }
+		n.Strong = &v
+	case EmphasisType:
+		var v Emphasis
+		if err := json.Unmarshal(data, &v); err != nil { return err }
+		n.Emphasis = &v
+	case StrikethroughType:
+		var v Strikethrough
+		if err := json.Unmarshal(data, &v); err != nil { return err }
+		n.Strikethrough = &v
+	default:
+		return fmt.Errorf("failed to unmarshal QuestionChild from %s: %w", data, ErrUnmarshalInvalidNode)
+	}
+	return nil
+}
+
+func (n *QuestionChild) MarshalJSON() ([]byte, error) {
+	switch {
+	case n.Paragraph != nil:
+		return json.Marshal(n.Paragraph)
+	case n.Text != nil:
+		return json.Marshal(n.Text)
+	case n.Break != nil:
+		return json.Marshal(n.Break)
+	case n.Strong != nil:
+		return json.Marshal(n.Strong)
+	case n.Emphasis != nil:
+		return json.Marshal(n.Emphasis)
+	case n.Strikethrough != nil:
+		return json.Marshal(n.Strikethrough)
+	default:
+		return []byte(`{}`), nil
+	}
+}
+
+func makeQuestionChild(n Node) (*QuestionChild, error) {
+	switch n.GetType() {
+	case ParagraphType:
+		return &QuestionChild{Paragraph: n.(*Paragraph)}, nil
+	case TextType:
+		return &QuestionChild{Text: n.(*Text)}, nil
+	case BreakType:
+		return &QuestionChild{Break: n.(*Break)}, nil
+	case StrongType:
+		return &QuestionChild{Strong: n.(*Strong)}, nil
+	case EmphasisType:
+		return &QuestionChild{Emphasis: n.(*Emphasis)}, nil
+	case StrikethroughType:
+		return &QuestionChild{Strikethrough: n.(*Strikethrough)}, nil
+	default:
+		return nil, ErrInvalidChildType
+	}
 }

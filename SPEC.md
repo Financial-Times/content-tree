@@ -63,6 +63,19 @@ type VideoSource = AVSource & {
 
 `VideoSource` extends AVSource to add in the properties relevant just to videos
 
+### `Byline`
+
+```ts
+interface Byline extends Node {
+	type: "byline"
+	title?: string
+	external displayName: string
+	external headshotUrl: string
+}
+```
+
+`Byline` defines a reusable visual representation of an author
+
 ## Core Nodes
 
 ### `Node`
@@ -342,6 +355,9 @@ type StoryBlock =
 	| Definition
 	| InfoBox
 	| InfoPair
+	| QuestionAndAnswer
+	| Question
+	| Answer
 ```
 
 `StoryBlock` nodes are things that can be inserted into an article body.
@@ -374,6 +390,41 @@ interface ImageSet extends Node {
 	fragmentIdentifier?: string
 }
 ```
+
+### `QuestionAndAnswer`
+
+```ts
+interface QuestionAndAnswer extends Parent {
+  type: "question-and-answer"
+  children: [Question, Answer, ...Answer[]]
+}
+```
+
+`QuestionAndAnswer` defines a container grouping a `Question` followed by one or more `Answer` nodes
+
+### `Question`
+
+```ts
+interface Question extends Parent {
+  type: "question"
+  displayName?: string
+  children: (Paragraph | Exclude<Phrasing, Link | FindOutMoreLink>)[]
+}
+```
+
+`Question` defines the question copy with an optional `displayName` string, disallowing inline `Link` and `FindOutMoreLink` nodes
+
+### `Answer`
+
+```ts
+interface Answer extends Parent {
+  type: "answer"
+  author: Byline
+  children: (Paragraph | Phrasing)[]
+}
+```
+
+`Answer` defines an authored reply that requires an `Author`
 
 #### Image types
 
