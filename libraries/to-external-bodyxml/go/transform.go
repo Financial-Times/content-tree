@@ -139,7 +139,9 @@ func transformNode(n contenttree.Node) (string, error) {
 
 	case *contenttree.Link:
 		if node.Title != "" {
-			return fmt.Sprintf("<a href=\"%s\" title=\"%s\">%s</a>", node.URL, node.Title, innerXML), nil
+			// Re-escape attribute text here because the body XML -> content tree transform
+			// parses XML entities into their literal characters.
+			return fmt.Sprintf("<a href=\"%s\" title=\"%s\">%s</a>", node.URL, html.EscapeString(node.Title), innerXML), nil
 		}
 
 		return fmt.Sprintf("<a href=\"%s\">%s</a>", node.URL, innerXML), nil
@@ -159,7 +161,10 @@ func transformNode(n contenttree.Node) (string, error) {
 		return fmt.Sprintf("<blockquote>%s</blockquote>", innerXML), nil
 
 	case *contenttree.Pullquote:
-		return fmt.Sprintf("<pull-quote><pull-quote-text><p>%s</p></pull-quote-text><pull-quote-source>%s</pull-quote-source></pull-quote>", node.Text, node.Source), nil
+		if node.Source != "" {
+			return fmt.Sprintf("<pull-quote><pull-quote-text><p>%s</p></pull-quote-text></pull-quote>", html.EscapeString(node.Text)), nil
+		}
+		return fmt.Sprintf("<pull-quote><pull-quote-text><p>%s</p></pull-quote-text><pull-quote-source>%s</pull-quote-source></pull-quote>", html.EscapeString(node.Text), html.EscapeString(node.Source)), nil
 
 	case *contenttree.ImageSet:
 		return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/ImageSet\" url=\"http://api.ft.com/content/%s\" data-embedded=\"true\"></ft-content>", node.ID), nil
@@ -270,7 +275,7 @@ func transformNode(n contenttree.Node) (string, error) {
 		return "", nil
 
 	case *contenttree.BigNumber:
-		return fmt.Sprintf("<big-number><big-number-headline>%s</big-number-headline><big-number-intro>%s</big-number-intro></big-number>", node.Number, node.Description), nil
+		return fmt.Sprintf("<big-number><big-number-headline>%s</big-number-headline><big-number-intro>%s</big-number-intro></big-number>", node.Number, html.EscapeString(node.Description)), nil
 
 	// CCC nodes won't be available in the "external" body XML format.
 	case *contenttree.CustomCodeComponent:
