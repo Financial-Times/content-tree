@@ -102,10 +102,10 @@ func transformNode(n contenttree.Node) (string, error) {
 		return html.EscapeString(node.Value), nil
 
 	case *contenttree.Break:
-		return "<br>", nil
+		return "<br/>", nil
 
 	case *contenttree.ThematicBreak:
-		return "<hr>", nil
+		return "<hr/>", nil
 
 	case *contenttree.Paragraph:
 		return fmt.Sprintf("<p>%s</p>", innerXML), nil
