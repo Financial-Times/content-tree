@@ -141,10 +141,10 @@ func transformNode(n contenttree.Node) (string, error) {
 		if node.Title != "" {
 			// Re-escape attribute text here because the body XML -> content tree transform
 			// parses XML entities into their literal characters.
-			return fmt.Sprintf("<a href=\"%s\" title=\"%s\">%s</a>", node.URL, html.EscapeString(node.Title), innerXML), nil
+			return fmt.Sprintf("<a href=\"%s\" title=\"%s\">%s</a>", html.EscapeString(node.URL), html.EscapeString(node.Title), innerXML), nil
 		}
 
-		return fmt.Sprintf("<a href=\"%s\">%s</a>", node.URL, innerXML), nil
+		return fmt.Sprintf("<a href=\"%s\">%s</a>", html.EscapeString(node.URL), innerXML), nil
 
 	case *contenttree.List:
 		tag := "ul"
