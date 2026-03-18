@@ -289,7 +289,7 @@ var defaultTransformers = map[string]transformer{
 		return &contenttree.Link{
 			Type:     contenttree.LinkType,
 			URL:      "https://www.ft.com/content/" + id,
-			Title:    attr(content, "dataTitle"),
+			Title:    attr(content, "title"),
 			Children: []*contenttree.Phrasing{},
 		}
 	},
@@ -297,7 +297,7 @@ var defaultTransformers = map[string]transformer{
 		return &contenttree.Link{
 			Type:     contenttree.LinkType,
 			URL:      "https://www.ft.com/content/" + attr(content, "id"),
-			Title:    attr(content, "dataTitle"),
+			Title:    attr(content, "title"),
 			Children: []*contenttree.Phrasing{},
 		}
 	},
