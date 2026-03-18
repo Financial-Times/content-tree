@@ -162,9 +162,10 @@ func transformNode(n contenttree.Node) (string, error) {
 
 	case *contenttree.Pullquote:
 		if node.Source != "" {
-			return fmt.Sprintf("<pull-quote><pull-quote-text><p>%s</p></pull-quote-text></pull-quote>", html.EscapeString(node.Text)), nil
+			return fmt.Sprintf("<pull-quote><pull-quote-text><p>%s</p></pull-quote-text><pull-quote-source>%s</pull-quote-source></pull-quote>", html.EscapeString(node.Text), html.EscapeString(node.Source)), nil
+
 		}
-		return fmt.Sprintf("<pull-quote><pull-quote-text><p>%s</p></pull-quote-text><pull-quote-source>%s</pull-quote-source></pull-quote>", html.EscapeString(node.Text), html.EscapeString(node.Source)), nil
+		return fmt.Sprintf("<pull-quote><pull-quote-text><p>%s</p></pull-quote-text></pull-quote>", html.EscapeString(node.Text)), nil
 
 	case *contenttree.ImageSet:
 		return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/ImageSet\" url=\"http://api.ft.com/content/%s\" data-embedded=\"true\"></ft-content>", node.ID), nil
