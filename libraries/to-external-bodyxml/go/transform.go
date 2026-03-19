@@ -168,8 +168,12 @@ func transformNode(n contenttree.Node) (string, error) {
 		return fmt.Sprintf("<pull-quote><pull-quote-text><p>%s</p></pull-quote-text></pull-quote>", html.EscapeString(node.Text)), nil
 
 	case *contenttree.ImageSet:
-		return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/ImageSet\" url=\"http://api.ft.com/content/%s\" data-embedded=\"true\"></ft-content>", node.ID), nil
-
+		{
+			if node.FragmentIdentifier != "" {
+				return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/ImageSet\" url=\"http://api.ft.com/content/%s\" data-embedded=\"true\" data-fragment-identifier=\"%s\"></ft-content>", node.ID, node.FragmentIdentifier), nil
+			}
+			return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/ImageSet\" url=\"http://api.ft.com/content/%s\" data-embedded=\"true\"></ft-content>", node.ID), nil
+		}
 	case *contenttree.ClipSet:
 		attrs := []string{
 			"type=\"http://www.ft.com/ontology/content/ClipSet\"",
