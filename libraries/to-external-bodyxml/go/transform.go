@@ -195,6 +195,9 @@ func transformNode(n contenttree.Node) (string, error) {
 		return fmt.Sprintf("<ft-content %s></ft-content>", strings.Join(attrs, " ")), nil
 
 	case *contenttree.Flourish:
+		if node.FragmentIdentifier != "" {
+			return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/Content\" url=\"http://api.ft.com/content/%[1]s\" alt=\"%s\" data-asset-type=\"flourish\" data-embedded=\"true\" data-flourish-type=\"%s\" data-layout-width=\"%s\" data-time-stamp=\"%s\" id=\"%[1]s\" data-fragment-identifier=\"%s\" ></ft-content>", node.Id, node.Description, node.FlourishType, node.LayoutWidth, node.Timestamp, node.FragmentIdentifier), nil
+		}
 		return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/Content\" url=\"http://api.ft.com/content/%[1]s\" alt=\"%s\" data-asset-type=\"flourish\" data-embedded=\"true\" data-flourish-type=\"%s\" data-layout-width=\"%s\" data-time-stamp=\"%s\" id=\"%[1]s\"></ft-content>", node.Id, node.Description, node.FlourishType, node.LayoutWidth, node.Timestamp), nil
 
 	case *contenttree.TableCaption:
