@@ -286,7 +286,7 @@ func transformNode(n contenttree.Node) (string, error) {
 		return "", nil
 
 	case *contenttree.BigNumber:
-		return fmt.Sprintf("<big-number><big-number-headline>%s</big-number-headline><big-number-intro>%s</big-number-intro></big-number>", node.Number, html.EscapeString(node.Description)), nil
+		return fmt.Sprintf("<big-number><big-number-headline>%s</big-number-headline><big-number-intro>%s</big-number-intro></big-number>", html.EscapeString(node.Number), html.EscapeString(node.Description)), nil
 
 	// CCC nodes won't be available in the "external" body XML format.
 	case *contenttree.CustomCodeComponent:
