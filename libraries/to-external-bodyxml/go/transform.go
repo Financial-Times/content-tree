@@ -233,7 +233,7 @@ func transformNode(n contenttree.Node) (string, error) {
 		return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/Video\" url=\"http://api.ft.com/content/%s\" data-embedded=\"true\"></ft-content>", node.ID), nil
 
 	case *contenttree.YoutubeVideo:
-		return fmt.Sprintf("<a data-asset-type=\"video\" data-embedded=\"true\" href=\"%s\"></a>", node.URL), nil
+		return fmt.Sprintf("<a data-asset-type=\"video\" data-embedded=\"true\" href=\"%s\"></a>", html.EscapeString(node.URL)), nil
 
 	case *contenttree.Tweet:
 		return fmt.Sprintf("<a data-asset-type=\"tweet\" data-embedded=\"true\" href=\"%[1]s\">%[1]s</a>", node.ID), nil
