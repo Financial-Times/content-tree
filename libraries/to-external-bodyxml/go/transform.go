@@ -183,6 +183,9 @@ func transformNode(n contenttree.Node) (string, error) {
 		if node.LayoutWidth != "" {
 			attrs = append(attrs, fmt.Sprintf("data-layout-width=\"%s\"", node.LayoutWidth))
 		}
+		if node.FragmentIdentifier != "" {
+			attrs = append(attrs, fmt.Sprintf("data-fragment-identifier=\"%s\"", node.FragmentIdentifier))
+		}
 		if attr := optionalBoolAttrXML("autoplay", node.Autoplay); attr != "" {
 			attrs = append(attrs, attr)
 		}

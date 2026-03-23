@@ -7,7 +7,8 @@
       "layoutWidth": "in-line",
       "autoplay": false,
       "loop": true,
-      "muted": false
+      "muted": false,
+      "fragmentIdentifier": "aaaaa"
     }
   ],
   "version": 1
