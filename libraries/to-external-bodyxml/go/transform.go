@@ -199,9 +199,9 @@ func transformNode(n contenttree.Node) (string, error) {
 
 	case *contenttree.Flourish:
 		if node.FragmentIdentifier != "" {
-			return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/Content\" url=\"http://api.ft.com/content/%[1]s\" alt=\"%[2]s\" data-asset-type=\"flourish\" data-embedded=\"true\" data-flourish-type=\"%[3]s\" data-layout-width=\"%[4]s\" data-time-stamp=\"%[5]s\" id=\"%[1]s\" data-fragment-identifier=\"%[6]s\" ></ft-content>", node.Id, node.Description, node.FlourishType, node.LayoutWidth, node.Timestamp, node.FragmentIdentifier), nil
+			return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/Content\" url=\"http://api.ft.com/content/%[1]s\" alt=\"%[2]s\" data-asset-type=\"flourish\" data-embedded=\"true\" data-flourish-type=\"%[3]s\" data-layout-width=\"%[4]s\" data-time-stamp=\"%[5]s\" id=\"%[1]s\" data-fragment-identifier=\"%[6]s\" ></ft-content>", node.Id, html.EscapeString(node.Description), node.FlourishType, node.LayoutWidth, node.Timestamp, node.FragmentIdentifier), nil
 		}
-		return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/Content\" url=\"http://api.ft.com/content/%[1]s\" alt=\"%[2]s\" data-asset-type=\"flourish\" data-embedded=\"true\" data-flourish-type=\"%[3]s\" data-layout-width=\"%[4]s\" data-time-stamp=\"%[5]s\" id=\"%[1]s\"></ft-content>", node.Id, node.Description, node.FlourishType, node.LayoutWidth, node.Timestamp), nil
+		return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/Content\" url=\"http://api.ft.com/content/%[1]s\" alt=\"%[2]s\" data-asset-type=\"flourish\" data-embedded=\"true\" data-flourish-type=\"%[3]s\" data-layout-width=\"%[4]s\" data-time-stamp=\"%[5]s\" id=\"%[1]s\"></ft-content>", node.Id, html.EscapeString(node.Description), node.FlourishType, node.LayoutWidth, node.Timestamp), nil
 
 	case *contenttree.TableCaption:
 		return fmt.Sprintf("<caption>%s</caption>", innerXML), nil
