@@ -236,7 +236,7 @@ func transformNode(n contenttree.Node) (string, error) {
 		return fmt.Sprintf("<a data-asset-type=\"video\" data-embedded=\"true\" href=\"%s\"></a>", html.EscapeString(node.URL)), nil
 
 	case *contenttree.Tweet:
-		return fmt.Sprintf("<a data-asset-type=\"tweet\" data-embedded=\"true\" href=\"%[1]s\">%[1]s</a>", node.ID), nil
+		return fmt.Sprintf("<a data-asset-type=\"tweet\" data-embedded=\"true\" href=\"%[1]s\">%[1]s</a>", html.EscapeString(node.ID)), nil
 
 	// Example from the Native Store to keep the translucent namespace (https://www.ft.com/content/9675cf79-f16d-4132-ab73-8bafa22ee4fc):
 	// <tr:scrollable-block theme=\"1\">
