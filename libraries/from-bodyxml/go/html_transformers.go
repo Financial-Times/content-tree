@@ -100,6 +100,24 @@ var defaultTransformers = map[string]transformer{
 			FragmentIdentifier: dfrgId,
 		}
 	},
+	"h5": func(h4 *etree.Element) contenttree.Node {
+		dfrgId := attr(h4, "data-fragment-identifier")
+		return &contenttree.Heading{
+			Type:               contenttree.HeadingType,
+			Level:              "label",
+			Children:           []*contenttree.Text{},
+			FragmentIdentifier: dfrgId,
+		}
+	},
+	"h6": func(h4 *etree.Element) contenttree.Node {
+		dfrgId := attr(h4, "data-fragment-identifier")
+		return &contenttree.Heading{
+			Type:               contenttree.HeadingType,
+			Level:              "label",
+			Children:           []*contenttree.Text{},
+			FragmentIdentifier: dfrgId,
+		}
+	},
 	"p": func(p *etree.Element) contenttree.Node {
 		return &contenttree.Paragraph{
 			Type:     contenttree.ParagraphType,
@@ -475,6 +493,27 @@ var defaultTransformers = map[string]transformer{
 		return newUnknownNode("", section)
 	},
 	"experimental": func(_ *etree.Element) contenttree.Node {
+		return newLiftChildrenNode()
+	},
+	"b": func(_ *etree.Element) contenttree.Node {
+		return newLiftChildrenNode()
+	},
+	"sup": func(_ *etree.Element) contenttree.Node {
+		return newLiftChildrenNode()
+	},
+	"sub": func(_ *etree.Element) contenttree.Node {
+		return newLiftChildrenNode()
+	},
+	"u": func(_ *etree.Element) contenttree.Node {
+		return newLiftChildrenNode()
+	},
+	"i": func(_ *etree.Element) contenttree.Node {
+		return newLiftChildrenNode()
+	},
+	"del": func(_ *etree.Element) contenttree.Node {
+		return newLiftChildrenNode()
+	},
+	"small": func(_ *etree.Element) contenttree.Node {
 		return newLiftChildrenNode()
 	},
 }
