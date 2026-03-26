@@ -2,6 +2,56 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "additionalProperties": false,
     "definitions": {
+        "ContentTree.full.Answer": {
+            "additionalProperties": false,
+            "properties": {
+                "byline": {
+                    "$ref": "#/definitions/ContentTree.full.QuestionAndAnswerByline"
+                },
+                "children": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Paragraph"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Text"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Break"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Strong"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Emphasis"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Strikethrough"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Link"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.FindOutMoreLink"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "answer",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "byline",
+                "children",
+                "type"
+            ],
+            "type": "object"
+        },
         "ContentTree.full.AssetFormat": {
             "enum": [
                 "desktop",
@@ -186,6 +236,15 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.InfoPair"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.QuestionAndAnswer"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Question"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Answer"
                 }
             ]
         },
@@ -1387,6 +1446,108 @@
             },
             "required": [
                 "text",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.Question": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Paragraph"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Text"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Break"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Strong"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Emphasis"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.full.Strikethrough"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "displayName": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "question",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.QuestionAndAnswer": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "additionalItems": {
+                        "$ref": "#/definitions/ContentTree.full.Answer"
+                    },
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.full.Question"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.full.Answer"
+                        }
+                    ],
+                    "minItems": 2,
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "question-and-answer",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.QuestionAndAnswerByline": {
+            "additionalProperties": false,
+            "properties": {
+                "conceptId": {
+                    "type": "string"
+                },
+                "data": {},
+                "displayName": {
+                    "type": "string"
+                },
+                "headshotUrl": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "question-and-answer-byline",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "conceptId",
+                "displayName",
+                "headshotUrl",
                 "type"
             ],
             "type": "object"

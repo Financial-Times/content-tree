@@ -2,6 +2,56 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "additionalProperties": false,
     "definitions": {
+        "ContentTree.transit.Answer": {
+            "additionalProperties": false,
+            "properties": {
+                "byline": {
+                    "$ref": "#/definitions/ContentTree.transit.QuestionAndAnswerByline"
+                },
+                "children": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Paragraph"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Text"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Break"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Strong"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Emphasis"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Strikethrough"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Link"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.FindOutMoreLink"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "answer",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "byline",
+                "children",
+                "type"
+            ],
+            "type": "object"
+        },
         "ContentTree.transit.BigNumber": {
             "additionalProperties": false,
             "properties": {
@@ -149,6 +199,15 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.InfoPair"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.QuestionAndAnswer"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Question"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Answer"
                 }
             ]
         },
@@ -903,6 +962,100 @@
             },
             "required": [
                 "text",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.Question": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Paragraph"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Text"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Break"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Strong"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Emphasis"
+                            },
+                            {
+                                "$ref": "#/definitions/ContentTree.transit.Strikethrough"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "displayName": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "question",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.QuestionAndAnswer": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "additionalItems": {
+                        "$ref": "#/definitions/ContentTree.transit.Answer"
+                    },
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.Question"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.Answer"
+                        }
+                    ],
+                    "minItems": 2,
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "question-and-answer",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.QuestionAndAnswerByline": {
+            "additionalProperties": false,
+            "properties": {
+                "conceptId": {
+                    "type": "string"
+                },
+                "data": {},
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "question-and-answer-byline",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "conceptId",
                 "type"
             ],
             "type": "object"

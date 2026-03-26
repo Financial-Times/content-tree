@@ -63,6 +63,20 @@ type VideoSource = AVSource & {
 
 `VideoSource` extends AVSource to add in the properties relevant just to videos
 
+### `QuestionAndAnswerByline`
+
+```ts
+interface QuestionAndAnswerByline extends Node {
+  type: "question-and-answer-byline"
+  conceptId: string
+  title?: string
+  external displayName: string
+  external headshotUrl: string
+}
+```
+
+`QuestionAndAnswerByline` is a byline used for Q&A answers - it carries a `conceptId` to resolve external fields in cp-content-pipeline.
+
 ## Core Nodes
 
 ### `Node`
@@ -342,6 +356,9 @@ type StoryBlock =
 	| Definition
 	| InfoBox
 	| InfoPair
+	| QuestionAndAnswer
+	| Question
+	| Answer
 ```
 
 `StoryBlock` nodes are things that can be inserted into an article body.
@@ -374,6 +391,41 @@ interface ImageSet extends Node {
 	fragmentIdentifier?: string
 }
 ```
+
+### `QuestionAndAnswer`
+
+```ts
+interface QuestionAndAnswer extends Parent {
+	type: "question-and-answer"
+	children: [Question, Answer, ...Answer[]]
+}
+```
+
+`QuestionAndAnswer` defines a container grouping a `Question` followed by one or more `Answer` nodes
+
+### `Question`
+
+```ts
+interface Question extends Parent {
+	type: "question"
+	displayName?: string
+	children: (Paragraph | (Text | Break | Strong | Emphasis | Strikethrough))[]
+}
+```
+
+`Question` defines a Q&A question. Disallows `Link` and `FindOutMoreLink` nodes by explicitly picking the allowed phrasing node types.
+
+### `Answer`
+
+```ts
+interface Answer extends Parent {
+	type: "answer"
+	byline: QuestionAndAnswerByline
+	children: (Paragraph | Phrasing)[]
+}
+```
+
+`Answer` defines an answer to a Q&A Question. Uses `QuestionAndAnswerByline` to display the author.
 
 #### Image types
 

@@ -12,6 +12,13 @@ export declare namespace ContentTree {
         pixelWidth?: number;
         videoCodec?: string;
     };
+    interface QuestionAndAnswerByline extends Node {
+        type: "question-and-answer-byline";
+        conceptId: string;
+        title?: string;
+        displayName: string;
+        headshotUrl: string;
+    }
     interface Node {
         type: string;
         data?: any;
@@ -88,7 +95,7 @@ export declare namespace ContentTree {
         type: "blockquote";
         children: (Paragraph | Phrasing)[];
     }
-    type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+    type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair | QuestionAndAnswer | Question | Answer;
     interface Pullquote extends Node {
         type: "pullquote";
         text: string;
@@ -99,6 +106,20 @@ export declare namespace ContentTree {
         id: string;
         picture: ImageSetPicture;
         fragmentIdentifier?: string;
+    }
+    interface QuestionAndAnswer extends Parent {
+        type: "question-and-answer";
+        children: [Question, Answer, ...Answer[]];
+    }
+    interface Question extends Parent {
+        type: "question";
+        displayName?: string;
+        children: (Paragraph | (Text | Break | Strong | Emphasis | Strikethrough))[];
+    }
+    interface Answer extends Parent {
+        type: "answer";
+        byline: QuestionAndAnswerByline;
+        children: (Paragraph | Phrasing)[];
     }
     type ImageSetPicture = {
         layoutWidth: string;
@@ -431,6 +452,13 @@ export declare namespace ContentTree {
             pixelWidth?: number;
             videoCodec?: string;
         };
+        interface QuestionAndAnswerByline extends Node {
+            type: "question-and-answer-byline";
+            conceptId: string;
+            title?: string;
+            displayName: string;
+            headshotUrl: string;
+        }
         interface Node {
             type: string;
             data?: any;
@@ -507,7 +535,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair | QuestionAndAnswer | Question | Answer;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -518,6 +546,20 @@ export declare namespace ContentTree {
             id: string;
             picture: ImageSetPicture;
             fragmentIdentifier?: string;
+        }
+        interface QuestionAndAnswer extends Parent {
+            type: "question-and-answer";
+            children: [Question, Answer, ...Answer[]];
+        }
+        interface Question extends Parent {
+            type: "question";
+            displayName?: string;
+            children: (Paragraph | (Text | Break | Strong | Emphasis | Strikethrough))[];
+        }
+        interface Answer extends Parent {
+            type: "answer";
+            byline: QuestionAndAnswerByline;
+            children: (Paragraph | Phrasing)[];
         }
         type ImageSetPicture = {
             layoutWidth: string;
@@ -851,6 +893,11 @@ export declare namespace ContentTree {
             pixelWidth?: number;
             videoCodec?: string;
         };
+        interface QuestionAndAnswerByline extends Node {
+            type: "question-and-answer-byline";
+            conceptId: string;
+            title?: string;
+        }
         interface Node {
             type: string;
             data?: any;
@@ -927,7 +974,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair | QuestionAndAnswer | Question | Answer;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -937,6 +984,20 @@ export declare namespace ContentTree {
             type: "image-set";
             id: string;
             fragmentIdentifier?: string;
+        }
+        interface QuestionAndAnswer extends Parent {
+            type: "question-and-answer";
+            children: [Question, Answer, ...Answer[]];
+        }
+        interface Question extends Parent {
+            type: "question";
+            displayName?: string;
+            children: (Paragraph | (Text | Break | Strong | Emphasis | Strikethrough))[];
+        }
+        interface Answer extends Parent {
+            type: "answer";
+            byline: QuestionAndAnswerByline;
+            children: (Paragraph | Phrasing)[];
         }
         type ImageSetPicture = {
             layoutWidth: string;
@@ -1244,6 +1305,13 @@ export declare namespace ContentTree {
             pixelWidth?: number;
             videoCodec?: string;
         };
+        interface QuestionAndAnswerByline extends Node {
+            type: "question-and-answer-byline";
+            conceptId: string;
+            title?: string;
+            displayName?: string;
+            headshotUrl?: string;
+        }
         interface Node {
             type: string;
             data?: any;
@@ -1320,7 +1388,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair | QuestionAndAnswer | Question | Answer;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -1331,6 +1399,20 @@ export declare namespace ContentTree {
             id: string;
             picture?: ImageSetPicture;
             fragmentIdentifier?: string;
+        }
+        interface QuestionAndAnswer extends Parent {
+            type: "question-and-answer";
+            children: [Question, Answer, ...Answer[]];
+        }
+        interface Question extends Parent {
+            type: "question";
+            displayName?: string;
+            children: (Paragraph | (Text | Break | Strong | Emphasis | Strikethrough))[];
+        }
+        interface Answer extends Parent {
+            type: "answer";
+            byline: QuestionAndAnswerByline;
+            children: (Paragraph | Phrasing)[];
         }
         type ImageSetPicture = {
             layoutWidth: string;
