@@ -2,6 +2,25 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "additionalProperties": false,
     "definitions": {
+        "ContentTree.transit.AcastPodcast": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "type": {
+                    "const": "acast-podcast",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "Acast Podcast embed url e.g. https://embed.acast.com/*",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "type",
+                "url"
+            ],
+            "type": "object"
+        },
         "ContentTree.transit.BigNumber": {
             "additionalProperties": false,
             "properties": {
@@ -159,6 +178,9 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.VimeoVideo"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.AcastPodcast"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.Timeline"
