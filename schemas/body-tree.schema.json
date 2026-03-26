@@ -5,8 +5,8 @@
         "ContentTree.transit.Answer": {
             "additionalProperties": false,
             "properties": {
-                "author": {
-                    "$ref": "#/definitions/ContentTree.transit.Byline"
+                "byline": {
+                    "$ref": "#/definitions/ContentTree.transit.QuestionAndAnswerByline"
                 },
                 "children": {
                     "items": {
@@ -46,7 +46,7 @@
                 }
             },
             "required": [
-                "author",
+                "byline",
                 "children",
                 "type"
             ],
@@ -217,23 +217,6 @@
                 "data": {},
                 "type": {
                     "const": "break",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "type"
-            ],
-            "type": "object"
-        },
-        "ContentTree.transit.Byline": {
-            "additionalProperties": false,
-            "properties": {
-                "data": {},
-                "title": {
-                    "type": "string"
-                },
-                "type": {
-                    "const": "byline",
                     "type": "string"
                 }
             },
@@ -1052,6 +1035,27 @@
             },
             "required": [
                 "children",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.QuestionAndAnswerByline": {
+            "additionalProperties": false,
+            "properties": {
+                "conceptId": {
+                    "type": "string"
+                },
+                "data": {},
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "question-and-answer-byline",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "conceptId",
                 "type"
             ],
             "type": "object"

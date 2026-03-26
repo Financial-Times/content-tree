@@ -63,18 +63,19 @@ type VideoSource = AVSource & {
 
 `VideoSource` extends AVSource to add in the properties relevant just to videos
 
-### `Byline`
+### `QuestionAndAnswerByline`
 
 ```ts
-interface Byline extends Node {
-	type: "byline"
-	title?: string
-	external displayName: string
-	external headshotUrl: string
+interface QuestionAndAnswerByline extends Node {
+  type: "question-and-answer-byline"
+  conceptId: string
+  title?: string
+  external displayName: string
+  external headshotUrl: string
 }
 ```
 
-`Byline` defines a reusable visual representation of an author
+`QuestionAndAnswerByline` is a byline used for Q&A answers - it carries a `conceptId` to resolve external fields in cp-content-pipeline.
 
 ## Core Nodes
 
@@ -395,8 +396,8 @@ interface ImageSet extends Node {
 
 ```ts
 interface QuestionAndAnswer extends Parent {
-  type: "question-and-answer"
-  children: [Question, Answer, ...Answer[]]
+	type: "question-and-answer"
+	children: [Question, Answer, ...Answer[]]
 }
 ```
 
@@ -406,25 +407,25 @@ interface QuestionAndAnswer extends Parent {
 
 ```ts
 interface Question extends Parent {
-  type: "question"
-  displayName?: string
-  children: (Paragraph | Exclude<Phrasing, Link | FindOutMoreLink>)[]
+	type: "question"
+	displayName?: string
+	children: (Paragraph | (Text | Break | Strong | Emphasis | Strikethrough))[]
 }
 ```
 
-`Question` defines the question copy with an optional `displayName` string, disallowing inline `Link` and `FindOutMoreLink` nodes
+`Question` defines a Q&A question. Disallows `Link` and `FindOutMoreLink` nodes by explicitly picking the allowed phrasing node types.
 
 ### `Answer`
 
 ```ts
 interface Answer extends Parent {
-  type: "answer"
-  author: Byline
-  children: (Paragraph | Phrasing)[]
+	type: "answer"
+	byline: QuestionAndAnswerByline
+	children: (Paragraph | Phrasing)[]
 }
 ```
 
-`Answer` defines an authored reply that requires an `Author`
+`Answer` defines an answer to a Q&A Question. Uses `QuestionAndAnswerByline` to display the author.
 
 #### Image types
 

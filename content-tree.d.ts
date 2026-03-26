@@ -12,8 +12,9 @@ export declare namespace ContentTree {
         pixelWidth?: number;
         videoCodec?: string;
     };
-    interface Byline extends Node {
-        type: "byline";
+    interface QuestionAndAnswerByline extends Node {
+        type: "question-and-answer-byline";
+        conceptId: string;
         title?: string;
         displayName: string;
         headshotUrl: string;
@@ -113,11 +114,11 @@ export declare namespace ContentTree {
     interface Question extends Parent {
         type: "question";
         displayName?: string;
-        children: (Paragraph | Exclude<Phrasing, Link | FindOutMoreLink>)[];
+        children: (Paragraph | (Text | Break | Strong | Emphasis | Strikethrough))[];
     }
     interface Answer extends Parent {
         type: "answer";
-        author: Byline;
+        byline: QuestionAndAnswerByline;
         children: (Paragraph | Phrasing)[];
     }
     type ImageSetPicture = {
@@ -451,8 +452,9 @@ export declare namespace ContentTree {
             pixelWidth?: number;
             videoCodec?: string;
         };
-        interface Byline extends Node {
-            type: "byline";
+        interface QuestionAndAnswerByline extends Node {
+            type: "question-and-answer-byline";
+            conceptId: string;
             title?: string;
             displayName: string;
             headshotUrl: string;
@@ -552,11 +554,11 @@ export declare namespace ContentTree {
         interface Question extends Parent {
             type: "question";
             displayName?: string;
-            children: (Paragraph | Exclude<Phrasing, Link | FindOutMoreLink>)[];
+            children: (Paragraph | (Text | Break | Strong | Emphasis | Strikethrough))[];
         }
         interface Answer extends Parent {
             type: "answer";
-            author: Byline;
+            byline: QuestionAndAnswerByline;
             children: (Paragraph | Phrasing)[];
         }
         type ImageSetPicture = {
@@ -891,8 +893,9 @@ export declare namespace ContentTree {
             pixelWidth?: number;
             videoCodec?: string;
         };
-        interface Byline extends Node {
-            type: "byline";
+        interface QuestionAndAnswerByline extends Node {
+            type: "question-and-answer-byline";
+            conceptId: string;
             title?: string;
         }
         interface Node {
@@ -989,11 +992,11 @@ export declare namespace ContentTree {
         interface Question extends Parent {
             type: "question";
             displayName?: string;
-            children: (Paragraph | Exclude<Phrasing, Link | FindOutMoreLink>)[];
+            children: (Paragraph | (Text | Break | Strong | Emphasis | Strikethrough))[];
         }
         interface Answer extends Parent {
             type: "answer";
-            author: Byline;
+            byline: QuestionAndAnswerByline;
             children: (Paragraph | Phrasing)[];
         }
         type ImageSetPicture = {
@@ -1302,8 +1305,9 @@ export declare namespace ContentTree {
             pixelWidth?: number;
             videoCodec?: string;
         };
-        interface Byline extends Node {
-            type: "byline";
+        interface QuestionAndAnswerByline extends Node {
+            type: "question-and-answer-byline";
+            conceptId: string;
             title?: string;
             displayName?: string;
             headshotUrl?: string;
@@ -1403,11 +1407,11 @@ export declare namespace ContentTree {
         interface Question extends Parent {
             type: "question";
             displayName?: string;
-            children: (Paragraph | Exclude<Phrasing, Link | FindOutMoreLink>)[];
+            children: (Paragraph | (Text | Break | Strong | Emphasis | Strikethrough))[];
         }
         interface Answer extends Parent {
             type: "answer";
-            author: Byline;
+            byline: QuestionAndAnswerByline;
             children: (Paragraph | Phrasing)[];
         }
         type ImageSetPicture = {

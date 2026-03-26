@@ -5,8 +5,8 @@
         "ContentTree.full.Answer": {
             "additionalProperties": false,
             "properties": {
-                "author": {
-                    "$ref": "#/definitions/ContentTree.full.Byline"
+                "byline": {
+                    "$ref": "#/definitions/ContentTree.full.QuestionAndAnswerByline"
                 },
                 "children": {
                     "items": {
@@ -46,7 +46,7 @@
                 }
             },
             "required": [
-                "author",
+                "byline",
                 "children",
                 "type"
             ],
@@ -258,31 +258,6 @@
                 }
             },
             "required": [
-                "type"
-            ],
-            "type": "object"
-        },
-        "ContentTree.full.Byline": {
-            "additionalProperties": false,
-            "properties": {
-                "data": {},
-                "displayName": {
-                    "type": "string"
-                },
-                "headshotUrl": {
-                    "type": "string"
-                },
-                "title": {
-                    "type": "string"
-                },
-                "type": {
-                    "const": "byline",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "displayName",
-                "headshotUrl",
                 "type"
             ],
             "type": "object"
@@ -1544,6 +1519,35 @@
             },
             "required": [
                 "children",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.QuestionAndAnswerByline": {
+            "additionalProperties": false,
+            "properties": {
+                "conceptId": {
+                    "type": "string"
+                },
+                "data": {},
+                "displayName": {
+                    "type": "string"
+                },
+                "headshotUrl": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "question-and-answer-byline",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "conceptId",
+                "displayName",
+                "headshotUrl",
                 "type"
             ],
             "type": "object"
