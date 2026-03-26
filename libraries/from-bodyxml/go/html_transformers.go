@@ -154,6 +154,14 @@ var defaultTransformers = map[string]transformer{
 				Type: contenttree.TweetType,
 				ID:   url,
 			}
+		} else if attr(a, "data-asset-type") == "podcast" {
+			url := attr(a, "href")
+			if(strings.Contains(url, "acast.com")) {
+				return &contenttree.AcastPodcast{
+					Type: contenttree.AcastPodcastType,
+					URL: url,
+				}
+			}
 		}
 		if attr(a, "data-anchor-style") == "onward-journey" {
 			return &contenttree.FindOutMoreLink{
