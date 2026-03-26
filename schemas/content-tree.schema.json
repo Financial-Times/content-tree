@@ -2,6 +2,25 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "additionalProperties": false,
     "definitions": {
+        "ContentTree.full.AcastPodcast": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "type": {
+                    "const": "acast-podcast",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "Acast Podcast embed url e.g. https://embed.acast.com/*",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "type",
+                "url"
+            ],
+            "type": "object"
+        },
         "ContentTree.full.AssetFormat": {
             "enum": [
                 "desktop",
@@ -171,6 +190,9 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.VimeoVideo"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.AcastPodcast"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.Timeline"

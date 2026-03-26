@@ -88,7 +88,7 @@ export declare namespace ContentTree {
         type: "blockquote";
         children: (Paragraph | Phrasing)[];
     }
-    type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | VimeoVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+    type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | VimeoVideo | AcastPodcast | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
     interface Pullquote extends Node {
         type: "pullquote";
         text: string;
@@ -204,6 +204,11 @@ export declare namespace ContentTree {
     interface VimeoVideo extends Node {
         type: "vimeo-video";
         /** Vimeo embed URL e.g. https://player.vimeo.com/player/<id> or https://vimeo.com/<id>*/
+        url: string;
+    }
+    interface AcastPodcast extends Node {
+        type: "acast-podcast";
+        /** Acast Podcast embed url e.g. https://embed.acast.com/* */
         url: string;
     }
     interface ClipSet extends Node {
@@ -512,7 +517,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | VimeoVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | VimeoVideo | AcastPodcast | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -628,6 +633,11 @@ export declare namespace ContentTree {
         interface VimeoVideo extends Node {
             type: "vimeo-video";
             /** Vimeo embed URL e.g. https://player.vimeo.com/player/<id> or https://vimeo.com/<id>*/
+            url: string;
+        }
+        interface AcastPodcast extends Node {
+            type: "acast-podcast";
+            /** Acast Podcast embed url e.g. https://embed.acast.com/* */
             url: string;
         }
         interface ClipSet extends Node {
@@ -937,7 +947,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | VimeoVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | VimeoVideo | AcastPodcast | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -1048,6 +1058,11 @@ export declare namespace ContentTree {
         interface VimeoVideo extends Node {
             type: "vimeo-video";
             /** Vimeo embed URL e.g. https://player.vimeo.com/player/<id> or https://vimeo.com/<id>*/
+            url: string;
+        }
+        interface AcastPodcast extends Node {
+            type: "acast-podcast";
+            /** Acast Podcast embed url e.g. https://embed.acast.com/* */
             url: string;
         }
         interface ClipSet extends Node {
@@ -1335,7 +1350,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | VimeoVideo | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | VimeoVideo | AcastPodcast | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -1451,6 +1466,11 @@ export declare namespace ContentTree {
         interface VimeoVideo extends Node {
             type: "vimeo-video";
             /** Vimeo embed URL e.g. https://player.vimeo.com/player/<id> or https://vimeo.com/<id>*/
+            url: string;
+        }
+        interface AcastPodcast extends Node {
+            type: "acast-podcast";
+            /** Acast Podcast embed url e.g. https://embed.acast.com/* */
             url: string;
         }
         interface ClipSet extends Node {
