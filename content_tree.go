@@ -1347,7 +1347,6 @@ func (n *Link) AppendChild(child Node) error {
 type FindOutMoreLink struct {
 	Type     string                  `json:"type"`
 	Children []*FindOutMoreLinkChild `json:"children"`
-	Title    string                  `json:"title"`
 	URL      string                  `json:"url"`
 }
 

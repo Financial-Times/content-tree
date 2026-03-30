@@ -158,7 +158,6 @@ var defaultTransformers = map[string]transformer{
 		if attr(a, "data-anchor-style") == "onward-journey" {
 			return &contenttree.FindOutMoreLink{
 				Type:     contenttree.FindOutMoreLinkType,
-				Title:    attr(a, "title"),
 				URL:      attr(a, "href"),
 				Children: []*contenttree.FindOutMoreLinkChild{},
 			}
@@ -505,8 +504,8 @@ func transformRecommended(r *etree.Element) contenttree.Node {
 }
 
 func optionalBoolAttr(el *etree.Element, name string) *bool {
-	if attr := el.SelectAttr(name); attr != nil {
-		v := attr.Value == "true"
+	if attribute := el.SelectAttr(name); attribute != nil {
+		v := attribute.Value == "true"
 		return &v
 	}
 	return nil
