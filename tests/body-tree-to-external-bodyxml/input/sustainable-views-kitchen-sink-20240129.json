@@ -180,6 +180,10 @@
 		{
 			"type": "vimeo-video",
 			"url": "https://vimeo.com/943439035"
+		},
+		{
+			"type": "acast-podcast",
+			"url": "https://embed.acast.com/74715c1d-098c-441c-a141-5599d9dd67ae/65fdb75d8d6ad800165fc561"
 		}
 	],
 	"version": 1

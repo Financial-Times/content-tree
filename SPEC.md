@@ -337,6 +337,7 @@ type StoryBlock =
 	| Video
 	| YoutubeVideo
 	| VimeoVideo
+    | AcastPodcast
 	| Timeline
 	| ImagePair
 	| InNumbers
@@ -527,7 +528,7 @@ interface Tweet extends Node {
 }
 ```
 
-**Tweet** represents a tweet.
+**Tweet** represents a tweet. Rather than embedding the tweet directly in an article, we typically fetch and cache the HTML server-side to avoid the client-side dependencies.
 
 ### `Flourish`
 
@@ -597,6 +598,20 @@ interface VimeoVideo extends Node {
 ```
 
 **VimeoVideo** represents a video referenced by a Vimeo URL.
+
+_Note: this is currently only used by Specialist Titles_
+
+### `AcastPodcast`
+
+```ts
+interface AcastPodcast extends Node {
+	type: "acast-podcast"
+	/** Acast Podcast embed url e.g. https://embed.acast.com/* */
+	url: string
+}
+```
+
+**AcastPodcast** represents an audio embed from Acast referenced by an Acast embed URL.
 
 _Note: this is currently only used by Specialist Titles_
 
