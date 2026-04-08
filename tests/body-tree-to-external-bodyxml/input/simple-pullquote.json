@@ -1,0 +1,15 @@
+{
+  "type": "body",
+  "version": 1,
+  "children": [
+    {
+      "type": "pullquote",
+      "text": "Tom & \"Jerry\"",
+      "source": "A & B"
+    },
+    {
+      "type": "pullquote",
+      "text": "Standalone <quote>"
+    }
+  ]
+}

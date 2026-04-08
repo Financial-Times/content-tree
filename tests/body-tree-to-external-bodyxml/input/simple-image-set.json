@@ -1,0 +1,11 @@
+{
+  "type": "body",
+  "version": 1,
+  "children": [
+    {
+      "type": "image-set",
+      "id": "0184bb0b-1dc8-4501-ade4-d0d49f7dd2e1",
+      "fragmentIdentifier": "image-fragment"
+    }
+  ]
+}

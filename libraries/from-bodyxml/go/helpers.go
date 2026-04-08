@@ -18,6 +18,16 @@ func toValidLayoutWidth(w string) layoutwidth {
 	}
 }
 
+func toValidFlourishLayoutWidth(w string) layoutwidth {
+	switch w {
+	case "auto", "in-line", "inset-left", "inset-right",
+		"full-bleed", "full-grid", "mid-grid", "full-width":
+		return layoutwidth(w)
+	default:
+		return "in-line"
+	}
+}
+
 func toValidClipLayoutWidth(w string) layoutwidth {
 	switch w {
 	case "in-line", "full-grid", "mid-grid":

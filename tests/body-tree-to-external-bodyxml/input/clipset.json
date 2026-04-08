@@ -5,6 +5,7 @@
       "type": "clip-set",
       "id": "daecfa57-a12a-468b-8045-ad32cfa79b3b",
       "layoutWidth": "in-line",
+      "fragmentIdentifier": "clip-fragment",
       "autoplay": false,
       "loop": true,
       "muted": false

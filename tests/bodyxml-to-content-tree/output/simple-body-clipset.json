@@ -10,6 +10,14 @@
         "muted": false,
         "autoplay": false,
         "layoutWidth": "in-line"
+      },
+      {
+        "type": "clip-set",
+        "id": "bbecfa57-a12a-468b-8045-ad32cfa79b3c",
+        "loop": true,
+        "muted": true,
+        "autoplay": true,
+        "layoutWidth": "full-grid"
       }
     ],
     "version": 1

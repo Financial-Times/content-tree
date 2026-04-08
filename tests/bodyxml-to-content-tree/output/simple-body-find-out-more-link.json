@@ -29,7 +29,6 @@
                 "value":"Link with anchor style tag"
               }
             ],
-            "title":"t2",
             "url":"http://ft.com/content/8c4ad03c-75cf-4af7-bfd3-a8ebf620a458"
           },
           {
@@ -61,7 +60,6 @@
                     "value":" link"
                   }
                 ],
-                "title":"t3",
                 "url":"http://ft.com/content/8c4ad03c-75cf-4af7-bfd3-a8ebf620a458"
               }
             ]
@@ -87,7 +85,6 @@
                     ]
                   }
                 ],
-                "title":"t4",
                 "url":"http://ft.com/content/8c4ad03c-75cf-4af7-bfd3-a8ebf620a458"
               }
             ]
@@ -108,7 +105,6 @@
                     "value":"Strike link"
                   }
                 ],
-                "title":"t5",
                 "url":"http://ft.com/content/8c4ad03c-75cf-4af7-bfd3-a8ebf620a458"
               }
             ]
@@ -129,7 +125,6 @@
                     "value":"List direct link"
                   }
                 ],
-                "title":"t6",
                 "url":"http://ft.com/content/8c4ad03c-75cf-4af7-bfd3-a8ebf620a458"
               }
             ]
@@ -152,7 +147,6 @@
                         "value":"List para link"
                       }
                     ],
-                    "title":"t7",
                     "url":"http://ft.com/content/8c4ad03c-75cf-4af7-bfd3-a8ebf620a458"
                   }
                 ]
@@ -173,7 +167,6 @@
                 "value":"Quote direct link"
               }
             ],
-            "title":"t8",
             "url":"http://ft.com/content/8c4ad03c-75cf-4af7-bfd3-a8ebf620a458"
           },
           {
@@ -191,7 +184,6 @@
                     "value":"Quote para link"
                   }
                 ],
-                "title":"t9",
                 "url":"http://ft.com/content/8c4ad03c-75cf-4af7-bfd3-a8ebf620a458"
               }
             ]

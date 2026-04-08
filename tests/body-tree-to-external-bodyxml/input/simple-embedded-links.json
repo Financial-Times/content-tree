@@ -1,0 +1,22 @@
+{
+  "type": "body",
+  "version": 1,
+  "children": [
+    {
+      "type": "youtube-video",
+      "url": "https://www.youtube.com/watch?v=abc&feature=\"share\""
+    },
+    {
+      "type": "vimeo-video",
+      "url": "https://vimeo.com/943439035?autoplay=1&title=\"clip\""
+    },
+    {
+      "type": "acast-podcast",
+      "url": "https://embed.acast.com/show/episode?x=1&y=\"quoted\""
+    },
+    {
+      "type": "tweet",
+      "id": "https://x.com/example/status/123?ref=home&tag=\"ft\""
+    }
+  ]
+}

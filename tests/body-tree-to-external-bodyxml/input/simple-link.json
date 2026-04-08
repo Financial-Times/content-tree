@@ -1,0 +1,37 @@
+{
+  "type": "body",
+  "version": 1,
+  "children": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "link",
+          "url": "https://example.com/page?x=1&y=\"quoted\"",
+          "title": "Tom & \"Jerry\"",
+          "children": [
+            {
+              "type": "text",
+              "value": "Escaped link"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "link",
+          "url": "https://example.com/search?q=fish&lang=en",
+          "children": [
+            {
+              "type": "text",
+              "value": "Untitled link"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

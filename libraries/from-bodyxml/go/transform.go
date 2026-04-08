@@ -107,6 +107,9 @@ func convertToContentTree(elem etree.Token, m contenttree.Node) error {
 		}
 	case *etree.CharData:
 		data := t.Data
+		if strings.TrimSpace(data) == "" {
+			return nil
+		}
 		tx := &contenttree.Text{
 			Value: data,
 			Type:  contenttree.TextType,

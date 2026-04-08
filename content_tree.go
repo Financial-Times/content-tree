@@ -2673,7 +2673,6 @@ func (n *ThematicBreak) AppendChild(_ Node) error { return ErrCannotHaveChildren
 
 type Tweet struct {
 	Type string `json:"type"`
-	HTML string `json:"html,omitempty"`
 	ID   string `json:"id,omitempty"`
 }
 
@@ -2768,13 +2767,9 @@ func (n *AcastPodcast) GetChildren() []Node {
 func (n *AcastPodcast) AppendChild(_ Node) error { return ErrCannotHaveChildren }
 
 type CustomCodeComponent struct {
-	Type                   string                 `json:"type"`
-	ID                     string                 `json:"id"`
-	LayoutWidth            string                 `json:"layoutWidth"`
-	Attributes             map[string]interface{} `json:"attributes,omitempty"`
-	AttributesLastModified string                 `json:"attributesLastModified,omitempty"`
-	Path                   string                 `json:"path,omitempty"`
-	VersionRange           string                 `json:"versionRange,omitempty"`
+	Type        string `json:"type"`
+	ID          string `json:"id"`
+	LayoutWidth string `json:"layoutWidth"`
 }
 
 func (n *CustomCodeComponent) GetType() string {

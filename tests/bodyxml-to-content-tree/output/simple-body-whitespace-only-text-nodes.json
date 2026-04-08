@@ -1,0 +1,32 @@
+{
+  "type": "root",
+  "body": {
+    "type": "body",
+    "children": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "emphasis",
+            "children": [
+              {
+                "type": "text",
+                "value": "Alpha"
+              }
+            ]
+          },
+          {
+            "type": "strong",
+            "children": [
+              {
+                "type": "text",
+                "value": "Beta"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "version": 1
+  }
+}

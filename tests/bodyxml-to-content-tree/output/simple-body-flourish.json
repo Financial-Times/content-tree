@@ -12,9 +12,9 @@
         "description": "",
         "flourishType": "visualisation",
         "id": "11009297",
-        "layoutWidth": "full-width",
+        "layoutWidth": "in-line",
         "timestamp": "",
-        "fragmentIdentifier": "11009297"
+        "fragmentIdentifier": "flourish-fragment"
       }
     ],
     "version": 1
