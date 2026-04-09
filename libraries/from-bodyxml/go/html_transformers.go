@@ -136,6 +136,18 @@ var defaultTransformers = map[string]transformer{
 			Children: []*contenttree.Phrasing{},
 		}
 	},
+	"sup": func(_ *etree.Element) contenttree.Node {
+		return &contenttree.Superscript{
+			Type:     contenttree.SuperscriptType,
+			Children: []*contenttree.Phrasing{},
+		}
+	},
+	"sub": func(_ *etree.Element) contenttree.Node {
+		return &contenttree.Subscript{
+			Type:     contenttree.SubscriptType,
+			Children: []*contenttree.Phrasing{},
+		}
+	},
 	"br": func(br *etree.Element) contenttree.Node {
 		return &contenttree.Break{
 			Type: contenttree.BreakType,
@@ -499,12 +511,6 @@ var defaultTransformers = map[string]transformer{
 		return newLiftChildrenNode()
 	},
 	"b": func(_ *etree.Element) contenttree.Node {
-		return newLiftChildrenNode()
-	},
-	"sup": func(_ *etree.Element) contenttree.Node {
-		return newLiftChildrenNode()
-	},
-	"sub": func(_ *etree.Element) contenttree.Node {
 		return newLiftChildrenNode()
 	},
 	"u": func(_ *etree.Element) contenttree.Node {
