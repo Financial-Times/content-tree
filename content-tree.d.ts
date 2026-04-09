@@ -34,7 +34,7 @@ export declare namespace ContentTree {
         type: "text";
         value: string;
     }
-    type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | FindOutMoreLink;
+    type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Subscript | Superscript | Link | FindOutMoreLink;
     interface Break extends Node {
         type: "break";
     }
@@ -61,6 +61,14 @@ export declare namespace ContentTree {
     }
     interface Strikethrough extends Parent {
         type: "strikethrough";
+        children: Phrasing[];
+    }
+    interface Subscript extends Parent {
+        type: "subscript";
+        children: Phrasing[];
+    }
+    interface Superscript extends Parent {
+        type: "superscript";
         children: Phrasing[];
     }
     interface Link extends Parent {
@@ -462,7 +470,7 @@ export declare namespace ContentTree {
             type: "text";
             value: string;
         }
-        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | FindOutMoreLink;
+        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Subscript | Superscript | Link | FindOutMoreLink;
         interface Break extends Node {
             type: "break";
         }
@@ -489,6 +497,14 @@ export declare namespace ContentTree {
         }
         interface Strikethrough extends Parent {
             type: "strikethrough";
+            children: Phrasing[];
+        }
+        interface Subscript extends Parent {
+            type: "subscript";
+            children: Phrasing[];
+        }
+        interface Superscript extends Parent {
+            type: "superscript";
             children: Phrasing[];
         }
         interface Link extends Parent {
@@ -891,7 +907,7 @@ export declare namespace ContentTree {
             type: "text";
             value: string;
         }
-        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | FindOutMoreLink;
+        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Subscript | Superscript | Link | FindOutMoreLink;
         interface Break extends Node {
             type: "break";
         }
@@ -918,6 +934,14 @@ export declare namespace ContentTree {
         }
         interface Strikethrough extends Parent {
             type: "strikethrough";
+            children: Phrasing[];
+        }
+        interface Subscript extends Parent {
+            type: "subscript";
+            children: Phrasing[];
+        }
+        interface Superscript extends Parent {
+            type: "superscript";
             children: Phrasing[];
         }
         interface Link extends Parent {
@@ -1293,7 +1317,7 @@ export declare namespace ContentTree {
             type: "text";
             value: string;
         }
-        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | FindOutMoreLink;
+        type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Subscript | Superscript | Link | FindOutMoreLink;
         interface Break extends Node {
             type: "break";
         }
@@ -1320,6 +1344,14 @@ export declare namespace ContentTree {
         }
         interface Strikethrough extends Parent {
             type: "strikethrough";
+            children: Phrasing[];
+        }
+        interface Subscript extends Parent {
+            type: "subscript";
+            children: Phrasing[];
+        }
+        interface Superscript extends Parent {
+            type: "superscript";
             children: Phrasing[];
         }
         interface Link extends Parent {
