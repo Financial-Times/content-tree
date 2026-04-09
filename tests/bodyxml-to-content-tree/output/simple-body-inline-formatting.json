@@ -1,0 +1,66 @@
+{
+  "type": "root",
+  "body": {
+    "type": "body",
+    "children": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "value": "Start "
+          },
+          {
+            "type": "text",
+            "value": "bold"
+          },
+          {
+            "type": "text",
+            "value": "sup"
+          },
+          {
+            "type": "text",
+            "value": "sub"
+          },
+          {
+            "type": "text",
+            "value": "underline"
+          },
+          {
+            "type": "text",
+            "value": "italic"
+          },
+          {
+            "type": "text",
+            "value": "deleted"
+          },
+          {
+            "type": "text",
+            "value": "small"
+          },
+          {
+            "type": "link",
+            "children": [
+              {
+                "type": "text",
+                "value": "wrapped link"
+              }
+            ],
+            "title": "wrapped-link",
+            "url": "https://www.ft.com/content/123"
+          },
+          {
+            "type": "emphasis",
+            "children": [
+              {
+                "type": "text",
+                "value": "wrapped emphasis"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "version": 1
+  }
+}

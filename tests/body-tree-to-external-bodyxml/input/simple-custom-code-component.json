@@ -1,0 +1,16 @@
+{
+  "type": "body",
+  "version": 1,
+  "children": [
+    {
+      "type": "custom-code-component",
+      "id": "ccc-123",
+      "layoutWidth": "full-width"
+    },
+    {
+      "type": "custom-code-component",
+      "id": "ccc-456",
+      "layoutWidth": ""
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "type": "body",
+  "version": 1,
+  "children": [
+    {
+      "type": "big-number",
+      "number": "10 < 20 & \"30\"",
+      "description": "Growth & \"context\""
+    }
+  ]
+}

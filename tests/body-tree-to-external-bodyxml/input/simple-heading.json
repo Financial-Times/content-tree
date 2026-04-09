@@ -1,0 +1,38 @@
+{
+  "type": "body",
+  "version": 1,
+  "children": [
+    {
+      "type": "heading",
+      "level": "chapter",
+      "fragmentIdentifier": "chapter-fragment",
+      "children": [
+        {
+          "type": "text",
+          "value": "Chapter heading"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": "subheading",
+      "fragmentIdentifier": "subheading-fragment",
+      "children": [
+        {
+          "type": "text",
+          "value": "Subheading text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": "label",
+      "children": [
+        {
+          "type": "text",
+          "value": "Label heading"
+        }
+      ]
+    }
+  ]
+}

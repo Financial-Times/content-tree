@@ -64,40 +64,52 @@ type transformer func(el *etree.Element) contenttree.Node
 
 var defaultTransformers = map[string]transformer{
 	"h1": func(h1 *etree.Element) contenttree.Node {
-		dfrgId := attr(h1, "data-fragment-identifier")
 		heading := &contenttree.Heading{
 			Type:               contenttree.HeadingType,
 			Level:              "chapter",
 			Children:           []*contenttree.Text{},
-			FragmentIdentifier: dfrgId,
+			FragmentIdentifier: attr(h1, "data-fragment-identifier"),
 		}
 		return heading
 	},
 	"h2": func(h2 *etree.Element) contenttree.Node {
-		dfrgId := attr(h2, "data-fragment-identifier")
 		return &contenttree.Heading{
 			Type:               contenttree.HeadingType,
 			Level:              "subheading",
 			Children:           []*contenttree.Text{},
-			FragmentIdentifier: dfrgId,
+			FragmentIdentifier: attr(h2, "data-fragment-identifier"),
 		}
 	},
 	"h3": func(h3 *etree.Element) contenttree.Node {
-		dfrgId := attr(h3, "data-fragment-identifier")
 		return &contenttree.Heading{
 			Type:               contenttree.HeadingType,
 			Level:              "subheading",
 			Children:           []*contenttree.Text{},
-			FragmentIdentifier: dfrgId,
+			FragmentIdentifier: attr(h3, "data-fragment-identifier"),
 		}
 	},
 	"h4": func(h4 *etree.Element) contenttree.Node {
-		dfrgId := attr(h4, "data-fragment-identifier")
 		return &contenttree.Heading{
 			Type:               contenttree.HeadingType,
 			Level:              "label",
 			Children:           []*contenttree.Text{},
-			FragmentIdentifier: dfrgId,
+			FragmentIdentifier: attr(h4, "data-fragment-identifier"),
+		}
+	},
+	"h5": func(h5 *etree.Element) contenttree.Node {
+		return &contenttree.Heading{
+			Type:               contenttree.HeadingType,
+			Level:              "label",
+			Children:           []*contenttree.Text{},
+			FragmentIdentifier: attr(h5, "data-fragment-identifier"),
+		}
+	},
+	"h6": func(h6 *etree.Element) contenttree.Node {
+		return &contenttree.Heading{
+			Type:               contenttree.HeadingType,
+			Level:              "label",
+			Children:           []*contenttree.Text{},
+			FragmentIdentifier: attr(h6, "data-fragment-identifier"),
 		}
 	},
 	"p": func(p *etree.Element) contenttree.Node {
@@ -149,17 +161,16 @@ var defaultTransformers = map[string]transformer{
 				}
 			}
 		} else if attr(a, "data-asset-type") == "tweet" {
-			url := attr(a, "href")
 			return &contenttree.Tweet{
 				Type: contenttree.TweetType,
-				ID:   url,
+				ID:   attr(a, "href"),
 			}
 		} else if attr(a, "data-asset-type") == "podcast" {
 			url := attr(a, "href")
-			if(strings.Contains(url, "acast.com")) {
+			if strings.Contains(url, "acast.com") {
 				return &contenttree.AcastPodcast{
 					Type: contenttree.AcastPodcastType,
-					URL: url,
+					URL:  url,
 				}
 			}
 		}
@@ -286,21 +297,20 @@ var defaultTransformers = map[string]transformer{
 	contentType.Content: func(content *etree.Element) contenttree.Node {
 		id := attr(content, "id")
 		if attr(content, "data-asset-type") == "flourish" {
-			dfrgId := valueOr(attr(content, "data-fragment-identifier"), id)
 			return &contenttree.Flourish{
 				Type:               contenttree.FlourishType,
 				Id:                 id,
 				FlourishType:       attr(content, "data-flourish-type"),
-				LayoutWidth:        string(toValidLayoutWidth(attr(content, "data-layout-width"))),
+				LayoutWidth:        string(toValidFlourishLayoutWidth(attr(content, "data-layout-width"))),
 				Description:        attr(content, "alt"),
 				Timestamp:          attr(content, "data-time-stamp"),
-				FragmentIdentifier: dfrgId,
+				FragmentIdentifier: attr(content, "data-fragment-identifier"),
 			}
 		}
 		return &contenttree.Link{
 			Type:     contenttree.LinkType,
 			URL:      "https://www.ft.com/content/" + id,
-			Title:    attr(content, "dataTitle"),
+			Title:    attr(content, "title"),
 			Children: []*contenttree.Phrasing{},
 		}
 	},
@@ -308,7 +318,7 @@ var defaultTransformers = map[string]transformer{
 		return &contenttree.Link{
 			Type:     contenttree.LinkType,
 			URL:      "https://www.ft.com/content/" + attr(content, "id"),
-			Title:    attr(content, "dataTitle"),
+			Title:    attr(content, "title"),
 			Children: []*contenttree.Phrasing{},
 		}
 	},
@@ -324,7 +334,7 @@ var defaultTransformers = map[string]transformer{
 		return &contenttree.ClipSet{
 			Type:               contenttree.ClipSetType,
 			ID:                 attr(content, "id"),
-			LayoutWidth:        string(toValidClipLayoutWidth(attr(content, "data-layout-width"))),
+			LayoutWidth:        string(toValidClipLayoutWidth(attr(content, "data-layout"))),
 			Autoplay:           optionalBoolAttr(content, "autoplay"),
 			FragmentIdentifier: dfrgId,
 			Loop:               optionalBoolAttr(content, "loop"),
@@ -486,6 +496,27 @@ var defaultTransformers = map[string]transformer{
 		return newUnknownNode("", section)
 	},
 	"experimental": func(_ *etree.Element) contenttree.Node {
+		return newLiftChildrenNode()
+	},
+	"b": func(_ *etree.Element) contenttree.Node {
+		return newLiftChildrenNode()
+	},
+	"sup": func(_ *etree.Element) contenttree.Node {
+		return newLiftChildrenNode()
+	},
+	"sub": func(_ *etree.Element) contenttree.Node {
+		return newLiftChildrenNode()
+	},
+	"u": func(_ *etree.Element) contenttree.Node {
+		return newLiftChildrenNode()
+	},
+	"i": func(_ *etree.Element) contenttree.Node {
+		return newLiftChildrenNode()
+	},
+	"del": func(_ *etree.Element) contenttree.Node {
+		return newLiftChildrenNode()
+	},
+	"small": func(_ *etree.Element) contenttree.Node {
 		return newLiftChildrenNode()
 	},
 }

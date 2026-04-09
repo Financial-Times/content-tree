@@ -1,0 +1,34 @@
+{
+  "type": "body",
+  "version": 1,
+  "children": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Line 1"
+        },
+        {
+          "type": "break"
+        },
+        {
+          "type": "text",
+          "value": "Line 2"
+        }
+      ]
+    },
+    {
+      "type": "thematic-break"
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "After rule"
+        }
+      ]
+    }
+  ]
+}

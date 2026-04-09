@@ -23,6 +23,27 @@
           }
         ],
         "level": "subheading"
+      },
+      {
+        "type": "heading",
+        "children": [
+          {
+            "type": "text",
+            "value": "Operational label heading"
+          }
+        ],
+        "level": "label",
+        "fragmentIdentifier": "label-five"
+      },
+      {
+        "type": "heading",
+        "children": [
+          {
+            "type": "text",
+            "value": "Secondary label heading"
+          }
+        ],
+        "level": "label"
       }
     ],
     "version": 1

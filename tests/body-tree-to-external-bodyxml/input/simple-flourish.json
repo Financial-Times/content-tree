@@ -1,0 +1,22 @@
+{
+  "type": "body",
+  "version": 1,
+  "children": [
+    {
+      "type": "flourish",
+      "id": "11009297",
+      "description": "Chart & \"caption\"",
+      "flourishType": "visualisation",
+      "layoutWidth": "in-line",
+      "timestamp": "2024-01-29T10:00:00Z",
+      "fragmentIdentifier": "flourish-fragment"
+    },
+    {
+      "type": "flourish",
+      "id": "22009298",
+      "description": "",
+      "layoutWidth": "",
+      "timestamp": ""
+    }
+  ]
+}

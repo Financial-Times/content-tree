@@ -102,10 +102,10 @@ func transformNode(n contenttree.Node) (string, error) {
 		return html.EscapeString(node.Value), nil
 
 	case *contenttree.Break:
-		return "<br>", nil
+		return "<br/>", nil
 
 	case *contenttree.ThematicBreak:
-		return "<hr>", nil
+		return "<hr/>", nil
 
 	case *contenttree.Paragraph:
 		return fmt.Sprintf("<p>%s</p>", innerXML), nil
@@ -126,6 +126,9 @@ func transformNode(n contenttree.Node) (string, error) {
 			return "", fmt.Errorf("failed to transform heading with level %s", node.Level)
 		}
 
+		if node.FragmentIdentifier != "" {
+			return fmt.Sprintf("<%[1]s data-fragment-identifier=\"%[2]s\">%[3]s</%[1]s>", tag, html.EscapeString(node.FragmentIdentifier), innerXML), nil
+		}
 		return fmt.Sprintf("<%[1]s>%s</%[1]s>", tag, innerXML), nil
 
 	case *contenttree.Strong:
@@ -138,11 +141,12 @@ func transformNode(n contenttree.Node) (string, error) {
 		return fmt.Sprintf("<s>%s</s>", innerXML), nil
 
 	case *contenttree.Link:
+		href := html.EscapeString(node.URL)
 		if node.Title != "" {
-			return fmt.Sprintf("<a href=\"%s\" title=\"%s\">%s</a>", node.URL, node.Title, innerXML), nil
+			return fmt.Sprintf("<a href=\"%s\" title=\"%s\">%s</a>", href, html.EscapeString(node.Title), innerXML), nil
 		}
 
-		return fmt.Sprintf("<a href=\"%s\">%s</a>", node.URL, innerXML), nil
+		return fmt.Sprintf("<a href=\"%s\">%s</a>", href, innerXML), nil
 
 	case *contenttree.List:
 		tag := "ul"
@@ -159,11 +163,19 @@ func transformNode(n contenttree.Node) (string, error) {
 		return fmt.Sprintf("<blockquote>%s</blockquote>", innerXML), nil
 
 	case *contenttree.Pullquote:
-		return fmt.Sprintf("<pull-quote><pull-quote-text><p>%s</p></pull-quote-text><pull-quote-source>%s</pull-quote-source></pull-quote>", node.Text, node.Source), nil
+		text := html.EscapeString(node.Text)
+		if node.Source != "" {
+			return fmt.Sprintf("<pull-quote><pull-quote-text><p>%s</p></pull-quote-text><pull-quote-source>%s</pull-quote-source></pull-quote>", text, html.EscapeString(node.Source)), nil
+		}
+		return fmt.Sprintf("<pull-quote><pull-quote-text><p>%s</p></pull-quote-text></pull-quote>", text), nil
 
 	case *contenttree.ImageSet:
-		return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/ImageSet\" url=\"http://api.ft.com/content/%s\" data-embedded=\"true\"></ft-content>", node.ID), nil
-
+		{
+			if node.FragmentIdentifier != "" {
+				return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/ImageSet\" url=\"http://api.ft.com/content/%s\" data-embedded=\"true\" data-fragment-identifier=\"%s\"></ft-content>", node.ID, node.FragmentIdentifier), nil
+			}
+			return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/ImageSet\" url=\"http://api.ft.com/content/%s\" data-embedded=\"true\"></ft-content>", node.ID), nil
+		}
 	case *contenttree.ClipSet:
 		attrs := []string{
 			"type=\"http://www.ft.com/ontology/content/ClipSet\"",
@@ -171,7 +183,10 @@ func transformNode(n contenttree.Node) (string, error) {
 			"data-embedded=\"true\"",
 		}
 		if node.LayoutWidth != "" {
-			attrs = append(attrs, fmt.Sprintf("data-layout-width=\"%s\"", node.LayoutWidth))
+			attrs = append(attrs, fmt.Sprintf("data-layout=\"%s\"", node.LayoutWidth))
+		}
+		if node.FragmentIdentifier != "" {
+			attrs = append(attrs, fmt.Sprintf("data-fragment-identifier=\"%s\"", node.FragmentIdentifier))
 		}
 		if attr := optionalBoolAttrXML("autoplay", node.Autoplay); attr != "" {
 			attrs = append(attrs, attr)
@@ -185,8 +200,29 @@ func transformNode(n contenttree.Node) (string, error) {
 		return fmt.Sprintf("<ft-content %s></ft-content>", strings.Join(attrs, " ")), nil
 
 	case *contenttree.Flourish:
-		return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/Content\" url=\"http://api.ft.com/content/%[1]s\" alt=\"%s\" data-asset-type=\"flourish\" data-embedded=\"true\" data-flourish-type=\"%s\" data-layout-width=\"%s\" data-time-stamp=\"%s\" id=\"%[1]s\"></ft-content>", node.Id, node.Description, node.FlourishType, node.LayoutWidth, node.Timestamp), nil
-
+		attrs := []string{
+			"type=\"http://www.ft.com/ontology/content/Content\"",
+			fmt.Sprintf("url=\"http://api.ft.com/content/%s\"", node.Id),
+			"data-asset-type=\"flourish\"",
+			"data-embedded=\"true\"",
+			fmt.Sprintf("id=\"%s\"", node.Id),
+		}
+		if node.Description != "" {
+			attrs = append(attrs, fmt.Sprintf("alt=\"%s\"", html.EscapeString(node.Description)))
+		}
+		if node.FlourishType != "" {
+			attrs = append(attrs, fmt.Sprintf("data-flourish-type=\"%s\"", node.FlourishType))
+		}
+		if node.LayoutWidth != "" {
+			attrs = append(attrs, fmt.Sprintf("data-layout-width=\"%s\"", node.LayoutWidth))
+		}
+		if node.Timestamp != "" {
+			attrs = append(attrs, fmt.Sprintf("data-time-stamp=\"%s\"", node.Timestamp))
+		}
+		if node.FragmentIdentifier != "" {
+			attrs = append(attrs, fmt.Sprintf("data-fragment-identifier=\"%s\"", node.FragmentIdentifier))
+		}
+		return fmt.Sprintf("<ft-content %s></ft-content>", strings.Join(attrs, " ")), nil
 	case *contenttree.TableCaption:
 		return fmt.Sprintf("<caption>%s</caption>", innerXML), nil
 
@@ -217,16 +253,16 @@ func transformNode(n contenttree.Node) (string, error) {
 		return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/Video\" url=\"http://api.ft.com/content/%s\" data-embedded=\"true\"></ft-content>", node.ID), nil
 
 	case *contenttree.YoutubeVideo:
-		return fmt.Sprintf("<a data-asset-type=\"video\" data-embedded=\"true\" href=\"%s\"></a>", node.URL), nil
+		return fmt.Sprintf("<a data-asset-type=\"video\" data-embedded=\"true\" href=\"%s\"></a>", html.EscapeString(node.URL)), nil
 
 	case *contenttree.VimeoVideo:
-		return fmt.Sprintf("<a data-asset-type=\"video\" data-embedded=\"true\" href=\"%s\"></a>", node.URL), nil
+		return fmt.Sprintf("<a data-asset-type=\"video\" data-embedded=\"true\" href=\"%s\"></a>", html.EscapeString(node.URL)), nil
 
 	case *contenttree.AcastPodcast:
-		return fmt.Sprintf("<a data-asset-type=\"podcast\" data-embedded=\"true\" href=\"%s\"></a>", node.URL), nil
+		return fmt.Sprintf("<a data-asset-type=\"podcast\" data-embedded=\"true\" href=\"%s\"></a>", html.EscapeString(node.URL)), nil
 
 	case *contenttree.Tweet:
-		return fmt.Sprintf("<a data-asset-type=\"tweet\" data-embedded=\"true\" href=\"%[1]s\">%[1]s</a>", node.ID), nil
+		return fmt.Sprintf("<a data-asset-type=\"tweet\" data-embedded=\"true\" href=\"%[1]s\">%[1]s</a>", html.EscapeString(node.ID)), nil
 
 	// Example from the Native Store to keep the translucent namespace (https://www.ft.com/content/9675cf79-f16d-4132-ab73-8bafa22ee4fc):
 	// <tr:scrollable-block theme=\"1\">
@@ -276,11 +312,18 @@ func transformNode(n contenttree.Node) (string, error) {
 		return "", nil
 
 	case *contenttree.BigNumber:
-		return fmt.Sprintf("<big-number><big-number-headline>%s</big-number-headline><big-number-intro>%s</big-number-intro></big-number>", node.Number, node.Description), nil
+		return fmt.Sprintf("<big-number><big-number-headline>%s</big-number-headline><big-number-intro>%s</big-number-intro></big-number>", html.EscapeString(node.Number), html.EscapeString(node.Description)), nil
 
-	// CCC nodes won't be available in the "external" body XML format.
 	case *contenttree.CustomCodeComponent:
-		return "", nil
+		attrs := []string{
+			"type=\"http://www.ft.com/ontology/content/CustomCodeComponent\"",
+			fmt.Sprintf("url=\"http://api.ft.com/content/%s\"", node.ID),
+			"data-embedded=\"true\"",
+		}
+		if node.LayoutWidth != "" {
+			attrs = append(attrs, fmt.Sprintf("data-layout-width=\"%s\"", node.LayoutWidth))
+		}
+		return fmt.Sprintf("<ft-content %s></ft-content>", strings.Join(attrs, " ")), nil
 	/*
 		TODO: Remove comment to integrate timeline.
 		case *contenttree.Timeline:
