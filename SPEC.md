@@ -163,7 +163,7 @@ interface Text extends Node {
 ### `Phrasing`
 
 ```ts
-type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Link | FindOutMoreLink
+type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Subscript | Superscript | Link | FindOutMoreLink
 ```
 
 A phrasing node cannot have ancestor of the same type.
@@ -256,6 +256,28 @@ interface Strikethrough extends Parent {
 ```
 
 **Strikethrough** represents a piece of text that has been stricken.
+
+### Subscript 
+
+```ts
+interface Subscript extends Parent {
+	type: "subscript"
+	children: Phrasing[]
+}
+```
+
+**Subscript** represents a piece of text that has a lowered baseline.
+
+### Superscript 
+
+```ts
+interface Superscript extends Parent {
+	type: "superscript"
+	children: Phrasing[]
+}
+```
+
+**Superscript** represents a piece of text with a raised baseline.
 
 ### `Link`
 
