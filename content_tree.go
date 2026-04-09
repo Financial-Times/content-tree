@@ -38,6 +38,8 @@ const (
 	StrongType               = "strong"
 	EmphasisType             = "emphasis"
 	StrikethroughType        = "strikethrough"
+	SubscriptType            = "subscript"
+	SuperscriptType          = "superscript"
 	LinkType                 = "link"
 	FindOutMoreLinkType      = "find-out-more-link"
 	FindOutMoreLinkChildType = "find-out-more-link-child"
@@ -201,6 +203,8 @@ type BlockquoteChild struct {
 	*Strong
 	*Emphasis
 	*Strikethrough
+	*Subscript
+	*Superscript
 	*Link
 	*FindOutMoreLink
 }
@@ -227,6 +231,12 @@ func (n *BlockquoteChild) GetEmbedded() Node {
 	}
 	if n.Strikethrough != nil {
 		return n.Strikethrough
+	}
+	if n.Subscript != nil {
+		return n.Subscript
+	}
+	if n.Superscript != nil {
+		return n.Superscript
 	}
 	if n.Link != nil {
 		return n.Link
@@ -255,6 +265,12 @@ func (n *BlockquoteChild) GetChildren() []Node {
 	}
 	if n.Strikethrough != nil {
 		return n.Strikethrough.GetChildren()
+	}
+	if n.Subscript != nil {
+		return n.Subscript.GetChildren()
+	}
+	if n.Superscript != nil {
+		return n.Superscript.GetChildren()
 	}
 	if n.Link != nil {
 		return n.Link.GetChildren()
@@ -310,6 +326,18 @@ func (n *BlockquoteChild) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		n.Strikethrough = &v
+	case SubscriptType:
+		var v Subscript
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.Subscript = &v
+	case SuperscriptType:
+		var v Superscript
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.Superscript = &v
 	case LinkType:
 		var v Link
 		if err := json.Unmarshal(data, &v); err != nil {
@@ -342,6 +370,10 @@ func (n *BlockquoteChild) MarshalJSON() ([]byte, error) {
 		return json.Marshal(n.Emphasis)
 	case n.Strikethrough != nil:
 		return json.Marshal(n.Strikethrough)
+	case n.Subscript != nil:
+		return json.Marshal(n.Subscript)
+	case n.Superscript != nil:
+		return json.Marshal(n.Superscript)
 	case n.Link != nil:
 		return json.Marshal(n.Link)
 	case n.FindOutMoreLink != nil:
@@ -366,6 +398,10 @@ func makeBlockquoteChild(n Node) (*BlockquoteChild, error) {
 		return &BlockquoteChild{Emphasis: n.(*Emphasis)}, nil
 	case StrikethroughType:
 		return &BlockquoteChild{Strikethrough: n.(*Strikethrough)}, nil
+	case SubscriptType:
+		return &BlockquoteChild{Subscript: n.(*Subscript)}, nil
+	case SuperscriptType:
+		return &BlockquoteChild{Superscript: n.(*Superscript)}, nil
 	case LinkType:
 		return &BlockquoteChild{Link: n.(*Link)}, nil
 	case FindOutMoreLinkType:
@@ -1557,6 +1593,8 @@ type ListItemChild struct {
 	*Strong
 	*Emphasis
 	*Strikethrough
+	*Subscript
+	*Superscript
 	*Link
 	*FindOutMoreLink
 }
@@ -1583,6 +1621,12 @@ func (n *ListItemChild) GetEmbedded() Node {
 	}
 	if n.Strikethrough != nil {
 		return n.Strikethrough
+	}
+	if n.Subscript != nil {
+		return n.Subscript
+	}
+	if n.Superscript != nil {
+		return n.Superscript
 	}
 	if n.Link != nil {
 		return n.Link
@@ -1611,6 +1655,12 @@ func (n *ListItemChild) GetChildren() []Node {
 	}
 	if n.Strikethrough != nil {
 		return n.Strikethrough.GetChildren()
+	}
+	if n.Subscript != nil {
+		return n.Subscript.GetChildren()
+	}
+	if n.Superscript != nil {
+		return n.Superscript.GetChildren()
 	}
 	if n.Link != nil {
 		return n.Link.GetChildren()
@@ -1669,6 +1719,18 @@ func (n *ListItemChild) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		n.Strikethrough = &v
+	case SubscriptType:
+		var v Subscript
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.Subscript = &v
+	case SuperscriptType:
+		var v Superscript
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.Superscript = &v
 	case LinkType:
 		var v Link
 		if err := json.Unmarshal(data, &v); err != nil {
@@ -1701,6 +1763,10 @@ func (n *ListItemChild) MarshalJSON() ([]byte, error) {
 		return json.Marshal(n.Emphasis)
 	case n.Strikethrough != nil:
 		return json.Marshal(n.Strikethrough)
+	case n.Subscript != nil:
+		return json.Marshal(n.Subscript)
+	case n.Superscript != nil:
+		return json.Marshal(n.Superscript)
 	case n.Link != nil:
 		return json.Marshal(n.Link)
 	case n.FindOutMoreLink != nil:
@@ -1725,6 +1791,10 @@ func makeListItemChild(n Node) (*ListItemChild, error) {
 		return &ListItemChild{Emphasis: n.(*Emphasis)}, nil
 	case StrikethroughType:
 		return &ListItemChild{Strikethrough: n.(*Strikethrough)}, nil
+	case SubscriptType:
+		return &ListItemChild{Subscript: n.(*Subscript)}, nil
+	case SuperscriptType:
+		return &ListItemChild{Superscript: n.(*Superscript)}, nil
 	case LinkType:
 		return &ListItemChild{Link: n.(*Link)}, nil
 	case FindOutMoreLinkType:
@@ -1770,6 +1840,8 @@ type Phrasing struct {
 	*Strong
 	*Emphasis
 	*Strikethrough
+	*Subscript
+	*Superscript
 	*Link
 	*FindOutMoreLink
 }
@@ -1793,6 +1865,12 @@ func (n *Phrasing) GetEmbedded() Node {
 	}
 	if n.Strikethrough != nil {
 		return n.Strikethrough
+	}
+	if n.Subscript != nil {
+		return n.Subscript
+	}
+	if n.Superscript != nil {
+		return n.Superscript
 	}
 	if n.Link != nil {
 		return n.Link
@@ -1818,6 +1896,12 @@ func (n *Phrasing) GetChildren() []Node {
 	}
 	if n.Strikethrough != nil {
 		return n.Strikethrough.GetChildren()
+	}
+	if n.Subscript != nil {
+		return n.Subscript.GetChildren()
+	}
+	if n.Superscript != nil {
+		return n.Superscript.GetChildren()
 	}
 	if n.Link != nil {
 		return n.Link.GetChildren()
@@ -1867,6 +1951,18 @@ func (n *Phrasing) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		n.Strikethrough = &v
+	case SubscriptType:
+		var v Subscript
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.Subscript = &v
+	case SuperscriptType:
+		var v Superscript
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.Superscript = &v
 	case LinkType:
 		var v Link
 		if err := json.Unmarshal(data, &v); err != nil {
@@ -1897,6 +1993,10 @@ func (n *Phrasing) MarshalJSON() ([]byte, error) {
 		return json.Marshal(n.Emphasis)
 	case n.Strikethrough != nil:
 		return json.Marshal(n.Strikethrough)
+	case n.Subscript != nil:
+		return json.Marshal(n.Subscript)
+	case n.Superscript != nil:
+		return json.Marshal(n.Superscript)
 	case n.Link != nil:
 		return json.Marshal(n.Link)
 	case n.FindOutMoreLink != nil:
@@ -1919,6 +2019,10 @@ func makePhrasing(n Node) (*Phrasing, error) {
 		return &Phrasing{Emphasis: n.(*Emphasis)}, nil
 	case StrikethroughType:
 		return &Phrasing{Strikethrough: n.(*Strikethrough)}, nil
+	case SubscriptType:
+		return &Phrasing{Subscript: n.(*Subscript)}, nil
+	case SuperscriptType:
+		return &Phrasing{Superscript: n.(*Superscript)}, nil
 	case LinkType:
 		return &Phrasing{Link: n.(*Link)}, nil
 	case FindOutMoreLinkType:
@@ -2318,6 +2422,66 @@ func (n *Strikethrough) GetChildren() []Node {
 }
 
 func (n *Strikethrough) AppendChild(child Node) error {
+	p, err := makePhrasing(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, p)
+	return nil
+}
+
+type Subscript struct {
+	Type     string      `json:"type"`
+	Children []*Phrasing `json:"children"`
+}
+
+func (n *Subscript) GetType() string {
+	return n.Type
+}
+
+func (n *Subscript) GetEmbedded() Node {
+	return nil
+}
+
+func (n *Subscript) GetChildren() []Node {
+	result := make([]Node, len(n.Children))
+	for i, v := range n.Children {
+		result[i] = v
+	}
+	return result
+}
+
+func (n *Subscript) AppendChild(child Node) error {
+	p, err := makePhrasing(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, p)
+	return nil
+}
+
+type Superscript struct {
+	Type     string      `json:"type"`
+	Children []*Phrasing `json:"children"`
+}
+
+func (n *Superscript) GetType() string {
+	return n.Type
+}
+
+func (n *Superscript) GetEmbedded() Node {
+	return nil
+}
+
+func (n *Superscript) GetChildren() []Node {
+	result := make([]Node, len(n.Children))
+	for i, v := range n.Children {
+		result[i] = v
+	}
+	return result
+}
+
+func (n *Superscript) AppendChild(child Node) error {
 	p, err := makePhrasing(child)
 	if err != nil {
 		return err
