@@ -140,6 +140,12 @@ func transformNode(n contenttree.Node) (string, error) {
 	case *contenttree.Strikethrough:
 		return fmt.Sprintf("<s>%s</s>", innerXML), nil
 
+	case *contenttree.Subscript:
+		return fmt.Sprintf("<sub>%s</sub>", innerXML), nil
+
+	case *contenttree.Superscript:
+		return fmt.Sprintf("<sup>%s</sup>", innerXML), nil
+
 	case *contenttree.Link:
 		href := html.EscapeString(node.URL)
 		if node.Title != "" {
