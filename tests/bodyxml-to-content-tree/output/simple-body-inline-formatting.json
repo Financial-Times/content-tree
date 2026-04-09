@@ -15,12 +15,22 @@
             "value": "bold"
           },
           {
-            "type": "text",
-            "value": "sup"
+            "type": "superscript",
+            "children": [
+              {
+                "type": "text",
+                "value": "sup"
+              }
+            ]
           },
           {
-            "type": "text",
-            "value": "sub"
+            "type": "subscript",
+            "children": [
+              {
+                "type": "text",
+                "value": "sub"
+              }
+            ]
           },
           {
             "type": "text",
