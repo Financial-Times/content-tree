@@ -1,0 +1,124 @@
+{
+  "type": "body",
+  "version": 1,
+  "children": [
+    {
+      "type": "scrolly-block",
+      "theme": "serif",
+      "children": [
+        {
+          "type": "scrolly-section",
+          "display": "dark-background",
+          "position": "right",
+          "children": [
+            {
+              "type": "scrolly-image",
+              "id": "63d7a612-b3d2-4a42-b62c-9e53ba5c0611"
+            },
+            {
+              "type": "scrolly-copy",
+              "children": [
+                {
+                  "type": "scrolly-heading",
+                  "level": "chapter",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Orbit title"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Chapter description paragraph."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "scrolly-section",
+          "display": "dark-background",
+          "position": "left",
+          "children": [
+            {
+              "type": "scrolly-image",
+              "id": "3f0a280c-5059-4828-bc8f-7334001110d1"
+            },
+            {
+              "type": "scrolly-copy",
+              "children": [
+                {
+                  "type": "scrolly-heading",
+                  "level": "heading",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Card heading"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Heading description paragraph."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "scrolly-section",
+          "display": "light-background",
+          "position": "center",
+          "noBox": true,
+          "transition": "delay-after",
+          "children": [
+            {
+              "type": "scrolly-image",
+              "id": "2e5655db-5d6f-4d12-894a-8976fe0e190d"
+            },
+            {
+              "type": "scrolly-copy",
+              "children": [
+                {
+                  "type": "scrolly-heading",
+                  "level": "subheading",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Card subheading"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "scrolly-copy",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "Subheading description paragraph."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
