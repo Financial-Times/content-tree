@@ -1,6 +1,7 @@
 package tocontenttree
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/beevik/etree"
@@ -99,71 +100,75 @@ func hasParentTag(el *etree.Element, tag string) bool {
 	return parent.Tag == tag
 }
 
-func optScrollBlockNoBoxBool(v string) *bool {
+func optScrollBlockNoBoxBool(v string) (*bool, error) {
 	switch strings.ToLower(strings.TrimSpace(v)) {
+	case "0":
+		return nil, nil
 	case "1":
 		b := true
-		return &b
+		return &b, nil
 	default:
-		return nil
+		return nil, fmt.Errorf("unsupported scrolly no-box value %q", v)
 	}
 }
 
-func toScrollyTheme(v string) scrollytheme {
+func toScrollyTheme(v string) (scrollytheme, error) {
 	switch strings.TrimSpace(v) {
 	case "1":
-		return scrollytheme("sans")
+		return scrollytheme("sans"), nil
 	case "2":
-		return scrollytheme("serif")
+		return scrollytheme("serif"), nil
 	default:
-		return scrollytheme(v)
+		return "", fmt.Errorf("unsupported scrolly theme value %q", v)
 	}
 }
 
-func toScrollyDisplay(v string) scrollydisplay {
+func toScrollyDisplay(v string) (scrollydisplay, error) {
 	switch strings.TrimSpace(v) {
 	case "1":
-		return scrollydisplay("dark-background")
+		return scrollydisplay("dark-background"), nil
 	case "2":
-		return scrollydisplay("light-background")
+		return scrollydisplay("light-background"), nil
 	default:
-		return scrollydisplay(v)
+		return "", fmt.Errorf("unsupported scrolly display value %q", v)
 	}
 }
 
-func toScrollyPosition(v string) scrollyposition {
+func toScrollyPosition(v string) (scrollyposition, error) {
 	switch strings.TrimSpace(v) {
 	case "1":
-		return scrollyposition("left")
+		return scrollyposition("left"), nil
 	case "2":
-		return scrollyposition("center")
+		return scrollyposition("center"), nil
 	case "3":
-		return scrollyposition("right")
+		return scrollyposition("right"), nil
 	default:
-		return scrollyposition(v)
+		return "", fmt.Errorf("unsupported scrolly position value %q", v)
 	}
 }
 
-func toScrollyTransition(v string) scrollytransition {
+func toScrollyTransition(v string) (scrollytransition, error) {
 	switch strings.TrimSpace(v) {
+	case "":
+		return "", nil
 	case "1":
-		return scrollytransition("delay-before")
+		return scrollytransition("delay-before"), nil
 	case "2":
-		return scrollytransition("delay-after")
+		return scrollytransition("delay-after"), nil
 	default:
-		return scrollytransition(v)
+		return "", fmt.Errorf("unsupported scrolly transition value %q", v)
 	}
 }
 
-func toScrollyHeadingLevel(v string) scrollyheadinglevel {
+func toScrollyHeadingLevel(v string) (scrollyheadinglevel, error) {
 	switch strings.TrimSpace(v) {
 	case "1":
-		return scrollyheadinglevel("chapter")
+		return scrollyheadinglevel("chapter"), nil
 	case "2":
-		return scrollyheadinglevel("heading")
+		return scrollyheadinglevel("heading"), nil
 	case "3":
-		return scrollyheadinglevel("subheading")
+		return scrollyheadinglevel("subheading"), nil
 	default:
-		return scrollyheadinglevel("")
+		return "", fmt.Errorf("unsupported scrolly heading level value %q", v)
 	}
 }

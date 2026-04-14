@@ -44,6 +44,23 @@ func newLiftChildrenNode() *liftChildrenNode {
 	}
 }
 
+type errorNode struct {
+	Type string
+	Err  error
+}
+
+func (n *errorNode) GetType() string                      { return n.Type }
+func (n *errorNode) GetEmbedded() contenttree.Node        { return nil }
+func (n *errorNode) GetChildren() []contenttree.Node      { return nil }
+func (n *errorNode) AppendChild(_ contenttree.Node) error { return contenttree.ErrCannotHaveChildren }
+
+func newErrorNode(err error) *errorNode {
+	return &errorNode{
+		Type: "__ERROR__",
+		Err:  err,
+	}
+}
+
 var contentType = struct {
 	ImageSet            string
 	Video               string
@@ -74,9 +91,13 @@ var defaultTransformers = map[string]transformer{
 	},
 	"h2": func(h2 *etree.Element) contenttree.Node {
 		if hasParentTag(h2, "scrollable-text") {
+			level, err := toScrollyHeadingLevel(attr(h2, "theme-style"))
+			if err != nil {
+				return newErrorNode(err)
+			}
 			return &contenttree.ScrollyHeading{
 				Type:     contenttree.ScrollyHeadingType,
-				Level:    string(toScrollyHeadingLevel(attr(h2, "theme-style"))),
+				Level:    string(level),
 				Children: []*contenttree.Text{},
 			}
 		}
@@ -123,9 +144,13 @@ var defaultTransformers = map[string]transformer{
 		if hasParentTag(p, "scrollable-text") {
 			switch attr(p, "theme-style") {
 			case "2", "3":
+				level, err := toScrollyHeadingLevel(attr(p, "theme-style"))
+				if err != nil {
+					return newErrorNode(err)
+				}
 				return &contenttree.ScrollyHeading{
 					Type:     contenttree.ScrollyHeadingType,
-					Level:    string(toScrollyHeadingLevel(attr(p, "theme-style"))),
+					Level:    string(level),
 					Children: []*contenttree.Text{},
 				}
 			}
@@ -377,20 +402,40 @@ var defaultTransformers = map[string]transformer{
 		}
 	},
 	"scrollable-block": func(el *etree.Element) contenttree.Node {
+		theme, err := toScrollyTheme(attr(el, "theme"))
+		if err != nil {
+			return newErrorNode(err)
+		}
 		return &contenttree.ScrollyBlock{
 			Type:     contenttree.ScrollyBlockType,
 			Children: []*contenttree.ScrollySection{},
-			Theme:    string(toScrollyTheme(attr(el, "theme"))),
+			Theme:    string(theme),
 		}
 	},
 	"scrollable-section": func(el *etree.Element) contenttree.Node {
+		display, err := toScrollyDisplay(attr(el, "theme-display"))
+		if err != nil {
+			return newErrorNode(err)
+		}
+		noBox, err := optScrollBlockNoBoxBool(attr(el, "theme-no-box"))
+		if err != nil {
+			return newErrorNode(err)
+		}
+		position, err := toScrollyPosition(attr(el, "theme-position"))
+		if err != nil {
+			return newErrorNode(err)
+		}
+		transition, err := toScrollyTransition(attr(el, "theme-transition"))
+		if err != nil {
+			return newErrorNode(err)
+		}
 		return &contenttree.ScrollySection{
 			Type:       contenttree.ScrollySectionType,
 			Children:   []*contenttree.ScrollySectionChild{},
-			Display:    string(toScrollyDisplay(attr(el, "theme-display"))),
-			NoBox:      optScrollBlockNoBoxBool(attr(el, "theme-no-box")),
-			Position:   string(toScrollyPosition(attr(el, "theme-position"))),
-			Transition: string(toScrollyTransition(attr(el, "theme-transition"))),
+			Display:    string(display),
+			NoBox:      noBox,
+			Position:   string(position),
+			Transition: string(transition),
 		}
 	},
 	"scrollable-text": func(_ *etree.Element) contenttree.Node {

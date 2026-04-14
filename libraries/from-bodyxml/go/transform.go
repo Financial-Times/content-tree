@@ -69,6 +69,10 @@ func convertToContentTree(elem etree.Token, m contenttree.Node) error {
 			return fmt.Errorf("skipped unsupported element <%s>", tag)
 		}
 		switch transformed := transformer(t).(type) {
+		case *errorNode:
+			{
+				return transformed.Err
+			}
 		case *unknownNode:
 			{
 				return fmt.Errorf("skipped unsupported element <%s>", t.Tag)
