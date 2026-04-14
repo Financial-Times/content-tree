@@ -102,7 +102,7 @@ func hasParentTag(el *etree.Element, tag string) bool {
 
 func optScrollBlockNoBoxBool(v string) (*bool, error) {
 	switch strings.ToLower(strings.TrimSpace(v)) {
-	case "0":
+	case "0", "":
 		return nil, nil
 	case "1":
 		b := true
