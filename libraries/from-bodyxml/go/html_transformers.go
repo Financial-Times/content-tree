@@ -73,6 +73,13 @@ var defaultTransformers = map[string]transformer{
 		return heading
 	},
 	"h2": func(h2 *etree.Element) contenttree.Node {
+		if hasParentTag(h2, "scrollable-text") {
+			return &contenttree.ScrollyHeading{
+				Type:     contenttree.ScrollyHeadingType,
+				Level:    string(toScrollyHeadingLevel(attr(h2, "theme-style"))),
+				Children: []*contenttree.Text{},
+			}
+		}
 		return &contenttree.Heading{
 			Type:               contenttree.HeadingType,
 			Level:              "subheading",
@@ -113,6 +120,16 @@ var defaultTransformers = map[string]transformer{
 		}
 	},
 	"p": func(p *etree.Element) contenttree.Node {
+		if hasParentTag(p, "scrollable-text") {
+			switch attr(p, "theme-style") {
+			case "2", "3":
+				return &contenttree.ScrollyHeading{
+					Type:     contenttree.ScrollyHeadingType,
+					Level:    string(toScrollyHeadingLevel(attr(p, "theme-style"))),
+					Children: []*contenttree.Text{},
+				}
+			}
+		}
 		return &contenttree.Paragraph{
 			Type:     contenttree.ParagraphType,
 			Children: []*contenttree.Phrasing{},
@@ -293,6 +310,12 @@ var defaultTransformers = map[string]transformer{
 		}
 	},
 	contentType.ImageSet: func(content *etree.Element) contenttree.Node {
+		if hasParentTag(content, "scrollable-section") {
+			return &contenttree.ScrollyImage{
+				Type: contenttree.ScrollyImageType,
+				ID:   attr(content, "id"),
+			}
+		}
 		dfrgId := attr(content, "data-fragment-identifier")
 		return &contenttree.ImageSet{
 			Type:               contenttree.ImageSetType,
@@ -351,6 +374,29 @@ var defaultTransformers = map[string]transformer{
 			FragmentIdentifier: dfrgId,
 			Loop:               optionalBoolAttr(content, "loop"),
 			Muted:              optionalBoolAttr(content, "muted"),
+		}
+	},
+	"scrollable-block": func(el *etree.Element) contenttree.Node {
+		return &contenttree.ScrollyBlock{
+			Type:     contenttree.ScrollyBlockType,
+			Children: []*contenttree.ScrollySection{},
+			Theme:    string(toScrollyTheme(attr(el, "theme"))),
+		}
+	},
+	"scrollable-section": func(el *etree.Element) contenttree.Node {
+		return &contenttree.ScrollySection{
+			Type:       contenttree.ScrollySectionType,
+			Children:   []*contenttree.ScrollySectionChild{},
+			Display:    string(toScrollyDisplay(attr(el, "theme-display"))),
+			NoBox:      optScrollBlockNoBoxBool(attr(el, "theme-no-box")),
+			Position:   string(toScrollyPosition(attr(el, "theme-position"))),
+			Transition: string(toScrollyTransition(attr(el, "theme-transition"))),
+		}
+	},
+	"scrollable-text": func(_ *etree.Element) contenttree.Node {
+		return &contenttree.ScrollyCopy{
+			Type:     contenttree.ScrollyCopyType,
+			Children: []*contenttree.ScrollyCopyChild{},
 		}
 	},
 	"recommended": transformRecommended,

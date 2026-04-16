@@ -7,6 +7,11 @@ import (
 )
 
 type layoutwidth string
+type scrollytheme string
+type scrollydisplay string
+type scrollyposition string
+type scrollytransition string
+type scrollyheadinglevel string
 
 func toValidLayoutWidth(w string) layoutwidth {
 	switch w {
@@ -84,4 +89,81 @@ func valueOr(v, fallback string) string {
 
 func attr(el *etree.Element, name string) string {
 	return el.SelectAttrValue(name, "")
+}
+
+func hasParentTag(el *etree.Element, tag string) bool {
+	parent := el.Parent()
+	if parent == nil {
+		return false
+	}
+	return parent.Tag == tag
+}
+
+func optScrollBlockNoBoxBool(v string) *bool {
+	switch strings.ToLower(strings.TrimSpace(v)) {
+	case "1":
+		b := true
+		return &b
+	default:
+		return nil
+	}
+}
+
+func toScrollyTheme(v string) scrollytheme {
+	switch strings.TrimSpace(v) {
+	case "1":
+		return scrollytheme("sans")
+	case "2":
+		return scrollytheme("serif")
+	default:
+		return scrollytheme(v)
+	}
+}
+
+func toScrollyDisplay(v string) scrollydisplay {
+	switch strings.TrimSpace(v) {
+	case "1":
+		return scrollydisplay("dark-background")
+	case "2":
+		return scrollydisplay("light-background")
+	default:
+		return scrollydisplay(v)
+	}
+}
+
+func toScrollyPosition(v string) scrollyposition {
+	switch strings.TrimSpace(v) {
+	case "1":
+		return scrollyposition("left")
+	case "2":
+		return scrollyposition("center")
+	case "3":
+		return scrollyposition("right")
+	default:
+		return scrollyposition(v)
+	}
+}
+
+func toScrollyTransition(v string) scrollytransition {
+	switch strings.TrimSpace(v) {
+	case "1":
+		return scrollytransition("delay-before")
+	case "2":
+		return scrollytransition("delay-after")
+	default:
+		return scrollytransition(v)
+	}
+}
+
+func toScrollyHeadingLevel(v string) scrollyheadinglevel {
+	switch strings.TrimSpace(v) {
+	case "1":
+		return scrollyheadinglevel("chapter")
+	case "2":
+		return scrollyheadinglevel("heading")
+	case "3":
+		return scrollyheadinglevel("subheading")
+	default:
+		return scrollyheadinglevel("")
+	}
 }

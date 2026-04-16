@@ -292,12 +292,17 @@ func transformNode(n contenttree.Node) (string, error) {
 		return innerXML, nil
 	case *contenttree.ScrollyImage:
 		return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/ImageSet\" url=\"http://api.ft.com/content/%s\" data-embedded=\"true\"></ft-content>", node.ID), nil
-	// TODO: What is the equivalent of scrolly copy in the context for the XML tags?
 	case *contenttree.ScrollyCopy:
-		return "", nil
-	// TODO: What is the equivalent of scrolly heading in the context for the XML tags?
+		return innerXML, nil
 	case *contenttree.ScrollyHeading:
-		return "", nil
+		switch node.Level {
+		case "chapter":
+			return fmt.Sprintf("<h2>%s</h2>", innerXML), nil
+		case "heading", "subheading":
+			return fmt.Sprintf("<p>%s</p>", innerXML), nil
+		default:
+			return "", fmt.Errorf("failed to transform scrolly heading with level %s", node.Level)
+		}
 	// TODO: Rethink https://github.com/Financial-Times/body-validation-service/pull/80/files (Read the comments)
 	//  In the body XML transformation, there is XSLT template that removes all children elements within the h2 tags
 	//  in a scrollable-text but leaves their content (text captured between them).

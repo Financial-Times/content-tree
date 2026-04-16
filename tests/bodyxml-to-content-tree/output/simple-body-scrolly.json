@@ -1,0 +1,133 @@
+{
+  "type": "root",
+  "body": {
+    "type": "body",
+    "children": [
+      {
+        "type": "scrolly-block",
+        "children": [
+          {
+            "type": "scrolly-section",
+            "children": [
+              {
+                "type": "scrolly-image",
+                "id": "1111-1111-1111-1111"
+              },
+              {
+                "type": "scrolly-copy",
+                "children": [
+                  {
+                    "type": "scrolly-heading",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Chapter heading"
+                      }
+                    ],
+                    "level": "chapter"
+                  }
+                ]
+              },
+              {
+                "type": "scrolly-copy",
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Paragraph in a separate scrolly copy block."
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "display": "dark-background",
+            "position": "center"
+          },
+          {
+            "type": "scrolly-section",
+            "children": [
+              {
+                "type": "scrolly-image",
+                "id": "1111-1111-1111-1111"
+              },
+              {
+                "type": "scrolly-copy",
+                "children": [
+                  {
+                    "type": "scrolly-heading",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Section heading"
+                      }
+                    ],
+                    "level": "heading"
+                  },
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Paragraph after a level-two scrolly heading."
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "display": "light-background",
+            "noBox": true,
+            "position": "left",
+            "transition": "delay-after"
+          },
+          {
+            "type": "scrolly-section",
+            "children": [
+              {
+                "type": "scrolly-image",
+                "id": "1111-1111-1111-1111"
+              },
+              {
+                "type": "scrolly-copy",
+                "children": [
+                  {
+                    "type": "scrolly-heading",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Section subheading"
+                      }
+                    ],
+                    "level": "subheading"
+                  }
+                ]
+              },
+              {
+                "type": "scrolly-copy",
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "Paragraph after a level-three scrolly heading."
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "display": "dark-background",
+            "position": "right",
+            "transition": "delay-before"
+          }
+        ],
+        "theme": "serif"
+      }
+    ],
+    "version": 1
+  }
+}

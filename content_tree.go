@@ -2265,12 +2265,17 @@ func (n *ScrollyHeading) GetChildren() []Node {
 	return result
 }
 
-func (n *ScrollyHeading) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+func (n *ScrollyHeading) AppendChild(child Node) error {
+	if child.GetType() != TextType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*Text))
+	return nil
+}
 
 type ScrollyImage struct {
-	Type    string   `json:"type"`
-	ID      string   `json:"id,omitempty"`
-	Picture *Picture `json:"picture,omitempty"`
+	Type string `json:"type"`
+	ID   string `json:"id,omitempty"`
 }
 
 func (n *ScrollyImage) GetType() string {
@@ -2291,7 +2296,7 @@ type ScrollySection struct {
 	Type       string                 `json:"type"`
 	Children   []*ScrollySectionChild `json:"children"`
 	Display    string                 `json:"display,omitempty"`
-	NoBox      bool                   `json:"noBox,omitempty"`
+	NoBox      *bool                  `json:"noBox,omitempty"`
 	Position   string                 `json:"position,omitempty"`
 	Transition string                 `json:"transition,omitempty"`
 }

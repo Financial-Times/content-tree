@@ -1,0 +1,29 @@
+<body>
+  <scrollable-block theme="2">
+    <scrollable-section theme-display="1" theme-no-box="0" theme-position="2">
+      <content data-embedded="true" id="1111-1111-1111-1111" type="http://www.ft.com/ontology/content/ImageSet" />
+      <scrollable-text>
+        <h2 theme-style="1">Chapter heading</h2>
+      </scrollable-text>
+      <scrollable-text>
+        <p>Paragraph in a separate scrolly copy block.</p>
+      </scrollable-text>
+    </scrollable-section>
+    <scrollable-section theme-display="2" theme-no-box="1" theme-position="1" theme-transition="2">
+      <content data-embedded="true" id="1111-1111-1111-1111" type="http://www.ft.com/ontology/content/ImageSet" />
+      <scrollable-text>
+        <p theme-style="2">Section heading</p>
+        <p>Paragraph after a level-two scrolly heading.</p>
+      </scrollable-text>
+    </scrollable-section>
+    <scrollable-section theme-display="1" theme-no-box="0" theme-position="3" theme-transition="1">
+      <content data-embedded="true" id="1111-1111-1111-1111" type="http://www.ft.com/ontology/content/ImageSet" />
+      <scrollable-text>
+        <p theme-style="3">Section subheading</p>
+      </scrollable-text>
+      <scrollable-text>
+        <p>Paragraph after a level-three scrolly heading.</p>
+      </scrollable-text>
+    </scrollable-section>
+  </scrollable-block>
+</body>
