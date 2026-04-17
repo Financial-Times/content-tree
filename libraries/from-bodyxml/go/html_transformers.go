@@ -583,7 +583,7 @@ var defaultTransformers = map[string]transformer{
 			ColumnSettings:           columnSettings,
 			Compact:                  (theme == "compact") || (theme == "compact-stripes"),
 			Stripes:                  (theme == "stripes") || (theme == "compact-stripes"),
-			LayoutWidth:              string(toValidTableLayoutWidth("data-table-layout-largescreen")),
+			LayoutWidth:              string(toValidTableLayoutWidth(attr(el, "data-table-layout-largescreen"))),
 			ResponsiveStyle:          toTableResponsiveStyle(attr(el, "data-table-layout-smallscreen")),
 			Children:                 []*contenttree.TableChild{},
 		}
