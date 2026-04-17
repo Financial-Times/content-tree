@@ -71,6 +71,7 @@ const (
 	TableRowType            = "table-row"
 	TableBodyType           = "table-body"
 	TableFooterType         = "table-footer"
+	TableHeaderType         = "table-header"
 	TableType               = "table"
 	CustomCodeComponentType = "custom-code-component"
 	ClipSetType             = "clip-set"
@@ -141,9 +142,9 @@ type typedNode struct {
 var ErrUnmarshalInvalidNode = errors.New("unmarshalling node with invalid type")
 
 type ColumnSettingsItems struct {
-	HideOnMobile bool   `json:"hideOnMobile,omitempty"`
+	HideOnMobile *bool  `json:"hideOnMobile,omitempty"`
 	SortType     string `json:"sortType,omitempty"`
-	Sortable     bool   `json:"sortable,omitempty"`
+	Sortable     *bool  `json:"sortable,omitempty"`
 }
 
 type BigNumber struct {
@@ -2528,12 +2529,12 @@ func (n *Strong) AppendChild(child Node) error {
 type Table struct {
 	Type                     string                 `json:"type"`
 	Children                 []*TableChild          `json:"children"`
-	CollapseAfterHowManyRows float64                `json:"collapseAfterHowManyRows,omitempty"`
+	CollapseAfterHowManyRows *int                   `json:"collapseAfterHowManyRows,omitempty"`
 	ColumnSettings           []*ColumnSettingsItems `json:"columnSettings,omitempty"`
-	Compact                  bool                   `json:"compact,omitempty"`
+	Compact                  bool                   `json:"compact"`
 	LayoutWidth              string                 `json:"layoutWidth,omitempty"`
 	ResponsiveStyle          string                 `json:"responsiveStyle,omitempty"`
-	Stripes                  bool                   `json:"stripes,omitempty"`
+	Stripes                  bool                   `json:"stripes"`
 }
 
 func (n *Table) GetType() string {
@@ -2563,6 +2564,7 @@ func (n *Table) AppendChild(child Node) error {
 
 type TableChild struct {
 	*TableCaption
+	*TableHeader
 	*TableBody
 	*TableFooter
 }
@@ -2575,11 +2577,14 @@ func (n *TableChild) GetEmbedded() Node {
 	if n.TableCaption != nil {
 		return n.TableCaption
 	}
-	if n.TableBody != nil {
-		return n.TableCaption
+	if n.TableHeader != nil {
+		return n.TableHeader
 	}
 	if n.TableBody != nil {
-		return n.TableCaption
+		return n.TableBody
+	}
+	if n.TableFooter != nil {
+		return n.TableFooter
 	}
 	return nil
 }
@@ -2589,10 +2594,13 @@ func (n *TableChild) GetChildren() []Node {
 		return n.TableCaption.GetChildren()
 	}
 	if n.TableBody != nil {
-		return n.TableCaption.GetChildren()
+		return n.TableBody.GetChildren()
 	}
-	if n.TableBody != nil {
-		return n.TableCaption.GetChildren()
+	if n.TableFooter != nil {
+		return n.TableFooter.GetChildren()
+	}
+	if n.TableHeader != nil {
+		return n.TableHeader.GetChildren()
 	}
 	return nil
 }
@@ -2624,6 +2632,12 @@ func (n *TableChild) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		n.TableFooter = &v
+	case TableHeaderType:
+		var v TableHeader
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.TableHeader = &v
 	default:
 		return fmt.Errorf("failed to unmarshal TableChild from %s: %w", data, ErrUnmarshalInvalidNode)
 	}
@@ -2638,6 +2652,8 @@ func (n *TableChild) MarshalJSON() ([]byte, error) {
 		return json.Marshal(n.TableBody)
 	case n.TableFooter != nil:
 		return json.Marshal(n.TableFooter)
+	case n.TableHeader != nil:
+		return json.Marshal(n.TableHeader)
 	default:
 		return []byte(`{}`), nil
 	}
@@ -2652,6 +2668,8 @@ func makeTableChild(n Node) (*TableChild, error) {
 		return &TableChild{TableBody: n.(*TableBody)}, nil
 	case TableFooterType:
 		return &TableChild{TableFooter: n.(*TableFooter)}, nil
+	case TableHeaderType:
+		return &TableChild{TableHeader: n.(*TableHeader)}, nil
 	default:
 		return nil, ErrInvalidChildType
 	}
@@ -2687,8 +2705,8 @@ func (n *TableBody) AppendChild(child Node) error {
 }
 
 type TableCaption struct {
-	Type     string   `json:"type"`
-	Children []*Table `json:"children"`
+	Type     string      `json:"type"`
+	Children []*Phrasing `json:"children"`
 }
 
 func (n *TableCaption) GetType() string {
@@ -2708,17 +2726,20 @@ func (n *TableCaption) GetChildren() []Node {
 }
 
 func (n *TableCaption) AppendChild(child Node) error {
-	if child.GetType() != TableType {
-		return ErrInvalidChildType
+	p, err := makePhrasing(child)
+	if err != nil {
+		return err
 	}
-	n.Children = append(n.Children, child.(*Table))
+	n.Children = append(n.Children, p)
 	return nil
 }
 
 type TableCell struct {
-	Type     string   `json:"type"`
-	Children []*Table `json:"children"`
-	Heading  bool     `json:"heading,omitempty"`
+	Type       string      `json:"type"`
+	Children   []*Phrasing `json:"children"`
+	Heading    bool        `json:"heading,omitempty"`
+	ColumnSpan *int        `json:"columnSpan,omitempty"`
+	RowSpan    *int        `json:"rowSpan,omitempty"`
 }
 
 func (n *TableCell) GetType() string {
@@ -2738,16 +2759,46 @@ func (n *TableCell) GetChildren() []Node {
 }
 
 func (n *TableCell) AppendChild(child Node) error {
-	if child.GetType() != TableType {
+	p, err := makePhrasing(child)
+	if err != nil {
+		return err
+	}
+	n.Children = append(n.Children, p)
+	return nil
+}
+
+type TableHeader struct {
+	Type     string      `json:"type"`
+	Children []*TableRow `json:"children"`
+}
+
+func (n *TableHeader) GetType() string {
+	return n.Type
+}
+
+func (n *TableHeader) GetEmbedded() Node {
+	return nil
+}
+
+func (n *TableHeader) GetChildren() []Node {
+	result := make([]Node, len(n.Children))
+	for i, v := range n.Children {
+		result[i] = v
+	}
+	return result
+}
+
+func (n *TableHeader) AppendChild(child Node) error {
+	if child.GetType() != TableRowType {
 		return ErrInvalidChildType
 	}
-	n.Children = append(n.Children, child.(*Table))
+	n.Children = append(n.Children, child.(*TableRow))
 	return nil
 }
 
 type TableFooter struct {
-	Type     string   `json:"type"`
-	Children []*Table `json:"children"`
+	Type     string      `json:"type"`
+	Children []*Phrasing `json:"children"`
 }
 
 func (n *TableFooter) GetType() string {
@@ -2767,10 +2818,11 @@ func (n *TableFooter) GetChildren() []Node {
 }
 
 func (n *TableFooter) AppendChild(child Node) error {
-	if child.GetType() != TableType {
-		return ErrInvalidChildType
+	p, err := makePhrasing(child)
+	if err != nil {
+		return err
 	}
-	n.Children = append(n.Children, child.(*Table))
+	n.Children = append(n.Children, p)
 	return nil
 }
 

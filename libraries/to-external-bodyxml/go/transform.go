@@ -233,7 +233,21 @@ func transformNode(n contenttree.Node) (string, error) {
 		return fmt.Sprintf("<caption>%s</caption>", innerXML), nil
 
 	case *contenttree.TableCell:
-		return fmt.Sprintf("<td>%s</td>", innerXML), nil
+		tag := "td"
+		if node.Heading {
+			tag = "th"
+		}
+		var attrs []string
+		if node.ColumnSpan != nil {
+			attrs = append(attrs, fmt.Sprintf("colspan=\"%d\"", *node.ColumnSpan))
+		}
+		if node.RowSpan != nil {
+			attrs = append(attrs, fmt.Sprintf("rowspan=\"%d\"", *node.RowSpan))
+		}
+		if len(attrs) > 0 {
+			return fmt.Sprintf("<%s %s>%s</%s>", tag, strings.Join(attrs, " "), innerXML, tag), nil
+		}
+		return fmt.Sprintf("<%s>%s</%s>", tag, innerXML, tag), nil
 
 	case *contenttree.TableRow:
 		return fmt.Sprintf("<tr>%s</tr>", innerXML), nil
@@ -242,18 +256,50 @@ func transformNode(n contenttree.Node) (string, error) {
 		return fmt.Sprintf("<tbody>%s</tbody>", innerXML), nil
 
 	case *contenttree.TableFooter:
-		return fmt.Sprintf("<tfoot>%s</tfoot>", innerXML), nil
+		return fmt.Sprintf("<tfoot><tr><td>%s</td></tr></tfoot>", innerXML), nil
 
-	// TODO: Additional work on table tags will be required as per the resolution of https://github.com/Financial-Times/content-tree/issues/71
-	//  The tables have multiple attributes such as
-	//  class=\"data-table\"
-	//  data-table-collapse-rownum=\"\"
-	//  data-table-layout-largescreen=\"auto\"
-	//  data-table-layout-smallscreen=\"auto\"
-	//  data-table-theme=\"auto\"
-	// Is there a match between the Table node and those attributes?
 	case *contenttree.Table:
-		return fmt.Sprintf("<table>%s</table>", innerXML), nil
+		var attrs []string
+		if theme := tableThemeToExternal(node.Compact, node.Stripes); theme != "" {
+			attrs = append(attrs, fmt.Sprintf("data-table-theme=\"%s\"", theme))
+		}
+		if responseStyle := tableResponsiveStyleToExternal(node.ResponsiveStyle); responseStyle != "" {
+			attrs = append(attrs, fmt.Sprintf("data-table-layout-smallscreen=\"%s\"", responseStyle))
+		}
+		if node.LayoutWidth != "" {
+			attrs = append(attrs, fmt.Sprintf("data-table-layout-largescreen=\"%s\"", node.LayoutWidth))
+		}
+		if node.CollapseAfterHowManyRows != nil {
+			attrs = append(attrs, fmt.Sprintf("data-table-collapse-rownum=\"%d\"", *node.CollapseAfterHowManyRows))
+		}
+		childrenXML := make([]string, 0, len(node.Children))
+		for _, child := range node.Children {
+			//process <thead> here instead of in a separate case block
+			if child.TableHeader != nil {
+				rowsXML := make([]string, 0, len(child.TableHeader.Children))
+				columnIndex := 0
+				for _, row := range child.TableHeader.Children {
+					cellsXML := make([]string, 0, len(row.Children))
+					for _, cell := range row.Children {
+						cellsXML = append(cellsXML, buildTH(cell, columnIndex, node.ColumnSettings))
+						columnIndex++
+					}
+					rowsXML = append(rowsXML, fmt.Sprintf("<tr>%s</tr>", strings.Join(cellsXML, "")))
+				}
+				childrenXML = append(childrenXML, fmt.Sprintf("<thead>%s</thead>", strings.Join(rowsXML, "")))
+				continue
+			}
+
+			s, err := transformNode(child)
+			if err != nil {
+				return "", fmt.Errorf("failed to transform table child node to external XML: %w", err)
+			}
+			childrenXML = append(childrenXML, s)
+		}
+		if len(attrs) > 0 {
+			return fmt.Sprintf("<table %s>%s</table>", strings.Join(attrs, " "), strings.Join(childrenXML, "")), nil
+		}
+		return fmt.Sprintf("<table>%s</table>", strings.Join(childrenXML, "")), nil
 
 	case *contenttree.Video:
 		return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/Video\" url=\"http://api.ft.com/content/%s\" data-embedded=\"true\"></ft-content>", node.ID), nil
@@ -395,4 +441,81 @@ func optionalBoolAttrXML(name string, value *bool) string {
 		return fmt.Sprintf("%s=\"true\"", name)
 	}
 	return fmt.Sprintf("%s=\"false\"", name)
+}
+
+func tableResponsiveStyleToExternal(v string) string {
+	switch v {
+	case "flat":
+		return "stacked"
+	case "scroll":
+		return "horizontal-scroll"
+	case "overflow":
+		return "auto"
+	default:
+		return ""
+	}
+}
+
+func tableThemeToExternal(compact, stripes bool) string {
+	switch {
+	case compact && stripes:
+		return "compact-stripes"
+	case compact:
+		return "compact"
+	case stripes:
+		return "stripes"
+	default:
+		return ""
+	}
+}
+
+func tableHiddenToExternal(hideOnMobile bool) string {
+	if hideOnMobile {
+		return "small-screen"
+	}
+	return ""
+}
+
+func buildTH(cell *contenttree.TableCell, columnIndex int, settings []*contenttree.ColumnSettingsItems) string {
+	var cellAttrs []string
+	if columnIndex < len(settings) && settings[columnIndex] != nil {
+		if hideOnMobile := settings[columnIndex].HideOnMobile; hideOnMobile != nil && *hideOnMobile {
+			cellAttrs = append(cellAttrs, `data-column-hidden="small-screen"`)
+		}
+
+		if sortable := settings[columnIndex].Sortable; sortable != nil {
+			cellAttrs = append(cellAttrs, fmt.Sprintf(`data-column-sortable="%t"`, *sortable))
+		}
+
+		if sortType := tableSortTypeToExternal(settings[columnIndex].SortType); sortType != "" {
+			cellAttrs = append(cellAttrs, fmt.Sprintf("data-column-type=\"%s\"", sortType))
+		}
+	}
+	if cell.ColumnSpan != nil {
+		cellAttrs = append(cellAttrs, fmt.Sprintf("colspan=\"%d\"", *cell.ColumnSpan))
+	}
+	if cell.RowSpan != nil {
+		cellAttrs = append(cellAttrs, fmt.Sprintf("rowspan=\"%d\"", *cell.RowSpan))
+	}
+	if len(cellAttrs) > 0 {
+		return fmt.Sprintf("<th %s></th>", strings.Join(cellAttrs, " "))
+	}
+	return "<th></th>"
+}
+
+func tableSortTypeToExternal(v string) string {
+	switch v {
+	case "text":
+		return "string"
+	case "number":
+		return "number"
+	case "date":
+		return "date"
+	case "currency":
+		return "currency"
+	case "percent":
+		return "percent"
+	default:
+		return ""
+	}
 }
