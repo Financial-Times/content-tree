@@ -281,7 +281,11 @@ func transformNode(n contenttree.Node) (string, error) {
 				for _, row := range child.TableHeader.Children {
 					cellsXML := make([]string, 0, len(row.Children))
 					for _, cell := range row.Children {
-						cellsXML = append(cellsXML, buildTH(cell, columnIndex, node.ColumnSettings))
+						thXML, err := buildTH(cell, columnIndex, node.ColumnSettings)
+						if err != nil {
+							return "", fmt.Errorf("failed to transform table header cell to external XML: %w", err)
+						}
+						cellsXML = append(cellsXML, thXML)
 						columnIndex++
 					}
 					rowsXML = append(rowsXML, fmt.Sprintf("<tr>%s</tr>", strings.Join(cellsXML, "")))
@@ -476,7 +480,7 @@ func tableHiddenToExternal(hideOnMobile bool) string {
 	return ""
 }
 
-func buildTH(cell *contenttree.TableCell, columnIndex int, settings []*contenttree.ColumnSettingsItems) string {
+func buildTH(cell *contenttree.TableCell, columnIndex int, settings []*contenttree.ColumnSettingsItems) (string, error) {
 	var cellAttrs []string
 	if columnIndex < len(settings) && settings[columnIndex] != nil {
 		if hideOnMobile := settings[columnIndex].HideOnMobile; hideOnMobile != nil && *hideOnMobile {
@@ -497,10 +501,21 @@ func buildTH(cell *contenttree.TableCell, columnIndex int, settings []*contenttr
 	if cell.RowSpan != nil {
 		cellAttrs = append(cellAttrs, fmt.Sprintf("rowspan=\"%d\"", *cell.RowSpan))
 	}
-	if len(cellAttrs) > 0 {
-		return fmt.Sprintf("<th %s></th>", strings.Join(cellAttrs, " "))
+
+	childrenXML := make([]string, 0, len(cell.Children))
+	for _, child := range cell.Children {
+		s, err := transformNode(child)
+		if err != nil {
+			return "", err
+		}
+		childrenXML = append(childrenXML, s)
 	}
-	return "<th></th>"
+	innerXML := strings.Join(childrenXML, "")
+
+	if len(cellAttrs) > 0 {
+		return fmt.Sprintf("<th %s>%s</th>", strings.Join(cellAttrs, " "), innerXML), nil
+	}
+	return fmt.Sprintf("<th>%s</th>", innerXML), nil
 }
 
 func tableSortTypeToExternal(v string) string {
