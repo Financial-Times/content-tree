@@ -100,6 +100,13 @@ func transformNode(n contenttree.Node) (string, error) {
 			return "", errors.New("failed to parse node to root")
 		}
 		return transformNode(root.Body)
+	case contenttree.TableType:
+		table, ok := n.(*contenttree.Table)
+		if !ok {
+			return "", errors.New("failed to parse node to Table")
+		}
+
+		return transformChildren(table.GetChildren())
 	case contenttree.BigNumberType:
 		bigNumber, ok := n.(*contenttree.BigNumber)
 		if !ok {

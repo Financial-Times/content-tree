@@ -1,0 +1,131 @@
+{
+  "type": "body",
+  "children": [
+    {
+      "type": "table",
+      "children": [
+        {
+          "type": "table-caption",
+          "children": [
+            {
+              "type": "text",
+              "value": "caption-text"
+            }
+          ]
+        },
+        {
+          "type": "table-header",
+          "children": [
+            {
+              "type": "table-row",
+              "children": [
+                {
+                  "type": "table-cell",
+                  "heading": true,
+                  "children": [
+                    {
+                      "type": "strong",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "header-a"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "table-cell",
+                  "heading": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "header-b"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "table-body",
+          "children": [
+            {
+              "type": "table-row",
+              "children": [
+                {
+                  "type": "table-cell",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "row1-col1"
+                    },
+                    {
+                      "type": "break"
+                    }
+                  ]
+                },
+                {
+                  "type": "table-cell",
+                  "children": [
+                    {
+                      "type": "emphasis",
+                      "children": [
+                        {
+                          "type": "text",
+                          "value": "row1-col2"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "table-row",
+              "children": [
+                {
+                  "type": "table-cell",
+                  "children": []
+                },
+                {
+                  "type": "table-cell",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "row2-col2"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "table-footer",
+          "children": [
+            {
+              "type": "text",
+              "value": "footer-prefix"
+            },
+            {
+              "type": "link",
+              "url": "https://example.com/footer",
+              "title": "",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "footer-link"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "compact": false,
+      "stripes": false
+    }
+  ],
+  "version": 1
+}

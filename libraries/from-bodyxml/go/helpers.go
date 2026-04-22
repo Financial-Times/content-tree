@@ -43,6 +43,45 @@ func toValidClipLayoutWidth(w string) layoutwidth {
 
 }
 
+func toValidTableLayoutWidth(w string) layoutwidth {
+	switch w {
+	case "auto", "full-grid", "inset-left", "inset-right", "full-bleed":
+		return layoutwidth(w)
+	default:
+		return ""
+	}
+}
+
+func toTableResponsiveStyle(v string) string {
+	switch strings.TrimSpace(v) {
+	case "stacked":
+		return "flat"
+	case "horizontal-scroll":
+		return "scroll"
+	case "auto":
+		return "overflow"
+	default:
+		return ""
+	}
+}
+
+func toTableSortType(v string) string {
+	switch strings.TrimSpace(v) {
+	case "string":
+		return "text"
+	case "number":
+		return "number"
+	case "date":
+		return "date"
+	case "currency":
+		return "currency"
+	case "percent":
+		return "percent"
+	default:
+		return ""
+	}
+}
+
 func findChild(el *etree.Element, tag string) *etree.Element {
 	for _, ch := range el.ChildElements() {
 		if ch.Tag == tag {
@@ -75,6 +114,24 @@ func flattenedChildren(el *etree.Element) []etree.Token {
 			out = append(out, d.Child...)
 		} else {
 			out = append(out, tok)
+		}
+	}
+	return out
+}
+
+func flattenedTableFooterChildren(el *etree.Element) []etree.Token {
+	out := make([]etree.Token, 0, len(el.Child))
+	for _, tok := range el.Child {
+		tr, ok := tok.(*etree.Element)
+		if !ok || tr.Tag != "tr" {
+			continue
+		}
+		for _, rowTok := range tr.Child {
+			td, ok := rowTok.(*etree.Element)
+			if !ok || td.Tag != "td" {
+				continue
+			}
+			out = append(out, td.Child...)
 		}
 	}
 	return out
