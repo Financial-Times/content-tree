@@ -1,6 +1,7 @@
 package tocontenttree
 
 import (
+	"strconv"
 	"strings"
 
 	contenttree "github.com/Financial-Times/content-tree"
@@ -553,6 +554,89 @@ var defaultTransformers = map[string]transformer{
 		}
 		return newUnknownNode("", section)
 	},
+	"table": func(el *etree.Element) contenttree.Node {
+		theme := attr(el, "data-table-theme")
+		columnSettings := make([]*contenttree.ColumnSettingsItems, 0)
+		for _, header := range el.FindElements(".//th") {
+			var hideOnMobile *bool
+			var sortable *bool
+
+			if v := attr(header, "data-column-hidden"); v != "" {
+				b := v == "small-screen"
+				hideOnMobile = &b
+			}
+
+			if v := attr(header, "data-column-sortable"); v != "" {
+				b := v == "true"
+				sortable = &b
+			}
+
+			columnSettings = append(columnSettings, &contenttree.ColumnSettingsItems{
+				HideOnMobile: hideOnMobile,
+				Sortable:     sortable,
+				SortType:     toTableSortType(attr(header, "data-column-type")),
+			})
+		}
+		return &contenttree.Table{
+			Type:                     contenttree.TableType,
+			CollapseAfterHowManyRows: intAttr(el, "data-table-collapse-rownum"),
+			ColumnSettings:           columnSettings,
+			Compact:                  (theme == "compact") || (theme == "compact-stripes"),
+			Stripes:                  (theme == "stripes") || (theme == "compact-stripes"),
+			LayoutWidth:              string(toValidTableLayoutWidth(attr(el, "data-table-layout-largescreen"))),
+			ResponsiveStyle:          toTableResponsiveStyle(attr(el, "data-table-layout-smallscreen")),
+			Children:                 []*contenttree.TableChild{},
+		}
+	},
+	"caption": func(el *etree.Element) contenttree.Node {
+		return &contenttree.TableCaption{
+			Type:     contenttree.TableCaptionType,
+			Children: []*contenttree.Phrasing{},
+		}
+	},
+	"thead": func(el *etree.Element) contenttree.Node {
+		return &contenttree.TableHeader{
+			Type:     contenttree.TableHeaderType,
+			Children: []*contenttree.TableRow{},
+		}
+	},
+	"tr": func(el *etree.Element) contenttree.Node {
+		return &contenttree.TableRow{
+			Type:     contenttree.TableRowType,
+			Children: []*contenttree.TableCell{},
+		}
+	},
+	"th": func(el *etree.Element) contenttree.Node {
+		return &contenttree.TableCell{
+			Type:       contenttree.TableCellType,
+			Heading:    true,
+			ColumnSpan: intAttr(el, "colspan"),
+			RowSpan:    intAttr(el, "rowspan"),
+			Children:   []*contenttree.Phrasing{},
+		}
+	},
+	"tbody": func(el *etree.Element) contenttree.Node {
+		return &contenttree.TableBody{
+			Type:     contenttree.TableBodyType,
+			Children: []*contenttree.TableRow{},
+		}
+	},
+	"tfoot": func(el *etree.Element) contenttree.Node {
+		el.Child = flattenedTableFooterChildren(el)
+		return &contenttree.TableFooter{
+			Type:     contenttree.TableFooterType,
+			Children: []*contenttree.Phrasing{},
+		}
+	},
+	"td": func(el *etree.Element) contenttree.Node {
+		return &contenttree.TableCell{
+			Type:       contenttree.TableCellType,
+			Heading:    false,
+			ColumnSpan: intAttr(el, "colspan"),
+			RowSpan:    intAttr(el, "rowspan"),
+			Children:   []*contenttree.Phrasing{},
+		}
+	},
 	"experimental": func(_ *etree.Element) contenttree.Node {
 		return newLiftChildrenNode()
 	},
@@ -600,4 +684,16 @@ func optionalBoolAttr(el *etree.Element, name string) *bool {
 		return &v
 	}
 	return nil
+}
+
+func intAttr(el *etree.Element, name string) *int {
+	v := strings.TrimSpace(attr(el, name))
+	if v == "" {
+		return nil
+	}
+	i, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &i
 }

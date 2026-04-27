@@ -1,0 +1,115 @@
+{
+  "type": "body",
+  "children": [
+    {
+      "type": "table",
+      "collapseAfterHowManyRows": 2,
+      "columnSettings": [
+        {
+          "hideOnMobile": true,
+          "sortType": "number",
+          "sortable": true
+        },
+        {
+          "hideOnMobile": false,
+          "sortType": "text",
+          "sortable": false
+        }
+      ],
+      "compact": true,
+      "layoutWidth": "full-grid",
+      "responsiveStyle": "scroll",
+      "stripes": true,
+      "children": [
+        {
+          "type": "table-caption",
+          "children": [
+            {
+              "type": "text",
+              "value": "caption-a"
+            }
+          ]
+        },
+        {
+          "type": "table-header",
+          "children": [
+            {
+              "type": "table-row",
+              "children": [
+                {
+                  "type": "table-cell",
+                  "heading": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "header-a"
+                    }
+                  ]
+                },
+                {
+                  "type": "table-cell",
+                  "heading": true,
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "header-b"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "table-body",
+          "children": [
+            {
+              "type": "table-row",
+              "children": [
+                {
+                  "type": "table-cell",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "11"
+                    }
+                  ]
+                },
+                {
+                  "type": "table-cell",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "body-a"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "table-footer",
+          "children": [
+            {
+              "type": "text",
+              "value": "footer-a "
+            },
+            {
+              "type": "link",
+              "url": "https://example.com/source",
+              "title": "",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "link-a"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "version": 1
+}

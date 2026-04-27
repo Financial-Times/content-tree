@@ -1,0 +1,203 @@
+{
+  "type": "root",
+  "body": {
+    "type": "body",
+    "children": [
+      {
+        "type": "table",
+        "children": [
+          {
+            "type": "table-caption",
+            "children": [
+              {
+                "type": "text",
+                "value": "caption-a"
+              }
+            ]
+          },
+          {
+            "type": "table-header",
+            "children": [
+              {
+                "type": "table-row",
+                "children": [
+                  {
+                    "type": "table-cell",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "head-a"
+                      }
+                    ],
+                    "heading": true,
+                    "columnSpan": 2,
+                    "rowSpan": 2
+                  },
+                  {
+                    "type": "table-cell",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "head-b"
+                      }
+                    ],
+                    "heading": true
+                  },
+                  {
+                    "type": "table-cell",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "head-c"
+                      }
+                    ],
+                    "heading": true
+                  },
+                  {
+                    "type": "table-cell",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "head-d"
+                      }
+                    ],
+                    "heading": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table-body",
+            "children": [
+              {
+                "type": "table-row",
+                "children": [
+                  {
+                    "type": "table-cell",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "row1-a"
+                      }
+                    ],
+                    "rowSpan": 2
+                  },
+                  {
+                    "type": "table-cell",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "101"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "table-cell",
+                    "children": []
+                  },
+                  {
+                    "type": "table-cell",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "row1-d"
+                      }
+                    ],
+                    "columnSpan": 2
+                  }
+                ]
+              },
+              {
+                "type": "table-row",
+                "children": [
+                  {
+                    "type": "table-cell",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "row2-b"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "table-cell",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "row2-c"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "table-cell",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "£20"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "table-cell",
+                    "children": [
+                      {
+                        "type": "text",
+                        "value": "tail-2"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "table-footer",
+            "children": [
+              {
+                "type": "text",
+                "value": "footer-a "
+              },
+                          {
+                            "type": "link",
+                            "url": "https://example.com/source",
+                            "title": "",
+                            "children": [
+                              {
+                                "type": "text",
+                    "value": "footer-link"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "collapseAfterHowManyRows": 2,
+        "columnSettings": [
+          {
+            "hideOnMobile": true,
+            "sortType": "number",
+            "sortable": true
+          },
+          {
+            "hideOnMobile": false,
+            "sortType": "text",
+            "sortable": false
+          },
+          {
+            "sortType": "date",
+            "sortable": true
+          },
+          {
+            "sortType": "currency"
+          }
+        ],
+        "compact": true,
+        "layoutWidth": "full-grid",
+        "responsiveStyle": "scroll",
+        "stripes": true
+      }
+    ],
+    "version": 1
+  }
+}
