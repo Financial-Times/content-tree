@@ -254,6 +254,9 @@
                     "$ref": "#/definitions/ContentTree.transit.Paragraph"
                 },
                 {
+                    "$ref": "#/definitions/ContentTree.transit.Heading"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.transit.List"
                 },
                 {
