@@ -961,7 +961,7 @@ interface InNumbers extends Parent {
 ```ts
 /** Allowed children for a card
 */
-type CardChildren = ImageSet | Exclude<FormattingBlock, Heading>
+type CardChildren = ImageSet | FormattingBlock
 /**
 * A card describes a subject with images and text
 */
