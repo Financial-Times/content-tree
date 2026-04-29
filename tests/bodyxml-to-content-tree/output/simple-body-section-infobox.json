@@ -62,6 +62,26 @@
                 "type":"thematic-break"
               },
               {
+                "type": "heading",
+                "children":[
+                  {
+                    "type": "text",
+                    "value": "Heading (subheading)"
+                  }
+                ],
+                "level": "subheading"
+              },
+              {
+                "type": "heading",
+                "children":[
+                  {
+                    "type": "text",
+                    "value": "Heading (label)"
+                  }
+                ],
+                "level": "label"
+              },
+              {
                 "type":"image-set",
                 "id":"23925844-4d8d-11ea-0bc6-d44b54b3bebc"
               }
