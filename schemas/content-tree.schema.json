@@ -153,16 +153,40 @@
                     "$ref": "#/definitions/ContentTree.full.Text"
                 },
                 {
-                    "$ref": "#/definitions/ContentTree.full.ImageSet"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.Flourish"
+                    "$ref": "#/definitions/ContentTree.full.AcastPodcast"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.BigNumber"
                 },
                 {
+                    "$ref": "#/definitions/ContentTree.full.Carousel"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.ClipSet"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.full.CustomCodeComponent"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Definition"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Flourish"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.ImagePair"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.ImageSet"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.InfoBox"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.InfoPair"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.InNumbers"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.Layout"
@@ -171,19 +195,19 @@
                     "$ref": "#/definitions/ContentTree.full.Pullquote"
                 },
                 {
-                    "$ref": "#/definitions/ContentTree.full.ScrollyBlock"
+                    "$ref": "#/definitions/ContentTree.full.Recommended"
                 },
                 {
-                    "$ref": "#/definitions/ContentTree.full.ClipSet"
+                    "$ref": "#/definitions/ContentTree.full.RecommendedList"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.ScrollyBlock"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.Table"
                 },
                 {
-                    "$ref": "#/definitions/ContentTree.full.Recommended"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.RecommendedList"
+                    "$ref": "#/definitions/ContentTree.full.Timeline"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.Tweet"
@@ -192,31 +216,10 @@
                     "$ref": "#/definitions/ContentTree.full.Video"
                 },
                 {
-                    "$ref": "#/definitions/ContentTree.full.YoutubeVideo"
-                },
-                {
                     "$ref": "#/definitions/ContentTree.full.VimeoVideo"
                 },
                 {
-                    "$ref": "#/definitions/ContentTree.full.AcastPodcast"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.Timeline"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.ImagePair"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.InNumbers"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.Definition"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.InfoBox"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.InfoPair"
+                    "$ref": "#/definitions/ContentTree.full.YoutubeVideo"
                 }
             ]
         },
@@ -282,6 +285,104 @@
                 }
             ],
             "description": "Allowed children for a card"
+        },
+        "ContentTree.full.Carousel": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "description": "Carousel item",
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.full.CarouselCard"
+                    },
+                    "maxItems": 10,
+                    "minItems": 4,
+                    "type": "array"
+                },
+                "data": {},
+                "heading": {
+                    "$ref": "#/definitions/ContentTree.full.CarouselHeading"
+                },
+                "id": {
+                    "description": "unique identifier required for component tracking",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "carousel",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "id",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.CarouselCard": {
+            "additionalProperties": false,
+            "properties": {
+                "additionalInfo": {
+                    "description": "Details (optional, 60 characters recommended)",
+                    "type": "string"
+                },
+                "children": {
+                    "description": "Image",
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.full.ImageSet"
+                        }
+                    ],
+                    "maxItems": 1,
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "copy": {
+                    "description": "Body text (200 characters recommended)",
+                    "type": "string"
+                },
+                "data": {},
+                "id": {
+                    "description": "unique identifier required for component tracking",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Heading (60 characters recommended)",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "carousel-card",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "copy",
+                "id",
+                "title",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.CarouselHeading": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "standfirst": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "carousel-heading",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "title",
+                "type"
+            ],
+            "type": "object"
         },
         "ContentTree.full.ClipSet": {
             "additionalProperties": false,

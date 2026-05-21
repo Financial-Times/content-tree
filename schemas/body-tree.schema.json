@@ -116,16 +116,40 @@
                     "$ref": "#/definitions/ContentTree.transit.Text"
                 },
                 {
-                    "$ref": "#/definitions/ContentTree.transit.ImageSet"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.Flourish"
+                    "$ref": "#/definitions/ContentTree.transit.AcastPodcast"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.BigNumber"
                 },
                 {
+                    "$ref": "#/definitions/ContentTree.transit.Carousel"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.ClipSet"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.transit.CustomCodeComponent"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Definition"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Flourish"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.ImagePair"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.InfoBox"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.InfoPair"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.InNumbers"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.Layout"
@@ -134,19 +158,19 @@
                     "$ref": "#/definitions/ContentTree.transit.Pullquote"
                 },
                 {
-                    "$ref": "#/definitions/ContentTree.transit.ScrollyBlock"
+                    "$ref": "#/definitions/ContentTree.transit.Recommended"
                 },
                 {
-                    "$ref": "#/definitions/ContentTree.transit.ClipSet"
+                    "$ref": "#/definitions/ContentTree.transit.RecommendedList"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.ScrollyBlock"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.Table"
                 },
                 {
-                    "$ref": "#/definitions/ContentTree.transit.Recommended"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.RecommendedList"
+                    "$ref": "#/definitions/ContentTree.transit.Timeline"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.Tweet"
@@ -155,31 +179,10 @@
                     "$ref": "#/definitions/ContentTree.transit.Video"
                 },
                 {
-                    "$ref": "#/definitions/ContentTree.transit.YoutubeVideo"
-                },
-                {
                     "$ref": "#/definitions/ContentTree.transit.VimeoVideo"
                 },
                 {
-                    "$ref": "#/definitions/ContentTree.transit.AcastPodcast"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.Timeline"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.ImagePair"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.InNumbers"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.Definition"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.InfoBox"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.InfoPair"
+                    "$ref": "#/definitions/ContentTree.transit.YoutubeVideo"
                 }
             ]
         },
@@ -245,6 +248,106 @@
                 }
             ],
             "description": "Allowed children for a card"
+        },
+        "ContentTree.transit.Carousel": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "description": "Carousel item",
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.transit.CarouselCard"
+                    },
+                    "maxItems": 10,
+                    "minItems": 4,
+                    "sparkRepeater": true,
+                    "type": "array"
+                },
+                "data": {},
+                "heading": {
+                    "$ref": "#/definitions/ContentTree.transit.CarouselHeading"
+                },
+                "id": {
+                    "description": "unique identifier required for component tracking",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "carousel",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "id",
+                "type"
+            ],
+            "sparkGenerateStoryblock": true,
+            "type": "object"
+        },
+        "ContentTree.transit.CarouselCard": {
+            "additionalProperties": false,
+            "properties": {
+                "additionalInfo": {
+                    "description": "Details (optional, 60 characters recommended)",
+                    "type": "string"
+                },
+                "children": {
+                    "description": "Image",
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                        }
+                    ],
+                    "maxItems": 1,
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "copy": {
+                    "description": "Body text (200 characters recommended)",
+                    "type": "string"
+                },
+                "data": {},
+                "id": {
+                    "description": "unique identifier required for component tracking",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Heading (60 characters recommended)",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "carousel-card",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "copy",
+                "id",
+                "title",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.CarouselHeading": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "standfirst": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "carousel-heading",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "title",
+                "type"
+            ],
+            "type": "object"
         },
         "ContentTree.transit.ClipSet": {
             "additionalProperties": false,

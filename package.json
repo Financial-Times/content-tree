@@ -1,7 +1,7 @@
 {
 	"name": "@financial-times/content-tree",
 	"description": "content tree format",
-	"version": "0.11.0",
+	"version": "0.12.0-beta.9",
 	"publishConfig": {
 		"access": "public"
   },
