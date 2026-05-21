@@ -95,7 +95,7 @@ export declare namespace ContentTree {
         type: "blockquote";
         children: (Paragraph | Phrasing)[];
     }
-    type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | VimeoVideo | AcastPodcast | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+    type StoryBlock = AcastPodcast | BigNumber | Carousel | ClipSet | CustomCodeComponent | Definition | Flourish | ImagePair | ImageSet | InfoBox | InfoPair | InNumbers | Layout | Pullquote | Recommended | RecommendedList | ScrollyBlock | Table | Timeline | Tweet | Video | VimeoVideo | YoutubeVideo;
     interface Pullquote extends Node {
         type: "pullquote";
         text: string;
@@ -439,6 +439,32 @@ export declare namespace ContentTree {
         title?: string;
         children: [Card, Card];
     }
+    interface CarouselCard extends Node {
+        type: "carousel-card";
+        image: ImageSet;
+        title?: string;
+        copy: Paragraph[];
+        additionalInfo?: string;
+    }
+    /**
+     * @maxItems 10
+     * @minItems 4
+     * @sparkRepeater true
+     */
+    type CarouselChildren = CarouselCard[];
+    interface CarouselHeading extends Node {
+        type: "carousel-heading";
+        title: string;
+        standfirst?: string;
+    }
+    /**
+     * @sparkGenerateStoryBlock true
+    */
+    interface Carousel extends Parent {
+        type: "carousel";
+        heading?: CarouselHeading;
+        children: CarouselChildren;
+    }
     namespace full {
         type AssetFormat = "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline";
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
@@ -536,7 +562,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | VimeoVideo | AcastPodcast | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+        type StoryBlock = AcastPodcast | BigNumber | Carousel | ClipSet | CustomCodeComponent | Definition | Flourish | ImagePair | ImageSet | InfoBox | InfoPair | InNumbers | Layout | Pullquote | Recommended | RecommendedList | ScrollyBlock | Table | Timeline | Tweet | Video | VimeoVideo | YoutubeVideo;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -880,6 +906,32 @@ export declare namespace ContentTree {
             title?: string;
             children: [Card, Card];
         }
+        interface CarouselCard extends Node {
+            type: "carousel-card";
+            image: ImageSet;
+            title?: string;
+            copy: Paragraph[];
+            additionalInfo?: string;
+        }
+        /**
+         * @maxItems 10
+         * @minItems 4
+         * @sparkRepeater true
+         */
+        type CarouselChildren = CarouselCard[];
+        interface CarouselHeading extends Node {
+            type: "carousel-heading";
+            title: string;
+            standfirst?: string;
+        }
+        /**
+         * @sparkGenerateStoryBlock true
+        */
+        interface Carousel extends Parent {
+            type: "carousel";
+            heading?: CarouselHeading;
+            children: CarouselChildren;
+        }
     }
     namespace transit {
         type AssetFormat = "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline";
@@ -978,7 +1030,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | VimeoVideo | AcastPodcast | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+        type StoryBlock = AcastPodcast | BigNumber | Carousel | ClipSet | CustomCodeComponent | Definition | Flourish | ImagePair | ImageSet | InfoBox | InfoPair | InNumbers | Layout | Pullquote | Recommended | RecommendedList | ScrollyBlock | Table | Timeline | Tweet | Video | VimeoVideo | YoutubeVideo;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -1295,6 +1347,32 @@ export declare namespace ContentTree {
             title?: string;
             children: [Card, Card];
         }
+        interface CarouselCard extends Node {
+            type: "carousel-card";
+            image: ImageSet;
+            title?: string;
+            copy: Paragraph[];
+            additionalInfo?: string;
+        }
+        /**
+         * @maxItems 10
+         * @minItems 4
+         * @sparkRepeater true
+         */
+        type CarouselChildren = CarouselCard[];
+        interface CarouselHeading extends Node {
+            type: "carousel-heading";
+            title: string;
+            standfirst?: string;
+        }
+        /**
+         * @sparkGenerateStoryBlock true
+        */
+        interface Carousel extends Parent {
+            type: "carousel";
+            heading?: CarouselHeading;
+            children: CarouselChildren;
+        }
     }
     namespace loose {
         type AssetFormat = "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline";
@@ -1393,7 +1471,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = ImageSet | Flourish | BigNumber | CustomCodeComponent | Layout | Pullquote | ScrollyBlock | ClipSet | Table | Recommended | RecommendedList | Tweet | Video | YoutubeVideo | VimeoVideo | AcastPodcast | Timeline | ImagePair | InNumbers | Definition | InfoBox | InfoPair;
+        type StoryBlock = AcastPodcast | BigNumber | Carousel | ClipSet | CustomCodeComponent | Definition | Flourish | ImagePair | ImageSet | InfoBox | InfoPair | InNumbers | Layout | Pullquote | Recommended | RecommendedList | ScrollyBlock | Table | Timeline | Tweet | Video | VimeoVideo | YoutubeVideo;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -1736,6 +1814,32 @@ export declare namespace ContentTree {
             /** The title of the info pair */
             title?: string;
             children: [Card, Card];
+        }
+        interface CarouselCard extends Node {
+            type: "carousel-card";
+            image: ImageSet;
+            title?: string;
+            copy: Paragraph[];
+            additionalInfo?: string;
+        }
+        /**
+         * @maxItems 10
+         * @minItems 4
+         * @sparkRepeater true
+         */
+        type CarouselChildren = CarouselCard[];
+        interface CarouselHeading extends Node {
+            type: "carousel-heading";
+            title: string;
+            standfirst?: string;
+        }
+        /**
+         * @sparkGenerateStoryBlock true
+        */
+        interface Carousel extends Parent {
+            type: "carousel";
+            heading?: CarouselHeading;
+            children: CarouselChildren;
         }
     }
 }
