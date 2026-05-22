@@ -278,6 +278,7 @@
             "additionalProperties": false,
             "properties": {
                 "children": {
+                    "description": "Carousel item",
                     "items": {
                         "$ref": "#/definitions/ContentTree.transit.CarouselCard"
                     },
@@ -304,19 +305,25 @@
             "additionalProperties": false,
             "properties": {
                 "additionalInfo": {
+                    "description": "Details (optional, 60 characters recommended)",
                     "type": "string"
                 },
-                "copy": {
-                    "items": {
+                "children": {
+                    "additionalItems": {
                         "$ref": "#/definitions/ContentTree.transit.Paragraph"
                     },
+                    "description": "Image and Body text (200 characters recommended)",
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                        }
+                    ],
+                    "minItems": 1,
                     "type": "array"
                 },
                 "data": {},
-                "image": {
-                    "$ref": "#/definitions/ContentTree.transit.ImageSet"
-                },
                 "title": {
+                    "description": "Heading (60 characters recommended)",
                     "type": "string"
                 },
                 "type": {
@@ -325,8 +332,7 @@
                 }
             },
             "required": [
-                "copy",
-                "image",
+                "children",
                 "type"
             ],
             "type": "object"

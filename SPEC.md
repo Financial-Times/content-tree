@@ -1012,9 +1012,17 @@ interface InfoPair extends Parent {
 ```ts
 interface CarouselCard extends Node {
   type: "carousel-card"
-  image: ImageSet
+  /**
+   * @description Heading (60 characters recommended)
+  */
   title?: string
-  copy: Paragraph[]
+  /**
+   * @description Image and Body text (200 characters recommended)
+  */
+  children: [ImageSet, ...Paragraph[]]
+  /**
+   * @description Details (optional, 60 characters recommended)
+  */
   additionalInfo?: string
 }
 ```
@@ -1023,6 +1031,7 @@ interface CarouselCard extends Node {
 #### `CarouselChildren`
 ```ts
 /**
+ * @description Carousel item
  * @maxItems 10
  * @minItems 4
  * @sparkRepeater true
@@ -1044,7 +1053,7 @@ interface CarouselHeading extends Node {
 #### `Carousel`
 ```ts
 /**
- * @sparkGenerateStoryBlock true
+ * @sparkGenerateStoryblock true
 */
 interface Carousel extends Parent {
    type: "carousel"
