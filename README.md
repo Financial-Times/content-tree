@@ -198,6 +198,21 @@ A single semantic change to the content tree is usually split across multiple pu
 
 Before making a release you will also need to raise a pull request to increment the package.json version number, this should be made in its own PR so that at least one member of each team can approve it. Please get sign-off in the [#dynamic-storytelling-team](https://financialtimes.enterprise.slack.com/archives/C035P5DCHMH) slack channel and share this PR there.  Releases are then made via GitHub Releases: they must include a SemVer tag `vX.Y.Z` which matches the one within the package json. The release notes should be completed to communicate what changed in the release. Cutting a release will trigger CI to publish to npm for JS consumers. Go consumers can depend on the new git tag as the module version.
 
+### Beta releases
+
+If you want to make a beta release from a branch before you merge into main, you can do this with the following steps:
+
+* set your release as `v0.0.0-beta.0` where `0` is whatever version number you are setting
+* in Github, go into https://github.com/Financial-Times/content-tree/releases and press the Draft a new release button
+* when drafting the new release
+  * set the tag to the same as you have for your beta
+  * set the target to the branch that you want to release from
+  * set the Release title to the version number
+  * fill in release notes as normal
+  * check the Pre-release option under Release label
+  * Press the Publish release button
+
+
 ## License
 
 This software is published by the Financial Times under the [MIT licence](mit).

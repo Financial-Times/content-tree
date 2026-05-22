@@ -9,9 +9,15 @@ references:
     tags:
       ignore: /.*/
 
-  run_on_semver_tags: &run_on_semver_tags
+  run_on_stable_semver_tags: &run_on_stable_semver_tags
     tags:
       only: /^v\d+\.\d+\.\d+$/
+    branches:
+      ignore: /.*/
+
+  run_on_beta_prerelease_tags: &run_on_beta_prerelease_tags
+    tags:
+      only: /^v\d+\.\d+\.\d+-beta\.\d+$/
     branches:
       ignore: /.*/
 
@@ -63,6 +69,15 @@ jobs:
           name: npm publish
           command: ./scripts/circleci-publish.sh
 
+  publish-npm-beta:
+    <<: *default_container_config
+    steps:
+      - checkout
+      - set_npm_auth_token
+      - run:
+          name: npm publish beta
+          command: ./scripts/circleci-publish.sh --tag beta
+
 workflows:
   verify_artifacts_in_sync:
     jobs:
@@ -72,9 +87,20 @@ workflows:
   publish_on_semver_tag:
     jobs:
       - build-and-verify-artifacts:
-          filters: *run_on_semver_tags
+          filters: *run_on_stable_semver_tags
       - publish-npm:
           context: npm-publish-token
           requires:
             - build-and-verify-artifacts
-          filters: *run_on_semver_tags
+          filters: *run_on_stable_semver_tags
+
+  publish_on_beta_prerelease_tag:
+    jobs:
+      - build-and-verify-artifacts:
+          name: build-and-verify-beta-artifacts
+          filters: *run_on_beta_prerelease_tags
+      - publish-npm-beta:
+          context: npm-publish-token
+          requires:
+            - build-and-verify-beta-artifacts
+          filters: *run_on_beta_prerelease_tags
