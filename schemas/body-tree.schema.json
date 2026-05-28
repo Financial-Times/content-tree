@@ -286,16 +286,17 @@
                     "type": "string"
                 },
                 "children": {
-                    "additionalItems": {
-                        "$ref": "#/definitions/ContentTree.transit.Text"
-                    },
                     "description": "Image and Body text (200 characters recommended)",
                     "items": [
                         {
                             "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.Text"
                         }
                     ],
-                    "minItems": 1,
+                    "maxItems": 2,
+                    "minItems": 2,
                     "type": "array"
                 },
                 "data": {},
@@ -310,6 +311,7 @@
             },
             "required": [
                 "children",
+                "title",
                 "type"
             ],
             "type": "object"

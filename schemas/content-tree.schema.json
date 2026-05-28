@@ -321,16 +321,17 @@
                     "type": "string"
                 },
                 "children": {
-                    "additionalItems": {
-                        "$ref": "#/definitions/ContentTree.full.Text"
-                    },
                     "description": "Image and Body text (200 characters recommended)",
                     "items": [
                         {
                             "$ref": "#/definitions/ContentTree.full.ImageSet"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.full.Text"
                         }
                     ],
-                    "minItems": 1,
+                    "maxItems": 2,
+                    "minItems": 2,
                     "type": "array"
                 },
                 "data": {},
@@ -345,6 +346,7 @@
             },
             "required": [
                 "children",
+                "title",
                 "type"
             ],
             "type": "object"
