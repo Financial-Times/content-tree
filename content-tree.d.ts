@@ -441,7 +441,7 @@ export declare namespace ContentTree {
     }
     interface CarouselCard extends Node {
         type: "carousel-card";
-        id: "string";
+        id: string;
         /**
          * @description Heading (60 characters recommended)
         */
@@ -476,7 +476,7 @@ export declare namespace ContentTree {
     */
     interface Carousel extends Parent {
         type: "carousel";
-        id: "string";
+        id: string;
         heading?: CarouselHeading;
         children: CarouselChildren;
     }
@@ -923,7 +923,7 @@ export declare namespace ContentTree {
         }
         interface CarouselCard extends Node {
             type: "carousel-card";
-            id: "string";
+            id: string;
             /**
              * @description Heading (60 characters recommended)
             */
@@ -958,7 +958,7 @@ export declare namespace ContentTree {
         */
         interface Carousel extends Parent {
             type: "carousel";
-            id: "string";
+            id: string;
             heading?: CarouselHeading;
             children: CarouselChildren;
         }
@@ -1379,7 +1379,7 @@ export declare namespace ContentTree {
         }
         interface CarouselCard extends Node {
             type: "carousel-card";
-            id: "string";
+            id: string;
             /**
              * @description Heading (60 characters recommended)
             */
@@ -1414,7 +1414,7 @@ export declare namespace ContentTree {
         */
         interface Carousel extends Parent {
             type: "carousel";
-            id: "string";
+            id: string;
             heading?: CarouselHeading;
             children: CarouselChildren;
         }
@@ -1862,7 +1862,7 @@ export declare namespace ContentTree {
         }
         interface CarouselCard extends Node {
             type: "carousel-card";
-            id: "string";
+            id: string;
             /**
              * @description Heading (60 characters recommended)
             */
@@ -1897,7 +1897,7 @@ export declare namespace ContentTree {
         */
         interface Carousel extends Parent {
             type: "carousel";
-            id: "string";
+            id: string;
             heading?: CarouselHeading;
             children: CarouselChildren;
         }

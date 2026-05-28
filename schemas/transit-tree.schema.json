@@ -291,7 +291,6 @@
                     "$ref": "#/definitions/ContentTree.transit.CarouselHeading"
                 },
                 "id": {
-                    "const": "string",
                     "type": "string"
                 },
                 "type": {
@@ -330,7 +329,6 @@
                 },
                 "data": {},
                 "id": {
-                    "const": "string",
                     "type": "string"
                 },
                 "title": {
