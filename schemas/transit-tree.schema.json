@@ -314,18 +314,19 @@
                     "type": "string"
                 },
                 "children": {
-                    "description": "Image and Body text (200 characters recommended)",
+                    "description": "Image",
                     "items": [
                         {
                             "$ref": "#/definitions/ContentTree.transit.ImageSet"
-                        },
-                        {
-                            "$ref": "#/definitions/ContentTree.transit.Text"
                         }
                     ],
-                    "maxItems": 2,
-                    "minItems": 2,
+                    "maxItems": 1,
+                    "minItems": 1,
                     "type": "array"
+                },
+                "copy": {
+                    "description": "Body text (200 characters recommended)",
+                    "type": "string"
                 },
                 "data": {},
                 "id": {
@@ -343,6 +344,7 @@
             },
             "required": [
                 "children",
+                "copy",
                 "id",
                 "title",
                 "type"

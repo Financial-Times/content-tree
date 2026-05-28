@@ -1018,9 +1018,13 @@ interface CarouselCard extends Node {
   */
   title: string
   /**
-   * @description Image and Body text (200 characters recommended)
+   * @description Image
   */
-  children: [ImageSet, Text]
+  children: [ImageSet]
+  /**
+   * @description Body text (200 characters recommended)
+  */
+  copy: string
   /**
    * @description Details (optional, 60 characters recommended)
   */
