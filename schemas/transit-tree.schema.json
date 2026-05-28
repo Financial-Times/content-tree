@@ -290,6 +290,10 @@
                 "heading": {
                     "$ref": "#/definitions/ContentTree.transit.CarouselHeading"
                 },
+                "id": {
+                    "const": "string",
+                    "type": "string"
+                },
                 "type": {
                     "const": "carousel",
                     "type": "string"
@@ -297,6 +301,7 @@
             },
             "required": [
                 "children",
+                "id",
                 "type"
             ],
             "type": "object"
@@ -323,6 +328,10 @@
                     "type": "array"
                 },
                 "data": {},
+                "id": {
+                    "const": "string",
+                    "type": "string"
+                },
                 "title": {
                     "description": "Heading (60 characters recommended)",
                     "type": "string"
@@ -334,6 +343,7 @@
             },
             "required": [
                 "children",
+                "id",
                 "title",
                 "type"
             ],
