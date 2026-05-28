@@ -1012,6 +1012,9 @@ interface InfoPair extends Parent {
 ```ts
 interface CarouselCard extends Node {
   type: "carousel-card"
+  /**
+   * @description unique identifier required for component tracking
+  */
   id: string
   /**
    * @description Heading (60 characters recommended)
@@ -1062,6 +1065,9 @@ interface CarouselHeading extends Node {
 */
 interface Carousel extends Parent {
    type: "carousel"
+   /**
+    * @description unique identifier required for component tracking
+   */
    id: string
    heading?: CarouselHeading
    children: CarouselChildren

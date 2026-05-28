@@ -441,6 +441,9 @@ export declare namespace ContentTree {
     }
     interface CarouselCard extends Node {
         type: "carousel-card";
+        /**
+         * @description unique identifier required for component tracking
+        */
         id: string;
         /**
          * @description Heading (60 characters recommended)
@@ -476,6 +479,9 @@ export declare namespace ContentTree {
     */
     interface Carousel extends Parent {
         type: "carousel";
+        /**
+         * @description unique identifier required for component tracking
+        */
         id: string;
         heading?: CarouselHeading;
         children: CarouselChildren;
@@ -923,6 +929,9 @@ export declare namespace ContentTree {
         }
         interface CarouselCard extends Node {
             type: "carousel-card";
+            /**
+             * @description unique identifier required for component tracking
+            */
             id: string;
             /**
              * @description Heading (60 characters recommended)
@@ -958,6 +967,9 @@ export declare namespace ContentTree {
         */
         interface Carousel extends Parent {
             type: "carousel";
+            /**
+             * @description unique identifier required for component tracking
+            */
             id: string;
             heading?: CarouselHeading;
             children: CarouselChildren;
@@ -1379,6 +1391,9 @@ export declare namespace ContentTree {
         }
         interface CarouselCard extends Node {
             type: "carousel-card";
+            /**
+             * @description unique identifier required for component tracking
+            */
             id: string;
             /**
              * @description Heading (60 characters recommended)
@@ -1414,6 +1429,9 @@ export declare namespace ContentTree {
         */
         interface Carousel extends Parent {
             type: "carousel";
+            /**
+             * @description unique identifier required for component tracking
+            */
             id: string;
             heading?: CarouselHeading;
             children: CarouselChildren;
@@ -1862,6 +1880,9 @@ export declare namespace ContentTree {
         }
         interface CarouselCard extends Node {
             type: "carousel-card";
+            /**
+             * @description unique identifier required for component tracking
+            */
             id: string;
             /**
              * @description Heading (60 characters recommended)
@@ -1897,6 +1918,9 @@ export declare namespace ContentTree {
         */
         interface Carousel extends Parent {
             type: "carousel";
+            /**
+             * @description unique identifier required for component tracking
+            */
             id: string;
             heading?: CarouselHeading;
             children: CarouselChildren;

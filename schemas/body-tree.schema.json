@@ -267,6 +267,7 @@
                     "$ref": "#/definitions/ContentTree.transit.CarouselHeading"
                 },
                 "id": {
+                    "description": "unique identifier required for component tracking",
                     "type": "string"
                 },
                 "type": {
@@ -306,6 +307,7 @@
                 },
                 "data": {},
                 "id": {
+                    "description": "unique identifier required for component tracking",
                     "type": "string"
                 },
                 "title": {
