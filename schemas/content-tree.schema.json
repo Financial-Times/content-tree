@@ -322,7 +322,7 @@
                 },
                 "children": {
                     "additionalItems": {
-                        "$ref": "#/definitions/ContentTree.full.Paragraph"
+                        "$ref": "#/definitions/ContentTree.full.Text"
                     },
                     "description": "Image and Body text (200 characters recommended)",
                     "items": [

@@ -448,7 +448,7 @@ export declare namespace ContentTree {
         /**
          * @description Image and Body text (200 characters recommended)
         */
-        children: [ImageSet, ...Paragraph[]];
+        children: [ImageSet, ...Text[]];
         /**
          * @description Details (optional, 60 characters recommended)
         */
@@ -924,7 +924,7 @@ export declare namespace ContentTree {
             /**
              * @description Image and Body text (200 characters recommended)
             */
-            children: [ImageSet, ...Paragraph[]];
+            children: [ImageSet, ...Text[]];
             /**
              * @description Details (optional, 60 characters recommended)
             */
@@ -1374,7 +1374,7 @@ export declare namespace ContentTree {
             /**
              * @description Image and Body text (200 characters recommended)
             */
-            children: [ImageSet, ...Paragraph[]];
+            children: [ImageSet, ...Text[]];
             /**
              * @description Details (optional, 60 characters recommended)
             */
@@ -1851,7 +1851,7 @@ export declare namespace ContentTree {
             /**
              * @description Image and Body text (200 characters recommended)
             */
-            children: [ImageSet, ...Paragraph[]];
+            children: [ImageSet, ...Text[]];
             /**
              * @description Details (optional, 60 characters recommended)
             */
