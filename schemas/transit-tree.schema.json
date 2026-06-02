@@ -284,6 +284,7 @@
                     },
                     "maxItems": 10,
                     "minItems": 4,
+                    "sparkRepeater": true,
                     "type": "array"
                 },
                 "data": {},
@@ -304,6 +305,7 @@
                 "id",
                 "type"
             ],
+            "sparkGenerateStoryblock": true,
             "type": "object"
         },
         "ContentTree.transit.CarouselCard": {
