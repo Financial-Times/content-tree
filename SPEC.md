@@ -343,28 +343,29 @@ interface Blockquote extends Parent {
 
 ```ts
 type StoryBlock =
-	| ImageSet
-	| Flourish
+	| AcastPodcast
 	| BigNumber
-	| CustomCodeComponent
-	| Layout
-	| Pullquote
-	| ScrollyBlock
+	| Carousel
 	| ClipSet
-	| Table
-	| Recommended
-	| RecommendedList
-	| Tweet
-	| Video
-	| YoutubeVideo
-	| VimeoVideo
-    | AcastPodcast
-	| Timeline
-	| ImagePair
-	| InNumbers
+	| CustomCodeComponent
 	| Definition
+	| Flourish
+	| ImagePair
+	| ImageSet
 	| InfoBox
 	| InfoPair
+	| InNumbers
+	| Layout
+	| Pullquote
+	| Recommended
+	| RecommendedList
+	| ScrollyBlock
+	| Table
+	| Timeline
+	| Tweet
+	| Video
+	| VimeoVideo
+	| YoutubeVideo
 ```
 
 `StoryBlock` nodes are things that can be inserted into an article body.
@@ -867,7 +868,7 @@ interface Table extends Parent {
 
 **Table** represents 2d data.
 
-### CustomCodeComponent
+### `CustomCodeComponent`
 
 ```ts
 type CustomCodeComponentAttributes = {
@@ -897,7 +898,7 @@ interface CustomCodeComponent extends Node {
 - The basic interface in Spark to make reference to this system above (eg. the git repo URL or a public S3 bucket), and provide some data for it if necessary. This will be the Custom Component storyblock.
 - The data Spark receives from entering a specific ID will be used to render dynamic fields (the `attributes`).
 
-### ImagePair
+### `ImagePair`
 
 ```ts
 interface ImagePair extends Parent {
@@ -908,7 +909,7 @@ interface ImagePair extends Parent {
 
 **ImagePair** is a set of two images
 
-### Timeline
+### `Timeline`
 
 ```ts
 /**
@@ -933,7 +934,7 @@ interface TimelineEvent extends Parent {
 }
 ```
 
-### InNumbers
+### `InNumbers`
 
 ```ts
 /**
@@ -956,7 +957,7 @@ interface InNumbers extends Parent {
 }
 ```
 
-### Card
+### `Card`
 
 ```ts
 /** Allowed children for a card
@@ -973,7 +974,7 @@ interface Card extends Parent {
 }
 ```
 
-### InfoBox
+### `InfoBox`
 
 ```ts
 /**
@@ -991,7 +992,7 @@ interface InfoBox extends Parent {
 }
 ```
 
-### InfoPair
+### `InfoPair`
 
 ```ts
 /**
@@ -1005,9 +1006,71 @@ interface InfoPair extends Parent {
 }
 ```
 
+### Carousels
 
+#### `CarouselCard`
+```ts
+interface CarouselCard extends Node {
+  type: "carousel-card"
+  /**
+   * @description unique identifier required for component tracking
+  */
+  id: string
+  /**
+   * @description Heading (60 characters recommended)
+  */
+  title: string
+  /**
+   * @description Image
+  */
+  children: [ImageSet]
+  /**
+   * @description Body text (200 characters recommended)
+  */
+  copy: string
+  /**
+   * @description Details (optional, 60 characters recommended)
+  */
+  additionalInfo?: string
+}
+```
+**CarouselCard** is a single item in a carousel
 
+#### `CarouselChildren`
+```ts
+/**
+ * @description Carousel item
+ * @maxItems 10
+ * @minItems 4
+ * @sparkRepeater true
+ */
+type CarouselChildren = CarouselCard[]
+```
+**CarouselChildren** the array of carousel cards that make up a carousel
 
+#### `CarouselHeading`
+```ts
+interface CarouselHeading extends Node {
+   type: "carousel-heading"
+   title: string
+   standfirst?: string
+}
+```
+**CarouselHeading** is the main header for a carousel component
 
-
-
+#### `Carousel`
+```ts
+/**
+ * @sparkGenerateStoryblock true
+*/
+interface Carousel extends Parent {
+   type: "carousel"
+   /**
+    * @description unique identifier required for component tracking
+   */
+   id: string
+   heading?: CarouselHeading
+   children: CarouselChildren
+}
+```
+**Carousel** is the main container for a carousel component
