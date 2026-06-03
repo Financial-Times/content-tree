@@ -1017,15 +1017,15 @@ interface CarouselCard extends Node {
   */
   id: string
   /**
-   * @description Heading (60 characters recommended)
-   * @sparkMapNodeType textInput
-  */
-  title: string
-  /**
    * @description Image
    * @sparkMapNodeType image
   */
   children: [ImageSet]
+  /**
+   * @description Heading (60 characters recommended)
+   * @sparkMapNodeType textInput
+  */
+  title: string
   /**
    * @description Body text (200 characters recommended)
    * @sparkMapNodeType textInput
