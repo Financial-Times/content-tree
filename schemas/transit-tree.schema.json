@@ -313,6 +313,7 @@
             "properties": {
                 "additionalInfo": {
                     "description": "Details (optional, 60 characters recommended)",
+                    "sparkMapNodeType": "textInput",
                     "type": "string"
                 },
                 "children": {
@@ -324,10 +325,12 @@
                     ],
                     "maxItems": 1,
                     "minItems": 1,
+                    "sparkMapNodeType": "image",
                     "type": "array"
                 },
                 "copy": {
                     "description": "Body text (200 characters recommended)",
+                    "sparkMapNodeType": "textInput",
                     "type": "string"
                 },
                 "data": {},
@@ -337,6 +340,7 @@
                 },
                 "title": {
                     "description": "Heading (60 characters recommended)",
+                    "sparkMapNodeType": "textInput",
                     "type": "string"
                 },
                 "type": {
@@ -358,9 +362,11 @@
             "properties": {
                 "data": {},
                 "standfirst": {
+                    "sparkMapNodeType": "textInput",
                     "type": "string"
                 },
                 "title": {
+                    "sparkMapNodeType": "textInput",
                     "type": "string"
                 },
                 "type": {

@@ -447,18 +447,22 @@ export declare namespace ContentTree {
         id: string;
         /**
          * @description Heading (60 characters recommended)
+         * @sparkMapNodeType textInput
         */
         title: string;
         /**
          * @description Image
+         * @sparkMapNodeType image
         */
         children: [ImageSet];
         /**
          * @description Body text (200 characters recommended)
+         * @sparkMapNodeType textInput
         */
         copy: string;
         /**
          * @description Details (optional, 60 characters recommended)
+         * @sparkMapNodeType textInput
         */
         additionalInfo?: string;
     }
@@ -471,7 +475,13 @@ export declare namespace ContentTree {
     type CarouselChildren = CarouselCard[];
     interface CarouselHeading extends Node {
         type: "carousel-heading";
+        /**
+        @sparkMapNodeType textInput
+        */
         title: string;
+        /**
+       @sparkMapNodeType textInput
+       */
         standfirst?: string;
     }
     /**
@@ -935,18 +945,22 @@ export declare namespace ContentTree {
             id: string;
             /**
              * @description Heading (60 characters recommended)
+             * @sparkMapNodeType textInput
             */
             title: string;
             /**
              * @description Image
+             * @sparkMapNodeType image
             */
             children: [ImageSet];
             /**
              * @description Body text (200 characters recommended)
+             * @sparkMapNodeType textInput
             */
             copy: string;
             /**
              * @description Details (optional, 60 characters recommended)
+             * @sparkMapNodeType textInput
             */
             additionalInfo?: string;
         }
@@ -959,7 +973,13 @@ export declare namespace ContentTree {
         type CarouselChildren = CarouselCard[];
         interface CarouselHeading extends Node {
             type: "carousel-heading";
+            /**
+            @sparkMapNodeType textInput
+            */
             title: string;
+            /**
+           @sparkMapNodeType textInput
+           */
             standfirst?: string;
         }
         /**
@@ -1397,18 +1417,22 @@ export declare namespace ContentTree {
             id: string;
             /**
              * @description Heading (60 characters recommended)
+             * @sparkMapNodeType textInput
             */
             title: string;
             /**
              * @description Image
+             * @sparkMapNodeType image
             */
             children: [ImageSet];
             /**
              * @description Body text (200 characters recommended)
+             * @sparkMapNodeType textInput
             */
             copy: string;
             /**
              * @description Details (optional, 60 characters recommended)
+             * @sparkMapNodeType textInput
             */
             additionalInfo?: string;
         }
@@ -1421,7 +1445,13 @@ export declare namespace ContentTree {
         type CarouselChildren = CarouselCard[];
         interface CarouselHeading extends Node {
             type: "carousel-heading";
+            /**
+            @sparkMapNodeType textInput
+            */
             title: string;
+            /**
+           @sparkMapNodeType textInput
+           */
             standfirst?: string;
         }
         /**
@@ -1886,18 +1916,22 @@ export declare namespace ContentTree {
             id: string;
             /**
              * @description Heading (60 characters recommended)
+             * @sparkMapNodeType textInput
             */
             title: string;
             /**
              * @description Image
+             * @sparkMapNodeType image
             */
             children: [ImageSet];
             /**
              * @description Body text (200 characters recommended)
+             * @sparkMapNodeType textInput
             */
             copy: string;
             /**
              * @description Details (optional, 60 characters recommended)
+             * @sparkMapNodeType textInput
             */
             additionalInfo?: string;
         }
@@ -1910,7 +1944,13 @@ export declare namespace ContentTree {
         type CarouselChildren = CarouselCard[];
         interface CarouselHeading extends Node {
             type: "carousel-heading";
+            /**
+            @sparkMapNodeType textInput
+            */
             title: string;
+            /**
+           @sparkMapNodeType textInput
+           */
             standfirst?: string;
         }
         /**
