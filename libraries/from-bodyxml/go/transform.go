@@ -1,6 +1,7 @@
 package tocontenttree
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"strings"
@@ -30,29 +31,27 @@ func fromETreeReader(r io.Reader) (*contenttree.Root, error) {
 
 	m := &contenttree.Body{Type: contenttree.BodyType, Version: 1}
 	err = convertToContentTree(root, m)
-	if err != nil {
-		return nil, err
-	}
 
 	out := &contenttree.Root{
 		Type: contenttree.RootType,
 		Body: m,
 	}
 
-	return out, nil
+	return out, err
 }
 
 func convertToContentTree(elem etree.Token, m contenttree.Node) error {
 	switch t := elem.(type) {
 	case *etree.Element:
 		if t.Tag == "body" {
+			var errs []error
 			for _, child := range t.Child {
 				err := convertToContentTree(child, m)
 				if err != nil {
-					return err
+					errs = append(errs, err)
 				}
 			}
-			return nil
+			return errors.Join(errs...)
 		}
 
 		tag := t.Tag
@@ -73,33 +72,39 @@ func convertToContentTree(elem etree.Token, m contenttree.Node) error {
 		switch transformed := transformer(t).(type) {
 		case *unknownNode:
 			{
-				//skip unknown div
-				return nil
+				return fmt.Errorf("skipped unsupported element <%s>", t.Tag)
 			}
 		case *liftChildrenNode:
 			{
+				var errs []error
 				for _, child := range t.Child {
 					err := convertToContentTree(child, m)
 					if err != nil {
-						return err
+						errs = append(errs, err)
 					}
 				}
-				return nil
+				return errors.Join(errs...)
 			}
 		default:
 			{
 				err := m.AppendChild(transformed)
 				if err != nil {
-					//skip invalid child nodes
-					return nil
+					return fmt.Errorf(
+						"skipped invalid child node %q under %q: %w",
+						transformed.GetType(),
+						m.GetType(),
+						err,
+					)
 				}
 				if transformed.GetChildren() != nil {
+					var errs []error
 					for _, child := range t.Child {
 						err := convertToContentTree(child, transformed)
 						if err != nil {
-							return err
+							errs = append(errs, err)
 						}
 					}
+					return errors.Join(errs...)
 				}
 				return nil
 			}
@@ -116,8 +121,7 @@ func convertToContentTree(elem etree.Token, m contenttree.Node) error {
 		}
 		err := m.AppendChild(tx)
 		if err != nil {
-			//skip invalid nodes
-			return nil
+			return fmt.Errorf("skipped invalid text node under %q: %w", m.GetType(), err)
 		}
 	}
 	return nil
