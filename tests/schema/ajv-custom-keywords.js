@@ -7,4 +7,12 @@ module.exports = function addCustomKeywords(ajv) {
 		keyword: "sparkGenerateStoryblock",
 		schemaType: "boolean",
 	})
+	ajv.addKeyword({
+		keyword: "sparkMapNodeType",
+		schemaType: "string",
+	})
+	ajv.addKeyword({
+		keyword: "propertyOrder",
+		schemaType: "array",
+	})
 }

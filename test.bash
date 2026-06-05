@@ -7,9 +7,16 @@ AJV_CUSTOM_KEYWORDS=./tests/schema/ajv-custom-keywords.js
 
 for schema in body-tree content-tree transit-tree; do
 	for datafile in tests/schema/"$schema"/valid/*; do
-		"$AJV" test --valid --allow-union-types -c "$AJV_CUSTOM_KEYWORDS" -s schemas/"$schema".schema.json -d "$datafile"
+		"$AJV" test --valid --allow-union-types -s schemas/"$schema".schema.json -d "$datafile"
 	done
 	for datafile in tests/schema/"$schema"/invalid/*; do
-		"$AJV" test --invalid --allow-union-types -c "$AJV_CUSTOM_KEYWORDS" -s schemas/"$schema".schema.json -d "$datafile"
+		"$AJV" test --invalid --allow-union-types -s schemas/"$schema".schema.json -d "$datafile"
 	done
+done
+
+for datafile in tests/schema/"$schema"/valid/*; do
+	"$AJV" test --valid --allow-union-types -c "$AJV_CUSTOM_KEYWORDS" -s schemas/spark-transit-tree.schema.json -d "$datafile"
+done
+for datafile in tests/schema/"$schema"/invalid/*; do
+	"$AJV" test --invalid --allow-union-types -c "$AJV_CUSTOM_KEYWORDS" -s schemas/spark-transit-tree.schema.json -d "$datafile"
 done
