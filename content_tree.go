@@ -3430,6 +3430,7 @@ type CardChild struct {
 	*Blockquote
 	*ThematicBreak
 	*Text
+	*Heading
 	*ImageSet
 }
 
@@ -3449,6 +3450,8 @@ func (n *CardChild) GetEmbedded() Node {
 		return n.ThematicBreak
 	case n.Text != nil:
 		return n.Text
+	case n.Heading != nil:
+		return n.Heading
 	case n.ImageSet != nil:
 		return n.ImageSet
 	default:
@@ -3468,6 +3471,8 @@ func (n *CardChild) GetChildren() []Node {
 		return n.ThematicBreak.GetChildren()
 	case n.Text != nil:
 		return n.Text.GetChildren()
+	case n.Heading != nil:
+		return n.Heading.GetChildren()
 	case n.ImageSet != nil:
 		return n.ImageSet.GetChildren()
 	default:
@@ -3513,6 +3518,12 @@ func (n *CardChild) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		n.Text = &v
+	case HeadingType:
+		var v Heading
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.Heading = &v
 	case ImageSetType:
 		var v ImageSet
 		if err := json.Unmarshal(data, &v); err != nil {
@@ -3537,6 +3548,8 @@ func (n *CardChild) MarshalJSON() ([]byte, error) {
 		return json.Marshal(n.ThematicBreak)
 	case n.Text != nil:
 		return json.Marshal(n.Text)
+	case n.Heading != nil:
+		return json.Marshal(n.Heading)
 	case n.ImageSet != nil:
 		return json.Marshal(n.ImageSet)
 	default:
@@ -3556,6 +3569,8 @@ func makeCardChild(n Node) (*CardChild, error) {
 		return &CardChild{ThematicBreak: n.(*ThematicBreak)}, nil
 	case TextType:
 		return &CardChild{Text: n.(*Text)}, nil
+	case HeadingType:
+		return &CardChild{Heading: n.(*Heading)}, nil
 	case ImageSetType:
 		return &CardChild{ImageSet: n.(*ImageSet)}, nil
 	default:
