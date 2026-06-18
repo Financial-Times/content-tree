@@ -265,11 +265,14 @@
                     "type": "array"
                 },
                 "data": {},
-                "heading": {
-                    "$ref": "#/definitions/ContentTree.transit.CarouselHeading"
-                },
                 "id": {
                     "description": "unique identifier required for component tracking",
+                    "type": "string"
+                },
+                "standfirst": {
+                    "type": "string"
+                },
+                "title": {
                     "type": "string"
                 },
                 "type": {
@@ -324,27 +327,6 @@
                 "children",
                 "copy",
                 "id",
-                "title",
-                "type"
-            ],
-            "type": "object"
-        },
-        "ContentTree.transit.CarouselHeading": {
-            "additionalProperties": false,
-            "properties": {
-                "data": {},
-                "standfirst": {
-                    "type": "string"
-                },
-                "title": {
-                    "type": "string"
-                },
-                "type": {
-                    "const": "carousel-heading",
-                    "type": "string"
-                }
-            },
-            "required": [
                 "title",
                 "type"
             ],

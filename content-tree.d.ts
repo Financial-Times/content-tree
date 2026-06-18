@@ -473,17 +473,6 @@ export declare namespace ContentTree {
      * @sparkRepeater true
      */
     type CarouselChildren = CarouselCard[];
-    interface CarouselHeading extends Node {
-        type: "carousel-heading";
-        /**
-        @sparkMapNodeType textInput
-        */
-        title: string;
-        /**
-       @sparkMapNodeType textInput
-       */
-        standfirst?: string;
-    }
     /**
      * @sparkGenerateStoryblock true
     */
@@ -493,7 +482,14 @@ export declare namespace ContentTree {
          * @description unique identifier required for component tracking
         */
         id: string;
-        heading?: CarouselHeading;
+        /**
+        @sparkMapNodeType textInput
+        */
+        title?: string;
+        /**
+        @sparkMapNodeType textInput
+        */
+        standfirst?: string;
         children: CarouselChildren;
     }
     namespace full {
@@ -971,17 +967,6 @@ export declare namespace ContentTree {
          * @sparkRepeater true
          */
         type CarouselChildren = CarouselCard[];
-        interface CarouselHeading extends Node {
-            type: "carousel-heading";
-            /**
-            @sparkMapNodeType textInput
-            */
-            title: string;
-            /**
-           @sparkMapNodeType textInput
-           */
-            standfirst?: string;
-        }
         /**
          * @sparkGenerateStoryblock true
         */
@@ -991,7 +976,14 @@ export declare namespace ContentTree {
              * @description unique identifier required for component tracking
             */
             id: string;
-            heading?: CarouselHeading;
+            /**
+            @sparkMapNodeType textInput
+            */
+            title?: string;
+            /**
+            @sparkMapNodeType textInput
+            */
+            standfirst?: string;
             children: CarouselChildren;
         }
     }
@@ -1443,17 +1435,6 @@ export declare namespace ContentTree {
          * @sparkRepeater true
          */
         type CarouselChildren = CarouselCard[];
-        interface CarouselHeading extends Node {
-            type: "carousel-heading";
-            /**
-            @sparkMapNodeType textInput
-            */
-            title: string;
-            /**
-           @sparkMapNodeType textInput
-           */
-            standfirst?: string;
-        }
         /**
          * @sparkGenerateStoryblock true
         */
@@ -1463,7 +1444,14 @@ export declare namespace ContentTree {
              * @description unique identifier required for component tracking
             */
             id: string;
-            heading?: CarouselHeading;
+            /**
+            @sparkMapNodeType textInput
+            */
+            title?: string;
+            /**
+            @sparkMapNodeType textInput
+            */
+            standfirst?: string;
             children: CarouselChildren;
         }
     }
@@ -1942,17 +1930,6 @@ export declare namespace ContentTree {
          * @sparkRepeater true
          */
         type CarouselChildren = CarouselCard[];
-        interface CarouselHeading extends Node {
-            type: "carousel-heading";
-            /**
-            @sparkMapNodeType textInput
-            */
-            title: string;
-            /**
-           @sparkMapNodeType textInput
-           */
-            standfirst?: string;
-        }
         /**
          * @sparkGenerateStoryblock true
         */
@@ -1962,7 +1939,14 @@ export declare namespace ContentTree {
              * @description unique identifier required for component tracking
             */
             id: string;
-            heading?: CarouselHeading;
+            /**
+            @sparkMapNodeType textInput
+            */
+            title?: string;
+            /**
+            @sparkMapNodeType textInput
+            */
+            standfirst?: string;
             children: CarouselChildren;
         }
     }

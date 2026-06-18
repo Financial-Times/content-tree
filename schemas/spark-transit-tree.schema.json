@@ -289,6 +289,9 @@
                     "$ref": "#/definitions/ContentTree.transit.Paragraph"
                 },
                 {
+                    "$ref": "#/definitions/ContentTree.transit.Heading"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.transit.List"
                 },
                 {
@@ -320,11 +323,16 @@
                     "type": "array"
                 },
                 "data": {},
-                "heading": {
-                    "$ref": "#/definitions/ContentTree.transit.CarouselHeading"
-                },
                 "id": {
                     "description": "unique identifier required for component tracking",
+                    "type": "string"
+                },
+                "standfirst": {
+                    "sparkMapNodeType": "textInput",
+                    "type": "string"
+                },
+                "title": {
+                    "sparkMapNodeType": "textInput",
                     "type": "string"
                 },
                 "type": {
@@ -335,7 +343,8 @@
             "propertyOrder": [
                 "type",
                 "id",
-                "heading",
+                "title",
+                "standfirst",
                 "children",
                 "data"
             ],
@@ -400,35 +409,6 @@
                 "children",
                 "copy",
                 "id",
-                "title",
-                "type"
-            ],
-            "type": "object"
-        },
-        "ContentTree.transit.CarouselHeading": {
-            "additionalProperties": false,
-            "properties": {
-                "data": {},
-                "standfirst": {
-                    "sparkMapNodeType": "textInput",
-                    "type": "string"
-                },
-                "title": {
-                    "sparkMapNodeType": "textInput",
-                    "type": "string"
-                },
-                "type": {
-                    "const": "carousel-heading",
-                    "type": "string"
-                }
-            },
-            "propertyOrder": [
-                "type",
-                "title",
-                "standfirst",
-                "data"
-            ],
-            "required": [
                 "title",
                 "type"
             ],

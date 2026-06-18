@@ -1052,22 +1052,6 @@ type CarouselChildren = CarouselCard[]
 ```
 **CarouselChildren** the array of carousel cards that make up a carousel
 
-#### `CarouselHeading`
-```ts
-interface CarouselHeading extends Node {
-   type: "carousel-heading"
-   /**
-   @sparkMapNodeType textInput
-   */
-   title: string
-    /**
-   @sparkMapNodeType textInput
-   */
-   standfirst?: string
-}
-```
-**CarouselHeading** is the main header for a carousel component
-
 #### `Carousel`
 ```ts
 /**
@@ -1079,7 +1063,14 @@ interface Carousel extends Parent {
     * @description unique identifier required for component tracking
    */
    id: string
-   heading?: CarouselHeading
+   /**
+   @sparkMapNodeType textInput
+   */
+   title?: string
+   /**
+   @sparkMapNodeType textInput
+   */
+   standfirst?: string
    children: CarouselChildren
 }
 ```
