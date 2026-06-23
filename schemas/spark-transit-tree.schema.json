@@ -15,6 +15,11 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "url",
+                "data"
+            ],
             "required": [
                 "type",
                 "url"
@@ -36,6 +41,12 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "number",
+                "description",
+                "data"
+            ],
             "required": [
                 "description",
                 "number",
@@ -89,9 +100,45 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.Body": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.transit.BodyBlock"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "body",
+                    "type": "string"
+                },
+                "version": {
+                    "type": "number"
+                }
+            },
+            "propertyOrder": [
+                "type",
+                "version",
+                "children",
+                "data"
+            ],
+            "required": [
+                "children",
+                "type",
+                "version"
             ],
             "type": "object"
         },
@@ -195,6 +242,10 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "data"
+            ],
             "required": [
                 "type"
             ],
@@ -220,6 +271,12 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "title",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "type"
@@ -262,6 +319,7 @@
                     },
                     "maxItems": 10,
                     "minItems": 4,
+                    "sparkRepeater": true,
                     "type": "array"
                 },
                 "data": {},
@@ -270,9 +328,11 @@
                     "type": "string"
                 },
                 "standfirst": {
+                    "sparkMapNodeType": "textInput",
                     "type": "string"
                 },
                 "title": {
+                    "sparkMapNodeType": "textInput",
                     "type": "string"
                 },
                 "type": {
@@ -280,11 +340,20 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "id",
+                "title",
+                "standfirst",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "id",
                 "type"
             ],
+            "sparkGenerateStoryblock": true,
             "type": "object"
         },
         "ContentTree.transit.CarouselCard": {
@@ -292,6 +361,7 @@
             "properties": {
                 "additionalInfo": {
                     "description": "Details (optional, 60 characters recommended)",
+                    "sparkMapNodeType": "textInput",
                     "type": "string"
                 },
                 "children": {
@@ -303,10 +373,12 @@
                     ],
                     "maxItems": 1,
                     "minItems": 1,
+                    "sparkMapNodeType": "image",
                     "type": "array"
                 },
                 "copy": {
                     "description": "Body text (200 characters recommended)",
+                    "sparkMapNodeType": "textInput",
                     "type": "string"
                 },
                 "data": {},
@@ -316,6 +388,7 @@
                 },
                 "title": {
                     "description": "Heading (60 characters recommended)",
+                    "sparkMapNodeType": "textInput",
                     "type": "string"
                 },
                 "type": {
@@ -323,6 +396,15 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "id",
+                "children",
+                "title",
+                "copy",
+                "additionalInfo",
+                "data"
+            ],
             "required": [
                 "children",
                 "copy",
@@ -359,6 +441,16 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "id",
+                "layoutWidth",
+                "autoplay",
+                "fragmentIdentifier",
+                "loop",
+                "muted",
+                "data"
+            ],
             "required": [
                 "id",
                 "layoutWidth",
@@ -392,6 +484,12 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "id",
+                "layoutWidth",
+                "data"
+            ],
             "required": [
                 "id",
                 "layoutWidth",
@@ -415,6 +513,12 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "term",
+                "description",
+                "data"
+            ],
             "required": [
                 "description",
                 "term",
@@ -437,6 +541,11 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "type"
@@ -475,6 +584,12 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "url",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "type",
@@ -509,6 +624,16 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "id",
+                "layoutWidth",
+                "flourishType",
+                "description",
+                "timestamp",
+                "fragmentIdentifier",
+                "data"
+            ],
             "required": [
                 "flourishType",
                 "id",
@@ -550,6 +675,13 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "children",
+                "level",
+                "fragmentIdentifier",
+                "data"
+            ],
             "required": [
                 "children",
                 "level",
@@ -579,6 +711,11 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "type"
@@ -600,6 +737,12 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "id",
+                "fragmentIdentifier",
+                "data"
+            ],
             "required": [
                 "id",
                 "type"
@@ -636,6 +779,12 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "title",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "type"
@@ -666,6 +815,12 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "layoutWidth",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "layoutWidth",
@@ -708,6 +863,12 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "title",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "type"
@@ -771,6 +932,13 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "layoutName",
+                "layoutWidth",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "layoutName",
@@ -800,6 +968,14 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "id",
+                "alt",
+                "caption",
+                "credit",
+                "data"
+            ],
             "required": [
                 "alt",
                 "caption",
@@ -834,6 +1010,11 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "type"
@@ -874,6 +1055,13 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "url",
+                "title",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "title",
@@ -900,6 +1088,12 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "ordered",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "ordered",
@@ -953,6 +1147,11 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "type"
@@ -974,6 +1173,11 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "type"
@@ -1026,6 +1230,12 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "text",
+                "source",
+                "data"
+            ],
             "required": [
                 "text",
                 "type"
@@ -1050,6 +1260,13 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "id",
+                "heading",
+                "teaserTitleOverride",
+                "data"
+            ],
             "required": [
                 "id",
                 "type"
@@ -1074,6 +1291,12 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "heading",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "type"
@@ -1102,6 +1325,12 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "theme",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "theme",
@@ -1131,6 +1360,11 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "type"
@@ -1160,6 +1394,12 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "level",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "level",
@@ -1179,6 +1419,11 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "id",
+                "data"
+            ],
             "required": [
                 "id",
                 "type"
@@ -1232,6 +1477,15 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "display",
+                "noBox",
+                "position",
+                "transition",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "display",
@@ -1255,6 +1509,11 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "type"
@@ -1276,6 +1535,11 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "type"
@@ -1297,6 +1561,11 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "type"
@@ -1318,6 +1587,11 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "type"
@@ -1354,6 +1628,11 @@
                                 "type": "boolean"
                             }
                         },
+                        "propertyOrder": [
+                            "hideOnMobile",
+                            "sortable",
+                            "sortType"
+                        ],
                         "required": [
                             "hideOnMobile",
                             "sortable"
@@ -1385,6 +1664,17 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "stripes",
+                "compact",
+                "layoutWidth",
+                "collapseAfterHowManyRows",
+                "responsiveStyle",
+                "columnSettings",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "columnSettings",
@@ -1411,6 +1701,11 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "type"
@@ -1432,6 +1727,11 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "type"
@@ -1462,6 +1762,14 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "heading",
+                "columnSpan",
+                "rowSpan",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "type"
@@ -1551,6 +1859,11 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "type"
@@ -1572,6 +1885,11 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "type"
@@ -1603,6 +1921,11 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "type"
@@ -1621,6 +1944,11 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "value",
+                "data"
+            ],
             "required": [
                 "type",
                 "value"
@@ -1636,6 +1964,10 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "data"
+            ],
             "required": [
                 "type"
             ],
@@ -1661,6 +1993,12 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "title",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "title",
@@ -1696,6 +2034,12 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "title",
+                "children",
+                "data"
+            ],
             "required": [
                 "children",
                 "title",
@@ -1715,6 +2059,11 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "id",
+                "type",
+                "data"
+            ],
             "required": [
                 "id",
                 "type"
@@ -1733,6 +2082,11 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "id",
+                "data"
+            ],
             "required": [
                 "id",
                 "type"
@@ -1752,6 +2106,11 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "url",
+                "data"
+            ],
             "required": [
                 "type",
                 "url"
@@ -1770,6 +2129,11 @@
                     "type": "string"
                 }
             },
+            "propertyOrder": [
+                "type",
+                "url",
+                "data"
+            ],
             "required": [
                 "type",
                 "url"
@@ -1778,25 +2142,23 @@
         }
     },
     "properties": {
-        "children": {
-            "items": {
-                "$ref": "#/definitions/ContentTree.transit.BodyBlock"
-            },
-            "type": "array"
+        "body": {
+            "$ref": "#/definitions/ContentTree.transit.Body"
         },
         "data": {},
         "type": {
-            "const": "body",
+            "const": "root",
             "type": "string"
-        },
-        "version": {
-            "type": "number"
         }
     },
-    "required": [
-        "children",
+    "propertyOrder": [
         "type",
-        "version"
+        "body",
+        "data"
+    ],
+    "required": [
+        "body",
+        "type"
     ],
     "type": "object"
 }

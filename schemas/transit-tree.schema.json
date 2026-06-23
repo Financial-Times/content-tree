@@ -287,15 +287,17 @@
                     },
                     "maxItems": 10,
                     "minItems": 4,
-                    "sparkRepeater": true,
                     "type": "array"
                 },
                 "data": {},
-                "heading": {
-                    "$ref": "#/definitions/ContentTree.transit.CarouselHeading"
-                },
                 "id": {
                     "description": "unique identifier required for component tracking",
+                    "type": "string"
+                },
+                "standfirst": {
+                    "type": "string"
+                },
+                "title": {
                     "type": "string"
                 },
                 "type": {
@@ -308,7 +310,6 @@
                 "id",
                 "type"
             ],
-            "sparkGenerateStoryblock": true,
             "type": "object"
         },
         "ContentTree.transit.CarouselCard": {
@@ -351,27 +352,6 @@
                 "children",
                 "copy",
                 "id",
-                "title",
-                "type"
-            ],
-            "type": "object"
-        },
-        "ContentTree.transit.CarouselHeading": {
-            "additionalProperties": false,
-            "properties": {
-                "data": {},
-                "standfirst": {
-                    "type": "string"
-                },
-                "title": {
-                    "type": "string"
-                },
-                "type": {
-                    "const": "carousel-heading",
-                    "type": "string"
-                }
-            },
-            "required": [
                 "title",
                 "type"
             ],
