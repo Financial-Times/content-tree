@@ -326,8 +326,9 @@ var defaultTransformers = map[string]transformer{
 	},
 	contentType.Video: func(content *etree.Element) contenttree.Node {
 		return &contenttree.Video{
-			Type: contenttree.VideoType,
-			ID:   attr(content, "id"),
+			Type:               contenttree.VideoType,
+			ID:                 attr(content, "id"),
+			FragmentIdentifier: attr(content, "data-fragment-identifier"),
 		}
 	},
 	contentType.Content: func(content *etree.Element) contenttree.Node {
