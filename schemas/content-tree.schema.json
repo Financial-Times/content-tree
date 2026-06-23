@@ -2549,6 +2549,9 @@
             "additionalProperties": false,
             "properties": {
                 "data": {},
+                "fragmentIdentifier": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "string"
                 },
