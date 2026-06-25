@@ -682,7 +682,7 @@ type ClipAccessibility = {
 	transcript?: Body
 }
 
-type ClipSetLayoutWidth = Extract<LayoutWidth, "in-line" | "mid-grid" | "full-grid">
+type ClipSetLayoutWidth = Extract<LayoutWidth, "in-line" | "mid-grid" | "full-grid" | "inset-left" | "inset-right">
 ```
 
 **ClipSet** represents a short piece of possibly-looping video content for an article.

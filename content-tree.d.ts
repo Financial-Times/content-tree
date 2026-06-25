@@ -257,7 +257,7 @@ export declare namespace ContentTree {
         captions?: ClipCaption[];
         transcript?: Body;
     };
-    type ClipSetLayoutWidth = Extract<LayoutWidth, "in-line" | "mid-grid" | "full-grid">;
+    type ClipSetLayoutWidth = Extract<LayoutWidth, "in-line" | "mid-grid" | "full-grid" | "inset-left" | "inset-right">;
     interface ScrollyBlock extends Parent {
         type: "scrolly-block";
         theme: "sans" | "serif";
@@ -752,7 +752,7 @@ export declare namespace ContentTree {
             captions?: ClipCaption[];
             transcript?: Body;
         };
-        type ClipSetLayoutWidth = Extract<LayoutWidth, "in-line" | "mid-grid" | "full-grid">;
+        type ClipSetLayoutWidth = Extract<LayoutWidth, "in-line" | "mid-grid" | "full-grid" | "inset-left" | "inset-right">;
         interface ScrollyBlock extends Parent {
             type: "scrolly-block";
             theme: "sans" | "serif";
@@ -1231,7 +1231,7 @@ export declare namespace ContentTree {
             captions?: ClipCaption[];
             transcript?: Body;
         };
-        type ClipSetLayoutWidth = Extract<LayoutWidth, "in-line" | "mid-grid" | "full-grid">;
+        type ClipSetLayoutWidth = Extract<LayoutWidth, "in-line" | "mid-grid" | "full-grid" | "inset-left" | "inset-right">;
         interface ScrollyBlock extends Parent {
             type: "scrolly-block";
             theme: "sans" | "serif";
@@ -1717,7 +1717,7 @@ export declare namespace ContentTree {
             captions?: ClipCaption[];
             transcript?: Body;
         };
-        type ClipSetLayoutWidth = Extract<LayoutWidth, "in-line" | "mid-grid" | "full-grid">;
+        type ClipSetLayoutWidth = Extract<LayoutWidth, "in-line" | "mid-grid" | "full-grid" | "inset-left" | "inset-right">;
         interface ScrollyBlock extends Parent {
             type: "scrolly-block";
             theme: "sans" | "serif";
