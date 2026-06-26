@@ -1,0 +1,11 @@
+{
+  "type": "body",
+  "children": [
+    {
+      "type": "video",
+      "id": "video-123",
+      "fragmentIdentifier": "video-fragment"
+    }
+  ],
+  "version": 1
+}

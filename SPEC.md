@@ -590,6 +590,7 @@ interface BigNumber extends Node {
 interface Video extends Node {
 	type: "video"
 	id: string
+	fragmentIdentifier?: string
     external title: string
 }
 ```

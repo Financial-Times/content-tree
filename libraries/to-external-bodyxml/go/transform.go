@@ -306,6 +306,9 @@ func transformNode(n contenttree.Node) (string, error) {
 		return fmt.Sprintf("<table>%s</table>", strings.Join(childrenXML, "")), nil
 
 	case *contenttree.Video:
+		if node.FragmentIdentifier != "" {
+			return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/Video\" url=\"http://api.ft.com/content/%s\" data-embedded=\"true\" data-fragment-identifier=\"%s\"></ft-content>", node.ID, html.EscapeString(node.FragmentIdentifier)), nil
+		}
 		return fmt.Sprintf("<ft-content type=\"http://www.ft.com/ontology/content/Video\" url=\"http://api.ft.com/content/%s\" data-embedded=\"true\"></ft-content>", node.ID), nil
 
 	case *contenttree.YoutubeVideo:

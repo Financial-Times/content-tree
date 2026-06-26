@@ -1,0 +1,13 @@
+{
+  "type": "root",
+  "body": {
+    "type": "body",
+    "children": [
+      {
+        "type": "video",
+        "id": "video-123"
+      }
+    ],
+    "version": 1
+  }
+}

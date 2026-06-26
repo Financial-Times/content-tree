@@ -2076,6 +2076,9 @@
             "additionalProperties": false,
             "properties": {
                 "data": {},
+                "fragmentIdentifier": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "string"
                 },
@@ -2087,6 +2090,7 @@
             "propertyOrder": [
                 "type",
                 "id",
+                "fragmentIdentifier",
                 "data"
             ],
             "required": [

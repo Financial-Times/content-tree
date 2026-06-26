@@ -2912,8 +2912,9 @@ func (n *Tweet) GetChildren() []Node {
 func (n *Tweet) AppendChild(child Node) error { return ErrCannotHaveChildren }
 
 type Video struct {
-	Type string `json:"type"`
-	ID   string `json:"id"`
+	Type               string `json:"type"`
+	ID                 string `json:"id"`
+	FragmentIdentifier string `json:"fragmentIdentifier,omitempty"`
 }
 
 func (n *Video) GetType() string {
