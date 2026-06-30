@@ -298,7 +298,7 @@
                         "$ref": "#/definitions/ContentTree.full.CarouselCard"
                     },
                     "maxItems": 10,
-                    "minItems": 4,
+                    "minItems": 3,
                     "type": "array"
                 },
                 "data": {},

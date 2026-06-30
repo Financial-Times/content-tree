@@ -470,7 +470,7 @@ export declare namespace ContentTree {
     /**
      * @description Carousel item
      * @maxItems 10
-     * @minItems 4
+     * @minItems 3
      * @sparkRepeater true
      */
     type CarouselChildren = CarouselCard[];
@@ -965,7 +965,7 @@ export declare namespace ContentTree {
         /**
          * @description Carousel item
          * @maxItems 10
-         * @minItems 4
+         * @minItems 3
          * @sparkRepeater true
          */
         type CarouselChildren = CarouselCard[];
@@ -1434,7 +1434,7 @@ export declare namespace ContentTree {
         /**
          * @description Carousel item
          * @maxItems 10
-         * @minItems 4
+         * @minItems 3
          * @sparkRepeater true
          */
         type CarouselChildren = CarouselCard[];
@@ -1930,7 +1930,7 @@ export declare namespace ContentTree {
         /**
          * @description Carousel item
          * @maxItems 10
-         * @minItems 4
+         * @minItems 3
          * @sparkRepeater true
          */
         type CarouselChildren = CarouselCard[];

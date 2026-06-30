@@ -1046,7 +1046,7 @@ interface CarouselCard extends Node {
 /**
  * @description Carousel item
  * @maxItems 10
- * @minItems 4
+ * @minItems 3
  * @sparkRepeater true
  */
 type CarouselChildren = CarouselCard[]
