@@ -1,5 +1,5 @@
 export declare namespace ContentTree {
-    type AssetFormat = "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline";
+    type AssetFormat = "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline" | "portrait" | "landscape";
     type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
     type AVSource = {
         binaryUrl: string;
@@ -494,7 +494,7 @@ export declare namespace ContentTree {
         children: CarouselChildren;
     }
     namespace full {
-        type AssetFormat = "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline";
+        type AssetFormat = "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline" | "portrait" | "landscape";
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type AVSource = {
             binaryUrl: string;
@@ -990,7 +990,7 @@ export declare namespace ContentTree {
         }
     }
     namespace transit {
-        type AssetFormat = "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline";
+        type AssetFormat = "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline" | "portrait" | "landscape";
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type AVSource = {
             binaryUrl: string;
@@ -1459,7 +1459,7 @@ export declare namespace ContentTree {
         }
     }
     namespace loose {
-        type AssetFormat = "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline";
+        type AssetFormat = "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline" | "portrait" | "landscape";
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
         type AVSource = {
             binaryUrl: string;

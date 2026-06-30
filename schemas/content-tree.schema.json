@@ -24,7 +24,9 @@
         "ContentTree.full.AssetFormat": {
             "enum": [
                 "desktop",
+                "landscape",
                 "mobile",
+                "portrait",
                 "square",
                 "square-ftedit",
                 "standard",
