@@ -17,6 +17,8 @@ type AssetFormat =
 	| "standard"
 	| "wide"
 	| "standard-inline"
+	| "portrait"
+	| "landscape"
 
 ```
 
