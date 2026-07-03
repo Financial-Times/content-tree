@@ -4,6 +4,8 @@
 
 To read the spec, go to [SPEC.md](./SPEC.md). You should read the spec if you are implementing an article renderer, or adding or amending an article component.
 
+If you are looking for a definitive guide for what is returned by CAPI, this is available at https://api-docs.ft.com/internal/reference/get_content-tree-uuid
+
 ---
 
 ## Contents
