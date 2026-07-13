@@ -641,6 +641,9 @@ var defaultTransformers = map[string]transformer{
 	"experimental": func(_ *etree.Element) contenttree.Node {
 		return newLiftChildrenNode()
 	},
+	"fallback": func(_ *etree.Element) contenttree.Node {
+		return newLiftChildrenNode()
+	},
 	"b": func(_ *etree.Element) contenttree.Node {
 		return newLiftChildrenNode()
 	},

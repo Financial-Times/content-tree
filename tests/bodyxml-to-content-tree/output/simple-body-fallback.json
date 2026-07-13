@@ -1,0 +1,81 @@
+{
+  "type": "root",
+  "body": {
+    "type": "body",
+    "children": [
+      {
+        "type": "image-set",
+        "id": "01224562-20b1-4b40-a570-3cd4eb95cdd9"
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "strong",
+            "children": [
+              {
+                "type": "text",
+                "value": "Question asked by: "
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "value": "Lorem ipsum"
+          },
+          {
+            "type": "break"
+          },
+          {
+            "type": "strong",
+            "children": [
+              {
+                "type": "text",
+                "value": "Question: "
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "value": "Lorem ipsum dolor sit amet."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "strong",
+            "children": [
+              {
+                "type": "text",
+                "value": "Answered by: "
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "value": "Dolor sit"
+          },
+          {
+            "type": "break"
+          },
+          {
+            "type": "strong",
+            "children": [
+              {
+                "type": "text",
+                "value": "Answer: "
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "value": "Consectetur adipiscing elit."
+          }
+        ]
+      }
+    ],
+    "version": 1
+  }
+}
