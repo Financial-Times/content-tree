@@ -328,10 +328,12 @@
                     "type": "string"
                 },
                 "standfirst": {
-                    "sparkMapNodeType": "textInput",
+                    "sparkFieldLabel": "Subheading",
+                    "sparkMapNodeType": "textArea",
                     "type": "string"
                 },
                 "title": {
+                    "sparkFieldLabel": "Heading",
                     "sparkMapNodeType": "textInput",
                     "type": "string"
                 },
@@ -361,7 +363,8 @@
             "properties": {
                 "additionalInfo": {
                     "description": "Details (optional, 60 characters recommended)",
-                    "sparkMapNodeType": "textInput",
+                    "sparkFieldLabel": "Details",
+                    "sparkMapNodeType": "textArea",
                     "type": "string"
                 },
                 "children": {
@@ -378,7 +381,8 @@
                 },
                 "copy": {
                     "description": "Body text (200 characters recommended)",
-                    "sparkMapNodeType": "textInput",
+                    "sparkFieldLabel": "Slide body text",
+                    "sparkMapNodeType": "textArea",
                     "type": "string"
                 },
                 "data": {},
@@ -388,6 +392,7 @@
                 },
                 "title": {
                     "description": "Heading (60 characters recommended)",
+                    "sparkFieldLabel": "Slide heading",
                     "sparkMapNodeType": "textInput",
                     "type": "string"
                 },

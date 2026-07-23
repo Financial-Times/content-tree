@@ -1027,16 +1027,19 @@ interface CarouselCard extends Node {
   /**
    * @description Heading (60 characters recommended)
    * @sparkMapNodeType textInput
+   * @sparkFieldLabel Slide heading
   */
   title: string
   /**
    * @description Body text (200 characters recommended)
-   * @sparkMapNodeType textInput
+   * @sparkFieldLabel Slide body text
+   * @sparkMapNodeType textArea
   */
   copy: string
   /**
    * @description Details (optional, 60 characters recommended)
-   * @sparkMapNodeType textInput
+   * @sparkMapNodeType textArea
+   * @sparkFieldLabel Details
   */
   additionalInfo?: string
 }
@@ -1067,11 +1070,13 @@ interface Carousel extends Parent {
    */
    id: string
    /**
-   @sparkMapNodeType textInput
+   * @sparkMapNodeType textInput
+   * @sparkFieldLabel Heading
    */
    title?: string
    /**
-   @sparkMapNodeType textInput
+   * @sparkMapNodeType textArea
+   * @sparkFieldLabel Subheading
    */
    standfirst?: string
    children: CarouselChildren
