@@ -4,6 +4,10 @@
     "type": "body",
     "children": [
       {
+        "type": "text",
+        "value": "\n  "
+      },
+      {
         "type": "scrolly-block",
         "children": [
           {
@@ -126,6 +130,10 @@
           }
         ],
         "theme": "serif"
+      },
+      {
+        "type": "text",
+        "value": "\n"
       }
     ],
     "version": 1

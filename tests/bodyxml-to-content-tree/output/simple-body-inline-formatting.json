@@ -49,6 +49,10 @@
             "value": "small"
           },
           {
+            "type": "text",
+            "value": " "
+          },
+          {
             "type": "link",
             "children": [
               {
@@ -58,6 +62,10 @@
             ],
             "title": "wrapped-link",
             "url": "https://www.ft.com/content/123"
+          },
+          {
+            "type": "text",
+            "value": " "
           },
           {
             "type": "emphasis",
