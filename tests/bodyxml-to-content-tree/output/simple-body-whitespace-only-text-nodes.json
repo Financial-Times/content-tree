@@ -4,6 +4,10 @@
     "type": "body",
     "children": [
       {
+        "type": "text",
+        "value": "\n"
+      },
+      {
         "type": "paragraph",
         "children": [
           {
@@ -16,6 +20,10 @@
             ]
           },
           {
+            "type": "text",
+            "value": "\n"
+          },
+          {
             "type": "strong",
             "children": [
               {
@@ -25,6 +33,10 @@
             ]
           }
         ]
+      },
+      {
+        "type": "text",
+        "value": "\n"
       }
     ],
     "version": 1
