@@ -1,0 +1,15 @@
+{
+  "children": [
+    {
+      "children": [
+        {
+          "type": "text",
+          "value": "Test regular spaces followed by nbsp                  followed by text."
+        }
+      ],
+      "type": "paragraph"
+    }
+  ],
+  "type": "body",
+  "version": 1
+}

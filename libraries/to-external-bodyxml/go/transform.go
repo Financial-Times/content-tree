@@ -99,7 +99,8 @@ func transformNode(n contenttree.Node) (string, error) {
 		return fmt.Sprintf("<body>%s</body>", innerXML), nil
 
 	case *contenttree.Text:
-		return html.EscapeString(node.Value), nil
+		escaped := html.EscapeString(node.Value)
+		return strings.ReplaceAll(escaped, "\u00A0", "&#160;"), nil
 
 	case *contenttree.Break:
 		return "<br/>", nil
