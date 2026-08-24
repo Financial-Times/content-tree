@@ -286,6 +286,9 @@
                     "$ref": "#/definitions/ContentTree.full.Text"
                 },
                 {
+                    "$ref": "#/definitions/ContentTree.full.Flourish"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.full.ImageSet"
                 }
             ],

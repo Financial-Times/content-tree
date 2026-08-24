@@ -84,6 +84,14 @@
               {
                 "type":"image-set",
                 "id":"23925844-4d8d-11ea-0bc6-d44b54b3bebc"
+              },
+              {
+                "type":"flourish",
+                "id":"flourish-id",
+                "layoutWidth":"in-line",
+                "flourishType":"visualisation",
+                "description":"Flourish description",
+                "timestamp":"2026-08-20T10:30:00Z"
               }
             ]
           }

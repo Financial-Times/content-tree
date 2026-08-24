@@ -247,6 +247,9 @@
                     "$ref": "#/definitions/ContentTree.transit.Text"
                 },
                 {
+                    "$ref": "#/definitions/ContentTree.transit.Flourish"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.transit.ImageSet"
                 }
             ],

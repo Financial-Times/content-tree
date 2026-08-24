@@ -408,7 +408,7 @@ export declare namespace ContentTree {
     }
     /** Allowed children for a card
     */
-    type CardChildren = ImageSet | FormattingBlock;
+    type CardChildren = Flourish | ImageSet | FormattingBlock;
     /**
     * A card describes a subject with images and text
     */
@@ -908,7 +908,7 @@ export declare namespace ContentTree {
         }
         /** Allowed children for a card
         */
-        type CardChildren = ImageSet | FormattingBlock;
+        type CardChildren = Flourish | ImageSet | FormattingBlock;
         /**
         * A card describes a subject with images and text
         */
@@ -1382,7 +1382,7 @@ export declare namespace ContentTree {
         }
         /** Allowed children for a card
         */
-        type CardChildren = ImageSet | FormattingBlock;
+        type CardChildren = Flourish | ImageSet | FormattingBlock;
         /**
         * A card describes a subject with images and text
         */
@@ -1883,7 +1883,7 @@ export declare namespace ContentTree {
         }
         /** Allowed children for a card
         */
-        type CardChildren = ImageSet | FormattingBlock;
+        type CardChildren = Flourish | ImageSet | FormattingBlock;
         /**
         * A card describes a subject with images and text
         */
