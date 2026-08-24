@@ -398,7 +398,6 @@
             "enum": [
                 "full-grid",
                 "in-line",
-                "inset-left",
                 "inset-right",
                 "mid-grid"
             ],
