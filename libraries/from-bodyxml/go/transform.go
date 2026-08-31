@@ -28,7 +28,11 @@ func fromETreeReader(r io.Reader) (*contenttree.Root, error) {
 		return nil, fmt.Errorf("no root element found")
 	}
 
-	m := &contenttree.Body{Type: contenttree.BodyType, Version: 1}
+	m := &contenttree.Body{
+		Type:     contenttree.BodyType,
+		Children: []*contenttree.BodyBlock{},
+		Version:  1,
+	}
 	err = convertToContentTree(root, m)
 	if err != nil {
 		return nil, err

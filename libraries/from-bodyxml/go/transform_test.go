@@ -33,6 +33,24 @@ func TestTransform(t *testing.T) {
 	}
 }
 
+func TestTransformEmptyBodyUsesArrayChildren(t *testing.T) {
+	tree, err := Transform(`<body></body>`)
+	if err != nil {
+		t.Fatalf("Transform returned an error: %v", err)
+	}
+	if tree.Body.Children == nil || len(tree.Body.Children) != 0 {
+		t.Fatalf("expected non-nil empty body children, got %#v", tree.Body.Children)
+	}
+
+	raw, err := json.Marshal(tree.Body)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(raw), `"children":[]`) {
+		t.Fatalf("expected JSON array children, got %s", raw)
+	}
+}
+
 type TestCase struct {
 	name    string
 	input   string
