@@ -2,7 +2,7 @@
   "type": "root",
   "body": {
     "type": "body",
-    "children": null,
+    "children": [],
     "version": 1
   }
 }
