@@ -1,0 +1,29 @@
+{
+  "type": "body",
+  "version": 1,
+  "children": [
+    {
+      "type": "document",
+      "id": "document-1",
+      "title": "Source title",
+      "source": [
+        {
+          "type": "text",
+          "value": "From: Example source"
+        }
+      ],
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Source material"
+            }
+          ]
+        }
+      ],
+      "tag": "CONFIDENTIAL"
+    }
+  ]
+}

@@ -173,6 +173,9 @@
                     "$ref": "#/definitions/ContentTree.full.Definition"
                 },
                 {
+                    "$ref": "#/definitions/ContentTree.full.Document"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.full.Flourish"
                 },
                 {
@@ -581,6 +584,43 @@
             ],
             "type": "object"
         },
+        "ContentTree.full.Document": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "description": "Enter the source material to show in the article, preserving its wording and structure",
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.full.FormattingBlock"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "id": {
+                    "type": "string"
+                },
+                "source": {
+                    "description": "Add relevant source details. For correspondence, include From and To. Other examples include CC, Speaker, Location or Reference",
+                    "type": "string"
+                },
+                "tag": {
+                    "description": "Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Enter the source title or email subject, if available",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "document",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "type"
+            ],
+            "type": "object"
+        },
         "ContentTree.full.Emphasis": {
             "additionalProperties": false,
             "properties": {
@@ -733,6 +773,28 @@
                 "in-line"
             ],
             "type": "string"
+        },
+        "ContentTree.full.FormattingBlock": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/ContentTree.full.Paragraph"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Heading"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.List"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Blockquote"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.ThematicBreak"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.Text"
+                }
+            ]
         },
         "ContentTree.full.Heading": {
             "additionalProperties": false,
