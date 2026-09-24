@@ -12,6 +12,10 @@ module.exports = function addCustomKeywords(ajv) {
 		schemaType: "string",
 	})
 	ajv.addKeyword({
+		keyword: "sparkFieldLabel",
+		schemaType: "string",
+	})
+	ajv.addKeyword({
 		keyword: "propertyOrder",
 		schemaType: "array",
 	})

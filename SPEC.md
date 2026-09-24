@@ -351,6 +351,7 @@ type StoryBlock =
 	| ClipSet
 	| CustomCodeComponent
 	| Definition
+	| Document
 	| Flourish
 	| ImagePair
 	| ImageSet
@@ -1083,3 +1084,38 @@ interface Carousel extends Parent {
 }
 ```
 **Carousel** is the main container for a carousel component
+
+
+### `Document`
+
+```ts
+interface Document extends Node {
+	type: "document"
+	id: string
+	/**	 
+	 * @sparkMapNodeType textInput
+	 * @sparkFieldLabel Title or subject
+	 * @description Enter the source title or email subject, if available
+	*/
+	title?: string
+	/**
+	 * @sparkMapNodeType textArea
+	 * @sparkFieldLabel Source details
+	 * @description Add relevant source details. For correspondence, include From and To. Other examples include CC, Speaker, Location or Reference
+	*/
+	source?: string
+	/**
+	 * @sparkFieldLabel Body text
+	 * @description Enter the source material to show in the article, preserving its wording and structure
+	*/
+	children: FormattingBlock[]
+	/**
+	 * @sparkMapNodeType textInput
+	 * @sparkFieldLabel Tag
+	 * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
+	*/
+	tag?: string
+}
+```
+
+**Document** represents source material displayed in an article.
