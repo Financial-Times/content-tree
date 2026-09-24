@@ -486,6 +486,7 @@
                 }
             },
             "required": [
+                "children",
                 "id",
                 "type"
             ],
