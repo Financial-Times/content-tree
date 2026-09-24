@@ -517,7 +517,7 @@ export declare namespace ContentTree {
          * @sparkFieldLabel Body text
          * @description Enter the source material to show in the article, preserving its wording and structure
         */
-        children?: FormattingBlock[];
+        children: FormattingBlock[];
         /**
          * @sparkMapNodeType textInput
          * @sparkFieldLabel Tag
@@ -1044,7 +1044,7 @@ export declare namespace ContentTree {
              * @sparkFieldLabel Body text
              * @description Enter the source material to show in the article, preserving its wording and structure
             */
-            children?: FormattingBlock[];
+            children: FormattingBlock[];
             /**
              * @sparkMapNodeType textInput
              * @sparkFieldLabel Tag
@@ -1545,7 +1545,7 @@ export declare namespace ContentTree {
              * @sparkFieldLabel Body text
              * @description Enter the source material to show in the article, preserving its wording and structure
             */
-            children?: FormattingBlock[];
+            children: FormattingBlock[];
             /**
              * @sparkMapNodeType textInput
              * @sparkFieldLabel Tag
@@ -2073,7 +2073,7 @@ export declare namespace ContentTree {
              * @sparkFieldLabel Body text
              * @description Enter the source material to show in the article, preserving its wording and structure
             */
-            children?: FormattingBlock[];
+            children: FormattingBlock[];
             /**
              * @sparkMapNodeType textInput
              * @sparkFieldLabel Tag

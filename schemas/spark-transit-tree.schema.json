@@ -586,6 +586,7 @@
                 "data"
             ],
             "required": [
+                "children",
                 "id",
                 "type"
             ],
