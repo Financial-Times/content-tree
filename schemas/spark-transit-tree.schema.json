@@ -590,6 +590,7 @@
                 "id",
                 "type"
             ],
+            "sparkGenerateStoryblock": true,
             "type": "object"
         },
         "ContentTree.transit.Emphasis": {

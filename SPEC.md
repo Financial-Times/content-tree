@@ -1089,6 +1089,9 @@ interface Carousel extends Parent {
 ### `Document`
 
 ```ts
+/**
+ * @sparkGenerateStoryblock true
+*/
 interface Document extends Node {
 	type: "document"
 	id: string

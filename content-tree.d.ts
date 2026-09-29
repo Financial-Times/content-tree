@@ -498,6 +498,9 @@ export declare namespace ContentTree {
         standfirst?: string;
         children: CarouselChildren;
     }
+    /**
+     * @sparkGenerateStoryblock true
+    */
     interface Document extends Node {
         type: "document";
         id: string;
@@ -1025,6 +1028,9 @@ export declare namespace ContentTree {
             standfirst?: string;
             children: CarouselChildren;
         }
+        /**
+         * @sparkGenerateStoryblock true
+        */
         interface Document extends Node {
             type: "document";
             id: string;
@@ -1526,6 +1532,9 @@ export declare namespace ContentTree {
             standfirst?: string;
             children: CarouselChildren;
         }
+        /**
+         * @sparkGenerateStoryblock true
+        */
         interface Document extends Node {
             type: "document";
             id: string;
@@ -2054,6 +2063,9 @@ export declare namespace ContentTree {
             standfirst?: string;
             children: CarouselChildren;
         }
+        /**
+         * @sparkGenerateStoryblock true
+        */
         interface Document extends Node {
             type: "document";
             id: string;
