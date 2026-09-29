@@ -95,7 +95,7 @@ export declare namespace ContentTree {
         type: "blockquote";
         children: (Paragraph | Phrasing)[];
     }
-    type StoryBlock = AcastPodcast | BigNumber | Carousel | ClipSet | CustomCodeComponent | Definition | Flourish | ImagePair | ImageSet | InfoBox | InfoPair | InNumbers | Layout | Pullquote | Recommended | RecommendedList | ScrollyBlock | Table | Timeline | Tweet | Video | VimeoVideo | YoutubeVideo;
+    type StoryBlock = AcastPodcast | BigNumber | Carousel | ClipSet | CustomCodeComponent | Definition | Document | Flourish | ImagePair | ImageSet | InfoBox | InfoPair | InNumbers | Layout | Pullquote | Recommended | RecommendedList | ScrollyBlock | Table | Timeline | Tweet | Video | VimeoVideo | YoutubeVideo;
     interface Pullquote extends Node {
         type: "pullquote";
         text: string;
@@ -498,6 +498,36 @@ export declare namespace ContentTree {
         standfirst?: string;
         children: CarouselChildren;
     }
+    /**
+     * @sparkGenerateStoryblock true
+    */
+    interface Document extends Node {
+        type: "document";
+        id: string;
+        /**
+         * @sparkMapNodeType textInput
+         * @sparkFieldLabel Title or subject
+         * @description Enter the source title or email subject, if available
+        */
+        title?: string;
+        /**
+         * @sparkMapNodeType textInput
+         * @sparkFieldLabel Tag
+         * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
+        */
+        tag?: string;
+        /**
+         * @sparkMapNodeType textArea
+         * @sparkFieldLabel Source details
+         * @description Add relevant source details. For correspondence, include From and To. Other examples include CC, Speaker, Location or Reference
+        */
+        source?: string;
+        /**
+         * @sparkFieldLabel Body text
+         * @description Enter the source material to show in the article, preserving its wording and structure
+        */
+        children: FormattingBlock[];
+    }
     namespace full {
         type AssetFormat = "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline" | "portrait" | "landscape";
         type LayoutWidth = "auto" | "in-line" | "inset-left" | "inset-right" | "full-bleed" | "full-grid" | "mid-grid" | "full-width";
@@ -595,7 +625,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = AcastPodcast | BigNumber | Carousel | ClipSet | CustomCodeComponent | Definition | Flourish | ImagePair | ImageSet | InfoBox | InfoPair | InNumbers | Layout | Pullquote | Recommended | RecommendedList | ScrollyBlock | Table | Timeline | Tweet | Video | VimeoVideo | YoutubeVideo;
+        type StoryBlock = AcastPodcast | BigNumber | Carousel | ClipSet | CustomCodeComponent | Definition | Document | Flourish | ImagePair | ImageSet | InfoBox | InfoPair | InNumbers | Layout | Pullquote | Recommended | RecommendedList | ScrollyBlock | Table | Timeline | Tweet | Video | VimeoVideo | YoutubeVideo;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -998,6 +1028,36 @@ export declare namespace ContentTree {
             standfirst?: string;
             children: CarouselChildren;
         }
+        /**
+         * @sparkGenerateStoryblock true
+        */
+        interface Document extends Node {
+            type: "document";
+            id: string;
+            /**
+             * @sparkMapNodeType textInput
+             * @sparkFieldLabel Title or subject
+             * @description Enter the source title or email subject, if available
+            */
+            title?: string;
+            /**
+             * @sparkMapNodeType textInput
+             * @sparkFieldLabel Tag
+             * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
+            */
+            tag?: string;
+            /**
+             * @sparkMapNodeType textArea
+             * @sparkFieldLabel Source details
+             * @description Add relevant source details. For correspondence, include From and To. Other examples include CC, Speaker, Location or Reference
+            */
+            source?: string;
+            /**
+             * @sparkFieldLabel Body text
+             * @description Enter the source material to show in the article, preserving its wording and structure
+            */
+            children: FormattingBlock[];
+        }
     }
     namespace transit {
         type AssetFormat = "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline" | "portrait" | "landscape";
@@ -1096,7 +1156,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = AcastPodcast | BigNumber | Carousel | ClipSet | CustomCodeComponent | Definition | Flourish | ImagePair | ImageSet | InfoBox | InfoPair | InNumbers | Layout | Pullquote | Recommended | RecommendedList | ScrollyBlock | Table | Timeline | Tweet | Video | VimeoVideo | YoutubeVideo;
+        type StoryBlock = AcastPodcast | BigNumber | Carousel | ClipSet | CustomCodeComponent | Definition | Document | Flourish | ImagePair | ImageSet | InfoBox | InfoPair | InNumbers | Layout | Pullquote | Recommended | RecommendedList | ScrollyBlock | Table | Timeline | Tweet | Video | VimeoVideo | YoutubeVideo;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -1472,6 +1532,36 @@ export declare namespace ContentTree {
             standfirst?: string;
             children: CarouselChildren;
         }
+        /**
+         * @sparkGenerateStoryblock true
+        */
+        interface Document extends Node {
+            type: "document";
+            id: string;
+            /**
+             * @sparkMapNodeType textInput
+             * @sparkFieldLabel Title or subject
+             * @description Enter the source title or email subject, if available
+            */
+            title?: string;
+            /**
+             * @sparkMapNodeType textInput
+             * @sparkFieldLabel Tag
+             * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
+            */
+            tag?: string;
+            /**
+             * @sparkMapNodeType textArea
+             * @sparkFieldLabel Source details
+             * @description Add relevant source details. For correspondence, include From and To. Other examples include CC, Speaker, Location or Reference
+            */
+            source?: string;
+            /**
+             * @sparkFieldLabel Body text
+             * @description Enter the source material to show in the article, preserving its wording and structure
+            */
+            children: FormattingBlock[];
+        }
     }
     namespace loose {
         type AssetFormat = "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline" | "portrait" | "landscape";
@@ -1570,7 +1660,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = AcastPodcast | BigNumber | Carousel | ClipSet | CustomCodeComponent | Definition | Flourish | ImagePair | ImageSet | InfoBox | InfoPair | InNumbers | Layout | Pullquote | Recommended | RecommendedList | ScrollyBlock | Table | Timeline | Tweet | Video | VimeoVideo | YoutubeVideo;
+        type StoryBlock = AcastPodcast | BigNumber | Carousel | ClipSet | CustomCodeComponent | Definition | Document | Flourish | ImagePair | ImageSet | InfoBox | InfoPair | InNumbers | Layout | Pullquote | Recommended | RecommendedList | ScrollyBlock | Table | Timeline | Tweet | Video | VimeoVideo | YoutubeVideo;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -1972,6 +2062,36 @@ export declare namespace ContentTree {
             */
             standfirst?: string;
             children: CarouselChildren;
+        }
+        /**
+         * @sparkGenerateStoryblock true
+        */
+        interface Document extends Node {
+            type: "document";
+            id: string;
+            /**
+             * @sparkMapNodeType textInput
+             * @sparkFieldLabel Title or subject
+             * @description Enter the source title or email subject, if available
+            */
+            title?: string;
+            /**
+             * @sparkMapNodeType textInput
+             * @sparkFieldLabel Tag
+             * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
+            */
+            tag?: string;
+            /**
+             * @sparkMapNodeType textArea
+             * @sparkFieldLabel Source details
+             * @description Add relevant source details. For correspondence, include From and To. Other examples include CC, Speaker, Location or Reference
+            */
+            source?: string;
+            /**
+             * @sparkFieldLabel Body text
+             * @description Enter the source material to show in the article, preserving its wording and structure
+            */
+            children: FormattingBlock[];
         }
     }
 }

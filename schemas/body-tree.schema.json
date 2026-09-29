@@ -134,6 +134,9 @@
                     "$ref": "#/definitions/ContentTree.transit.Definition"
                 },
                 {
+                    "$ref": "#/definitions/ContentTree.transit.Document"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.transit.Flourish"
                 },
                 {
@@ -426,6 +429,44 @@
             ],
             "type": "object"
         },
+        "ContentTree.transit.Document": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "description": "Enter the source material to show in the article, preserving its wording and structure",
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.transit.FormattingBlock"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "id": {
+                    "type": "string"
+                },
+                "source": {
+                    "description": "Add relevant source details. For correspondence, include From and To. Other examples include CC, Speaker, Location or Reference",
+                    "type": "string"
+                },
+                "tag": {
+                    "description": "Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Enter the source title or email subject, if available",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "document",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "id",
+                "type"
+            ],
+            "type": "object"
+        },
         "ContentTree.transit.Emphasis": {
             "additionalProperties": false,
             "properties": {
@@ -527,6 +568,28 @@
                 "in-line"
             ],
             "type": "string"
+        },
+        "ContentTree.transit.FormattingBlock": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Paragraph"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Heading"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.List"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Blockquote"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.ThematicBreak"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.Text"
+                }
+            ]
         },
         "ContentTree.transit.Heading": {
             "additionalProperties": false,
