@@ -511,6 +511,12 @@ export declare namespace ContentTree {
         */
         title?: string;
         /**
+         * @sparkMapNodeType textInput
+         * @sparkFieldLabel Tag
+         * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
+        */
+        tag?: string;
+        /**
          * @sparkMapNodeType textArea
          * @sparkFieldLabel Source details
          * @description Add relevant source details. For correspondence, include From and To. Other examples include CC, Speaker, Location or Reference
@@ -521,12 +527,6 @@ export declare namespace ContentTree {
          * @description Enter the source material to show in the article, preserving its wording and structure
         */
         children: FormattingBlock[];
-        /**
-         * @sparkMapNodeType textInput
-         * @sparkFieldLabel Tag
-         * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
-        */
-        tag?: string;
     }
     namespace full {
         type AssetFormat = "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline" | "portrait" | "landscape";
@@ -1041,6 +1041,12 @@ export declare namespace ContentTree {
             */
             title?: string;
             /**
+             * @sparkMapNodeType textInput
+             * @sparkFieldLabel Tag
+             * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
+            */
+            tag?: string;
+            /**
              * @sparkMapNodeType textArea
              * @sparkFieldLabel Source details
              * @description Add relevant source details. For correspondence, include From and To. Other examples include CC, Speaker, Location or Reference
@@ -1051,12 +1057,6 @@ export declare namespace ContentTree {
              * @description Enter the source material to show in the article, preserving its wording and structure
             */
             children: FormattingBlock[];
-            /**
-             * @sparkMapNodeType textInput
-             * @sparkFieldLabel Tag
-             * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
-            */
-            tag?: string;
         }
     }
     namespace transit {
@@ -1545,6 +1545,12 @@ export declare namespace ContentTree {
             */
             title?: string;
             /**
+             * @sparkMapNodeType textInput
+             * @sparkFieldLabel Tag
+             * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
+            */
+            tag?: string;
+            /**
              * @sparkMapNodeType textArea
              * @sparkFieldLabel Source details
              * @description Add relevant source details. For correspondence, include From and To. Other examples include CC, Speaker, Location or Reference
@@ -1555,12 +1561,6 @@ export declare namespace ContentTree {
              * @description Enter the source material to show in the article, preserving its wording and structure
             */
             children: FormattingBlock[];
-            /**
-             * @sparkMapNodeType textInput
-             * @sparkFieldLabel Tag
-             * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
-            */
-            tag?: string;
         }
     }
     namespace loose {
@@ -2076,6 +2076,12 @@ export declare namespace ContentTree {
             */
             title?: string;
             /**
+             * @sparkMapNodeType textInput
+             * @sparkFieldLabel Tag
+             * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
+            */
+            tag?: string;
+            /**
              * @sparkMapNodeType textArea
              * @sparkFieldLabel Source details
              * @description Add relevant source details. For correspondence, include From and To. Other examples include CC, Speaker, Location or Reference
@@ -2086,12 +2092,6 @@ export declare namespace ContentTree {
              * @description Enter the source material to show in the article, preserving its wording and structure
             */
             children: FormattingBlock[];
-            /**
-             * @sparkMapNodeType textInput
-             * @sparkFieldLabel Tag
-             * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
-            */
-            tag?: string;
         }
     }
 }
