@@ -233,6 +233,12 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.YoutubeVideo"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.ReworkPullquote"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.ReworkImagePair"
                 }
             ]
         },
@@ -1390,6 +1396,68 @@
                 "children",
                 "type"
             ],
+            "type": "object"
+        },
+        "ContentTree.transit.ReworkImagePair": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                        }
+                    ],
+                    "maxItems": 2,
+                    "minItems": 2,
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "image-pair",
+                    "type": "string"
+                }
+            },
+            "propertyOrder": [
+                "type",
+                "children",
+                "data"
+            ],
+            "required": [
+                "children",
+                "type"
+            ],
+            "sparkGenerateStoryblock": true,
+            "type": "object"
+        },
+        "ContentTree.transit.ReworkPullquote": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "source": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "pullquote",
+                    "type": "string"
+                }
+            },
+            "propertyOrder": [
+                "type",
+                "text",
+                "source",
+                "data"
+            ],
+            "required": [
+                "text",
+                "type"
+            ],
+            "sparkGenerateStoryblock": true,
             "type": "object"
         },
         "ContentTree.transit.ScrollyBlock": {

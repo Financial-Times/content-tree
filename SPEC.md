@@ -5,21 +5,19 @@
 These abstract helper types define special types a [Parent](#parent) can use as
 [children][term-child].
 
-
 ### `AssetFormat`
 
 ```ts
 type AssetFormat =
-	| "desktop"
-	| "mobile"
-	| "square"
-	| "square-ftedit"
-	| "standard"
-	| "wide"
-	| "standard-inline"
-	| "portrait"
-	| "landscape"
-
+  | "desktop"
+  | "mobile"
+  | "square"
+  | "square-ftedit"
+  | "standard"
+  | "wide"
+  | "standard-inline"
+  | "portrait"
+  | "landscape";
 ```
 
 `AssetFormat` defines the chosen responsive setting for an asset like an image or clip
@@ -28,14 +26,14 @@ type AssetFormat =
 
 ```ts
 type LayoutWidth =
-	| "auto"
-	| "in-line"
-	| "inset-left"
-	| "inset-right"
-	| "full-bleed"
-	| "full-grid"
-	| "mid-grid"
-	| "full-width"
+  | "auto"
+  | "in-line"
+  | "inset-left"
+  | "inset-right"
+  | "full-bleed"
+  | "full-grid"
+  | "mid-grid"
+  | "full-width";
 ```
 
 `LayoutWidth` defines how the component should be presented in the article page according to the column layout system.
@@ -44,11 +42,11 @@ type LayoutWidth =
 
 ```ts
 type AVSource = {
-	binaryUrl: string
-	mediaType: string
-	audioCodec?: string
-	duration?: number
-}
+  binaryUrl: string;
+  mediaType: string;
+  audioCodec?: string;
+  duration?: number;
+};
 ```
 
 `AVSource` defines the properties for the source of an audio or video asset
@@ -57,10 +55,10 @@ type AVSource = {
 
 ```ts
 type VideoSource = AVSource & {
-	pixelHeight?: number
-	pixelWidth?: number
-	videoCodec?: string
-}
+  pixelHeight?: number;
+  pixelWidth?: number;
+  videoCodec?: string;
+};
 ```
 
 `VideoSource` extends AVSource to add in the properties relevant just to videos
@@ -71,8 +69,8 @@ type VideoSource = AVSource & {
 
 ```ts
 interface Node {
-	type: string
-	data?: any
+  type: string;
+  data?: any;
 }
 ```
 
@@ -83,7 +81,7 @@ will never be defined in the content-tree spec.
 
 ```ts
 interface Parent extends Node {
-	children: Node[]
+  children: Node[];
 }
 ```
 
@@ -96,15 +94,14 @@ Its content is limited to only other content-tree content.
 
 ```ts
 interface Root extends Node {
-	type: "root"
-	body: Body
+  type: "root";
+  body: Body;
 }
 ```
 
 **Root** (**[Parent][term-parent]**) represents the root of a content-tree.
 
 **Root** can be used as the _[root][term-root]_ of a _[tree][term-tree]_.
-
 
 ## Containers
 
@@ -116,17 +113,16 @@ Examples: `body`, `topper`
 
 ```ts
 interface Body extends Parent {
-	type: "body"
-	version: number
-	children: BodyBlock[]
+  type: "body";
+  version: number;
+  children: BodyBlock[];
 }
 ```
+
 #### BodyBlock
 
 ```ts
-type BodyBlock =
-	| FormattingBlock
-	| StoryBlock
+type BodyBlock = FormattingBlock | StoryBlock;
 ```
 
 `BodyBlock` nodes are the only things that are valid as the top level of a `Body`.
@@ -141,31 +137,38 @@ type BodyBlock =
 
 ```ts
 type FormattingBlock =
-	| Paragraph
-	| Heading
-	| List
-	| Blockquote
-	| ThematicBreak
-	| Text
+  | Paragraph
+  | Heading
+  | List
+  | Blockquote
+  | ThematicBreak
+  | Text;
 ```
 
-`FormattingBlock` nodes  contains only text-structured blocks used for formatting textual content.
-
+`FormattingBlock` nodes contains only text-structured blocks used for formatting textual content.
 
 ### `Text`
 
 ```ts
 interface Text extends Node {
-	type: "text"
-	value: string
+  type: "text";
+  value: string;
 }
 ```
-
 
 ### `Phrasing`
 
 ```ts
-type Phrasing = Text | Break | Strong | Emphasis | Strikethrough | Subscript | Superscript | Link | FindOutMoreLink
+type Phrasing =
+  | Text
+  | Break
+  | Strong
+  | Emphasis
+  | Strikethrough
+  | Subscript
+  | Superscript
+  | Link
+  | FindOutMoreLink;
 ```
 
 A phrasing node cannot have ancestor of the same type.
@@ -179,7 +182,7 @@ is inside a Strong.
 
 ```ts
 interface Break extends Node {
-	type: "break"
+  type: "break";
 }
 ```
 
@@ -192,7 +195,7 @@ html._
 
 ```ts
 interface ThematicBreak extends Node {
-	type: "thematic-break"
+  type: "thematic-break";
 }
 ```
 
@@ -205,8 +208,8 @@ _Non-normative note: this would be represented by an `<hr>` in the html._
 
 ```ts
 interface Paragraph extends Parent {
-	type: "paragraph"
-	children: Phrasing[]
+  type: "paragraph";
+  children: Phrasing[];
 }
 ```
 
@@ -216,10 +219,10 @@ Paragraph represents a unit of text.
 
 ```ts
 interface Heading extends Parent {
-	type: "heading"
-	children: Text[]
-	level: "chapter" | "subheading" | "label"
-	fragmentIdentifier?: string
+  type: "heading";
+  children: Text[];
+  level: "chapter" | "subheading" | "label";
+  fragmentIdentifier?: string;
 }
 ```
 
@@ -230,19 +233,19 @@ section.
 
 ```ts
 interface Strong extends Parent {
-	type: "strong"
-	children: Phrasing[]
+  type: "strong";
+  children: Phrasing[];
 }
 ```
 
 **Strong** represents contents with strong importance, seriousness or urgency.
- 
+
 ### `Emphasis`
 
 ```ts
 interface Emphasis extends Parent {
-	type: "emphasis"
-	children: Phrasing[]
+  type: "emphasis";
+  children: Phrasing[];
 }
 ```
 
@@ -252,30 +255,30 @@ interface Emphasis extends Parent {
 
 ```ts
 interface Strikethrough extends Parent {
-	type: "strikethrough"
-	children: Phrasing[]
+  type: "strikethrough";
+  children: Phrasing[];
 }
 ```
 
 **Strikethrough** represents a piece of text that has been stricken.
 
-### Subscript 
+### Subscript
 
 ```ts
 interface Subscript extends Parent {
-	type: "subscript"
-	children: Phrasing[]
+  type: "subscript";
+  children: Phrasing[];
 }
 ```
 
 **Subscript** represents a piece of text that has a lowered baseline.
 
-### Superscript 
+### Superscript
 
 ```ts
 interface Superscript extends Parent {
-	type: "superscript"
-	children: Phrasing[]
+  type: "superscript";
+  children: Phrasing[];
 }
 ```
 
@@ -285,23 +288,22 @@ interface Superscript extends Parent {
 
 ```ts
 interface Link extends Parent {
-	type: "link"
-	url: string
-	title: string
-	children: Phrasing[]
+  type: "link";
+  url: string;
+  title: string;
+  children: Phrasing[];
 }
 ```
 
 **Link** represents a hyperlink.
 
-
 ### `FindOutMoreLink`
 
 ```ts
 interface FindOutMoreLink extends Parent {
-	type: "find-out-more-link"
-	url: string
-	children: [Text | Strong | Emphasis]
+  type: "find-out-more-link";
+  url: string;
+  children: [Text | Strong | Emphasis];
 }
 ```
 
@@ -311,9 +313,9 @@ interface FindOutMoreLink extends Parent {
 
 ```ts
 interface List extends Parent {
-	type: "list"
-	ordered: boolean
-	children: ListItem[]
+  type: "list";
+  ordered: boolean;
+  children: ListItem[];
 }
 ```
 
@@ -323,8 +325,8 @@ interface List extends Parent {
 
 ```ts
 interface ListItem extends Parent {
-	type: "list-item"
-	children: (Paragraph | Phrasing)[]
+  type: "list-item";
+  children: (Paragraph | Phrasing)[];
 }
 ```
 
@@ -332,8 +334,8 @@ interface ListItem extends Parent {
 
 ```ts
 interface Blockquote extends Parent {
-	type: "blockquote"
-	children: (Paragraph | Phrasing)[]
+  type: "blockquote";
+  children: (Paragraph | Phrasing)[];
 }
 ```
 
@@ -345,30 +347,32 @@ interface Blockquote extends Parent {
 
 ```ts
 type StoryBlock =
-	| AcastPodcast
-	| BigNumber
-	| Carousel
-	| ClipSet
-	| CustomCodeComponent
-	| Definition
-	| Document
-	| Flourish
-	| ImagePair
-	| ImageSet
-	| InfoBox
-	| InfoPair
-	| InNumbers
-	| Layout
-	| Pullquote
-	| Recommended
-	| RecommendedList
-	| ScrollyBlock
-	| Table
-	| Timeline
-	| Tweet
-	| Video
-	| VimeoVideo
-	| YoutubeVideo
+  | AcastPodcast
+  | BigNumber
+  | Carousel
+  | ClipSet
+  | CustomCodeComponent
+  | Definition
+  | Document
+  | Flourish
+  | ImagePair
+  | ImageSet
+  | InfoBox
+  | InfoPair
+  | InNumbers
+  | Layout
+  | Pullquote
+  | Recommended
+  | RecommendedList
+  | ScrollyBlock
+  | Table
+  | Timeline
+  | Tweet
+  | Video
+  | VimeoVideo
+  | YoutubeVideo
+  | ReworkPullquote
+  | ReworkImagePair
 ```
 
 `StoryBlock` nodes are things that can be inserted into an article body.
@@ -377,9 +381,9 @@ type StoryBlock =
 
 ```ts
 interface Pullquote extends Node {
-	type: "pullquote"
-	text: string
-	source?: string
+  type: "pullquote";
+  text: string;
+  source?: string;
 }
 ```
 
@@ -389,7 +393,6 @@ article.
 _non normative note:_ the reason this is string properties and not children is
 that it is more confusing if a pullquote falls back to text than if it
 doesn't. The text is taken from elsewhere in the article.
-
 
 ### `ImageSet`
 
@@ -408,14 +411,14 @@ interface ImageSet extends Node {
 
 ```ts
 type ImageSetPicture = {
-	layoutWidth: string
-	imageType: "image" | "graphic"
-	alt: string
-	caption: string
-	credit: string
-	images: Image[]
-	fallbackImage: Image
-}
+  layoutWidth: string;
+  imageType: "image" | "graphic";
+  alt: string;
+  caption: string;
+  credit: string;
+  images: Image[];
+  fallbackImage: Image;
+};
 ```
 
 `ImageSetPicture` defines the data associated with an [ImageSet](#ImageSet)
@@ -424,13 +427,13 @@ type ImageSetPicture = {
 
 ```ts
 type Image = {
-	id: string
-	width: number
-	height: number
-	format: AssetFormat
-	url: string
-	sourceSet?: ImageSource[]
-}
+  id: string;
+  width: number;
+  height: number;
+  format: AssetFormat;
+  url: string;
+  sourceSet?: ImageSource[];
+};
 ```
 
 `Image` defines a single use-case of a Picture[#ImageSetPicture].
@@ -439,17 +442,15 @@ type Image = {
 
 ```ts
 type ImageSource = {
-	url: string
-	width: number
-	dpr: number
-}
+  url: string;
+  width: number;
+  dpr: number;
+};
 ```
 
 **ImageSource** defines a single resource for an [image](#image).
 
-
 ### `Recommended`
-
 
 ```ts
 interface Recommended extends Node {
@@ -472,15 +473,13 @@ _non normative note:_ historically, recommended links used to be a list of up to
 three content items. Testing later showed that having one more prominent link
 was more engaging. Only use `RecommendedList` if you explicitly need to display multiple links.
 
-
 ### `RecommendedList`
-
 
 ```ts
 interface RecommendedList extends Node {
-	type: "recommended-list";
-	heading?: string;
-	children: Recommended[];
+  type: "recommended-list";
+  heading?: string;
+  children: Recommended[];
 }
 ```
 
@@ -495,53 +494,52 @@ These types were extracted from x-dash's
 
 ```ts
 type TeaserConcept = {
-	apiUrl: string
-	directType: string
-	id: string
-	predicate: string
-	prefLabel: string
-	type: string
-	types: string[]
-	url: string
-}
+  apiUrl: string;
+  directType: string;
+  id: string;
+  predicate: string;
+  prefLabel: string;
+  type: string;
+  types: string[];
+  url: string;
+};
 
 type Teaser = {
-	id: string
-	url: string
-	type:
-		| "article"
-		| "video"
-		| "podcast"
-		| "audio"
-		| "package"
-		| "liveblog"
-		| "promoted-content"
-		| "paid-post"
-	title: string
-	publishedDate: string
-	firstPublishedDate: string
-	metaLink?: TeaserConcept
-	metaAltLink?: TeaserConcept
-	metaPrefixText?: string
-	metaSuffixText?: string
-	indicators: {
-		accessLevel: "premium" | "subscribed" | "registered" | "free"
-		isOpinion?: boolean
-		isColumn?: boolean
-		isPodcast?: boolean
-		isEditorsChoice?: boolean
-		isExclusive?: boolean
-		isScoop?: boolean
-	}
-	image: {
-		url: string
-		width: number
-		height: number
-	}
-    clientName?: string
-}
+  id: string;
+  url: string;
+  type:
+    | "article"
+    | "video"
+    | "podcast"
+    | "audio"
+    | "package"
+    | "liveblog"
+    | "promoted-content"
+    | "paid-post";
+  title: string;
+  publishedDate: string;
+  firstPublishedDate: string;
+  metaLink?: TeaserConcept;
+  metaAltLink?: TeaserConcept;
+  metaPrefixText?: string;
+  metaSuffixText?: string;
+  indicators: {
+    accessLevel: "premium" | "subscribed" | "registered" | "free";
+    isOpinion?: boolean;
+    isColumn?: boolean;
+    isPodcast?: boolean;
+    isEditorsChoice?: boolean;
+    isExclusive?: boolean;
+    isScoop?: boolean;
+  };
+  image: {
+    url: string;
+    width: number;
+    height: number;
+  };
+  clientName?: string;
+};
 ```
-
 
 ### `Tweet`
 
@@ -579,9 +577,9 @@ interface Flourish extends Node {
 
 ```ts
 interface BigNumber extends Node {
-	type: "big-number"
-	number: string
-	description: string
+  type: "big-number";
+  number: string;
+  description: string;
 }
 ```
 
@@ -606,8 +604,8 @@ The `title` can be obtained by fetching the Video from the content API.
 
 ```ts
 interface YoutubeVideo extends Node {
-	type: "youtube-video"
-	url: string
+  type: "youtube-video";
+  url: string;
 }
 ```
 
@@ -617,9 +615,9 @@ interface YoutubeVideo extends Node {
 
 ```ts
 interface VimeoVideo extends Node {
-	type: "vimeo-video"
-	/** Vimeo embed URL e.g. https://player.vimeo.com/player/<id> or https://vimeo.com/<id>*/
-	url: string
+  type: "vimeo-video";
+  /** Vimeo embed URL e.g. https://player.vimeo.com/player/<id> or https://vimeo.com/<id>*/
+  url: string;
 }
 ```
 
@@ -631,9 +629,9 @@ _Note: this is currently only used by Specialist Titles_
 
 ```ts
 interface AcastPodcast extends Node {
-	type: "acast-podcast"
-	/** Acast Podcast embed url e.g. https://embed.acast.com/* */
-	url: string
+  type: "acast-podcast";
+  /** Acast Podcast embed url e.g. https://embed.acast.com/* */
+  url: string;
 }
 ```
 
@@ -642,6 +640,7 @@ interface AcastPodcast extends Node {
 _Note: this is currently only used by Specialist Titles_
 
 ### `ClipSet`
+
 ```ts
 interface ClipSet extends Node {
 	type: "clip-set"
@@ -692,14 +691,13 @@ type ClipSetLayoutWidth = Extract<LayoutWidth, "in-line" | "mid-grid" | "full-gr
 
 The external fields are derived from the separately published [ClipSet](https://api.ft.com/schemas/clip-set.json) and [Clip](https://api.ft.com/schemas/clip.json) objects in the Content API.
 
-
 ### `ScrollyBlock`
 
 ```ts
 interface ScrollyBlock extends Parent {
-	type: "scrolly-block"
-	theme: "sans" | "serif"
-	children: ScrollySection[]
+  type: "scrolly-block";
+  theme: "sans" | "serif";
+  children: ScrollySection[];
 }
 ```
 
@@ -709,12 +707,12 @@ interface ScrollyBlock extends Parent {
 
 ```ts
 interface ScrollySection extends Parent {
-	type: "scrolly-section"
-	display: "dark-background" | "light-background"
-	noBox?: true,
-	position: "left" | "center" | "right"
-	transition?: "delay-before" | "delay-after"
-	children: [ScrollyImage, ...ScrollyCopy[]]
+  type: "scrolly-section";
+  display: "dark-background" | "light-background";
+  noBox?: true;
+  position: "left" | "center" | "right";
+  transition?: "delay-before" | "delay-after";
+  children: [ScrollyImage, ...ScrollyCopy[]];
 }
 ```
 
@@ -736,8 +734,8 @@ interface ScrollyImage extends Node {
 
 ```ts
 interface ScrollyCopy extends Parent {
-	type: "scrolly-copy"
-	children: (ScrollyHeading | Paragraph)[]
+  type: "scrolly-copy";
+  children: (ScrollyHeading | Paragraph)[];
 }
 ```
 
@@ -745,9 +743,9 @@ interface ScrollyCopy extends Parent {
 
 ```ts
 interface ScrollyHeading extends Parent {
-	type: "scrolly-heading"
-	level: "chapter" | "heading" | "subheading"
-	children: Text[]
+  type: "scrolly-heading";
+  level: "chapter" | "heading" | "subheading";
+  children: Text[];
 }
 ```
 
@@ -757,10 +755,13 @@ interface ScrollyHeading extends Parent {
 
 ```ts
 interface Layout extends Parent {
-	   type: "layout"
-	   layoutName: "auto" | "card" | "timeline"
-	   layoutWidth: string
-	   children: [Heading, LayoutImage, ...LayoutSlot[]] | [Heading, ...LayoutSlot[]] | LayoutSlot[]
+  type: "layout";
+  layoutName: "auto" | "card" | "timeline";
+  layoutWidth: string;
+  children:
+    | [Heading, LayoutImage, ...LayoutSlot[]]
+    | [Heading, ...LayoutSlot[]]
+    | LayoutSlot[];
 }
 ```
 
@@ -771,11 +772,10 @@ The `layoutName` acts as a sort of theme for the component.
 
 ### `LayoutSlot`
 
-
 ```ts
 interface LayoutSlot extends Parent {
-	type: "layout-slot"
-	children: (Heading | Paragraph | LayoutImage)[]
+  type: "layout-slot";
+  children: (Heading | Paragraph | LayoutImage)[];
 }
 ```
 
@@ -807,66 +807,64 @@ interface LayoutImage extends Node {
 
 ```ts
 type TableColumnSettings = {
-	hideOnMobile: boolean
-	sortable: boolean
-	sortType?: 'text' | 'number' | 'date' | 'currency' | 'percent'
-}
+  hideOnMobile: boolean;
+  sortable: boolean;
+  sortType?: "text" | "number" | "date" | "currency" | "percent";
+};
 
-type TableLayoutWidth = Extract<LayoutWidth,
-		| 'auto'
-		| 'full-grid'
-		| 'inset-left'
-		| 'inset-right'
-		| 'full-bleed'>
+type TableLayoutWidth = Extract<
+  LayoutWidth,
+  "auto" | "full-grid" | "inset-left" | "inset-right" | "full-bleed"
+>;
 
 type TableChildren =
   | [TableCaption, TableBody, TableFooter?]
   | [TableBody, TableFooter?]
   | [TableCaption, TableHeader, TableBody, TableFooter?]
-  | [TableHeader, TableBody, TableFooter?]
+  | [TableHeader, TableBody, TableFooter?];
 
 interface TableCaption extends Parent {
-	type: 'table-caption'
-	children: Phrasing[]
+  type: "table-caption";
+  children: Phrasing[];
 }
 
 interface TableCell extends Parent {
-	type: 'table-cell'
-	heading?: boolean
-	columnSpan?: number 
-	rowSpan?: number 
-	children: Phrasing[]
+  type: "table-cell";
+  heading?: boolean;
+  columnSpan?: number;
+  rowSpan?: number;
+  children: Phrasing[];
 }
 
 interface TableHeader extends Parent {
-	type: 'table-header'
-	children: TableRow[]
+  type: "table-header";
+  children: TableRow[];
 }
 
 interface TableRow extends Parent {
-	type: 'table-row'
-	children: TableCell[]
+  type: "table-row";
+  children: TableCell[];
 }
 
 interface TableBody extends Parent {
-	type: 'table-body'
-	children: TableRow[]
+  type: "table-body";
+  children: TableRow[];
 }
 
 interface TableFooter extends Parent {
-	type: 'table-footer'
-	children: Phrasing[]
+  type: "table-footer";
+  children: Phrasing[];
 }
 
 interface Table extends Parent {
-	type: 'table'
-	stripes: boolean
-	compact: boolean
-	layoutWidth: TableLayoutWidth
-	collapseAfterHowManyRows?: number
-	responsiveStyle: 'overflow' | 'flat' | 'scroll'
-	columnSettings: TableColumnSettings[]
-	children: TableChildren
+  type: "table";
+  stripes: boolean;
+  compact: boolean;
+  layoutWidth: TableLayoutWidth;
+  collapseAfterHowManyRows?: number;
+  responsiveStyle: "overflow" | "flat" | "scroll";
+  columnSettings: TableColumnSettings[];
+  children: TableChildren;
 }
 ```
 
@@ -897,7 +895,7 @@ interface CustomCodeComponent extends Node {
 }
 ```
 
-- The **CustomCodeComponent*** allows for more experimental forms of journalism, allowing editors to provide properties via Spark.
+- The **CustomCodeComponent\*** allows for more experimental forms of journalism, allowing editors to provide properties via Spark.
 - The component itself lives off-platform, and an example might be a git repository with a standard structure. This structure would include the rendering instructions, and the data structure that is expected to be provided to the component for it to render if necessary.
 - The basic interface in Spark to make reference to this system above (eg. the git repo URL or a public S3 bucket), and provide some data for it if necessary. This will be the Custom Component storyblock.
 - The data Spark receives from entering a specific ID will be used to render dynamic fields (the `attributes`).
@@ -906,8 +904,8 @@ interface CustomCodeComponent extends Node {
 
 ```ts
 interface ImagePair extends Parent {
-	type: 'image-pair'
-	children: [ImageSet, ImageSet]
+  type: "image-pair";
+  children: [ImageSet, ImageSet];
 }
 ```
 
@@ -920,21 +918,21 @@ interface ImagePair extends Parent {
  * Timeline nodes display a timeline of events in arbitrary order.
  */
 interface Timeline extends Parent {
-	type: "timeline"
-	/** The title for the timeline */
-	title: string
-	children: TimelineEvent[]
+  type: "timeline";
+  /** The title for the timeline */
+  title: string;
+  children: TimelineEvent[];
 }
 
 /**
  * TimelineEvent is the representation of a single event in a Timeline.
  */
 interface TimelineEvent extends Parent {
-	type: "timeline-event"
-	/** The title of the event */
-	title: string
-	/** Any combination of paragraphs and image sets */
-	children: (Paragraph | ImageSet)[];
+  type: "timeline-event";
+  /** The title of the event */
+  title: string;
+  /** Any combination of paragraphs and image sets */
+  children: (Paragraph | ImageSet)[];
 }
 ```
 
@@ -945,19 +943,19 @@ interface TimelineEvent extends Parent {
  * A definition has a term and a related description. It is used to describe a term.
  */
 interface Definition extends Node {
-	type: "definition"
-	term: string
-	description: string
+  type: "definition";
+  term: string;
+  description: string;
 }
 
 /**
  * InNumbers represents a set of numbers with related descriptions.
  */
 interface InNumbers extends Parent {
-	type: "in-numbers"
-	/** The title for the InNumbers */
-	title?: string
-	children: [Definition, Definition, Definition]
+  type: "in-numbers";
+  /** The title for the InNumbers */
+  title?: string;
+  children: [Definition, Definition, Definition];
 }
 ```
 
@@ -965,16 +963,16 @@ interface InNumbers extends Parent {
 
 ```ts
 /** Allowed children for a card
-*/
-type CardChildren = Flourish | ImageSet | FormattingBlock
+ */
+type CardChildren = Flourish | ImageSet | FormattingBlock;
 /**
-* A card describes a subject with images and text
-*/
+ * A card describes a subject with images and text
+ */
 interface Card extends Parent {
-	type: "card"
-	/** The title of this card */
-	title?: string
-	children: CardChildren[]
+  type: "card";
+  /** The title of this card */
+  title?: string;
+  children: CardChildren[];
 }
 ```
 
@@ -982,17 +980,17 @@ interface Card extends Parent {
 
 ```ts
 /**
-* Allowed layout widths for an InfoBox.
-*/
-type InfoBoxLayoutWidth =  Extract<LayoutWidth, "in-line" | "inset-left">
+ * Allowed layout widths for an InfoBox.
+ */
+type InfoBoxLayoutWidth = Extract<LayoutWidth, "in-line" | "inset-left">;
 /**
-* An info box describes a subject via a single card
-*/
+ * An info box describes a subject via a single card
+ */
 interface InfoBox extends Parent {
-	type: "info-box"
-	/** The layout width supported by this node */
-	layoutWidth: InfoBoxLayoutWidth
-	children: [Card]
+  type: "info-box";
+  /** The layout width supported by this node */
+  layoutWidth: InfoBoxLayoutWidth;
+  children: [Card];
 }
 ```
 
@@ -1000,54 +998,57 @@ interface InfoBox extends Parent {
 
 ```ts
 /**
-* InfoPair provides exactly two cards.
-*/
+ * InfoPair provides exactly two cards.
+ */
 interface InfoPair extends Parent {
-	type: "info-pair"
-	/** The title of the info pair */
-	title?: string
-	children: [Card, Card]
+  type: "info-pair";
+  /** The title of the info pair */
+  title?: string;
+  children: [Card, Card];
 }
 ```
 
 ### Carousels
 
 #### `CarouselCard`
+
 ```ts
 interface CarouselCard extends Node {
-  type: "carousel-card"
+  type: "carousel-card";
   /**
    * @description unique identifier required for component tracking
-  */
-  id: string
+   */
+  id: string;
   /**
    * @description Image
    * @sparkMapNodeType image
-  */
-  children: [ImageSet]
+   */
+  children: [ImageSet];
   /**
    * @description Heading (60 characters recommended)
    * @sparkMapNodeType textInput
    * @sparkFieldLabel Slide heading
-  */
-  title: string
+   */
+  title: string;
   /**
    * @description Body text (200 characters recommended)
    * @sparkFieldLabel Slide body text
    * @sparkMapNodeType textArea
-  */
-  copy: string
+   */
+  copy: string;
   /**
    * @description Details (optional, 60 characters recommended)
    * @sparkMapNodeType textArea
    * @sparkFieldLabel Details
-  */
-  additionalInfo?: string
+   */
+  additionalInfo?: string;
 }
 ```
+
 **CarouselCard** is a single item in a carousel
 
 #### `CarouselChildren`
+
 ```ts
 /**
  * @description Carousel item
@@ -1055,70 +1056,95 @@ interface CarouselCard extends Node {
  * @minItems 3
  * @sparkRepeater true
  */
-type CarouselChildren = CarouselCard[]
+type CarouselChildren = CarouselCard[];
 ```
+
 **CarouselChildren** the array of carousel cards that make up a carousel
 
 #### `Carousel`
+
 ```ts
 /**
  * @sparkGenerateStoryblock true
-*/
+ */
 interface Carousel extends Parent {
-   type: "carousel"
-   /**
-    * @description unique identifier required for component tracking
+  type: "carousel";
+  /**
+   * @description unique identifier required for component tracking
    */
-   id: string
-   /**
+  id: string;
+  /**
    * @sparkMapNodeType textInput
    * @sparkFieldLabel Heading
    */
-   title?: string
-   /**
+  title?: string;
+  /**
    * @sparkMapNodeType textArea
    * @sparkFieldLabel Subheading
    */
-   standfirst?: string
-   children: CarouselChildren
+  standfirst?: string;
+  children: CarouselChildren;
 }
 ```
-**Carousel** is the main container for a carousel component
 
+**Carousel** is the main container for a carousel component
 
 ### `Document`
 
 ```ts
 /**
  * @sparkGenerateStoryblock true
-*/
+ */
 interface Document extends Node {
-	type: "document"
-	id: string
-	/**	 
-	 * @sparkMapNodeType textInput
-	 * @sparkFieldLabel Title or subject
-	 * @description Enter the source title or email subject, if available
-	*/
-	title?: string
-	/**
-	 * @sparkMapNodeType textInput
-	 * @sparkFieldLabel Tag
-	 * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
-	*/
-	tag?: string
-	/**
-	 * @sparkMapNodeType textArea
-	 * @sparkFieldLabel Source details
-	 * @description Add relevant source details. For correspondence, include From and To. Other examples include CC, Speaker, Location or Reference
-	*/
-	source?: string
-	/**
-	 * @sparkFieldLabel Body text
-	 * @description Enter the source material to show in the article, preserving its wording and structure
-	*/
-	children: FormattingBlock[]
+  type: "document";
+  id: string;
+  /**
+   * @sparkMapNodeType textInput
+   * @sparkFieldLabel Title or subject
+   * @description Enter the source title or email subject, if available
+   */
+  title?: string;
+  /**
+   * @sparkMapNodeType textInput
+   * @sparkFieldLabel Tag
+   * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
+   */
+  tag?: string;
+  /**
+   * @sparkMapNodeType textArea
+   * @sparkFieldLabel Source details
+   * @description Add relevant source details. For correspondence, include From and To. Other examples include CC, Speaker, Location or Reference
+   */
+  source?: string;
+  /**
+   * @sparkFieldLabel Body text
+   * @description Enter the source material to show in the article, preserving its wording and structure
+   */
+  children: FormattingBlock[];
 }
 ```
 
 **Document** represents source material displayed in an article.
+
+```ts
+/**
+ * @sparkGenerateStoryblock true
+ */
+interface ReworkPullquote extends Node {
+  type: "pullquote";
+
+  text: string;
+
+  source?: string;
+}
+```
+
+```ts
+/**
+ * @sparkGenerateStoryblock true
+ */
+interface ReworkImagePair extends Node {
+  type: "image-pair";
+  children: [ImageSet, ImageSet];
+}
+```
