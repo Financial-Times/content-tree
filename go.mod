@@ -1,6 +1,6 @@
 module github.com/Financial-Times/content-tree
 
-go 1.25
+go 1.27
 
 require github.com/beevik/etree v1.6.0
 
