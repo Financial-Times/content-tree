@@ -505,13 +505,11 @@ export declare namespace ContentTree {
         type: "document";
         id: string;
         /**
-         * @sparkMapNodeType textInput
          * @sparkFieldLabel Title or subject
          * @description Enter the source title or email subject, if available
          */
         title?: string;
         /**
-         * @sparkMapNodeType textInput
          * @sparkFieldLabel Tag
          * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
          */
@@ -1050,13 +1048,11 @@ export declare namespace ContentTree {
             type: "document";
             id: string;
             /**
-             * @sparkMapNodeType textInput
              * @sparkFieldLabel Title or subject
              * @description Enter the source title or email subject, if available
              */
             title?: string;
             /**
-             * @sparkMapNodeType textInput
              * @sparkFieldLabel Tag
              * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
              */
@@ -1569,13 +1565,11 @@ export declare namespace ContentTree {
             type: "document";
             id: string;
             /**
-             * @sparkMapNodeType textInput
              * @sparkFieldLabel Title or subject
              * @description Enter the source title or email subject, if available
              */
             title?: string;
             /**
-             * @sparkMapNodeType textInput
              * @sparkFieldLabel Tag
              * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
              */
@@ -2115,13 +2109,11 @@ export declare namespace ContentTree {
             type: "document";
             id: string;
             /**
-             * @sparkMapNodeType textInput
              * @sparkFieldLabel Title or subject
              * @description Enter the source title or email subject, if available
              */
             title?: string;
             /**
-             * @sparkMapNodeType textInput
              * @sparkFieldLabel Tag
              * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
              */
