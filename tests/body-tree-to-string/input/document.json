@@ -1,0 +1,40 @@
+{
+  "type": "body",
+  "version": 1,
+  "children": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Before"
+        }
+      ]
+    },
+    {
+      "type": "document",
+      "id": "document-1",
+      "title": "Skipped title",
+      "children": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "value": "Skipped text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "After"
+        }
+      ]
+    }
+  ]
+}

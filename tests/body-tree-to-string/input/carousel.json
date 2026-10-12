@@ -1,0 +1,30 @@
+{
+  "type": "body",
+  "version": 1,
+  "children": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Before"
+        }
+      ]
+    },
+    {
+      "type": "carousel",
+      "id": "carousel-1",
+      "title": "Skipped title",
+      "children": []
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "After"
+        }
+      ]
+    }
+  ]
+}

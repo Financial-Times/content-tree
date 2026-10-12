@@ -75,6 +75,8 @@ const (
 	TableType               = "table"
 	CustomCodeComponentType = "custom-code-component"
 	ClipSetType             = "clip-set"
+	CarouselType            = "carousel"
+	DocumentType            = "document"
 
 	BodyBlockType           = "body-block"
 	BlockquoteChildType     = "blockquote-child"
@@ -412,6 +414,26 @@ func makeBlockquoteChild(n Node) (*BlockquoteChild, error) {
 	}
 }
 
+// BetaComponent represents a prerelease component by its type only.
+// Its other JSON fields, including children, are discarded when unmarshalling.
+type BetaComponent struct {
+	Type string `json:"type"`
+}
+
+func (n *BetaComponent) GetType() string {
+	return n.Type
+}
+
+func (n *BetaComponent) GetEmbedded() Node {
+	return nil
+}
+
+func (n *BetaComponent) GetChildren() []Node {
+	return nil
+}
+
+func (n *BetaComponent) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
 type Body struct {
 	Type     string       `json:"type"`
 	Children []*BodyBlock `json:"children"`
@@ -474,6 +496,7 @@ type BodyBlock struct {
 	*ImagePair
 	*InfoBox
 	*InfoPair
+	*BetaComponent
 }
 
 func (n *BodyBlock) GetType() string {
@@ -562,6 +585,9 @@ func (n *BodyBlock) GetEmbedded() Node {
 	if n.InfoPair != nil {
 		return n.InfoPair
 	}
+	if n.BetaComponent != nil {
+		return n.BetaComponent
+	}
 	return nil
 }
 
@@ -646,6 +672,9 @@ func (n *BodyBlock) GetChildren() []Node {
 	}
 	if n.InfoPair != nil {
 		return n.InfoPair.GetChildren()
+	}
+	if n.BetaComponent != nil {
+		return n.BetaComponent.GetChildren()
 	}
 	return nil
 }
@@ -821,12 +850,17 @@ func (n *BodyBlock) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		n.InfoPair = &v
+	case CarouselType, DocumentType:
+		n.BetaComponent = &BetaComponent{Type: tn.Type}
 	default:
 		return fmt.Errorf("failed to unmarshal BodyBlock from %s: %w", data, ErrUnmarshalInvalidNode)
 	}
 	return nil
 }
 
+// MarshalJSON serializes supported body blocks.
+// Beta components fall through to the default case and serialize as {}.
+// Unmarshalling and then marshalling a tree therefore loses beta component data.
 func (n *BodyBlock) MarshalJSON() ([]byte, error) {
 	switch {
 	case n.Paragraph != nil:
@@ -883,6 +917,7 @@ func (n *BodyBlock) MarshalJSON() ([]byte, error) {
 		return json.Marshal(n.InfoBox)
 	case n.InfoPair != nil:
 		return json.Marshal(n.InfoPair)
+	// Beta components reach this default; an unmarshal/marshal round trip loses their data.
 	default:
 		return []byte(`{}`), nil
 	}
@@ -945,6 +980,8 @@ func makeBodyBlock(n Node) (*BodyBlock, error) {
 		return &BodyBlock{InfoBox: n.(*InfoBox)}, nil
 	case InfoPairType:
 		return &BodyBlock{InfoPair: n.(*InfoPair)}, nil
+	case CarouselType, DocumentType:
+		return &BodyBlock{BetaComponent: n.(*BetaComponent)}, nil
 	default:
 		return nil, ErrInvalidChildType
 	}
