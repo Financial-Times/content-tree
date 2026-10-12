@@ -95,7 +95,7 @@ export declare namespace ContentTree {
         type: "blockquote";
         children: (Paragraph | Phrasing)[];
     }
-    type StoryBlock = AcastPodcast | BigNumber | Carousel | ClipSet | CustomCodeComponent | Definition | Document | Flourish | ImagePair | ImageSet | InfoBox | InfoPair | InNumbers | Layout | Pullquote | Recommended | RecommendedList | ScrollyBlock | Table | Timeline | Tweet | Video | VimeoVideo | YoutubeVideo;
+    type StoryBlock = AcastPodcast | BigNumber | Carousel | ClipSet | CustomCodeComponent | Definition | Document | Flourish | ImagePair | ImageSet | InfoBox | InfoPair | InNumbers | Layout | Pullquote | Recommended | RecommendedList | ScrollyBlock | Table | Timeline | Tweet | Video | VimeoVideo | YoutubeVideo | ReworkPullquote | ReworkImagePair;
     interface Pullquote extends Node {
         type: "pullquote";
         text: string;
@@ -306,44 +306,44 @@ export declare namespace ContentTree {
     type TableColumnSettings = {
         hideOnMobile: boolean;
         sortable: boolean;
-        sortType?: 'text' | 'number' | 'date' | 'currency' | 'percent';
+        sortType?: "text" | "number" | "date" | "currency" | "percent";
     };
-    type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
+    type TableLayoutWidth = Extract<LayoutWidth, "auto" | "full-grid" | "inset-left" | "inset-right" | "full-bleed">;
     type TableChildren = [TableCaption, TableBody, TableFooter?] | [TableBody, TableFooter?] | [TableCaption, TableHeader, TableBody, TableFooter?] | [TableHeader, TableBody, TableFooter?];
     interface TableCaption extends Parent {
-        type: 'table-caption';
+        type: "table-caption";
         children: Phrasing[];
     }
     interface TableCell extends Parent {
-        type: 'table-cell';
+        type: "table-cell";
         heading?: boolean;
         columnSpan?: number;
         rowSpan?: number;
         children: Phrasing[];
     }
     interface TableHeader extends Parent {
-        type: 'table-header';
+        type: "table-header";
         children: TableRow[];
     }
     interface TableRow extends Parent {
-        type: 'table-row';
+        type: "table-row";
         children: TableCell[];
     }
     interface TableBody extends Parent {
-        type: 'table-body';
+        type: "table-body";
         children: TableRow[];
     }
     interface TableFooter extends Parent {
-        type: 'table-footer';
+        type: "table-footer";
         children: Phrasing[];
     }
     interface Table extends Parent {
-        type: 'table';
+        type: "table";
         stripes: boolean;
         compact: boolean;
         layoutWidth: TableLayoutWidth;
         collapseAfterHowManyRows?: number;
-        responsiveStyle: 'overflow' | 'flat' | 'scroll';
+        responsiveStyle: "overflow" | "flat" | "scroll";
         columnSettings: TableColumnSettings[];
         children: TableChildren;
     }
@@ -367,7 +367,7 @@ export declare namespace ContentTree {
         attributes: CustomCodeComponentAttributes;
     }
     interface ImagePair extends Parent {
-        type: 'image-pair';
+        type: "image-pair";
         children: [ImageSet, ImageSet];
     }
     /**
@@ -407,11 +407,11 @@ export declare namespace ContentTree {
         children: [Definition, Definition, Definition];
     }
     /** Allowed children for a card
-    */
+     */
     type CardChildren = Flourish | ImageSet | FormattingBlock;
     /**
-    * A card describes a subject with images and text
-    */
+     * A card describes a subject with images and text
+     */
     interface Card extends Parent {
         type: "card";
         /** The title of this card */
@@ -419,12 +419,12 @@ export declare namespace ContentTree {
         children: CardChildren[];
     }
     /**
-    * Allowed layout widths for an InfoBox.
-    */
+     * Allowed layout widths for an InfoBox.
+     */
     type InfoBoxLayoutWidth = Extract<LayoutWidth, "in-line" | "inset-left">;
     /**
-    * An info box describes a subject via a single card
-    */
+     * An info box describes a subject via a single card
+     */
     interface InfoBox extends Parent {
         type: "info-box";
         /** The layout width supported by this node */
@@ -432,8 +432,8 @@ export declare namespace ContentTree {
         children: [Card];
     }
     /**
-    * InfoPair provides exactly two cards.
-    */
+     * InfoPair provides exactly two cards.
+     */
     interface InfoPair extends Parent {
         type: "info-pair";
         /** The title of the info pair */
@@ -444,30 +444,28 @@ export declare namespace ContentTree {
         type: "carousel-card";
         /**
          * @description unique identifier required for component tracking
-        */
+         */
         id: string;
         /**
          * @description Image
-         * @sparkMapNodeType image
-        */
+         */
         children: [ImageSet];
         /**
          * @description Heading (60 characters recommended)
-         * @sparkMapNodeType textInput
          * @sparkFieldLabel Slide heading
-        */
+         */
         title: string;
         /**
          * @description Body text (200 characters recommended)
          * @sparkFieldLabel Slide body text
          * @sparkMapNodeType textArea
-        */
+         */
         copy: string;
         /**
          * @description Details (optional, 60 characters recommended)
          * @sparkMapNodeType textArea
          * @sparkFieldLabel Details
-        */
+         */
         additionalInfo?: string;
     }
     /**
@@ -479,54 +477,66 @@ export declare namespace ContentTree {
     type CarouselChildren = CarouselCard[];
     /**
      * @sparkGenerateStoryblock true
-    */
+     */
     interface Carousel extends Parent {
         type: "carousel";
         /**
          * @description unique identifier required for component tracking
-        */
+         */
         id: string;
         /**
-        * @sparkMapNodeType textInput
-        * @sparkFieldLabel Heading
-        */
+         * @sparkFieldLabel Heading
+         */
         title?: string;
         /**
-        * @sparkMapNodeType textArea
-        * @sparkFieldLabel Subheading
-        */
+         * @sparkMapNodeType textArea
+         * @sparkFieldLabel Subheading
+         */
         standfirst?: string;
         children: CarouselChildren;
     }
     /**
      * @sparkGenerateStoryblock true
-    */
+     */
     interface Document extends Node {
         type: "document";
         id: string;
         /**
-         * @sparkMapNodeType textInput
          * @sparkFieldLabel Title or subject
          * @description Enter the source title or email subject, if available
-        */
+         */
         title?: string;
         /**
-         * @sparkMapNodeType textInput
          * @sparkFieldLabel Tag
          * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
-        */
+         */
         tag?: string;
         /**
          * @sparkMapNodeType textArea
          * @sparkFieldLabel Source details
          * @description Add relevant source details. For correspondence, include From and To. Other examples include CC, Speaker, Location or Reference
-        */
+         */
         source?: string;
         /**
          * @sparkFieldLabel Body text
          * @description Enter the source material to show in the article, preserving its wording and structure
-        */
+         */
         children: FormattingBlock[];
+    }
+    /**
+     * @sparkGenerateStoryblock true
+     */
+    interface ReworkPullquote extends Node {
+        type: "pullquote";
+        text: string;
+        source?: string;
+    }
+    /**
+     * @sparkGenerateStoryblock true
+     */
+    interface ReworkImagePair extends Node {
+        type: "image-pair";
+        children: [ImageSet, ImageSet];
     }
     namespace full {
         type AssetFormat = "desktop" | "mobile" | "square" | "square-ftedit" | "standard" | "wide" | "standard-inline" | "portrait" | "landscape";
@@ -625,7 +635,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = AcastPodcast | BigNumber | Carousel | ClipSet | CustomCodeComponent | Definition | Document | Flourish | ImagePair | ImageSet | InfoBox | InfoPair | InNumbers | Layout | Pullquote | Recommended | RecommendedList | ScrollyBlock | Table | Timeline | Tweet | Video | VimeoVideo | YoutubeVideo;
+        type StoryBlock = AcastPodcast | BigNumber | Carousel | ClipSet | CustomCodeComponent | Definition | Document | Flourish | ImagePair | ImageSet | InfoBox | InfoPair | InNumbers | Layout | Pullquote | Recommended | RecommendedList | ScrollyBlock | Table | Timeline | Tweet | Video | VimeoVideo | YoutubeVideo | ReworkPullquote | ReworkImagePair;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -836,44 +846,44 @@ export declare namespace ContentTree {
         type TableColumnSettings = {
             hideOnMobile: boolean;
             sortable: boolean;
-            sortType?: 'text' | 'number' | 'date' | 'currency' | 'percent';
+            sortType?: "text" | "number" | "date" | "currency" | "percent";
         };
-        type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
+        type TableLayoutWidth = Extract<LayoutWidth, "auto" | "full-grid" | "inset-left" | "inset-right" | "full-bleed">;
         type TableChildren = [TableCaption, TableBody, TableFooter?] | [TableBody, TableFooter?] | [TableCaption, TableHeader, TableBody, TableFooter?] | [TableHeader, TableBody, TableFooter?];
         interface TableCaption extends Parent {
-            type: 'table-caption';
+            type: "table-caption";
             children: Phrasing[];
         }
         interface TableCell extends Parent {
-            type: 'table-cell';
+            type: "table-cell";
             heading?: boolean;
             columnSpan?: number;
             rowSpan?: number;
             children: Phrasing[];
         }
         interface TableHeader extends Parent {
-            type: 'table-header';
+            type: "table-header";
             children: TableRow[];
         }
         interface TableRow extends Parent {
-            type: 'table-row';
+            type: "table-row";
             children: TableCell[];
         }
         interface TableBody extends Parent {
-            type: 'table-body';
+            type: "table-body";
             children: TableRow[];
         }
         interface TableFooter extends Parent {
-            type: 'table-footer';
+            type: "table-footer";
             children: Phrasing[];
         }
         interface Table extends Parent {
-            type: 'table';
+            type: "table";
             stripes: boolean;
             compact: boolean;
             layoutWidth: TableLayoutWidth;
             collapseAfterHowManyRows?: number;
-            responsiveStyle: 'overflow' | 'flat' | 'scroll';
+            responsiveStyle: "overflow" | "flat" | "scroll";
             columnSettings: TableColumnSettings[];
             children: TableChildren;
         }
@@ -897,7 +907,7 @@ export declare namespace ContentTree {
             attributes: CustomCodeComponentAttributes;
         }
         interface ImagePair extends Parent {
-            type: 'image-pair';
+            type: "image-pair";
             children: [ImageSet, ImageSet];
         }
         /**
@@ -937,11 +947,11 @@ export declare namespace ContentTree {
             children: [Definition, Definition, Definition];
         }
         /** Allowed children for a card
-        */
+         */
         type CardChildren = Flourish | ImageSet | FormattingBlock;
         /**
-        * A card describes a subject with images and text
-        */
+         * A card describes a subject with images and text
+         */
         interface Card extends Parent {
             type: "card";
             /** The title of this card */
@@ -949,12 +959,12 @@ export declare namespace ContentTree {
             children: CardChildren[];
         }
         /**
-        * Allowed layout widths for an InfoBox.
-        */
+         * Allowed layout widths for an InfoBox.
+         */
         type InfoBoxLayoutWidth = Extract<LayoutWidth, "in-line" | "inset-left">;
         /**
-        * An info box describes a subject via a single card
-        */
+         * An info box describes a subject via a single card
+         */
         interface InfoBox extends Parent {
             type: "info-box";
             /** The layout width supported by this node */
@@ -962,8 +972,8 @@ export declare namespace ContentTree {
             children: [Card];
         }
         /**
-        * InfoPair provides exactly two cards.
-        */
+         * InfoPair provides exactly two cards.
+         */
         interface InfoPair extends Parent {
             type: "info-pair";
             /** The title of the info pair */
@@ -974,30 +984,28 @@ export declare namespace ContentTree {
             type: "carousel-card";
             /**
              * @description unique identifier required for component tracking
-            */
+             */
             id: string;
             /**
              * @description Image
-             * @sparkMapNodeType image
-            */
+             */
             children: [ImageSet];
             /**
              * @description Heading (60 characters recommended)
-             * @sparkMapNodeType textInput
              * @sparkFieldLabel Slide heading
-            */
+             */
             title: string;
             /**
              * @description Body text (200 characters recommended)
              * @sparkFieldLabel Slide body text
              * @sparkMapNodeType textArea
-            */
+             */
             copy: string;
             /**
              * @description Details (optional, 60 characters recommended)
              * @sparkMapNodeType textArea
              * @sparkFieldLabel Details
-            */
+             */
             additionalInfo?: string;
         }
         /**
@@ -1009,54 +1017,66 @@ export declare namespace ContentTree {
         type CarouselChildren = CarouselCard[];
         /**
          * @sparkGenerateStoryblock true
-        */
+         */
         interface Carousel extends Parent {
             type: "carousel";
             /**
              * @description unique identifier required for component tracking
-            */
+             */
             id: string;
             /**
-            * @sparkMapNodeType textInput
-            * @sparkFieldLabel Heading
-            */
+             * @sparkFieldLabel Heading
+             */
             title?: string;
             /**
-            * @sparkMapNodeType textArea
-            * @sparkFieldLabel Subheading
-            */
+             * @sparkMapNodeType textArea
+             * @sparkFieldLabel Subheading
+             */
             standfirst?: string;
             children: CarouselChildren;
         }
         /**
          * @sparkGenerateStoryblock true
-        */
+         */
         interface Document extends Node {
             type: "document";
             id: string;
             /**
-             * @sparkMapNodeType textInput
              * @sparkFieldLabel Title or subject
              * @description Enter the source title or email subject, if available
-            */
+             */
             title?: string;
             /**
-             * @sparkMapNodeType textInput
              * @sparkFieldLabel Tag
              * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
-            */
+             */
             tag?: string;
             /**
              * @sparkMapNodeType textArea
              * @sparkFieldLabel Source details
              * @description Add relevant source details. For correspondence, include From and To. Other examples include CC, Speaker, Location or Reference
-            */
+             */
             source?: string;
             /**
              * @sparkFieldLabel Body text
              * @description Enter the source material to show in the article, preserving its wording and structure
-            */
+             */
             children: FormattingBlock[];
+        }
+        /**
+         * @sparkGenerateStoryblock true
+         */
+        interface ReworkPullquote extends Node {
+            type: "pullquote";
+            text: string;
+            source?: string;
+        }
+        /**
+         * @sparkGenerateStoryblock true
+         */
+        interface ReworkImagePair extends Node {
+            type: "image-pair";
+            children: [ImageSet, ImageSet];
         }
     }
     namespace transit {
@@ -1156,7 +1176,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = AcastPodcast | BigNumber | Carousel | ClipSet | CustomCodeComponent | Definition | Document | Flourish | ImagePair | ImageSet | InfoBox | InfoPair | InNumbers | Layout | Pullquote | Recommended | RecommendedList | ScrollyBlock | Table | Timeline | Tweet | Video | VimeoVideo | YoutubeVideo;
+        type StoryBlock = AcastPodcast | BigNumber | Carousel | ClipSet | CustomCodeComponent | Definition | Document | Flourish | ImagePair | ImageSet | InfoBox | InfoPair | InNumbers | Layout | Pullquote | Recommended | RecommendedList | ScrollyBlock | Table | Timeline | Tweet | Video | VimeoVideo | YoutubeVideo | ReworkPullquote | ReworkImagePair;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -1348,44 +1368,44 @@ export declare namespace ContentTree {
         type TableColumnSettings = {
             hideOnMobile: boolean;
             sortable: boolean;
-            sortType?: 'text' | 'number' | 'date' | 'currency' | 'percent';
+            sortType?: "text" | "number" | "date" | "currency" | "percent";
         };
-        type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
+        type TableLayoutWidth = Extract<LayoutWidth, "auto" | "full-grid" | "inset-left" | "inset-right" | "full-bleed">;
         type TableChildren = [TableCaption, TableBody, TableFooter?] | [TableBody, TableFooter?] | [TableCaption, TableHeader, TableBody, TableFooter?] | [TableHeader, TableBody, TableFooter?];
         interface TableCaption extends Parent {
-            type: 'table-caption';
+            type: "table-caption";
             children: Phrasing[];
         }
         interface TableCell extends Parent {
-            type: 'table-cell';
+            type: "table-cell";
             heading?: boolean;
             columnSpan?: number;
             rowSpan?: number;
             children: Phrasing[];
         }
         interface TableHeader extends Parent {
-            type: 'table-header';
+            type: "table-header";
             children: TableRow[];
         }
         interface TableRow extends Parent {
-            type: 'table-row';
+            type: "table-row";
             children: TableCell[];
         }
         interface TableBody extends Parent {
-            type: 'table-body';
+            type: "table-body";
             children: TableRow[];
         }
         interface TableFooter extends Parent {
-            type: 'table-footer';
+            type: "table-footer";
             children: Phrasing[];
         }
         interface Table extends Parent {
-            type: 'table';
+            type: "table";
             stripes: boolean;
             compact: boolean;
             layoutWidth: TableLayoutWidth;
             collapseAfterHowManyRows?: number;
-            responsiveStyle: 'overflow' | 'flat' | 'scroll';
+            responsiveStyle: "overflow" | "flat" | "scroll";
             columnSettings: TableColumnSettings[];
             children: TableChildren;
         }
@@ -1401,7 +1421,7 @@ export declare namespace ContentTree {
             layoutWidth: LayoutWidth;
         }
         interface ImagePair extends Parent {
-            type: 'image-pair';
+            type: "image-pair";
             children: [ImageSet, ImageSet];
         }
         /**
@@ -1441,11 +1461,11 @@ export declare namespace ContentTree {
             children: [Definition, Definition, Definition];
         }
         /** Allowed children for a card
-        */
+         */
         type CardChildren = Flourish | ImageSet | FormattingBlock;
         /**
-        * A card describes a subject with images and text
-        */
+         * A card describes a subject with images and text
+         */
         interface Card extends Parent {
             type: "card";
             /** The title of this card */
@@ -1453,12 +1473,12 @@ export declare namespace ContentTree {
             children: CardChildren[];
         }
         /**
-        * Allowed layout widths for an InfoBox.
-        */
+         * Allowed layout widths for an InfoBox.
+         */
         type InfoBoxLayoutWidth = Extract<LayoutWidth, "in-line" | "inset-left">;
         /**
-        * An info box describes a subject via a single card
-        */
+         * An info box describes a subject via a single card
+         */
         interface InfoBox extends Parent {
             type: "info-box";
             /** The layout width supported by this node */
@@ -1466,8 +1486,8 @@ export declare namespace ContentTree {
             children: [Card];
         }
         /**
-        * InfoPair provides exactly two cards.
-        */
+         * InfoPair provides exactly two cards.
+         */
         interface InfoPair extends Parent {
             type: "info-pair";
             /** The title of the info pair */
@@ -1478,30 +1498,28 @@ export declare namespace ContentTree {
             type: "carousel-card";
             /**
              * @description unique identifier required for component tracking
-            */
+             */
             id: string;
             /**
              * @description Image
-             * @sparkMapNodeType image
-            */
+             */
             children: [ImageSet];
             /**
              * @description Heading (60 characters recommended)
-             * @sparkMapNodeType textInput
              * @sparkFieldLabel Slide heading
-            */
+             */
             title: string;
             /**
              * @description Body text (200 characters recommended)
              * @sparkFieldLabel Slide body text
              * @sparkMapNodeType textArea
-            */
+             */
             copy: string;
             /**
              * @description Details (optional, 60 characters recommended)
              * @sparkMapNodeType textArea
              * @sparkFieldLabel Details
-            */
+             */
             additionalInfo?: string;
         }
         /**
@@ -1513,54 +1531,66 @@ export declare namespace ContentTree {
         type CarouselChildren = CarouselCard[];
         /**
          * @sparkGenerateStoryblock true
-        */
+         */
         interface Carousel extends Parent {
             type: "carousel";
             /**
              * @description unique identifier required for component tracking
-            */
+             */
             id: string;
             /**
-            * @sparkMapNodeType textInput
-            * @sparkFieldLabel Heading
-            */
+             * @sparkFieldLabel Heading
+             */
             title?: string;
             /**
-            * @sparkMapNodeType textArea
-            * @sparkFieldLabel Subheading
-            */
+             * @sparkMapNodeType textArea
+             * @sparkFieldLabel Subheading
+             */
             standfirst?: string;
             children: CarouselChildren;
         }
         /**
          * @sparkGenerateStoryblock true
-        */
+         */
         interface Document extends Node {
             type: "document";
             id: string;
             /**
-             * @sparkMapNodeType textInput
              * @sparkFieldLabel Title or subject
              * @description Enter the source title or email subject, if available
-            */
+             */
             title?: string;
             /**
-             * @sparkMapNodeType textInput
              * @sparkFieldLabel Tag
              * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
-            */
+             */
             tag?: string;
             /**
              * @sparkMapNodeType textArea
              * @sparkFieldLabel Source details
              * @description Add relevant source details. For correspondence, include From and To. Other examples include CC, Speaker, Location or Reference
-            */
+             */
             source?: string;
             /**
              * @sparkFieldLabel Body text
              * @description Enter the source material to show in the article, preserving its wording and structure
-            */
+             */
             children: FormattingBlock[];
+        }
+        /**
+         * @sparkGenerateStoryblock true
+         */
+        interface ReworkPullquote extends Node {
+            type: "pullquote";
+            text: string;
+            source?: string;
+        }
+        /**
+         * @sparkGenerateStoryblock true
+         */
+        interface ReworkImagePair extends Node {
+            type: "image-pair";
+            children: [ImageSet, ImageSet];
         }
     }
     namespace loose {
@@ -1660,7 +1690,7 @@ export declare namespace ContentTree {
             type: "blockquote";
             children: (Paragraph | Phrasing)[];
         }
-        type StoryBlock = AcastPodcast | BigNumber | Carousel | ClipSet | CustomCodeComponent | Definition | Document | Flourish | ImagePair | ImageSet | InfoBox | InfoPair | InNumbers | Layout | Pullquote | Recommended | RecommendedList | ScrollyBlock | Table | Timeline | Tweet | Video | VimeoVideo | YoutubeVideo;
+        type StoryBlock = AcastPodcast | BigNumber | Carousel | ClipSet | CustomCodeComponent | Definition | Document | Flourish | ImagePair | ImageSet | InfoBox | InfoPair | InNumbers | Layout | Pullquote | Recommended | RecommendedList | ScrollyBlock | Table | Timeline | Tweet | Video | VimeoVideo | YoutubeVideo | ReworkPullquote | ReworkImagePair;
         interface Pullquote extends Node {
             type: "pullquote";
             text: string;
@@ -1871,44 +1901,44 @@ export declare namespace ContentTree {
         type TableColumnSettings = {
             hideOnMobile: boolean;
             sortable: boolean;
-            sortType?: 'text' | 'number' | 'date' | 'currency' | 'percent';
+            sortType?: "text" | "number" | "date" | "currency" | "percent";
         };
-        type TableLayoutWidth = Extract<LayoutWidth, 'auto' | 'full-grid' | 'inset-left' | 'inset-right' | 'full-bleed'>;
+        type TableLayoutWidth = Extract<LayoutWidth, "auto" | "full-grid" | "inset-left" | "inset-right" | "full-bleed">;
         type TableChildren = [TableCaption, TableBody, TableFooter?] | [TableBody, TableFooter?] | [TableCaption, TableHeader, TableBody, TableFooter?] | [TableHeader, TableBody, TableFooter?];
         interface TableCaption extends Parent {
-            type: 'table-caption';
+            type: "table-caption";
             children: Phrasing[];
         }
         interface TableCell extends Parent {
-            type: 'table-cell';
+            type: "table-cell";
             heading?: boolean;
             columnSpan?: number;
             rowSpan?: number;
             children: Phrasing[];
         }
         interface TableHeader extends Parent {
-            type: 'table-header';
+            type: "table-header";
             children: TableRow[];
         }
         interface TableRow extends Parent {
-            type: 'table-row';
+            type: "table-row";
             children: TableCell[];
         }
         interface TableBody extends Parent {
-            type: 'table-body';
+            type: "table-body";
             children: TableRow[];
         }
         interface TableFooter extends Parent {
-            type: 'table-footer';
+            type: "table-footer";
             children: Phrasing[];
         }
         interface Table extends Parent {
-            type: 'table';
+            type: "table";
             stripes: boolean;
             compact: boolean;
             layoutWidth: TableLayoutWidth;
             collapseAfterHowManyRows?: number;
-            responsiveStyle: 'overflow' | 'flat' | 'scroll';
+            responsiveStyle: "overflow" | "flat" | "scroll";
             columnSettings: TableColumnSettings[];
             children: TableChildren;
         }
@@ -1932,7 +1962,7 @@ export declare namespace ContentTree {
             attributes?: CustomCodeComponentAttributes;
         }
         interface ImagePair extends Parent {
-            type: 'image-pair';
+            type: "image-pair";
             children: [ImageSet, ImageSet];
         }
         /**
@@ -1972,11 +2002,11 @@ export declare namespace ContentTree {
             children: [Definition, Definition, Definition];
         }
         /** Allowed children for a card
-        */
+         */
         type CardChildren = Flourish | ImageSet | FormattingBlock;
         /**
-        * A card describes a subject with images and text
-        */
+         * A card describes a subject with images and text
+         */
         interface Card extends Parent {
             type: "card";
             /** The title of this card */
@@ -1984,12 +2014,12 @@ export declare namespace ContentTree {
             children: CardChildren[];
         }
         /**
-        * Allowed layout widths for an InfoBox.
-        */
+         * Allowed layout widths for an InfoBox.
+         */
         type InfoBoxLayoutWidth = Extract<LayoutWidth, "in-line" | "inset-left">;
         /**
-        * An info box describes a subject via a single card
-        */
+         * An info box describes a subject via a single card
+         */
         interface InfoBox extends Parent {
             type: "info-box";
             /** The layout width supported by this node */
@@ -1997,8 +2027,8 @@ export declare namespace ContentTree {
             children: [Card];
         }
         /**
-        * InfoPair provides exactly two cards.
-        */
+         * InfoPair provides exactly two cards.
+         */
         interface InfoPair extends Parent {
             type: "info-pair";
             /** The title of the info pair */
@@ -2009,30 +2039,28 @@ export declare namespace ContentTree {
             type: "carousel-card";
             /**
              * @description unique identifier required for component tracking
-            */
+             */
             id: string;
             /**
              * @description Image
-             * @sparkMapNodeType image
-            */
+             */
             children: [ImageSet];
             /**
              * @description Heading (60 characters recommended)
-             * @sparkMapNodeType textInput
              * @sparkFieldLabel Slide heading
-            */
+             */
             title: string;
             /**
              * @description Body text (200 characters recommended)
              * @sparkFieldLabel Slide body text
              * @sparkMapNodeType textArea
-            */
+             */
             copy: string;
             /**
              * @description Details (optional, 60 characters recommended)
              * @sparkMapNodeType textArea
              * @sparkFieldLabel Details
-            */
+             */
             additionalInfo?: string;
         }
         /**
@@ -2044,54 +2072,66 @@ export declare namespace ContentTree {
         type CarouselChildren = CarouselCard[];
         /**
          * @sparkGenerateStoryblock true
-        */
+         */
         interface Carousel extends Parent {
             type: "carousel";
             /**
              * @description unique identifier required for component tracking
-            */
+             */
             id: string;
             /**
-            * @sparkMapNodeType textInput
-            * @sparkFieldLabel Heading
-            */
+             * @sparkFieldLabel Heading
+             */
             title?: string;
             /**
-            * @sparkMapNodeType textArea
-            * @sparkFieldLabel Subheading
-            */
+             * @sparkMapNodeType textArea
+             * @sparkFieldLabel Subheading
+             */
             standfirst?: string;
             children: CarouselChildren;
         }
         /**
          * @sparkGenerateStoryblock true
-        */
+         */
         interface Document extends Node {
             type: "document";
             id: string;
             /**
-             * @sparkMapNodeType textInput
              * @sparkFieldLabel Title or subject
              * @description Enter the source title or email subject, if available
-            */
+             */
             title?: string;
             /**
-             * @sparkMapNodeType textInput
              * @sparkFieldLabel Tag
              * @description Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context
-            */
+             */
             tag?: string;
             /**
              * @sparkMapNodeType textArea
              * @sparkFieldLabel Source details
              * @description Add relevant source details. For correspondence, include From and To. Other examples include CC, Speaker, Location or Reference
-            */
+             */
             source?: string;
             /**
              * @sparkFieldLabel Body text
              * @description Enter the source material to show in the article, preserving its wording and structure
-            */
+             */
             children: FormattingBlock[];
+        }
+        /**
+         * @sparkGenerateStoryblock true
+         */
+        interface ReworkPullquote extends Node {
+            type: "pullquote";
+            text: string;
+            source?: string;
+        }
+        /**
+         * @sparkGenerateStoryblock true
+         */
+        interface ReworkImagePair extends Node {
+            type: "image-pair";
+            children: [ImageSet, ImageSet];
         }
     }
 }

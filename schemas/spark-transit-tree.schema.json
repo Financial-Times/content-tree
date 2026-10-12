@@ -233,6 +233,12 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.YoutubeVideo"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.ReworkPullquote"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.ReworkImagePair"
                 }
             ]
         },
@@ -340,7 +346,6 @@
                 },
                 "title": {
                     "sparkFieldLabel": "Heading",
-                    "sparkMapNodeType": "textInput",
                     "type": "string"
                 },
                 "type": {
@@ -382,7 +387,6 @@
                     ],
                     "maxItems": 1,
                     "minItems": 1,
-                    "sparkMapNodeType": "image",
                     "type": "array"
                 },
                 "copy": {
@@ -399,7 +403,6 @@
                 "title": {
                     "description": "Heading (60 characters recommended)",
                     "sparkFieldLabel": "Slide heading",
-                    "sparkMapNodeType": "textInput",
                     "type": "string"
                 },
                 "type": {
@@ -562,13 +565,11 @@
                 "tag": {
                     "description": "Add a label from the original source, such as CONFIDENTIAL or CLASSIFIED, only when it adds useful context",
                     "sparkFieldLabel": "Tag",
-                    "sparkMapNodeType": "textInput",
                     "type": "string"
                 },
                 "title": {
                     "description": "Enter the source title or email subject, if available",
                     "sparkFieldLabel": "Title or subject",
-                    "sparkMapNodeType": "textInput",
                     "type": "string"
                 },
                 "type": {
@@ -1390,6 +1391,68 @@
                 "children",
                 "type"
             ],
+            "type": "object"
+        },
+        "ContentTree.transit.ReworkImagePair": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                        }
+                    ],
+                    "maxItems": 2,
+                    "minItems": 2,
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "image-pair",
+                    "type": "string"
+                }
+            },
+            "propertyOrder": [
+                "type",
+                "children",
+                "data"
+            ],
+            "required": [
+                "children",
+                "type"
+            ],
+            "sparkGenerateStoryblock": true,
+            "type": "object"
+        },
+        "ContentTree.transit.ReworkPullquote": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "source": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "pullquote",
+                    "type": "string"
+                }
+            },
+            "propertyOrder": [
+                "type",
+                "text",
+                "source",
+                "data"
+            ],
+            "required": [
+                "text",
+                "type"
+            ],
+            "sparkGenerateStoryblock": true,
             "type": "object"
         },
         "ContentTree.transit.ScrollyBlock": {
