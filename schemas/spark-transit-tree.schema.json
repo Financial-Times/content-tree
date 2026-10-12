@@ -346,7 +346,6 @@
                 },
                 "title": {
                     "sparkFieldLabel": "Heading",
-                    "sparkMapNodeType": "textInput",
                     "type": "string"
                 },
                 "type": {
@@ -388,7 +387,6 @@
                     ],
                     "maxItems": 1,
                     "minItems": 1,
-                    "sparkMapNodeType": "image",
                     "type": "array"
                 },
                 "copy": {
@@ -405,7 +403,6 @@
                 "title": {
                     "description": "Heading (60 characters recommended)",
                     "sparkFieldLabel": "Slide heading",
-                    "sparkMapNodeType": "textInput",
                     "type": "string"
                 },
                 "type": {

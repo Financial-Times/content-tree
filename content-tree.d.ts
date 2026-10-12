@@ -448,12 +448,10 @@ export declare namespace ContentTree {
         id: string;
         /**
          * @description Image
-         * @sparkMapNodeType image
          */
         children: [ImageSet];
         /**
          * @description Heading (60 characters recommended)
-         * @sparkMapNodeType textInput
          * @sparkFieldLabel Slide heading
          */
         title: string;
@@ -487,7 +485,6 @@ export declare namespace ContentTree {
          */
         id: string;
         /**
-         * @sparkMapNodeType textInput
          * @sparkFieldLabel Heading
          */
         title?: string;
@@ -991,12 +988,10 @@ export declare namespace ContentTree {
             id: string;
             /**
              * @description Image
-             * @sparkMapNodeType image
              */
             children: [ImageSet];
             /**
              * @description Heading (60 characters recommended)
-             * @sparkMapNodeType textInput
              * @sparkFieldLabel Slide heading
              */
             title: string;
@@ -1030,7 +1025,6 @@ export declare namespace ContentTree {
              */
             id: string;
             /**
-             * @sparkMapNodeType textInput
              * @sparkFieldLabel Heading
              */
             title?: string;
@@ -1508,12 +1502,10 @@ export declare namespace ContentTree {
             id: string;
             /**
              * @description Image
-             * @sparkMapNodeType image
              */
             children: [ImageSet];
             /**
              * @description Heading (60 characters recommended)
-             * @sparkMapNodeType textInput
              * @sparkFieldLabel Slide heading
              */
             title: string;
@@ -1547,7 +1539,6 @@ export declare namespace ContentTree {
              */
             id: string;
             /**
-             * @sparkMapNodeType textInput
              * @sparkFieldLabel Heading
              */
             title?: string;
@@ -2052,12 +2043,10 @@ export declare namespace ContentTree {
             id: string;
             /**
              * @description Image
-             * @sparkMapNodeType image
              */
             children: [ImageSet];
             /**
              * @description Heading (60 characters recommended)
-             * @sparkMapNodeType textInput
              * @sparkFieldLabel Slide heading
              */
             title: string;
@@ -2091,7 +2080,6 @@ export declare namespace ContentTree {
              */
             id: string;
             /**
-             * @sparkMapNodeType textInput
              * @sparkFieldLabel Heading
              */
             title?: string;
