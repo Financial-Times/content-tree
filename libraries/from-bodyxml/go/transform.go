@@ -12,6 +12,8 @@ import (
 // Transform converts an external XHTML-formatted document into a content tree.
 // It returns an error if the input contains unsupported HTML elements
 // or does not comply with the content tree schema.
+// content-tree-only components, such as Carousel, have no legacy XML representation
+// and are not supported by this transformer.
 func Transform(bodyXML string) (*contenttree.Root, error) {
 	return fromETreeReader(strings.NewReader(bodyXML))
 }

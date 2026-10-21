@@ -88,6 +88,8 @@ func transformNode(n contenttree.Node) (string, error) {
 		return "", nil
 	case contenttree.RecommendedListType:
 		return "", nil
+	case contenttree.CarouselType:
+		return "", nil
 	case contenttree.TextType:
 		text, ok := n.(*contenttree.Text)
 		if !ok {

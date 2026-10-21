@@ -76,6 +76,7 @@ const (
 	CustomCodeComponentType = "custom-code-component"
 	ClipSetType             = "clip-set"
 	CarouselType            = "carousel"
+	CarouselCardType        = "carousel-card"
 	DocumentType            = "document"
 
 	BodyBlockType           = "body-block"
@@ -496,6 +497,7 @@ type BodyBlock struct {
 	*ImagePair
 	*InfoBox
 	*InfoPair
+	*Carousel
 	*BetaComponent
 }
 
@@ -585,6 +587,9 @@ func (n *BodyBlock) GetEmbedded() Node {
 	if n.InfoPair != nil {
 		return n.InfoPair
 	}
+	if n.Carousel != nil {
+		return n.Carousel
+	}
 	if n.BetaComponent != nil {
 		return n.BetaComponent
 	}
@@ -672,6 +677,9 @@ func (n *BodyBlock) GetChildren() []Node {
 	}
 	if n.InfoPair != nil {
 		return n.InfoPair.GetChildren()
+	}
+	if n.Carousel != nil {
+		return n.Carousel.GetChildren()
 	}
 	if n.BetaComponent != nil {
 		return n.BetaComponent.GetChildren()
@@ -850,7 +858,13 @@ func (n *BodyBlock) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		n.InfoPair = &v
-	case CarouselType, DocumentType:
+	case CarouselType:
+		var v Carousel
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		n.Carousel = &v
+	case DocumentType:
 		n.BetaComponent = &BetaComponent{Type: tn.Type}
 	default:
 		return fmt.Errorf("failed to unmarshal BodyBlock from %s: %w", data, ErrUnmarshalInvalidNode)
@@ -917,6 +931,8 @@ func (n *BodyBlock) MarshalJSON() ([]byte, error) {
 		return json.Marshal(n.InfoBox)
 	case n.InfoPair != nil:
 		return json.Marshal(n.InfoPair)
+	case n.Carousel != nil:
+		return json.Marshal(n.Carousel)
 	// Beta components reach this default; an unmarshal/marshal round trip loses their data.
 	default:
 		return []byte(`{}`), nil
@@ -980,7 +996,9 @@ func makeBodyBlock(n Node) (*BodyBlock, error) {
 		return &BodyBlock{InfoBox: n.(*InfoBox)}, nil
 	case InfoPairType:
 		return &BodyBlock{InfoPair: n.(*InfoPair)}, nil
-	case CarouselType, DocumentType:
+	case CarouselType:
+		return &BodyBlock{Carousel: n.(*Carousel)}, nil
+	case DocumentType:
 		return &BodyBlock{BetaComponent: n.(*BetaComponent)}, nil
 	default:
 		return nil, ErrInvalidChildType
@@ -1004,6 +1022,71 @@ func (n *Break) GetChildren() []Node {
 }
 
 func (n *Break) AppendChild(_ Node) error { return ErrCannotHaveChildren }
+
+type Carousel struct {
+	Type       string          `json:"type"`
+	ID         string          `json:"id"`
+	Title      string          `json:"title,omitempty"`
+	Standfirst string          `json:"standfirst,omitempty"`
+	Children   []*CarouselCard `json:"children"`
+}
+
+func (n *Carousel) GetType() string {
+	return n.Type
+}
+
+func (n *Carousel) GetEmbedded() Node {
+	return nil
+}
+
+func (n *Carousel) GetChildren() []Node {
+	result := make([]Node, len(n.Children))
+	for i, v := range n.Children {
+		result[i] = v
+	}
+	return result
+}
+
+func (n *Carousel) AppendChild(child Node) error {
+	if child.GetType() != CarouselCardType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*CarouselCard))
+	return nil
+}
+
+type CarouselCard struct {
+	Type           string      `json:"type"`
+	ID             string      `json:"id"`
+	Title          string      `json:"title"`
+	Copy           string      `json:"copy"`
+	AdditionalInfo string      `json:"additionalInfo,omitempty"`
+	Children       []*ImageSet `json:"children"`
+}
+
+func (n *CarouselCard) GetType() string {
+	return n.Type
+}
+
+func (n *CarouselCard) GetEmbedded() Node {
+	return nil
+}
+
+func (n *CarouselCard) GetChildren() []Node {
+	result := make([]Node, len(n.Children))
+	for i, v := range n.Children {
+		result[i] = v
+	}
+	return result
+}
+
+func (n *CarouselCard) AppendChild(child Node) error {
+	if child.GetType() != ImageSetType {
+		return ErrInvalidChildType
+	}
+	n.Children = append(n.Children, child.(*ImageSet))
+	return nil
+}
 
 type Emphasis struct {
 	Type     string      `json:"type"`

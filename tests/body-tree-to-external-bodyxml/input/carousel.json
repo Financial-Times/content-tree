@@ -15,7 +15,47 @@
       "type": "carousel",
       "id": "carousel-1",
       "title": "Skipped title",
-      "children": []
+      "children": [
+        {
+          "type": "carousel-card",
+          "id": "card-1",
+          "title": "First card",
+          "copy": "First card copy",
+          "additionalInfo": "First card details",
+          "children": [
+            {
+              "type": "image-set",
+              "id": "image-1",
+              "fragmentIdentifier": "first-image"
+            }
+          ]
+        },
+        {
+          "type": "carousel-card",
+          "id": "card-2",
+          "title": "Second card",
+          "copy": "Second card copy",
+          "children": [
+            {
+              "type": "image-set",
+              "id": "image-2"
+            }
+          ]
+        },
+        {
+          "type": "carousel-card",
+          "id": "card-3",
+          "title": "Third card",
+          "copy": "Third card copy",
+          "children": [
+            {
+              "type": "image-set",
+              "id": "image-3"
+            }
+          ]
+        }
+      ],
+      "standfirst": "Skipped standfirst"
     },
     {
       "type": "paragraph",
