@@ -97,6 +97,7 @@ Its content is limited to only other content-tree content.
 ```ts
 interface Root extends Node {
 	type: "root"
+	topper?: Topper
 	body: Body
 }
 ```
@@ -111,6 +112,33 @@ interface Root extends Node {
 A Container is a node which houses a distinct block of editorial content. These will typically have children containing any number of component nodes. They can be published and validated as independent fields in the Content API.
 
 Examples: `body`, `topper`
+
+### `Topper`
+
+```ts
+interface Topper extends Parent {
+  type: "topper";
+  version: number;
+  asset?: TopperAsset;
+}
+```
+
+`Topper` contains the the information required to render the furniture at the top of an article.
+
+This is output as `topperTree` in the Content API response.
+
+**nb**: this   incomplete as we incrementally roll out features
+**nb**: some of the information here is intentionally duplicating information that is available elsewhere in the Content API, for backwards compatibility
+
+#### `TopperAsset`
+
+
+```ts
+type TopperAsset = ImageSet | ClipSet;
+```
+
+`TopperAsset` is a single visual element to be displayed at the top of an article
+
 
 ### `Body`
 
