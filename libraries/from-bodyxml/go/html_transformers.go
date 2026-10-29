@@ -404,7 +404,9 @@ var defaultTransformers = map[string]transformer{
 	"recommended": transformRecommended,
 	"recommended-list": func(rl *etree.Element) contenttree.Node {
 		heading := findChild(rl, "recommended-title")
-		rl.RemoveChild(heading)
+		if heading != nil {
+			rl.RemoveChild(heading)
+		}
 		ul := findChild(rl, "ul")
 		children := []*contenttree.Recommended{}
 		if ul != nil {
