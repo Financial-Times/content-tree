@@ -84,12 +84,6 @@ func transformNode(n contenttree.Node) (string, error) {
 		return transformNode(n.GetEmbedded())
 	case contenttree.CardChildType:
 		return transformNode(n.GetEmbedded())
-	case contenttree.RecommendedType:
-		return "", nil
-	case contenttree.RecommendedListType:
-		return "", nil
-	case contenttree.CarouselType:
-		return "", nil
 	case contenttree.TextType:
 		text, ok := n.(*contenttree.Text)
 		if !ok {
@@ -190,6 +184,28 @@ func transformNode(n contenttree.Node) (string, error) {
 			return resultChildren, nil
 		}
 		return fmt.Sprintf("%s %s", ip.Title, resultChildren), nil
+	case contenttree.RecommendedType,
+		contenttree.RecommendedListType,
+		contenttree.CarouselType,
+		// For now CarouselCard can be only a child of Carousel, but better to be explicitly ignored too.
+		contenttree.CarouselCardType,
+		contenttree.ImageSetType,
+		contenttree.ImagePairType,
+		contenttree.LayoutImageType,
+		contenttree.ScrollyImageType,
+		contenttree.VideoType,
+		contenttree.YoutubeVideoType,
+		contenttree.VimeoVideoType,
+		contenttree.AcastPodcastType,
+		contenttree.FlourishType,
+		contenttree.TweetType,
+		contenttree.CustomCodeComponentType,
+		contenttree.ClipSetType,
+		contenttree.BreakType,
+		contenttree.ThematicBreakType,
+		contenttree.DocumentType,
+		contenttree.FindOutMoreLinkType:
+		return "", nil
 	default:
 		result, err := transformChildren(n.GetChildren())
 		if err != nil {
