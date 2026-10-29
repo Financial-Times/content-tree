@@ -141,6 +141,18 @@ func transformNode(n contenttree.Node) (string, error) {
 		}
 
 		return fmt.Sprintf("%s %s ", def.Term, def.Description), nil
+	case contenttree.TimelineType:
+		timeline, ok := n.(*contenttree.Timeline)
+		if !ok {
+			return "", errors.New("failed to parse node to Timeline")
+		}
+
+		resultChildren, err := transformChildren(timeline.GetChildren())
+		if err != nil {
+			return "", err
+		}
+
+		return fmt.Sprintf("%s %s ", timeline.Title, resultChildren), nil
 	case contenttree.TimelineEventType:
 		te, ok := n.(*contenttree.TimelineEvent)
 		if !ok {
