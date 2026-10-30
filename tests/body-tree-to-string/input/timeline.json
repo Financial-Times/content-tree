@@ -2,20 +2,36 @@
   "type": "body",
   "children": [
     {
-      "type": "layout",
-      "layoutName": "timeline",
-      "layoutWidth": "full-width",
-      "data": {
-        "layout": "timeline"
-      },
+      "type": "timeline",
+      "title": "Europe’s upcoming elections",
       "children": [
         {
-          "type": "heading",
-          "level": "subheading",
+          "type": "timeline-event",
+          "title": "October 25, November 1 2026",
           "children": [
             {
-              "type": "text",
-              "value": "The evolution of kitchen sink drama films "
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Bulgaria — presidential elections"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "timeline-event",
+          "title": "November 29 2026",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Spain — parliamentary election"
+                }
+              ]
             }
           ]
         }

@@ -1,0 +1,248 @@
+{
+  "type": "body",
+  "version": 1,
+  "children": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Before"
+        }
+      ]
+    },
+    {
+      "type": "recommended",
+      "id": "article-1",
+      "heading": "Ignored recommended title heading",
+      "teaserTitleOverride": "Ignored recommended title"
+    },
+    {
+      "type": "recommended-list",
+      "heading": "Ignored recommended-list heading",
+      "children": [
+        {
+          "type": "recommended",
+          "id": "article-2",
+          "heading": "Ignored recommended-list title heading",
+          "teaserTitleOverride": "Ignored recommended-list title"
+        }
+      ]
+    },
+    {
+      "type": "image-pair",
+      "children": [
+        {
+          "type": "image-set",
+          "id": "first-image"
+        },
+        {
+          "type": "image-set",
+          "id": "second-image"
+        }
+      ]
+    },
+    {
+      "type": "layout",
+      "layoutName": "auto",
+      "layoutWidth": "in-line",
+      "children": [
+        {
+          "type": "heading",
+          "level": "subheading",
+          "children": [
+            {
+              "type": "text",
+              "value": "Ignored layout heading"
+            }
+          ]
+        },
+        {
+          "type": "layout-image",
+          "id": "layout-image",
+          "alt": "Ignored layout alt",
+          "caption": "Ignored layout caption",
+          "credit": "Ignored layout credit"
+        },
+        {
+          "type": "layout-slot",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Ignored layout-slot text"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "in-numbers",
+      "title": "Ignored in-numbers title",
+      "children": [
+        {
+          "type": "definition",
+          "term": "1",
+          "description": "Ignored definition 1"
+        },
+        {
+          "type": "definition",
+          "term": "2",
+          "description": "Ignored definition 2"
+        },
+        {
+          "type": "definition",
+          "term": "3",
+          "description": "Ignored definition 3"
+        }
+      ]
+    },
+    {
+      "type": "info-box",
+      "layoutWidth": "in-line",
+      "children": [
+        {
+          "type": "card",
+          "title": "Ignored info-box card",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Ignored info-box card body"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "info-pair",
+      "title": "Ignored info-pair title",
+      "children": [
+        {
+          "type": "card",
+          "title": "Ignored first info-pair card",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Ignored first info-pair card body"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "card",
+          "title": "Ignored second info-pair card",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Ignored second info-pair card body"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "timeline",
+      "title": "Ignored timeline title",
+      "children": [
+        {
+          "type": "timeline-event",
+          "title": "Ignored timeline-event title",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Ignored timeline-event text"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "find-out-more-link",
+          "url": "https://example.com/read-more",
+          "children": [
+            {
+              "type": "text",
+              "value": "Ignored plain link text"
+            }
+          ]
+        },
+        {
+          "type": "find-out-more-link",
+          "url": "https://example.com/read-more",
+          "children": [
+            {
+              "type": "strong",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Ignored bold link text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "find-out-more-link",
+          "url": "https://example.com/read-more",
+          "children": [
+            {
+              "type": "emphasis",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Ignored italic link text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "link",
+          "url": "https://example.com",
+          "title": "Link title",
+          "children": [
+            {
+              "type": "text",
+              "value": "Link text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "After"
+        }
+      ]
+    }
+  ]
+}
