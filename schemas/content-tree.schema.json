@@ -225,6 +225,12 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.YoutubeVideo"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.ReworkPullquote"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.ReworkImagePair"
                 }
             ]
         },
@@ -1825,6 +1831,55 @@
             },
             "required": [
                 "children",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.ReworkImagePair": {
+            "additionalProperties": false,
+            "properties": {
+                "children": {
+                    "items": [
+                        {
+                            "$ref": "#/definitions/ContentTree.full.ImageSet"
+                        },
+                        {
+                            "$ref": "#/definitions/ContentTree.full.ImageSet"
+                        }
+                    ],
+                    "maxItems": 2,
+                    "minItems": 2,
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "image-pair",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "children",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.ReworkPullquote": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "source": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "pullquote",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "text",
                 "type"
             ],
             "type": "object"
