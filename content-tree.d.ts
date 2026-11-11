@@ -21,8 +21,15 @@ export declare namespace ContentTree {
     }
     interface Root extends Node {
         type: "root";
+        topper?: Topper;
         body: Body;
     }
+    interface Topper extends Parent {
+        type: "topper";
+        version: number;
+        asset?: TopperAsset;
+    }
+    type TopperAsset = ImageSet | ClipSet;
     interface Body extends Parent {
         type: "body";
         version: number;
@@ -551,8 +558,15 @@ export declare namespace ContentTree {
         }
         interface Root extends Node {
             type: "root";
+            topper?: Topper;
             body: Body;
         }
+        interface Topper extends Parent {
+            type: "topper";
+            version: number;
+            asset?: TopperAsset;
+        }
+        type TopperAsset = ImageSet | ClipSet;
         interface Body extends Parent {
             type: "body";
             version: number;
@@ -1082,8 +1096,15 @@ export declare namespace ContentTree {
         }
         interface Root extends Node {
             type: "root";
+            topper?: Topper;
             body: Body;
         }
+        interface Topper extends Parent {
+            type: "topper";
+            version: number;
+            asset?: TopperAsset;
+        }
+        type TopperAsset = ImageSet | ClipSet;
         interface Body extends Parent {
             type: "body";
             version: number;
@@ -1586,8 +1607,15 @@ export declare namespace ContentTree {
         }
         interface Root extends Node {
             type: "root";
+            topper?: Topper;
             body: Body;
         }
+        interface Topper extends Parent {
+            type: "topper";
+            version: number;
+            asset?: TopperAsset;
+        }
+        type TopperAsset = ImageSet | ClipSet;
         interface Body extends Parent {
             type: "body";
             version: number;

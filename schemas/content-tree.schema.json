@@ -137,6 +137,12 @@
         "ContentTree.full.BodyBlock": {
             "anyOf": [
                 {
+                    "$ref": "#/definitions/ContentTree.full.ImageSet"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.ClipSet"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.full.Paragraph"
                 },
                 {
@@ -164,9 +170,6 @@
                     "$ref": "#/definitions/ContentTree.full.Carousel"
                 },
                 {
-                    "$ref": "#/definitions/ContentTree.full.ClipSet"
-                },
-                {
                     "$ref": "#/definitions/ContentTree.full.CustomCodeComponent"
                 },
                 {
@@ -180,9 +183,6 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.ImagePair"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.ImageSet"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.InfoBox"
@@ -271,6 +271,9 @@
         "ContentTree.full.CardChildren": {
             "anyOf": [
                 {
+                    "$ref": "#/definitions/ContentTree.full.ImageSet"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.full.Paragraph"
                 },
                 {
@@ -290,9 +293,6 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.full.Flourish"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.full.ImageSet"
                 }
             ],
             "description": "Allowed children for a card"
@@ -1512,6 +1512,19 @@
             ],
             "type": "object"
         },
+        "ContentTree.full.Node": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "type": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "type"
+            ],
+            "type": "object"
+        },
         "ContentTree.full.Paragraph": {
             "additionalProperties": false,
             "properties": {
@@ -2566,10 +2579,10 @@
                     "items": {
                         "anyOf": [
                             {
-                                "$ref": "#/definitions/ContentTree.full.Paragraph"
+                                "$ref": "#/definitions/ContentTree.full.ImageSet"
                             },
                             {
-                                "$ref": "#/definitions/ContentTree.full.ImageSet"
+                                "$ref": "#/definitions/ContentTree.full.Paragraph"
                             }
                         ]
                     },
@@ -2591,6 +2604,44 @@
                 "type"
             ],
             "type": "object"
+        },
+        "ContentTree.full.Topper": {
+            "additionalProperties": false,
+            "properties": {
+                "asset": {
+                    "$ref": "#/definitions/ContentTree.full.TopperAsset"
+                },
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.full.Node"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "topper",
+                    "type": "string"
+                },
+                "version": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "children",
+                "type",
+                "version"
+            ],
+            "type": "object"
+        },
+        "ContentTree.full.TopperAsset": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/ContentTree.full.ImageSet"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.full.ClipSet"
+                }
+            ]
         },
         "ContentTree.full.Tweet": {
             "additionalProperties": false,
@@ -2720,6 +2771,9 @@
             "$ref": "#/definitions/ContentTree.full.Body"
         },
         "data": {},
+        "topper": {
+            "$ref": "#/definitions/ContentTree.full.Topper"
+        },
         "type": {
             "const": "root",
             "type": "string"
