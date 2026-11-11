@@ -29,6 +29,7 @@ import (
 
 const (
 	RootType                 = "root"
+	TopperType               = "topper"
 	BodyType                 = "body"
 	TextType                 = "text"
 	BreakType                = "break"
@@ -80,6 +81,7 @@ const (
 	DocumentType            = "document"
 
 	BodyBlockType           = "body-block"
+	TopperAssetType         = "topper-asset"
 	BlockquoteChildType     = "blockquote-child"
 	LayoutChildType         = "layout-child"
 	LayoutSlotChildType     = "layout-slot-child"
@@ -3772,4 +3774,94 @@ func (n *InfoPair) AppendChild(child Node) error {
 	}
 	n.Children = append(n.Children, child.(*Card))
 	return nil
+}
+
+type Topper struct {
+	Type    string       `json:"type"`
+	Version float64      `json:"version"`
+	Asset   *TopperAsset `json:"asset,omitempty"`
+}
+
+func (n *Topper) GetType() string {
+	return n.Type
+}
+
+func (n *Topper) GetEmbedded() Node {
+	return nil
+}
+
+func (n *Topper) GetChildren() []Node {
+	return nil
+}
+
+func (n *Topper) AppendChild(_ Node) error {
+	return ErrCannotHaveChildren
+}
+
+type TopperAsset struct {
+	*ImageSet
+	*ClipSet
+}
+
+func (a *TopperAsset) GetType() string {
+	return TopperAssetType
+}
+
+func (a *TopperAsset) GetEmbedded() Node {
+	if a.ImageSet != nil {
+		return a.ImageSet
+	}
+	if a.ClipSet != nil {
+		return a.ClipSet
+	}
+	return nil
+}
+
+func (a *TopperAsset) GetChildren() []Node {
+	if a.ImageSet != nil {
+		return a.ImageSet.GetChildren()
+	}
+	if a.ClipSet != nil {
+		return a.ClipSet.GetChildren()
+	}
+	return nil
+}
+
+func (a *TopperAsset) AppendChild(_ Node) error {
+	return ErrCannotHaveChildren
+}
+
+func (a *TopperAsset) UnmarshalJSON(data []byte) error {
+	var tn typedNode
+	if err := json.Unmarshal(data, &tn); err != nil {
+		return err
+	}
+	switch tn.Type {
+	case ImageSetType:
+		var v ImageSet
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		a.ImageSet = &v
+	case ClipSetType:
+		var v ClipSet
+		if err := json.Unmarshal(data, &v); err != nil {
+			return err
+		}
+		a.ClipSet = &v
+	default:
+		return fmt.Errorf("failed to unmarshal TopperAsset from %s: %w", data, ErrUnmarshalInvalidNode)
+	}
+	return nil
+}
+
+func (a *TopperAsset) MarshalJSON() ([]byte, error) {
+	switch {
+	case a.ImageSet != nil:
+		return json.Marshal(a.ImageSet)
+	case a.ClipSet != nil:
+		return json.Marshal(a.ClipSet)
+	default:
+		return []byte(`{}`), nil
+	}
 }
