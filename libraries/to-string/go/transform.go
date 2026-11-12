@@ -84,12 +84,6 @@ func transformNode(n contenttree.Node) (string, error) {
 		return transformNode(n.GetEmbedded())
 	case contenttree.CardChildType:
 		return transformNode(n.GetEmbedded())
-	case contenttree.RecommendedType:
-		return "", nil
-	case contenttree.RecommendedListType:
-		return "", nil
-	case contenttree.CarouselType:
-		return "", nil
 	case contenttree.TextType:
 		text, ok := n.(*contenttree.Text)
 		if !ok {
@@ -141,6 +135,18 @@ func transformNode(n contenttree.Node) (string, error) {
 		}
 
 		return fmt.Sprintf("%s %s ", def.Term, def.Description), nil
+	case contenttree.TimelineType:
+		timeline, ok := n.(*contenttree.Timeline)
+		if !ok {
+			return "", errors.New("failed to parse node to Timeline")
+		}
+
+		resultChildren, err := transformChildren(timeline.GetChildren())
+		if err != nil {
+			return "", err
+		}
+
+		return fmt.Sprintf("%s %s ", timeline.Title, resultChildren), nil
 	case contenttree.TimelineEventType:
 		te, ok := n.(*contenttree.TimelineEvent)
 		if !ok {
@@ -178,6 +184,28 @@ func transformNode(n contenttree.Node) (string, error) {
 			return resultChildren, nil
 		}
 		return fmt.Sprintf("%s %s", ip.Title, resultChildren), nil
+	case contenttree.RecommendedType,
+		contenttree.RecommendedListType,
+		contenttree.CarouselType,
+		// For now CarouselCard can be only a child of Carousel, but better to be explicitly ignored too.
+		contenttree.CarouselCardType,
+		contenttree.ImageSetType,
+		contenttree.ImagePairType,
+		contenttree.LayoutImageType,
+		contenttree.ScrollyImageType,
+		contenttree.VideoType,
+		contenttree.YoutubeVideoType,
+		contenttree.VimeoVideoType,
+		contenttree.AcastPodcastType,
+		contenttree.FlourishType,
+		contenttree.TweetType,
+		contenttree.CustomCodeComponentType,
+		contenttree.ClipSetType,
+		contenttree.BreakType,
+		contenttree.ThematicBreakType,
+		contenttree.DocumentType,
+		contenttree.FindOutMoreLinkType:
+		return "", nil
 	default:
 		result, err := transformChildren(n.GetChildren())
 		if err != nil {
