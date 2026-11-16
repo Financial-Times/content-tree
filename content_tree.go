@@ -1251,7 +1251,7 @@ type LayoutChild struct {
 }
 
 func (n *LayoutChild) GetType() string {
-	return LayoutSlotChildType
+	return LayoutChildType
 }
 
 func (n *LayoutChild) GetEmbedded() Node {

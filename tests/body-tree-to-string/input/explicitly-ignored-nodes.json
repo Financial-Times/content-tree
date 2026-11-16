@@ -1,0 +1,218 @@
+{
+  "type": "body",
+  "version": 1,
+  "children": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "Before"
+        }
+      ]
+    },
+    {
+      "type": "recommended",
+      "id": "article",
+      "heading": "Ignored recommended heading",
+      "teaserTitleOverride": "Ignored recommended title"
+    },
+    {
+      "type": "recommended-list",
+      "heading": "Ignored recommended-list heading",
+      "children": [
+        {
+          "type": "recommended",
+          "id": "article",
+          "teaserTitleOverride": "Ignored recommended-list title"
+        }
+      ]
+    },
+    {
+      "type": "image-set",
+      "id": "image"
+    },
+    {
+      "type": "image-pair",
+      "children": [
+        {
+          "type": "image-set",
+          "id": "first"
+        },
+        {
+          "type": "image-set",
+          "id": "second"
+        }
+      ]
+    },
+    {
+      "type": "layout",
+      "layoutName": "auto",
+      "layoutWidth": "in-line",
+      "children": [
+        {
+          "type": "heading",
+          "level": "subheading",
+          "children": [
+            {
+              "type": "text",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "type": "layout-image",
+          "id": "image",
+          "alt": "Ignored alt",
+          "caption": "Ignored caption",
+          "credit": "Ignored credit"
+        }
+      ]
+    },
+    {
+      "type": "scrolly-block",
+      "theme": "sans",
+      "children": [
+        {
+          "type": "scrolly-section",
+          "display": "light-background",
+          "position": "left",
+          "children": [
+            {
+              "type": "scrolly-image",
+              "id": "image"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "video",
+      "id": "video"
+    },
+    {
+      "type": "youtube-video",
+      "url": "https://www.youtube.com/watch?v=video"
+    },
+    {
+      "type": "vimeo-video",
+      "url": "https://player.vimeo.com/video/123"
+    },
+    {
+      "type": "acast-podcast",
+      "url": "https://embed.acast.com/podcast"
+    },
+    {
+      "type": "flourish",
+      "id": "chart",
+      "layoutWidth": "in-line",
+      "flourishType": "visualisation",
+      "description": "Ignored description"
+    },
+    {
+      "type": "tweet",
+      "id": "tweet"
+    },
+    {
+      "type": "custom-code-component",
+      "id": "component",
+      "layoutWidth": "in-line"
+    },
+    {
+      "type": "clip-set",
+      "id": "clip",
+      "layoutWidth": "in-line"
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "break"
+        }
+      ]
+    },
+    {
+      "type": "thematic-break"
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "find-out-more-link",
+          "url": "https://example.com",
+          "children": [
+            {
+              "type": "text",
+              "value": "Ignored plain text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "find-out-more-link",
+          "url": "https://example.com",
+          "children": [
+            {
+              "type": "strong",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Ignored bold text"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "find-out-more-link",
+          "url": "https://example.com",
+          "children": [
+            {
+              "type": "emphasis",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "Ignored italic text"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "link",
+          "url": "https://example.com",
+          "title": "Link title",
+          "children": [
+            {
+              "type": "text",
+              "value": "Link text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "After"
+        }
+      ]
+    }
+  ]
+}

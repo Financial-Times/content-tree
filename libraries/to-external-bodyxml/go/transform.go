@@ -363,20 +363,6 @@ func transformNode(n contenttree.Node) (string, error) {
 	//  Additionally, there is XSLT template to match and ignore the @theme-style attributes of h2 and p elements within
 	//  translucent:scrollable-text. It is not clear how this behaviour is to be replicated.
 
-	// content tree nodes that were published inside experimental tag and as such are not supported in the "external"
-	// body XML format for now
-	case *contenttree.Layout:
-		return "", nil
-	case *contenttree.LayoutSlot:
-		return "", nil
-	case *contenttree.LayoutImage:
-		return "", nil
-
-	case *contenttree.Recommended:
-		return "", nil
-	case *contenttree.Carousel:
-		return "", nil
-
 	case *contenttree.BigNumber:
 		return fmt.Sprintf("<big-number><big-number-headline>%s</big-number-headline><big-number-intro>%s</big-number-intro></big-number>", html.EscapeString(node.Number), html.EscapeString(node.Description)), nil
 
@@ -437,6 +423,25 @@ func transformNode(n contenttree.Node) (string, error) {
 			case *contenttree.TimelineEventChild:
 				return transformNode(n.GetEmbedded())
 		*/
+	// content tree nodes that were published inside experimental tag and as such are not supported in the "external"
+	// body XML format for now. Some nodes have no XML representation at all.
+	case *contenttree.Card,
+		*contenttree.Carousel,
+		*contenttree.CarouselCard,
+		*contenttree.Definition,
+		*contenttree.FindOutMoreLink,
+		*contenttree.ImagePair,
+		*contenttree.InNumbers,
+		*contenttree.InfoBox,
+		*contenttree.InfoPair,
+		*contenttree.Layout,
+		*contenttree.LayoutSlot,
+		*contenttree.LayoutImage,
+		*contenttree.Recommended,
+		*contenttree.RecommendedList,
+		*contenttree.Timeline,
+		*contenttree.TimelineEvent:
+		return "", nil
 	}
 
 	return "", nil
