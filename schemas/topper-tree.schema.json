@@ -1,0 +1,119 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "definitions": {
+        "ContentTree.transit.ClipSet": {
+            "additionalProperties": false,
+            "properties": {
+                "autoplay": {
+                    "type": "boolean"
+                },
+                "data": {},
+                "fragmentIdentifier": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "layoutWidth": {
+                    "$ref": "#/definitions/ContentTree.transit.ClipSetLayoutWidth"
+                },
+                "loop": {
+                    "type": "boolean"
+                },
+                "muted": {
+                    "type": "boolean"
+                },
+                "type": {
+                    "const": "clip-set",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "layoutWidth",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.ClipSetLayoutWidth": {
+            "enum": [
+                "full-grid",
+                "in-line",
+                "inset-right",
+                "mid-grid"
+            ],
+            "type": "string"
+        },
+        "ContentTree.transit.ImageSet": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "fragmentIdentifier": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "type": {
+                    "const": "image-set",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.Node": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "type": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "type"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.TopperAsset": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.ClipSet"
+                }
+            ]
+        }
+    },
+    "properties": {
+        "asset": {
+            "$ref": "#/definitions/ContentTree.transit.TopperAsset"
+        },
+        "children": {
+            "items": {
+                "$ref": "#/definitions/ContentTree.transit.Node"
+            },
+            "type": "array"
+        },
+        "data": {},
+        "type": {
+            "const": "topper",
+            "type": "string"
+        },
+        "version": {
+            "type": "number"
+        }
+    },
+    "required": [
+        "children",
+        "type",
+        "version"
+    ],
+    "type": "object"
+}
+

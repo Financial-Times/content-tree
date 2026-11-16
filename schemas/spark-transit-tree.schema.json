@@ -145,6 +145,12 @@
         "ContentTree.transit.BodyBlock": {
             "anyOf": [
                 {
+                    "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.ClipSet"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.transit.Paragraph"
                 },
                 {
@@ -172,9 +178,6 @@
                     "$ref": "#/definitions/ContentTree.transit.Carousel"
                 },
                 {
-                    "$ref": "#/definitions/ContentTree.transit.ClipSet"
-                },
-                {
                     "$ref": "#/definitions/ContentTree.transit.CustomCodeComponent"
                 },
                 {
@@ -188,9 +191,6 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.ImagePair"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.ImageSet"
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.InfoBox"
@@ -289,6 +289,9 @@
         "ContentTree.transit.CardChildren": {
             "anyOf": [
                 {
+                    "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                },
+                {
                     "$ref": "#/definitions/ContentTree.transit.Paragraph"
                 },
                 {
@@ -308,9 +311,6 @@
                 },
                 {
                     "$ref": "#/definitions/ContentTree.transit.Flourish"
-                },
-                {
-                    "$ref": "#/definitions/ContentTree.transit.ImageSet"
                 }
             ],
             "description": "Allowed children for a card"
@@ -1247,6 +1247,23 @@
             ],
             "type": "object"
         },
+        "ContentTree.transit.Node": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "type": {
+                    "type": "string"
+                }
+            },
+            "propertyOrder": [
+                "type",
+                "data"
+            ],
+            "required": [
+                "type"
+            ],
+            "type": "object"
+        },
         "ContentTree.transit.Paragraph": {
             "additionalProperties": false,
             "properties": {
@@ -2104,10 +2121,10 @@
                     "items": {
                         "anyOf": [
                             {
-                                "$ref": "#/definitions/ContentTree.transit.Paragraph"
+                                "$ref": "#/definitions/ContentTree.transit.ImageSet"
                             },
                             {
-                                "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                                "$ref": "#/definitions/ContentTree.transit.Paragraph"
                             }
                         ]
                     },
@@ -2135,6 +2152,51 @@
                 "type"
             ],
             "type": "object"
+        },
+        "ContentTree.transit.Topper": {
+            "additionalProperties": false,
+            "properties": {
+                "asset": {
+                    "$ref": "#/definitions/ContentTree.transit.TopperAsset"
+                },
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/ContentTree.transit.Node"
+                    },
+                    "type": "array"
+                },
+                "data": {},
+                "type": {
+                    "const": "topper",
+                    "type": "string"
+                },
+                "version": {
+                    "type": "number"
+                }
+            },
+            "propertyOrder": [
+                "type",
+                "version",
+                "asset",
+                "children",
+                "data"
+            ],
+            "required": [
+                "children",
+                "type",
+                "version"
+            ],
+            "type": "object"
+        },
+        "ContentTree.transit.TopperAsset": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/ContentTree.transit.ImageSet"
+                },
+                {
+                    "$ref": "#/definitions/ContentTree.transit.ClipSet"
+                }
+            ]
         },
         "ContentTree.transit.Tweet": {
             "additionalProperties": false,
@@ -2239,6 +2301,9 @@
             "$ref": "#/definitions/ContentTree.transit.Body"
         },
         "data": {},
+        "topper": {
+            "$ref": "#/definitions/ContentTree.transit.Topper"
+        },
         "type": {
             "const": "root",
             "type": "string"
@@ -2246,6 +2311,7 @@
     },
     "propertyOrder": [
         "type",
+        "topper",
         "body",
         "data"
     ],
